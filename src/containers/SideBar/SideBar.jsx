@@ -289,8 +289,9 @@ export default function SideBar() {
                       
                       }}
                     onClick={(e) => handleSubMenuOpen(e, item)}
-                  >
-                    <ListItemIcon
+                  > 
+                  <Tooltip title={item.iconName} placement="right">
+                  <ListItemIcon
                       sx={{
                         minWidth: 0,
                         mr: open ? 3 : "auto",
@@ -299,7 +300,9 @@ export default function SideBar() {
                       }}
                     >
                       {React.createElement(item.icon)}
-                    </ListItemIcon>
+                  </ListItemIcon>
+                  </Tooltip>
+                    
                   </ListItemButton>
                 </ListItem>
               )
