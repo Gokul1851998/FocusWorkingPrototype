@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -22,6 +22,7 @@ import {
   primaryColor,
 } from "../../config";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -95,8 +96,69 @@ export default function SideBar() {
   const [open, setOpen] = useState(false);
   const [sideBarIcons, setSideBarIcons] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [sideBarOpen, setSideBarOpen] = useState(null);
-  const [selectedIcon, setSelectedIcon] = useState(null);
+  const [submenuStack, setSubmenuStack] = useState([]);
+  const [appBarHeight, setAppBarHeight] = useState(0);
+  const [sideBarheight, setsideBarheight] = useState("100%")
+
+  const navigate = useNavigate()
+
+  const appBarRef = useRef(null); // Ref for the AppBar
+  const menusRef = useRef({});
+
+  useEffect(() => {
+    // Function to update the height state
+    const updateAppBarHeight = () => {
+      if (appBarRef.current) {
+        setAppBarHeight(appBarRef.current.clientHeight);
+        const height =  `calc(100vh - ${appBarHeight}px)`;
+        setsideBarheight(height)
+      }
+    };
+
+    // Call the function after the component mounts
+    updateAppBarHeight();
+
+    // Add resize listener to update height on window resize
+    window.addEventListener('resize', updateAppBarHeight);
+
+    // Cleanup listener on component unmount
+    return () => window.removeEventListener('resize', updateAppBarHeight);
+  }, []); 
+
+
+  const handleSubMenuOpen = (event, item) => {
+    const currentTarget = event.currentTarget;
+    // Close all submenus when clicking on a top-level item if already open
+    if (item.parent === 0) {
+      setSubmenuStack([]);
+    }
+    // Prepare the next level submenu
+    const nextLevelIndex = submenuStack.length;
+    const nextLevelSubmenu = sideBarIcons.filter(
+      (subItem) => subItem.parent === item.id
+    );
+    const children = sideBarIcons.filter(
+      (subItem) => subItem.parent === item.id
+    );
+    if (children.length > 0) {
+      // Set the submenu items and the anchor element for positioning
+      setSubmenuStack((prev) => [
+        ...prev,
+        { anchorEl: currentTarget, submenuItems: children },
+      ]);
+    } else {
+      // If there are no children, you may want to perform a different action
+      navigate(item?.url??"/url")
+    }
+  };
+  const handleSubMenuClose = (level) => {
+    // Close the current submenu and all submenus above it
+    // setSubmenuStack(prev => prev.slice(0, level)); //to close on by one
+    setSubmenuStack([]); //to close entire submenu
+  };
+
+  
+
 
   const openup = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -104,18 +166,11 @@ export default function SideBar() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    navigate("/")
   };
 
-  const openMenu = Boolean(sideBarOpen);
-  const handleSideBarMenu = (event,id) => {
-    setSelectedIcon(id)
-    setSideBarOpen(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setSideBarOpen(null);
-    setSelectedIcon(null)
-  };
+  
+  
 
   useEffect(() => {
     fetchIconsFromApi().then((data) => {
@@ -146,7 +201,7 @@ export default function SideBar() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" style={{ backgroundColor: primaryColor }}>
+      <AppBar ref={appBarRef} position="fixed" style={{ backgroundColor: primaryColor }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <IconButton
@@ -198,61 +253,98 @@ export default function SideBar() {
         </Toolbar>
       </AppBar>
 
-      <Drawer variant="permanent">
-        <DrawerHeader></DrawerHeader>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader />
         <Divider />
-        <List sx={{ backgroundColor: primaryColor, minHeight: "91%" }}>
-          {sideBarIcons.map((item) => (
-            <ListItem key={item.id} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                  backgroundColor: selectedIcon === item.id ? '#073f82' : 'transparent', // Highlight selected icon
-                }}
-                aria-controls={openMenu ? "basic-menuId" : undefined}
-                aria-haspopup="true"
-                aria-expanded={openMenu ? "true" : undefined}
-                onClick={(e)=>handleSideBarMenu(e,item.id)}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                    color: primaryButtonColor,
-                  }}
+        <List 
+        sx={{ 
+          backgroundColor: primaryColor, 
+          height: sideBarheight,
+          overflow: 'auto', // only show scrollbar if needed
+          // Make sure the combined padding, margin, and borders do not exceed the container's height
+          padding: 0,
+          margin: 0,
+          '& .MuiListItem-root': {
+            padding: 0, // Adjust this as necessary
+            margin: 0, // Adjust this as necessary
+            '& .MuiListItemButton-root': {
+              padding: '10px 20px', // Adjust this as necessary
+            }
+          },
+        }}>
+          {sideBarIcons.map(
+            (item) =>
+              item.parent === 0 && (
+                // Top-level list items
+                <ListItem
+                  key={item.id}
+                  disablePadding
+                  sx={{ display: "block" }}
                 >
-                  <item.icon />
-                </ListItemIcon>
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                      
+                      }}
+                    onClick={(e) => handleSubMenuOpen(e, item)}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                        color: primaryButtonColor,
+                      }}
+                    >
+                      {React.createElement(item.icon)}
+                    </ListItemIcon>
+                  </ListItemButton>
+                </ListItem>
+              )
+          )}
         </List>
-        <Menu
-          id="basic-menuId"
-          anchorEl={sideBarOpen}
-          open={openMenu}
-          onClose={handleMenuClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-        >
-          <MenuItem onClick={handleMenuClose}>Create Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Create Role</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Create User</MenuItem>
-        </Menu>
-        <Divider />
+        {submenuStack.map((submenu, index) => (
+          <Menu
+            key={index}
+            anchorEl={submenu.anchorEl}
+            open={Boolean(submenu.anchorEl)}
+            onClose={() => handleSubMenuClose(index)}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            MenuListProps={{
+              "aria-labelledby": "nested-menu-button",
+              disablePadding: true,
+            }}
+          >
+            {submenu.submenuItems.map((subItem) => (
+              <MenuItem
+                key={subItem.id}
+                onClick={(e) => handleSubMenuOpen(e, subItem)}
+                sx={{
+                  backgroundColor: primaryColor, // Set the background color for each item
+                  color: primaryButtonColor, // Set the text color for each item
+                  "&:hover": {
+                    backgroundColor: "#073f82", // Adjust hover color as needed
+                  },
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.12)", // Border between items
+                }}
+              >
+                {/* <ListItemIcon>
+                  {React.createElement(subItem.icon)}
+                </ListItemIcon> */}
+                <ListItemText primary={subItem.iconName} />
+              </MenuItem>
+            ))}
+          </Menu>
+        ))}
       </Drawer>
 
       <SideBarPopup open={open} handleClose={handleDrawerClose} />
