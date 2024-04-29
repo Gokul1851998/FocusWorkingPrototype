@@ -216,7 +216,9 @@ export default function SideBar() {
   };
 
   return (
-   <> <CssBaseline />
+    <>
+      {" "}
+      <CssBaseline />
       <AppBar
         ref={appBarRef}
         position="fixed"
@@ -272,7 +274,6 @@ export default function SideBar() {
           </div>
         </Toolbar>
       </AppBar>
-
       <Drawer variant="permanent" open={open}>
         <DrawerHeader />
         <Divider />
@@ -329,9 +330,11 @@ export default function SideBar() {
                           color: primaryButtonColor,
                         }}
                       >
-                        {React.createElement(item.icon)} <Typography sx={{paddingLeft:open? 2 : 0}}>{open? item.iconName : null}</Typography>
+                        {React.createElement(item.icon)}{" "}
+                        <Typography sx={{ paddingLeft: open ? 2 : 0 }}>
+                          {open ? item.iconName : null}
+                        </Typography>
                       </ListItemIcon>
-                      
                     </Tooltip>
                   </ListItemButton>
                 </ListItem>
@@ -389,6 +392,6 @@ export default function SideBar() {
           </Menu>
         ))}
       </Drawer>
-  </>
+    </>
   );
 }
