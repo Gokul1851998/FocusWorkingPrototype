@@ -108,8 +108,7 @@ export default function SettingsLogin({ handleClose, open }) {
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
   const [settingsName, setSettingsName] = React.useState("")
   const [settingsPassword, setSettingsPassword] = React.useState("")
-   console.log(setSettingsName);
-   console.log(settingsPassword);
+
   return (
     <div>
       <SimpleDialog

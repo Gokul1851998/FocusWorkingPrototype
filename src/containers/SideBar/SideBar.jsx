@@ -24,8 +24,7 @@ import {
 } from "../../config";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 const drawerWidth = 240;
 
@@ -95,15 +94,16 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const itemsTextStyle = {
-  "& .MuiListItemText-primary": {  // Ensuring we target the primary text class directly
-    fontSize: '14px',
-  }
+  "& .MuiListItemText-primary": {
+    // Ensuring we target the primary text class directly
+    fontSize: "14px",
+  },
 };
 const itemsIconStyle = {
-  fontSize: '16px',  // Assuming you meant to adjust the size of the icon here
-  color: primaryButtonColor,  // Assuming you want to dynamically change the color
-  transform: 'rotate(0deg)',
-  transition: 'transform 0.3s'
+  fontSize: "16px", // Assuming you meant to adjust the size of the icon here
+  color: primaryButtonColor, // Assuming you want to dynamically change the color
+  transform: "rotate(0deg)",
+  transition: "transform 0.3s",
 };
 
 export default function SideBar() {
@@ -113,11 +113,11 @@ export default function SideBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [submenuStack, setSubmenuStack] = useState([]);
   const [appBarHeight, setAppBarHeight] = useState(0);
-  const [sideBarheight, setsideBarheight] = useState("100%")
+  const [sideBarheight, setsideBarheight] = useState("100%");
   const [openSubMenuId, setOpenSubMenuId] = useState(null);
-  const [parentId, setparentId] = useState(null)
+  const [parentId, setparentId] = useState(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const appBarRef = useRef(null); // Ref for the AppBar
   const menusRef = useRef({});
@@ -127,8 +127,8 @@ export default function SideBar() {
     const updateAppBarHeight = () => {
       if (appBarRef.current) {
         setAppBarHeight(appBarRef.current.clientHeight);
-        const height =  `calc(100vh - ${appBarHeight}px)`;
-        setsideBarheight(height)
+        const height = `calc(100vh - ${appBarHeight}px)`;
+        setsideBarheight(height);
       }
     };
 
@@ -136,21 +136,20 @@ export default function SideBar() {
     updateAppBarHeight();
 
     // Add resize listener to update height on window resize
-    window.addEventListener('resize', updateAppBarHeight);
+    window.addEventListener("resize", updateAppBarHeight);
 
     // Cleanup listener on component unmount
-    return () => window.removeEventListener('resize', updateAppBarHeight);
-  }, []); 
-
+    return () => window.removeEventListener("resize", updateAppBarHeight);
+  }, []);
 
   const handleSubMenuOpen = (event, item) => {
     const currentTarget = event.currentTarget;
     // Close all submenus when clicking on a top-level item if already open
     if (item.parent === 0) {
       setSubmenuStack([]);
-      setparentId(item.id)
+      setparentId(item.id);
     }
-    setOpenSubMenuId(prevId => (prevId === item.id ? null : item.id));
+    setOpenSubMenuId((prevId) => (prevId === item.id ? null : item.id));
     // Prepare the next level submenu
     const nextLevelIndex = submenuStack.length;
     const nextLevelSubmenu = sideBarIcons.filter(
@@ -167,24 +166,19 @@ export default function SideBar() {
       ]);
     } else {
       // If there are no children, you may want to perform a different action
-      navigate(item?.url??"/url")
+      navigate(item?.url ?? "/url");
     }
   };
   const handleSubMenuClose = (level) => {
     // Close the current submenu and all submenus above it
-    setSubmenuStack(prev => prev.slice(0, level)); //to close on by one
+    setSubmenuStack((prev) => prev.slice(0, level)); //to close on by one
     // setSubmenuStack([]); //to close entire submenu
     setOpenSubMenuId(null);
-   
   };
 
   useEffect(() => {
-    if(submenuStack.length==0)
-    setparentId(null)
-  }, [submenuStack])
-  
- 
-
+    if (submenuStack.length == 0) setparentId(null);
+  }, [submenuStack]);
 
   const openup = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -192,11 +186,8 @@ export default function SideBar() {
   };
   const handleClose = () => {
     setAnchorEl(null);
-    navigate("/")
+    navigate("/");
   };
-
-  
-  
 
   useEffect(() => {
     fetchIconsFromApi().then((data) => {
@@ -225,8 +216,7 @@ export default function SideBar() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
+   <> <CssBaseline />
       <AppBar
         ref={appBarRef}
         position="fixed"
@@ -304,19 +294,22 @@ export default function SideBar() {
           }}
         >
           {sideBarIcons.map((item) => {
-          const isActive = parentId === item.id;
+            const isActive = parentId === item.id;
 
-          return item.parent === 0 && (
+            return (
+              item.parent === 0 && (
                 // Top-level list items
                 <ListItem
                   key={item.id}
                   disablePadding
                   sx={{
                     display: "block",
-                    backgroundColor: isActive ? `${activePrimaryColor}` : "none", // Appending 'DD' sets the opacity to approximately 87%
-                    '&:hover': {
+                    backgroundColor: isActive
+                      ? `${activePrimaryColor}`
+                      : "none", // Appending 'DD' sets the opacity to approximately 87%
+                    "&:hover": {
                       backgroundColor: `${activePrimaryColor}`, // Appending '99' sets the opacity to approximately 60%
-                    }
+                    },
                   }}
                 >
                   <ListItemButton
@@ -336,13 +329,15 @@ export default function SideBar() {
                           color: primaryButtonColor,
                         }}
                       >
-                        {React.createElement(item.icon)}
+                        {React.createElement(item.icon)} <Typography sx={{paddingLeft:open? 2 : 0}}>{open? item.iconName : null}</Typography>
                       </ListItemIcon>
+                      
                     </Tooltip>
                   </ListItemButton>
                 </ListItem>
-               )
-              })}
+              )
+            );
+          })}
         </List>
         {submenuStack.map((submenu, index) => (
           <Menu
@@ -382,10 +377,11 @@ export default function SideBar() {
                 <ListItemText sx={itemsTextStyle} primary={subItem.iconName} />
                 {subItem.child && (
                   <PlayArrowIcon
-                  sx={{
-                    ...itemsIconStyle,
-                    transform: openSubMenuId === subItem.id ? "rotate(90deg)" : "none",
-                  }}
+                    sx={{
+                      ...itemsIconStyle,
+                      transform:
+                        openSubMenuId === subItem.id ? "rotate(90deg)" : "none",
+                    }}
                   />
                 )}
               </MenuItem>
@@ -393,8 +389,6 @@ export default function SideBar() {
           </Menu>
         ))}
       </Drawer>
-
-      <SideBarPopup open={open} handleClose={handleDrawerClose} />
-    </Box>
+  </>
   );
 }
