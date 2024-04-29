@@ -1,5 +1,5 @@
 import React from "react";
-import SideBar from "../../containers/SideBar/SideBar";
+import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
