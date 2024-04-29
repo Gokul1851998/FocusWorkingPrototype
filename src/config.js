@@ -1,9 +1,10 @@
 export const userName = "test"
 export const loginPassword = 'test'
-export const userId = 619
+export const userId = 617
 export const imageIcon = "/images/sangsolution.png";
 export const primaryColor= "#2460A7"
 export const primaryButtonColor = "#ffff"
+export const activePrimaryColor = "#1D4D86"
 
 export const SideBarIcons = [
     { id: 1,parent:0, iconName: "Home", icon: await import("@mui/icons-material/Home"), child:true },
@@ -14,23 +15,36 @@ export const SideBarIcons = [
     { id: 6,parent:0, iconName: "Point of Sale", icon: await import("@mui/icons-material/PointOfSale"), child:false  },
     { id: 7,parent:0, iconName: "Quality Control", icon: await import("@mui/icons-material/PlaylistAddCheck"), child:false },
     { id: 8,parent:0, iconName: "Settings", icon: await import("@mui/icons-material/Settings"), child:true  },
-    { id: 9, parent:1, iconName: "Home1", icon: await import("@mui/icons-material/Home") },
-    { id: 10, parent:1, iconName: "Home2", icon: await import("@mui/icons-material/LocalAtm") },
-    { id: 11, parent:1, iconName: "Home3", icon: await import("@mui/icons-material/Inventory"),url:"/home3" },
-    { id: 12,parent:2, iconName: "Financials1", icon: await import("@mui/icons-material/AccountBalance"),url:"/Financials1" },
-    { id: 13,parent:2, iconName: "Financials2", icon: await import("@mui/icons-material/Warehouse"), url:"/Financials2" },
-    { id: 14,parent:3, iconName: "Inventory1", icon: await import("@mui/icons-material/PointOfSale") },
-    { id: 15,parent:4, iconName: "Fixed Asset1", icon: await import("@mui/icons-material/PlaylistAddCheck") },
-    { id: 16,parent:5, iconName: "Production1", icon: await import("@mui/icons-material/Settings") },
-    { id: 17, parent:6, iconName: "Point of Sale1", icon: await import("@mui/icons-material/Home") },
-    { id: 18, parent:7, iconName: "Quality Control1", icon: await import("@mui/icons-material/LocalAtm") },
-    { id: 19, parent:8, iconName: "Settings1", icon: await import("@mui/icons-material/Inventory") },
-    { id: 20,parent:9, iconName: "Home4", icon: await import("@mui/icons-material/AccountBalance") },
-    { id: 21,parent:9, iconName: "Home5", icon: await import("@mui/icons-material/Warehouse"), url:"/home5" },
-    { id: 22,parent:20, iconName: "Home6", icon: await import("@mui/icons-material/PointOfSale") , url:"/home6" },
-    { id: 23,parent:20, iconName: "Home7", icon: await import("@mui/icons-material/PlaylistAddCheck"),url:"/home7" },
-    { id: 24,parent:23, iconName: "Home8", icon: await import("@mui/icons-material/Settings"), url:"/home8" },
-    { id: 25,parent:10, iconName: "Home9", icon: await import("@mui/icons-material/PointOfSale") ,url:"/home9"},
-    { id: 26,parent:10, iconName: "Home10", icon: await import("@mui/icons-material/PlaylistAddCheck"),url:"/home10" },
-    { id: 27,parent:26, iconName: "Home11", icon: await import("@mui/icons-material/Settings"),url:"/home11" },
+    { id: 9, parent:1, iconName: "Company", icon: await import("@mui/icons-material/Home"),child:true },
+    { id: 10, parent:1, iconName: "Security", icon: await import("@mui/icons-material/LocalAtm"),child:true },
+    { id: 11, parent:1, iconName: "Master", icon: await import("@mui/icons-material/Inventory"),child:true },
+    { id: 12,parent:10, iconName: "Create Profile", icon: await import("@mui/icons-material/Warehouse"), url:"/CreateProfile" },
+    { id: 13,parent:10, iconName: "Create Role", icon: await import("@mui/icons-material/PointOfSale"), url:"/CreateRole" },
+    { id: 14,parent:10, iconName: "Create User", icon: await import("@mui/icons-material/PlaylistAddCheck"),url:"/CreateUser" },
+    { id: 15, parent:11, iconName: "Account", icon: await import("@mui/icons-material/Home"),child:true },
+    { id: 16, parent:11, iconName: "Currency", icon: await import("@mui/icons-material/LocalAtm"),child:true },
+    { id: 17, parent:11, iconName: "Product", icon: await import("@mui/icons-material/Inventory"),child:true },
+    { id: 18,parent:11, iconName: "Warehouse", icon: await import("@mui/icons-material/PointOfSale") ,url:"/Warehouse" },
+    { id: 19, parent:15, iconName: "Account Master", icon: await import("@mui/icons-material/Inventory"),url:"/AccountMaster" },
+    { id: 20,parent:15, iconName: "Customer/Vendor master", icon: await import("@mui/icons-material/PointOfSale") ,url:"/CustomerMaster" },
+    { id: 21, parent:16, iconName: "Currency Master", icon: await import("@mui/icons-material/Inventory"),url:"/CurrencyMaster" },
+    { id: 22,parent:16, iconName: "Exchange Rate", icon: await import("@mui/icons-material/PointOfSale") ,url:"/ExchangeRate" },
+    { id: 23, parent:16, iconName: "Exchange Rate History", icon: await import("@mui/icons-material/Inventory"),url:"/ExchangeRateHistory" },
+    { id: 24, parent:17, iconName: "Product", icon: await import("@mui/icons-material/Inventory"),url:"/Product" },
+    { id: 25,parent:17, iconName: "Unit", icon: await import("@mui/icons-material/PointOfSale") ,url:"/Unit" },
+    { id: 26, parent:17, iconName: "Unit Conversion", icon: await import("@mui/icons-material/Inventory"),url:"/Unit Conversion" },
+    { id: 27, parent:17, iconName: "Seller Price Book", icon: await import("@mui/icons-material/Inventory"),url:"/SellerPriceBook" },
+    { id: 28,parent:17, iconName: "Buyer Price Book", icon: await import("@mui/icons-material/PointOfSale") ,url:"/BuyerPriceBook" },
+    { id: 29, parent:17, iconName: "Barcode Definition", icon: await import("@mui/icons-material/Inventory"),url:"/BarcodeDefinition" },
+    { id: 30, parent:8, iconName: "Main Settings", icon: await import("@mui/icons-material/Inventory"),child:true },
+    { id: 31,parent:8, iconName: "Voucher Settings", icon: await import("@mui/icons-material/PointOfSale") ,url:"/VoucherSettings" },
+    { id: 32, parent:8, iconName: "Master Settings", icon: await import("@mui/icons-material/Inventory"),url:"/MasterSettings" },
+    { id: 33,parent:30, iconName: "Tag Settings", icon: await import("@mui/icons-material/PointOfSale") ,url:"/TagSettings" },
+    { id: 34, parent:30, iconName: "Account Settings", icon: await import("@mui/icons-material/Inventory"),url:"/AccountSettings" },
+    { id: 35, parent:9, iconName: "Open Company", icon: await import("@mui/icons-material/Home"),url:"/OpenCompany" },
+    { id: 36, parent:9, iconName: "Create Company", icon: await import("@mui/icons-material/Home"),url:"/CreateCompany" },
+    { id: 37, parent:9, iconName: "Edit Company", icon: await import("@mui/icons-material/Home"),url:"/EditCompany" },
+    { id: 38, parent:9, iconName: "Delete Company", icon: await import("@mui/icons-material/Home"),url:"/DeleteCompany" },
+    
+
   ];
