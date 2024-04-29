@@ -94,6 +94,18 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+const itemsTextStyle = {
+  "& .MuiListItemText-primary": {  // Ensuring we target the primary text class directly
+    fontSize: '14px',
+  }
+};
+const itemsIconStyle = {
+  fontSize: '16px',  // Assuming you meant to adjust the size of the icon here
+  color: primaryButtonColor,  // Assuming you want to dynamically change the color
+  transform: 'rotate(0deg)',
+  transition: 'transform 0.3s'
+};
+
 export default function SideBar() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -367,15 +379,13 @@ export default function SideBar() {
                 {/* <ListItemIcon>
                   {React.createElement(subItem.icon)}
                 </ListItemIcon> */}
-                <ListItemText primary={subItem.iconName} />
+                <ListItemText sx={itemsTextStyle} primary={subItem.iconName} />
                 {subItem.child && (
                   <PlayArrowIcon
-                    sx={{
-                      color: primaryButtonColor,
-                      transform:
-                        openSubMenuId === subItem.id ? "rotate(90deg)" : "none",
-                      transition: "transform 0.3s",
-                    }}
+                  sx={{
+                    ...itemsIconStyle,
+                    transform: openSubMenuId === subItem.id ? "rotate(90deg)" : "none",
+                  }}
                   />
                 )}
               </MenuItem>
