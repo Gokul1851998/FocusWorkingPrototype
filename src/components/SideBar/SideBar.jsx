@@ -166,7 +166,11 @@ export default function SideBar() {
       ]);
     } else {
       // If there are no children, you may want to perform a different action
-      navigate(item?.url ?? "/url");
+      const simpleItem = {
+        id: item.id,
+        name: item.iconName // or any other serializable properties
+      };
+      navigate(item?.url ?? "/url", { state: simpleItem });
     }
   };
   const handleSubMenuClose = (level) => {
