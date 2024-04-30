@@ -26,7 +26,7 @@ import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -276,7 +276,7 @@ export default function SideBar() {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader />
-
+        <Divider />
         <List
           sx={{
             backgroundColor: primaryColor,

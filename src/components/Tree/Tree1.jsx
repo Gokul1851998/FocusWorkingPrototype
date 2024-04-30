@@ -1,267 +1,75 @@
 import * as React from 'react';
-import clsx from 'clsx';
-import { animated, useSpring } from '@react-spring/web';
 import { styled, alpha } from '@mui/material/styles';
-
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import Typography from '@mui/material/Typography';
-import ArticleIcon from '@mui/icons-material/Article';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import FolderRounded from '@mui/icons-material/FolderRounded';
-import ImageIcon from '@mui/icons-material/Image';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
 import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
-import { treeItemClasses } from '@mui/x-tree-view/TreeItem';
-import { unstable_useTreeItem2 as useTreeItem2 } from '@mui/x-tree-view/useTreeItem2';
-import {
-  TreeItem2Content,
-  TreeItem2IconContainer,
-  TreeItem2Label,
-  TreeItem2Root,
-} from '@mui/x-tree-view/TreeItem2';
-import { TreeItem2Icon } from '@mui/x-tree-view/TreeItem2Icon';
-import { TreeItem2Provider } from '@mui/x-tree-view/TreeItem2Provider';
+import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 
 const ITEMS = [
   {
     id: '1',
-    label: 'Documents',
+    label: 'Main',
     children: [
+      { id: '2', label: 'Hello' },
       {
-        id: '1.1',
-        label: 'Company',
+        id: '3',
+        label: 'Subtree with children',
         children: [
-          { id: '1.1.1', label: 'Invoice', fileType: 'pdf' },
-          { id: '1.1.2', label: 'Meeting notes', fileType: 'doc' },
-          { id: '1.1.3', label: 'Tasks list', fileType: 'doc' },
-          { id: '1.1.4', label: 'Equipment', fileType: 'pdf' },
-          { id: '1.1.5', label: 'Video conference', fileType: 'video' },
+          { id: '6', label: 'Hello' },
+          {
+            id: '7',
+            label: 'Sub-subtree with children',
+            children: [
+              { id: '9', label: 'Child 1' },
+              { id: '10', label: 'Child 2' },
+              { id: '11', label: 'Child 3' },
+            ],
+          },
+          { id: '8', label: 'Hello' },
         ],
       },
-      { id: '1.2', label: 'Personal', fileType: 'folder' },
-      { id: '1.3', label: 'Group photo', fileType: 'image' },
+      { id: '4', label: 'World' },
+      { id: '5', label: 'Something something' },
     ],
   },
-  {
-    id: '2',
-    label: 'Bookmarked',
-    fileType: 'pinned',
-    children: [
-      { id: '2.1', label: 'Learning materials', fileType: 'folder' },
-      { id: '2.2', label: 'News', fileType: 'folder' },
-      { id: '2.3', label: 'Forums', fileType: 'folder' },
-      { id: '2.4', label: 'Travel documents', fileType: 'pdf' },
-    ],
-  },
-  { id: '3', label: 'History', fileType: 'folder' },
-  { id: '4', label: 'Trash', fileType: 'trash' },
 ];
 
-function DotIcon() {
-  return (
-    <Box
-      sx={{
-        width: 6,
-        height: 6,
-        borderRadius: '70%',
-        bgcolor: 'warning.main',
-        display: 'inline-block',
-        verticalAlign: 'middle',
-        zIndex: 1,
-        mx: 1,
-      }}
-    />
-  );
-}
-
-const StyledTreeItemRoot = styled(TreeItem2Root)(({ theme }) => ({
+const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   color:
     theme.palette.mode === 'light'
       ? theme.palette.grey[800]
-      : theme.palette.grey[400],
-  position: 'relative',
-  [`& .${treeItemClasses.groupTransition}`]: {
-    marginLeft: theme.spacing(3.5),
+      : theme.palette.grey[200],
+  [`& .${treeItemClasses.content}`]: {
+    borderRadius: theme.spacing(0.5),
+    padding: theme.spacing(0.5, 1),
+    margin: theme.spacing(0.2, 0),
+    [`& .${treeItemClasses.label}`]: {
+      fontSize: '0.8rem',
+      fontWeight: 500,
+    },
   },
-}));
-
-const CustomTreeItemContent = styled(TreeItem2Content)(({ theme }) => ({
-  flexDirection: 'row-reverse',
-  borderRadius: theme.spacing(0.7),
-  marginBottom: theme.spacing(0.5),
-  marginTop: theme.spacing(0.5),
-  padding: theme.spacing(0.5),
-  paddingRight: theme.spacing(1),
-  fontWeight: 500,
   [`& .${treeItemClasses.iconContainer}`]: {
-    marginRight: theme.spacing(2),
-  },
-  [`&.Mui-expanded `]: {
-    '&:not(.Mui-focused, .Mui-selected, .Mui-selected.Mui-focused) .labelIcon': {
-      color:
-        theme.palette.mode === 'light'
-          ? theme.palette.primary.main
-          : theme.palette.primary.dark,
-    },
-    '&::before': {
-      content: '""',
-      display: 'block',
-      position: 'absolute',
-      left: '16px',
-      top: '44px',
-      height: 'calc(100% - 48px)',
-      width: '1.5px',
-      backgroundColor:
-        theme.palette.mode === 'light'
-          ? theme.palette.grey[300]
-          : theme.palette.grey[700],
-    },
-  },
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.primary.main, 0.1),
-    color: theme.palette.mode === 'light' ? theme.palette.primary.main : 'white',
-  },
-  [`&.Mui-focused, &.Mui-selected, &.Mui-selected.Mui-focused`]: {
+    borderRadius: '50%',
     backgroundColor:
       theme.palette.mode === 'light'
-        ? theme.palette.primary.main
+        ? alpha(theme.palette.primary.main, 0.25)
         : theme.palette.primary.dark,
-    color: theme.palette.primary.contrastText,
+    color: theme.palette.mode === 'dark' && theme.palette.primary.contrastText,
+    padding: theme.spacing(0, 1.2),
+  },
+  [`& .${treeItemClasses.groupTransition}`]: {
+    marginLeft: 15,
+    paddingLeft: 18,
+    borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
   },
 }));
 
-const AnimatedCollapse = animated(Collapse);
-
-function TransitionComponent(props) {
-  const style = useSpring({
-    to: {
-      opacity: props.in ? 1 : 0,
-      transform: `translate3d(0,${props.in ? 0 : 20}px,0)`,
-    },
-  });
-
-  return <AnimatedCollapse style={style} {...props} />;
-}
-
-const StyledTreeItemLabelText = styled(Typography)({
-  color: 'inherit',
-  fontFamily: 'General Sans',
-  fontWeight: 500,
-});
-
-function CustomLabel({ icon: Icon, expandable, children, ...other }) {
-  return (
-    <TreeItem2Label
-      {...other}
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
-      {Icon && (
-        <Box
-          component={Icon}
-          className="labelIcon"
-          color="inherit"
-          sx={{ mr: 1, fontSize: '1.2rem' }}
-        />
-      )}
-
-      <StyledTreeItemLabelText variant="body2">{children}</StyledTreeItemLabelText>
-      {expandable && <DotIcon />}
-    </TreeItem2Label>
-  );
-}
-
-const isExpandable = (reactChildren) => {
-  if (Array.isArray(reactChildren)) {
-    return reactChildren.length > 0 && reactChildren.some(isExpandable);
-  }
-  return Boolean(reactChildren);
-};
-
-const getIconFromFileType = (fileType) => {
-  switch (fileType) {
-    case 'image':
-      return ImageIcon;
-    case 'pdf':
-      return PictureAsPdfIcon;
-    case 'doc':
-      return ArticleIcon;
-    case 'video':
-      return VideoCameraBackIcon;
-    case 'folder':
-      return FolderRounded;
-    case 'pinned':
-      return FolderOpenIcon;
-    case 'trash':
-      return DeleteIcon;
-    default:
-      return ArticleIcon;
-  }
-};
-
-const CustomTreeItem = React.forwardRef(function CustomTreeItem(props, ref) {
-  const { id, itemId, label, disabled, children, ...other } = props;
-
-  const {
-    getRootProps,
-    getContentProps,
-    getIconContainerProps,
-    getLabelProps,
-    getGroupTransitionProps,
-    status,
-    publicAPI,
-  } = useTreeItem2({ id, itemId, children, label, disabled, rootRef: ref });
-
-  const item = publicAPI.getItem(itemId);
-  const expandable = isExpandable(children);
-  let icon;
-  if (expandable) {
-    icon = FolderRounded;
-  } else if (item.fileType) {
-    icon = getIconFromFileType(item.fileType);
-  }
-
-  return (
-    <TreeItem2Provider itemId={itemId}>
-      <StyledTreeItemRoot {...getRootProps(other)}>
-        <CustomTreeItemContent
-          {...getContentProps({
-            className: clsx('content', {
-              'Mui-expanded': status.expanded,
-              'Mui-selected': status.selected,
-              'Mui-focused': status.focused,
-              'Mui-disabled': status.disabled,
-            }),
-          })}
-        >
-          <TreeItem2IconContainer {...getIconContainerProps()}>
-            <TreeItem2Icon status={status} />
-          </TreeItem2IconContainer>
-
-          <CustomLabel
-            {...getLabelProps({ icon, expandable: expandable && status.expanded })}
-          />
-        </CustomTreeItemContent>
-        {children && <TransitionComponent {...getGroupTransitionProps()} />}
-      </StyledTreeItemRoot>
-    </TreeItem2Provider>
-  );
-});
-
-export default function Tree1() {
+export default function () {
   return (
     <RichTreeView
+      aria-label="customized"
+      defaultExpandedItems={['1']}
+      sx={{ overflowX: 'hidden', minHeight: 270, flexGrow: 1, maxWidth: 300 }}
+      slots={{ item: StyledTreeItem }}
       items={ITEMS}
-      aria-label="file explorer"
-      defaultExpandedItems={['1', '1.1']}
-      defaultSelectedItems="1.1"
-      sx={{ height: 'fit-content', flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-      slots={{ item: CustomTreeItem }}
     />
   );
 }
