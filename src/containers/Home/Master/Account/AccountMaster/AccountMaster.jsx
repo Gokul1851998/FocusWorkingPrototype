@@ -1,7 +1,13 @@
-import React from 'react'
+import React from "react";
+import { secondryColor } from "../../../../../config";
+import { Box, Container, CssBaseline } from "@mui/material";
 
 export default function AccountMaster() {
   return (
-    <div>AccountMaster</div>
-  )
+    <>
+      <React.Fragment>
+        <CssBaseline />
+      </React.Fragment>
+    </>
+  );
 }

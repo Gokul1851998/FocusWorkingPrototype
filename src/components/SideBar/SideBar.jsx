@@ -276,7 +276,7 @@ export default function SideBar() {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader />
-        <Divider />
+
         <List
           sx={{
             backgroundColor: primaryColor,
