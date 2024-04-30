@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack } from '@mui/material';
 import { AddCircleOutline as AddIcon, Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon } from '@mui/icons-material';
 import TableSecurity from '../../../components/Tables/TableSecurity';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { primaryButtonColor, secondryColor, thirdColor } from '../../../config';
 
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
 const initialRows = new Array(10).fill(null).map((_, index) => ({
   iId: index + 1,
   profileName: '',
@@ -10,6 +18,67 @@ const initialRows = new Array(10).fill(null).map((_, index) => ({
   modifiedOn: '',
   
 }));
+
+function BasicBreadcrumbs() {
+  return (
+    <div role="presentation" style={{display:"flex",flexDirection:"row",gap:"15px",backgroundColor:secondryColor,maxWidth:"fit-content",alignItems:"center"}} onClick={handleClick}>
+      <Typography sx={{color:primaryButtonColor,fontWeight:"bold"}}>Home</Typography>
+      <Stack spacing={1}>
+      <Breadcrumbs  sx={{
+            "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
+            "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
+          }} separator={<NavigateNextIcon fontSize="medium" sx={{color:primaryButtonColor}} />}
+        aria-label="breadcrumb">
+        
+        <Typography sx={{color:primaryButtonColor}}
+        
+          
+        >
+          Security
+        </Typography>
+        <Typography sx={{color:primaryButtonColor}} >Create Profile</Typography>
+      </Breadcrumbs>
+      </Stack>
+    </div>
+  );
+}
+const DefaultIcons = () => {
+  return (
+    <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+      <IconButton>
+        <AddIcon sx={{ color:primaryButtonColor }} />
+      </IconButton>
+      <IconButton>
+        <EditIcon sx={{ color:primaryButtonColor }} />
+      </IconButton>
+      <IconButton>
+        <DeleteIcon sx={{ color:primaryButtonColor }} />
+      </IconButton>
+      <IconButton>
+        <CloseIcon sx={{ color:primaryButtonColor }} />
+      </IconButton>
+    </Box>
+  );
+};
+const AdditionalIcons = () => {
+  return (
+    <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+      <IconButton>
+        <AddIcon sx={{ color:primaryButtonColor }} />
+      </IconButton>
+      <IconButton>
+        <EditIcon sx={{ color:primaryButtonColor }} />
+      </IconButton>
+      <IconButton>
+        <DeleteIcon sx={{ color:primaryButtonColor }} />
+      </IconButton>
+      <IconButton>
+        <CloseIcon sx={{ color:primaryButtonColor }} />
+      </IconButton>
+    </Box>
+  );
+};
+
 
 const CreateProfile = () => {
   const [rows, setRows] = React.useState(initialRows);
@@ -20,6 +89,20 @@ const CreateProfile = () => {
   const [totalRows, settotalRows] = useState(10)
   const [refreshFlag, setrefreshFlag] = React.useState(true)
   const [searchKey, setsearchKey] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [hide, setHide] = useState(false);
+
+  const toggleOpen = () => {
+    setIsOpen(true);
+    setHide(true);
+  };
+  const toggleClose = () => {
+    setIsOpen(false);
+    setTimeout(() => {
+      setHide(false);
+    }, 400);
+  };
+
 
   const handleRowDoubleClick = (rowiId) => {
   
@@ -85,7 +168,12 @@ const CreateProfile = () => {
   };
   console.log("create profile");
 
-  return (
+  return (<Box sx={{ display: "flex",flexDirection:"column" }}>
+    <Box sx={{display:"flex",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor}}>   
+       <BasicBreadcrumbs/>
+       <DefaultIcons/>
+    </Box>
+
     <TableSecurity
              
     rows={rows}
@@ -102,6 +190,7 @@ const CreateProfile = () => {
     
     
   />
+  </Box>
   );
 }
 
