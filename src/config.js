@@ -3,8 +3,8 @@ export const loginPassword = 'test'
 export const userId = 617
 export const imageIcon = "/images/sangsolution.png";
 export const primaryColor= "#2460A7"
-export const secondryColor= "1E8FD8"
-export const thirdColor= "85B3D1"
+export const secondryColor= "#1E8FD8"
+export const thirdColor= "#85B3D1"
 export const primaryButtonColor = "#ffff"
 export const activePrimaryColor = "#1D4D86"
 
@@ -20,9 +20,9 @@ export const SideBarIcons = [
     { id: 9, parent:1, iconName: "Company", icon: await import("@mui/icons-material/Home"),child:true },
     { id: 10, parent:1, iconName: "Security", icon: await import("@mui/icons-material/LocalAtm"),child:true },
     { id: 11, parent:1, iconName: "Master", icon: await import("@mui/icons-material/Inventory"),child:true },
-    { id: 12,parent:10, iconName: "Create Profile", icon: await import("@mui/icons-material/Warehouse"), url:"/CreateProfile" },
-    { id: 13,parent:10, iconName: "Create Role", icon: await import("@mui/icons-material/PointOfSale"), url:"/CreateRole" },
-    { id: 14,parent:10, iconName: "Create User", icon: await import("@mui/icons-material/PlaylistAddCheck"),url:"/CreateUser" },
+    { id: 12,parent:10, iconName: "Create Profile", icon: await import("@mui/icons-material/Warehouse"), url:"/security" },
+    { id: 13,parent:10, iconName: "Create Role", icon: await import("@mui/icons-material/PointOfSale"), url:"/security" },
+    { id: 14,parent:10, iconName: "Create User", icon: await import("@mui/icons-material/PlaylistAddCheck"),url:"/security" },
     { id: 15, parent:11, iconName: "Account", icon: await import("@mui/icons-material/Home"),child:true },
     { id: 16, parent:11, iconName: "Currency", icon: await import("@mui/icons-material/LocalAtm"),child:true },
     { id: 17, parent:11, iconName: "Product", icon: await import("@mui/icons-material/Inventory"),child:true },
