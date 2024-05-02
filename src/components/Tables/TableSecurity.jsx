@@ -26,6 +26,7 @@ import { thirdColor } from "../../config";
 
 
 
+
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -75,7 +76,7 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
       
-          <TableCell
+          {/* <TableCell
             sx={{
               padding: "0px",
               backgroundColor: thirdColor,
@@ -84,7 +85,7 @@ function EnhancedTableHead(props) {
             }}
           >
            
-          </TableCell>
+          </TableCell> */}
         
        {headCells.map((headCell) => (
           <TableCell
@@ -129,6 +130,13 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
+const initialColumns = [
+  { id: 'profileName', label: 'Profile Name', minWidth: 200 },
+  { id: 'createdOn', label: 'Created On', minWidth: 100 },
+  { id: 'modifiedOn', label: 'Modified On', minWidth: 100 },
+  { id: 'test1', label: 'test1', minWidth: 200 },
+  { id: 'test2', label: 'test2', minWidth: 150 }
+];
 export default function TableSecurity(props) {
   const { rows,totalRows} = props;
   const [order, setOrder] = React.useState("asc");
@@ -140,6 +148,30 @@ export default function TableSecurity(props) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [filteredRows, setFilteredRows] = React.useState([]);
   const [doubleclickedState, setdoubleclickedState] = React.useState([]);
+  const [columns, setColumns] = React.useState(initialColumns);
+
+  const handleResize = (index, event) => {
+    const startWidth = columns[index].minWidth;
+    const startX = event.clientX;
+
+    const handleMouseMove = (e) => {
+      const currentX = e.clientX;
+      const newWidth = Math.max(50, startWidth + (currentX - startX));
+      setColumns((cols) =>
+        cols.map((col, i) =>
+          i === index ? { ...col, minWidth: newWidth } : col
+        )
+      );
+    };
+
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
 
   const excludedFields = ["iId"];
 
@@ -367,7 +399,7 @@ export default function TableSecurity(props) {
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
-            <EnhancedTableHead
+            {/* <EnhancedTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -376,7 +408,39 @@ export default function TableSecurity(props) {
               rowCount={rows.length > 0 ? totalRows : 0}
               headCells={headCells}
               
-            />
+            /> */}
+             <TableHead>
+            <TableRow>
+              {columns.map((column, index) => (
+                <TableCell
+                  key={column.id}
+                  style={{ minWidth: column.minWidth, position: 'relative' }}
+                  sx={{padding: "0px",
+                  paddingLeft:"4px",
+                  border: " 1px solid #ddd",
+                  fontWeight: "600",
+                  font: "14px",
+                  backgroundColor: thirdColor,
+                  color: "white",paddingTop:"3px",paddingBottom:"3px"}}
+                >
+                  {column.label}
+                  <span
+                    style={{
+                      position: 'absolute',
+                      height: '100%',
+                      right: 0,
+                      top: 0,
+                      width: '5px',
+                      cursor: 'col-resize',
+                      backgroundColor: 'rgba(0,0,0,0.1)',
+                      
+                    }}
+                    onMouseDown={e => handleResize(index, e)}
+                  />
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
             <TableBody>
               {filteredRows.map((row, index) => {
                 const isItemSelected = isSelected(row.iId);
@@ -398,48 +462,28 @@ export default function TableSecurity(props) {
                   >
                     
                       
-                      <TableCell sx={{ padding: "0px",textAlign:"center" }}>
+                      {/* <TableCell sx={{ padding: "0px",textAlign:"center" }}>
                         <Checkbox
                           sx={{ padding: "0px" }}
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
                         />
-                      </TableCell>
+                      </TableCell> */}
                     
-                      {Object.keys(row).filter((key) => !excludedFields.includes(key))
-                      .map((key, idx) => {
-                        const text = row[key];
-                        const maxWidth = 300; // Set your max width here
-                        const overflow = isTextOverflow(text, maxWidth);
-                        return (
-                          <TableCell
-                            sx={{
-                              padding: "0px",
-                              paddingLeft:"4px",
-                              border: " 1px solid #ddd",
-                              minWidth: "100px",
-                              maxWidth: 400,
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                            key={idx}
-                            align="left"
-                          >
-                            {overflow ? (
-                              <Tooltip
-                                title={row[key]}
-                                arrow
-                                placement="bottom-end"
-                              >
-                                <span>{row[key]}</span>
-                              </Tooltip>
-                            ) : (
-                              <span>{row[key]}</span>
-                            )}
-                          </TableCell>
-                        );
-                      })}
+                    {columns.map((column) => (
+                  <TableCell sx={{
+                    padding: "0px",
+                    paddingLeft:"4px",
+                    border: " 1px solid #ddd",
+                    minWidth: "100px",
+                    // maxWidth: 400,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }} key={column.id} style={{ minWidth: column.minWidth }}>
+                    {row[column.id]}
+                  </TableCell>
+                ))}
                       </TableRow>
                   
                 );
