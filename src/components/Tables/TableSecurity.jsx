@@ -19,6 +19,7 @@ import {
   Checkbox,
   Typography,
   Tooltip,
+  TextField,
 } from "@mui/material";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import LastPageIcon from "@mui/icons-material/LastPage";
@@ -150,7 +151,9 @@ export default function TableSecurity(props) {
   const [doubleclickedState, setdoubleclickedState] = React.useState([]);
   const [columns, setColumns] = React.useState([]);
 
-  const initialColumns = rows && rows.length > 0 ? Object.keys(rows[0]).map(key => ({
+  const excludedFields = ["iId"];
+
+  const initialColumns = rows && rows.length > 0 ? Object.keys(rows[0]).filter((key) => !excludedFields.includes(key)).map(key => ({
     id: key,
     label: key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim(),  // Format label as readable text
     minWidth: 100,  // Set default minWidth for all columns
@@ -191,7 +194,7 @@ export default function TableSecurity(props) {
     );
   };
 
-  const excludedFields = ["iId"];
+  
 
   const transformData = (rows) => {
     return rows.map((row) => {
@@ -367,12 +370,16 @@ export default function TableSecurity(props) {
         }}
       >
         <FormControl sx={{ m: 1 }} className="CLTFormControl">
-        <InputLabel htmlFor="rows-per-page" sx={{
-                '&.Mui-focused': {
-                color: 'currentColor', // Keeps the current color
-                
-                }
-            }}>Show Entries</InputLabel>
+          <InputLabel
+            htmlFor="rows-per-page"
+            sx={{
+              "&.Mui-focused": {
+                color: "currentColor", // Keeps the current color
+              },
+            }}
+          >
+            Show Entries
+          </InputLabel>
           <Select
             value={rowsPerPage}
             onChange={handleChangeRowsPerPage}
@@ -381,14 +388,16 @@ export default function TableSecurity(props) {
               name: "rows-per-page",
               id: "rows-per-page",
             }}
-            sx={{ width: "120px", height: "35px",'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'currentColor', // Keeps the current border color
-            },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'currentColor', // Optional: Keeps the border color on hover
-            } }}
-            
-
+            sx={{
+              width: "120px",
+              height: "30px",
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "currentColor", // Keeps the current border color
+              },
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "currentColor", // Optional: Keeps the border color on hover
+              },
+            }}
           >
             <MenuItem value={10}>10</MenuItem>
             <MenuItem value={25}>25</MenuItem>
@@ -397,27 +406,51 @@ export default function TableSecurity(props) {
           </Select>
         </FormControl>
 
-        <input
-          placeholder="Search"
+        <TextField
+          margin="normal"
+          size="small"
+          id="search"
+          label="Search"
+          autoComplete="off"
+          autoFocus
           value={searchTerm}
-          id="FXsearchField"
           onChange={handleSearch}
-          variant="outlined"
-          style={{height:"20px",border:"1px solid #ddd"}}
+          sx={{
+            width: 200, // Adjust the width as needed
+            "& .MuiInputBase-root": {
+              height: 30, // Adjust the height of the input area
+            },
+            "& .MuiInputLabel-root": {
+              transform: "translate(10px, 5px) scale(0.9)", // Adjust label position when not focused
+            },
+            "& .MuiInputLabel-shrink": {
+              transform: "translate(14px, -9px) scale(0.75)", // Adjust label position when focused
+            },
+            "& .MuiInputBase-input": {
+              fontSize: '0.75rem', // Adjust the font size of the input text
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "currentColor", // Keeps the current border color
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "currentColor", // Optional: Keeps the border color on hover
+            },
+            
+          }}
         />
       </div>
       {filteredRows && filteredRows.length > 0 ? (
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-        {/* <TableContainer sx={{maxHeight:"60vh",overflow:"scroll" }}> */}
-        <TableContainer sx={{ maxHeight: "55vh", overflow: "scroll" }}>
-          <Table
-            stickyHeader
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            {/* <EnhancedTableHead
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
+          {/* <TableContainer sx={{maxHeight:"60vh",overflow:"scroll" }}> */}
+          <TableContainer sx={{ maxHeight: "55vh", overflow: "scroll" }}>
+            <Table
+              stickyHeader
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              {/* <EnhancedTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -427,61 +460,64 @@ export default function TableSecurity(props) {
               headCells={headCells}
               
             /> */}
-             <TableHead>
-            <TableRow>
-              {columns.map((column, index) => (
-                <TableCell
-                  key={column.id}
-                  style={{ minWidth: column.minWidth, position: 'relative' }}
-                  sx={{padding: "0px",
-                  paddingLeft:"4px",
-                  border: " 1px solid #ddd",
-                  fontWeight: "600",
-                  font: "14px",
-                  backgroundColor: thirdColor,
-                  color: "white",paddingTop:"3px",paddingBottom:"3px"}}
-                  onDoubleClick={() => handleDoubleClick(index)}
-                >
-                  {column.label}
-                  <span
-                    style={{
-                      position: 'absolute',
-                      height: '100%',
-                      right: 0,
-                      top: 0,
-                      width: '5px',
-                      cursor: 'col-resize',
-                      backgroundColor: 'rgba(0,0,0,0.1)',
-                      
-                    }}
-                    onMouseDown={e => handleResize(index, e)}
-                    
-                  />
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-            <TableBody>
-              {filteredRows.map((row, index) => {
-                const isItemSelected = isSelected(row.iId);
-                const labelId = `enhanced-table-checkbox-${index}`;
+              <TableHead>
+                <TableRow>
+                  {columns.map((column, index) => (
+                    <TableCell
+                      key={column.id}
+                      style={{
+                        minWidth: column.minWidth,
+                        position: "relative",
+                      }}
+                      sx={{
+                        padding: "0px",
+                        paddingLeft: "4px",
+                        border: " 1px solid #ddd",
+                        fontWeight: "600",
+                        font: "14px",
+                        backgroundColor: thirdColor,
+                        color: "white",
+                        paddingTop: "3px",
+                        paddingBottom: "3px",
+                      }}
+                      onDoubleClick={() => handleDoubleClick(index)}
+                    >
+                      {column.label}
+                      <span
+                        style={{
+                          position: "absolute",
+                          height: "100%",
+                          right: 0,
+                          top: 0,
+                          width: "5px",
+                          cursor: "col-resize",
+                          backgroundColor: "rgba(0,0,0,0.1)",
+                        }}
+                        onMouseDown={(e) => handleResize(index, e)}
+                      />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredRows.map((row, index) => {
+                  const isItemSelected = isSelected(row.iId);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                const isEvenRow = index % 2 === 0;
+                  const isEvenRow = index % 2 === 0;
 
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    onDoubleClick={() => props.onRowDoubleClick(row.iId)}
-                    tabIndex={-1}
-                    key={row.iId}
-                    sx={{ cursor: "default" }}
-                    className={isEvenRow ? "FXTeven-row" : "FXTodd-row"}
-                  >
-                    
-                      
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      onDoubleClick={() => props.onRowDoubleClick(row.iId)}
+                      tabIndex={-1}
+                      key={row.iId}
+                      sx={{ cursor: "default" }}
+                      className={isEvenRow ? "FXTeven-row" : "FXTodd-row"}
+                    >
                       {/* <TableCell sx={{ padding: "0px",textAlign:"center" }}>
                         <Checkbox
                           sx={{ padding: "0px" }}
@@ -489,79 +525,80 @@ export default function TableSecurity(props) {
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell> */}
-                    
-                    {columns.map((column) => (
-                  <TableCell sx={{
-                    padding: "0px",
-                    paddingLeft:"4px",
-                    border: " 1px solid #ddd",
-                    minWidth: "100px",
-                    maxWidth: column.maxWidth,
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }} key={column.id} style={{ minWidth: column.minWidth }}>
-                    {row[column.id]}
-                  </TableCell>
-                ))}
-                      </TableRow>
-                  
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+
+                      {columns.map((column) => (
+                        <TableCell
+                          sx={{
+                            padding: "0px",
+                            paddingLeft: "4px",
+                            border: " 1px solid #ddd",
+                            minWidth: "100px",
+                            maxWidth: column.maxWidth,
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          key={column.id}
+                          style={{ minWidth: column.minWidth }}
+                        >
+                          {row[column.id]}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Paper>
-        ) : (
+      ) : (
         <Box sx={{ width: "100%", textAlign: "center", my: 4 }}>
           <Typography>No Data</Typography>
         </Box>
       )}
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          component="div"
-          count={rows.length > 0 ? totalRows : 0}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          ActionsComponent={TablePaginationActions}
-          sx={{
-            display: "flex", // Use flexbox for the container
-            justifyContent: "space-between", // Space between the elements
-            alignItems: "center", // Center the elements vertically
-            ".MuiTablePagination-toolbar": {
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%", // Ensure the toolbar takes the full width
-            },
-            ".MuiTablePagination-spacer": {
-              flex: "1 1 100%", // Force the spacer to take up all available space
-            },
-            ".MuiTablePagination-selectLabel": {
-              margin: 0, // Adjust or remove margin as needed
-              display:"none"
-            },
-            ".MuiTablePagination-select": {
-              textAlign: "center", // Center the text inside the select input
-              display:"none"
-            },
-            ".MuiTablePagination-selectIcon": {
-              display:"none" // Adjust the position of the icon as needed
-            },
-            ".MuiTablePagination-displayedRows": {
-              textAlign: "left", // Align the "1-4 of 4" text to the left
-              flexShrink: 0, // Prevent the text from shrinking
-              order: -1, // Place it at the beginning
-              
-            },
-            ".MuiTablePagination-actions": {
-              flexShrink: 0, // Prevent the actions from shrinking
-            },
-            // Add other styles as needed
-          }}
-        />
-      
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 50, 100]}
+        component="div"
+        count={rows.length > 0 ? totalRows : 0}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        ActionsComponent={TablePaginationActions}
+        sx={{
+          display: "flex", // Use flexbox for the container
+          justifyContent: "space-between", // Space between the elements
+          alignItems: "center", // Center the elements vertically
+          ".MuiTablePagination-toolbar": {
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%", // Ensure the toolbar takes the full width
+          },
+          ".MuiTablePagination-spacer": {
+            flex: "1 1 100%", // Force the spacer to take up all available space
+          },
+          ".MuiTablePagination-selectLabel": {
+            margin: 0, // Adjust or remove margin as needed
+            display: "none",
+          },
+          ".MuiTablePagination-select": {
+            textAlign: "center", // Center the text inside the select input
+            display: "none",
+          },
+          ".MuiTablePagination-selectIcon": {
+            display: "none", // Adjust the position of the icon as needed
+          },
+          ".MuiTablePagination-displayedRows": {
+            textAlign: "left", // Align the "1-4 of 4" text to the left
+            flexShrink: 0, // Prevent the text from shrinking
+            order: -1, // Place it at the beginning
+          },
+          ".MuiTablePagination-actions": {
+            flexShrink: 0, // Prevent the actions from shrinking
+          },
+          // Add other styles as needed
+        }}
+      />
     </Box>
   );
 }
