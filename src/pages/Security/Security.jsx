@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SideBar from "../../components/SideBar/SideBar";
-import AccountMaster from "../../containers/Home/Master/Account/AccountMaster/AccountMaster";
 import { Box, styled } from "@mui/material";
 import CreateProfile from "../../containers/Home/Security/CreateProfile";
 import { useLocation } from "react-router-dom";
@@ -16,19 +15,51 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function Security() {
 
   const location = useLocation();
-
   const item = location.state;
-  console.log(item,"item");
+  const sidebarRef = useRef(null);
+  const [sidebarWidth, setSidebarWidth] = useState(0);
+  const [mainMaxWidth, setMainMaxWidth] = useState(0);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        const newWidth = entry.contentRect.width;
+        setSidebarWidth(newWidth);
+        setMainMaxWidth(window.innerWidth - newWidth);
+      }
+    });
+
+    if (sidebarRef.current) {
+      resizeObserver.observe(sidebarRef.current);
+    }
+
+    // Listen to window resize to adjust main max width accordingly
+    const handleResize = () => {
+      setMainMaxWidth(window.innerWidth - sidebarWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      if (sidebarRef.current) {
+        resizeObserver.unobserve(sidebarRef.current);
+      }
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [sidebarWidth]);
+  
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        <SideBar />
-        <Box component="main" sx={{ flexGrow: 1, maxWidth:"96%"}}>
+      <div ref={sidebarRef}>
+          <SideBar />
+        </div>
+        <Box component="main" sx={{ flexGrow: 1, maxWidth: `${mainMaxWidth}px` }}>
           <DrawerHeader />
           {item && (
-        item.iScreenId === 16 ? <DailyProjectWiseReport /> :null
+        item.id === 12 ? <CreateProfile /> :null
       )}
-          <CreateProfile/>
+          
         </Box>
       </Box>
     </>

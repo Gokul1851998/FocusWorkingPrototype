@@ -130,13 +130,13 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const initialColumns = [
-  { id: 'profileName', label: 'Profile Name', minWidth: 200 },
-  { id: 'createdOn', label: 'Created On', minWidth: 100 },
-  { id: 'modifiedOn', label: 'Modified On', minWidth: 100 },
-  { id: 'test1', label: 'test1', minWidth: 200 },
-  { id: 'test2', label: 'test2', minWidth: 150 }
-];
+// const initialColumns = [
+//   { id: 'profileName', label: 'Profile Name', minWidth: 200 },
+//   { id: 'createdOn', label: 'Created On', minWidth: 100 },
+//   { id: 'modifiedOn', label: 'Modified On', minWidth: 100 },
+//   { id: 'test1', label: 'test1', minWidth: 200 },
+//   { id: 'test2', label: 'test2', minWidth: 150 }
+// ];
 export default function TableSecurity(props) {
   const { rows,totalRows} = props;
   const [order, setOrder] = React.useState("asc");
@@ -148,8 +148,18 @@ export default function TableSecurity(props) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [filteredRows, setFilteredRows] = React.useState([]);
   const [doubleclickedState, setdoubleclickedState] = React.useState([]);
-  const [columns, setColumns] = React.useState(initialColumns);
+  const [columns, setColumns] = React.useState([]);
 
+  const initialColumns = rows && rows.length > 0 ? Object.keys(rows[0]).map(key => ({
+    id: key,
+    label: key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim(),  // Format label as readable text
+    minWidth: 100,  // Set default minWidth for all columns
+    maxWidth: 200
+  })) : [];
+  React.useEffect(() => {
+    setColumns(initialColumns)
+  }, [rows])
+  
   const handleResize = (index, event) => {
     const startWidth = columns[index].minWidth;
     const startX = event.clientX;
@@ -159,7 +169,7 @@ export default function TableSecurity(props) {
       const newWidth = Math.max(50, startWidth + (currentX - startX));
       setColumns((cols) =>
         cols.map((col, i) =>
-          i === index ? { ...col, minWidth: newWidth } : col
+          i === index ? { ...col, minWidth: newWidth,maxWidth:newWidth } : col
         )
       );
     };
@@ -171,6 +181,14 @@ export default function TableSecurity(props) {
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  const handleDoubleClick = (index) => {
+    setColumns((cols) =>
+      cols.map((col, i) =>
+        i === index ? { ...col, maxWidth: col.maxWidth ? null : 200 } : col
+      )
+    );
   };
 
   const excludedFields = ["iId"];
@@ -422,6 +440,7 @@ export default function TableSecurity(props) {
                   font: "14px",
                   backgroundColor: thirdColor,
                   color: "white",paddingTop:"3px",paddingBottom:"3px"}}
+                  onDoubleClick={() => handleDoubleClick(index)}
                 >
                   {column.label}
                   <span
@@ -436,6 +455,7 @@ export default function TableSecurity(props) {
                       
                     }}
                     onMouseDown={e => handleResize(index, e)}
+                    
                   />
                 </TableCell>
               ))}
@@ -476,7 +496,7 @@ export default function TableSecurity(props) {
                     paddingLeft:"4px",
                     border: " 1px solid #ddd",
                     minWidth: "100px",
-                    // maxWidth: 400,
+                    maxWidth: column.maxWidth,
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
