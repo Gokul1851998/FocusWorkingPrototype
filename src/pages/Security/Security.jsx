@@ -23,7 +23,7 @@ export default function Security() {
     <>
       <Box sx={{ display: "flex" }}>
         <SideBar />
-        <Box component="main" sx={{ flexGrow: 1 }}>
+        <Box component="main" sx={{ flexGrow: 1, maxWidth:"96%"}}>
           <DrawerHeader />
           {item && (
         item.iScreenId === 16 ? <DailyProjectWiseReport /> :null
