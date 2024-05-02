@@ -226,7 +226,7 @@ export default function SideBar() {
       <AppBar
         ref={appBarRef}
         position="fixed"
-        style={{ backgroundColor: primaryColor }}
+        style={{ backgroundColor: primaryColor,boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)", }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>

@@ -3,6 +3,7 @@ import SideBar from "../../components/SideBar/SideBar";
 
 import { Box, styled } from "@mui/material";
 import AccountMaster from "../../containers/Home/Master/Account/AccountMaster/AccountMaster";
+import Footer from "../../components/Footer/Footer";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -21,6 +22,7 @@ export default function MasterPage() {
           <DrawerHeader />
           <AccountMaster />
         </Box>
+        <Footer />
       </Box>
     </>
   );

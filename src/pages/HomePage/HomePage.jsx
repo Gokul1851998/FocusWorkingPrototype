@@ -1,6 +1,7 @@
 import React from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
+import Footer from "../../components/Footer/Footer";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -19,6 +20,7 @@ export default function HomePage() {
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
         </Box>
+        <Footer />
       </Box>
     </>
   );

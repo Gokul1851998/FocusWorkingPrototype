@@ -1,40 +1,11 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
-import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
-
-const ITEMS = [
-  {
-    id: '1',
-    label: 'Main',
-    children: [
-      { id: '2', label: 'Hello' },
-      {
-        id: '3',
-        label: 'Subtree with children',
-        children: [
-          { id: '6', label: 'Hello' },
-          {
-            id: '7',
-            label: 'Sub-subtree with children',
-            children: [
-              { id: '9', label: 'Child 1' },
-              { id: '10', label: 'Child 2' },
-              { id: '11', label: 'Child 3' },
-            ],
-          },
-          { id: '8', label: 'Hello' },
-        ],
-      },
-      { id: '4', label: 'World' },
-      { id: '5', label: 'Something something' },
-    ],
-  },
-];
+import * as React from "react";
+import { styled, alpha } from "@mui/material/styles";
+import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
+import { TreeItem, treeItemClasses } from "@mui/x-tree-view/TreeItem";
 
 const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   color:
-    theme.palette.mode === 'light'
+    theme.palette.mode === "light"
       ? theme.palette.grey[800]
       : theme.palette.grey[200],
   [`& .${treeItemClasses.content}`]: {
@@ -42,17 +13,17 @@ const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
     padding: theme.spacing(0.5, 1),
     margin: theme.spacing(0.2, 0),
     [`& .${treeItemClasses.label}`]: {
-      fontSize: '0.8rem',
+      fontSize: "0.8rem",
       fontWeight: 500,
     },
   },
   [`& .${treeItemClasses.iconContainer}`]: {
-    borderRadius: '50%',
+    borderRadius: "50%",
     backgroundColor:
-      theme.palette.mode === 'light'
+      theme.palette.mode === "light"
         ? alpha(theme.palette.primary.main, 0.25)
         : theme.palette.primary.dark,
-    color: theme.palette.mode === 'dark' && theme.palette.primary.contrastText,
+    color: theme.palette.mode === "dark" && theme.palette.primary.contrastText,
     padding: theme.spacing(0, 1.2),
   },
   [`& .${treeItemClasses.groupTransition}`]: {
@@ -62,14 +33,14 @@ const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   },
 }));
 
-export default function () {
+export default function ({items}) {
   return (
     <RichTreeView
       aria-label="customized"
-      defaultExpandedItems={['1']}
-      sx={{ overflowX: 'hidden', minHeight: 270, flexGrow: 1, maxWidth: 300 }}
+      defaultExpandedItems={["1"]}
+      sx={{ overflowX: "hidden", height: 550, flexGrow: 1, minWidth: 300, scrollbarWidth:"thin", zIndex:5}}
       slots={{ item: StyledTreeItem }}
-      items={ITEMS}
+      items={items}
     />
   );
 }
