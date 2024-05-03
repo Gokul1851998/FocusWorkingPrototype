@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
-import CreateProfile from "../../containers/Home/Security/CreateProfile";
+import CreateProfile from "../../containers/Home/Security/CreateProfile/CreateProfile";
 import { useLocation } from "react-router-dom";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -19,6 +19,8 @@ export default function Security() {
   const sidebarRef = useRef(null);
   const [sidebarWidth, setSidebarWidth] = useState(0);
   const [mainMaxWidth, setMainMaxWidth] = useState(0);
+  
+
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(entries => {
@@ -57,7 +59,7 @@ export default function Security() {
         <Box component="main" sx={{ flexGrow: 1, maxWidth: `${mainMaxWidth}px` }}>
           <DrawerHeader />
           {item && (
-        item.id === 12 ? <CreateProfile /> :null
+        item.id === 12 ? <CreateProfile key1={item.key1} initialPage="summary" /> :null
       )}
           
         </Box>

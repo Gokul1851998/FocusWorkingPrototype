@@ -116,11 +116,21 @@ export default function SideBar() {
   const [sideBarheight, setsideBarheight] = useState("100%");
   const [openSubMenuId, setOpenSubMenuId] = useState(null);
   const [parentId, setparentId] = useState(null);
+  const [key, setKey] = useState(Date.now());
+
+
+  
+
 
   const navigate = useNavigate();
 
   const appBarRef = useRef(null); // Ref for the AppBar
   const menusRef = useRef({});
+
+  useEffect(() => {
+    //Used where pages/containers have multiple/sub containers
+    setKey(Date.now())
+  }, [submenuStack])
 
   useEffect(() => {
     // Function to update the height state
@@ -168,7 +178,8 @@ export default function SideBar() {
       // If there are no children, you may want to perform a different action
       const simpleItem = {
         id: item.id,
-        name: item.iconName // or any other serializable properties
+        name: item.iconName,
+        key1:key
       };
       navigate(item?.url ?? "/url", { state: simpleItem });
     }
