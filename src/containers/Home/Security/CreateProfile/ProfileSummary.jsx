@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack } from '@mui/material';
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
-import TableSecurity from '../../../components/Tables/TableSecurity';
+import TableSecurity from '../../../../components/Tables/TableSecurity';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { primaryButtonColor, primaryColor, secondryColor, thirdColor } from '../../../config';
+import { primaryButtonColor, primaryColor, secondryColor, thirdColor } from '../../../../config';
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { Collapse, Button, CardBody, Card, Alert } from "reactstrap";
@@ -25,25 +25,22 @@ const initialRows =[{
   profileName: 'Abc',
   createdOn: '2020-01-01',
   modifiedOn: '2020-01-01',
-  test1:123,
-  test2:"1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc" 
+ 
   
   
 },{
-  iId: 1,
-  profileName: 'ghi',
+  iId: 2,
+  profileName: 'ghi1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc',
   createdOn: '2020-01-01',
   modifiedOn: '2020-01-01',
-  test1:"1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc" ,
-  test2:123
+
   
 },{
-  iId: 1,
+  iId: 3,
   profileName: 'xyz',
   createdOn: '2020-01-01',
   modifiedOn: '2020-01-01',
-  test1:789,
-  test2:123
+
   
 }];
 
@@ -88,13 +85,14 @@ function BasicBreadcrumbs() {
     </div>
   );
 }
-const DefaultIcons = () => {
+const DefaultIcons = ({iconsClick}) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
       
       <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              onClick={()=>iconsClick("new")}
             >
               <Stack direction="column" alignItems="center">
                 <AddIcon style={{ color: primaryButtonColor }} />
@@ -110,6 +108,7 @@ const DefaultIcons = () => {
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              onClick={()=>iconsClick("edit")}
             >
               <Stack direction="column" alignItems="center">
         <EditIcon sx={{ color:primaryButtonColor }} />
@@ -125,6 +124,7 @@ const DefaultIcons = () => {
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              onClick={()=>iconsClick("delete")}
             >
               <Stack direction="column" alignItems="center">
         <DeleteIcon sx={{ color:primaryButtonColor }} />
@@ -140,6 +140,7 @@ const DefaultIcons = () => {
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
         <CloseIcon sx={{ color:primaryButtonColor }} />
@@ -314,7 +315,7 @@ function Example() {
 
 
 
-const CreateProfile = () => {
+const ProfileSummary = ({setPage}) => {
   const [rows, setRows] = React.useState(initialRows);
   const [displayLength, setdisplayLength] = React.useState(10);
   const [pageNumber, setpageNumber] = React.useState(1);
@@ -361,6 +362,16 @@ const CreateProfile = () => {
     
     setpageNumber(newpageNumber);
   }
+  const handleIconsClick =(value) => {
+        switch (value) {
+          case "new":
+            handleAdd()
+            break;
+        
+          default:
+            break;
+        }
+  }
   const handleCloseModal = () => {
     setEdit(0)
     setIsModalOpen(false);
@@ -370,13 +381,13 @@ const CreateProfile = () => {
     window.history.back();
   }
   const handleOpen = () => {
-    setOpen(true);
+    // setOpen(true);
   };
 
 
   // Handlers for your icons
   const handleAdd = () => {
-    // Your logic to add a new profile
+    setPage("new")
   };
 
   const handleEdit = (id) => {
@@ -396,7 +407,7 @@ const CreateProfile = () => {
     <Box sx={{display:"flex",maxWidth:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
             paddingRight: 1.5,}}>   
        <BasicBreadcrumbs/>
-       <DefaultIcons/>
+       <DefaultIcons iconsClick={handleIconsClick}/>
        
     </Box>
     <Box sx={{ maxWidth:"100%",overflowX: 'auto'}}>
@@ -421,4 +432,4 @@ const CreateProfile = () => {
   );
 }
 
-export default CreateProfile;
+export default ProfileSummary;
