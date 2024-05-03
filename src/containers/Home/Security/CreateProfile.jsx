@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack } from '@mui/material';
-import { AddCircleOutline as AddIcon, Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
+import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 import TableSecurity from '../../../components/Tables/TableSecurity';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { primaryButtonColor, secondryColor, thirdColor } from '../../../config';
+import { primaryButtonColor, primaryColor, secondryColor, thirdColor } from '../../../config';
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { Collapse, Button, CardBody, Card, Alert } from "reactstrap";
 import Popover from '@mui/material/Popover';
 import PrintIcon from "@mui/icons-material/Print";
+import HomeIcon from "@mui/icons-material/Home";
+import AddIcon from "@mui/icons-material/Add";
 
 
 
@@ -24,7 +26,7 @@ const initialRows =[{
   createdOn: '2020-01-01',
   modifiedOn: '2020-01-01',
   test1:123,
-  test2:123
+  test2:"1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc" 
   
   
 },{
@@ -32,7 +34,7 @@ const initialRows =[{
   profileName: 'ghi',
   createdOn: '2020-01-01',
   modifiedOn: '2020-01-01',
-  test1:456,
+  test1:"1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc" ,
   test2:123
   
 },{
@@ -47,22 +49,40 @@ const initialRows =[{
 
 function BasicBreadcrumbs() {
   return (
-    <div role="presentation" style={{display:"flex",flexDirection:"row",gap:"15px",backgroundColor:secondryColor,maxWidth:"fit-content",alignItems:"center"}} onClick={handleClick}>
-      <Typography sx={{color:primaryButtonColor,fontWeight:"bold"}}>Home</Typography>
-      <Stack spacing={1}>
-      <Breadcrumbs  sx={{
-            "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
-            "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
-          }} separator={<NavigateNextIcon fontSize="medium" sx={{color:primaryButtonColor}} />}
+    <div role="presentation" style={{display:"flex",flexDirection:"row",maxWidth:"fit-content",alignItems:"center"}} onClick={handleClick}>
+      
+      <Stack spacing={2} sx={{ flex: 1 }}>
+      <Breadcrumbs  
+      // sx={{
+      //       "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
+      //       "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
+      //     }} 
+          separator={<NavigateNextIcon fontSize="small" sx={{color:primaryButtonColor}} />}
         aria-label="breadcrumb">
-        
-        <Typography sx={{color:primaryButtonColor}}
-        
-          
-        >
-          Security
-        </Typography>
-        <Typography sx={{color:primaryButtonColor}} >Create Profile</Typography>
+      
+      <Link
+      underline="hover"
+      sx={{ display: "flex", alignItems: "center", fontSize: "0.8rem" }} // Reduce font size
+      key="1"
+      color="white"
+      onClick={handleClick}
+    >
+      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      Home
+    </Link>
+    <Link
+      underline="hover"
+      key="2"
+      color="white"
+      sx={{ fontSize: "0.8rem" }}
+      onClick={handleClick}
+    >
+      Security
+    </Link>,
+   
+    <Typography key="3" color="white" sx={{ fontSize: "0.8rem" }}>
+    Create Profile
+    </Typography>,
       </Breadcrumbs>
       </Stack>
     </div>
@@ -71,18 +91,67 @@ function BasicBreadcrumbs() {
 const DefaultIcons = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-      <IconButton>
-        <AddIcon sx={{ color:primaryButtonColor }} />
-      </IconButton>
-      <IconButton>
+      
+      <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <AddIcon style={{ color: primaryButtonColor }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  New
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
         <EditIcon sx={{ color:primaryButtonColor }} />
-      </IconButton>
-      <IconButton>
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Edit
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
         <DeleteIcon sx={{ color:primaryButtonColor }} />
-      </IconButton>
-      <IconButton>
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Delete
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
         <CloseIcon sx={{ color:primaryButtonColor }} />
-      </IconButton>
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Close
+                </Typography>
+              </Stack>
+            </IconButton>
       <Example/>
     </Box>
   );
@@ -226,11 +295,14 @@ function Example() {
           vertical: 'left',
           horizontal: 'bottom',
         }}
-        PaperProps={{
-          style: {
-            backgroundColor: secondryColor, // Customize the background color here
-            padding: '0px', // You can also add other styles like padding, etc.
-          },
+        slotProps={{
+          paper: {
+            style: {
+              border:`1px solid ${primaryColor}`,
+              backgroundColor: secondryColor, // Customize the background color here
+              padding: '0px', // You can also add other styles like padding, etc.
+            },
+          }
         }}
         
       >
@@ -318,10 +390,11 @@ const CreateProfile = () => {
   const handleClose = () => {
     // Your logic to close the component or dialog
   };
-  console.log("create profile");
+ 
 
   return (<Box sx={{ display: "flex",flexDirection:"column",maxWidth:"100%" }}>
-    <Box sx={{display:"flex",maxWidth:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor}}>   
+    <Box sx={{display:"flex",maxWidth:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
+            paddingRight: 1.5,}}>   
        <BasicBreadcrumbs/>
        <DefaultIcons/>
        
@@ -339,7 +412,7 @@ const CreateProfile = () => {
     setchangesTriggered={resetChangesTrigger}
     onSelectedRowsChange={handleSelectedRowsChange}
     onRowDoubleClick={handleRowDoubleClick}
-    totalRows={totalRows}
+    totalRows={rows.length}
     
     
   />
