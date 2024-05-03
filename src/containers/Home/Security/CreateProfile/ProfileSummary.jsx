@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack } from '@mui/material';
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 import TableSecurity from '../../../../components/Tables/TableSecurity';
@@ -13,6 +13,7 @@ import Popover from '@mui/material/Popover';
 import PrintIcon from "@mui/icons-material/Print";
 import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
+import { initialRows } from '../../../../config/securityConfig';
 
 
 
@@ -20,29 +21,7 @@ function handleClick(event) {
   event.preventDefault();
   console.info('You clicked a breadcrumb.');
 }
-const initialRows =[{
-  iId: 1,
-  profileName: 'Abc',
-  createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
- 
-  
-  
-},{
-  iId: 2,
-  profileName: 'ghi1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc',
-  createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
 
-  
-},{
-  iId: 3,
-  profileName: 'xyz',
-  createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
-
-  
-}];
 
 function BasicBreadcrumbs() {
   return (
@@ -87,11 +66,11 @@ function BasicBreadcrumbs() {
 }
 const DefaultIcons = ({iconsClick}) => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+    <Box sx={{ display: "flex", flexDirection: "row", gap: "5px",alignItems:"center" }}>
       
       <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               onClick={()=>iconsClick("new")}
             >
               <Stack direction="column" alignItems="center">
@@ -107,7 +86,7 @@ const DefaultIcons = ({iconsClick}) => {
             </IconButton>
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               onClick={()=>iconsClick("edit")}
             >
               <Stack direction="column" alignItems="center">
@@ -123,7 +102,7 @@ const DefaultIcons = ({iconsClick}) => {
             </IconButton>
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               onClick={()=>iconsClick("delete")}
             >
               <Stack direction="column" alignItems="center">
@@ -139,7 +118,7 @@ const DefaultIcons = ({iconsClick}) => {
             </IconButton>
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
@@ -160,7 +139,25 @@ const DefaultIcons = ({iconsClick}) => {
 const AdditionalIcons = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-      <IconButton>
+     
+      <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+        <PrintIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Export
+                </Typography>
+              </Stack>
+            </IconButton>
+            
+      {/* <IconButton>
         <PrintIcon sx={{ color:primaryButtonColor }} />
       </IconButton>
       <IconButton>
@@ -168,10 +165,7 @@ const AdditionalIcons = () => {
       </IconButton>
       <IconButton>
         <PrintIcon sx={{ color:primaryButtonColor }} />
-      </IconButton>
-      <IconButton>
-        <PrintIcon sx={{ color:primaryButtonColor }} />
-      </IconButton>
+      </IconButton> */}
     </Box>
   );
 };
@@ -268,7 +262,7 @@ function Example() {
 
   return (
     <div>
-      <IconButton aria-describedby={id} variant="contained" onClick={handleClick}>
+      <IconButton sx={{ fontSize: "0.8rem", padding: "0rem" }} aria-describedby={id} variant="contained" onClick={handleClick}>
       <Button
             color="primary"
            
@@ -276,7 +270,7 @@ function Example() {
               marginBottom: "0rem",
               padding: "0.1rem",
               fontSize: "0.6rem",
-              height: "2rem",
+              height: "2.8rem",
               borderRadius: "0.5rem 0 0 0.5rem",
             }}
           >
@@ -316,7 +310,7 @@ function Example() {
 
 
 const ProfileSummary = ({setPage}) => {
-  const [rows, setRows] = React.useState(initialRows);
+  const [rows, setRows] = React.useState([]);
   const [displayLength, setdisplayLength] = React.useState(10);
   const [pageNumber, setpageNumber] = React.useState(1);
   const [changesTriggered, setchangesTriggered] = React.useState(false);
@@ -327,6 +321,9 @@ const ProfileSummary = ({setPage}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
 
+  useEffect(() => {
+    setRows(initialRows)
+  }, [initialRows])
   
 
   const handleRowDoubleClick = (rowiId) => {
@@ -367,7 +364,8 @@ const ProfileSummary = ({setPage}) => {
           case "new":
             handleAdd()
             break;
-        
+          case "close":
+            handleclose()
           default:
             break;
         }
@@ -403,14 +401,14 @@ const ProfileSummary = ({setPage}) => {
   };
  
 
-  return (<Box sx={{ display: "flex",flexDirection:"column",maxWidth:"100%" }}>
-    <Box sx={{display:"flex",maxWidth:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
+  return (<Box sx={{ display: "flex",flexDirection:"column",width:"100%" }}>
+    <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
             paddingRight: 1.5,}}>   
        <BasicBreadcrumbs/>
        <DefaultIcons iconsClick={handleIconsClick}/>
        
     </Box>
-    <Box sx={{ maxWidth:"100%",overflowX: 'auto'}}>
+    <Box sx={{ width:"100%",overflowX: 'auto'}}>
     <TableSecurity
              
     rows={rows}

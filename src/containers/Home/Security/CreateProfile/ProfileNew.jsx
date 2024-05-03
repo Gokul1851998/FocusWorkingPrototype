@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack, TextField } from '@mui/material';
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 import TableSecurity from '../../../../components/Tables/TableSecurity';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -13,6 +13,11 @@ import Popover from '@mui/material/Popover';
 import PrintIcon from "@mui/icons-material/Print";
 import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
+import HistoryIcon from '@mui/icons-material/History';
+import SaveIcon from "@mui/icons-material/Save";
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import AutocompleteSecurity from '../../../../components/AutoComplete/AutocompleteSecurity';
 
 
 
@@ -20,29 +25,6 @@ function handleClick(event) {
   event.preventDefault();
   console.info('You clicked a breadcrumb.');
 }
-const initialRows =[{
-  iId: 1,
-  profileName: 'Abc',
-  createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
- 
-  
-  
-},{
-  iId: 1,
-  profileName: 'ghi1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc',
-  createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
-
-  
-},{
-  iId: 1,
-  profileName: 'xyz',
-  createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
-
-  
-}];
 
 function BasicBreadcrumbs() {
   return (
@@ -90,9 +72,89 @@ const DefaultIcons = ({iconsClick}) => {
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
       
       
+      <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+        <HistoryIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  History
+                </Typography>
+              </Stack>
+            </IconButton>
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0rem 0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+        <SaveIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Save
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+        <DeleteIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Delete
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+        <AssignmentIndIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Get Roles In Profile 
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+        <ContentCopyIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Load From
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
@@ -106,7 +168,7 @@ const DefaultIcons = ({iconsClick}) => {
                 </Typography>
               </Stack>
             </IconButton>
-      <Example/>
+      {/* <Example/> */}
     </Box>
   );
 };
@@ -205,14 +267,14 @@ const AdditionalIcons = () => {
 //   );
 // }
 
-function Example() {
+function Example() {//AdditionalIcons
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleCloseExtra = () => {
     setAnchorEl(null);
   };
 
@@ -240,7 +302,7 @@ function Example() {
         id={id}
         open={open}
         anchorEl={anchorEl}
-        onClose={handleClose}
+        onClose={handleCloseExtra}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
@@ -269,101 +331,62 @@ function Example() {
 
 
 const ProfileNew = ({setPage}) => {
-  const [rows, setRows] = React.useState(initialRows);
-  const [displayLength, setdisplayLength] = React.useState(10);
-  const [pageNumber, setpageNumber] = React.useState(1);
-  const [changesTriggered, setchangesTriggered] = React.useState(false);
-  const [selectedDatas, setselectedDatas] = React.useState([]);
-  const [totalRows, settotalRows] = useState(10)
-  const [refreshFlag, setrefreshFlag] = React.useState(true)
-  const [searchKey, setsearchKey] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [hide, setHide] = useState(false);
+ 
 
-  
-
-  const handleRowDoubleClick = (rowiId) => {
-  
-    // if (rowiId === null) {
-    //   setAlertMessage("Please Select Row");
-    //   setShowAlert(true);
-    //   setalertcolor("#ffcc00");
-    //   setTimeout(() => {
-    //     setShowAlert(false);
-    //   }, 2000);
-    // } else {
-    //   setdoubleClickediId(rowiId);
-    //   setnewOpen(true);
-    // }
-  };
-  const handleSearchKeyChange = (newSearchKey) => {
-    setsearchKey(newSearchKey);
-  };
-  
-  const handleSelectedRowsChange = (selectedRowsData) => {
-   
-    setselectedDatas(selectedRowsData);
-  };
-  const resetChangesTrigger = () => {
-    setchangesTriggered(false);
-  };
-  const handleDisplayLengthChange = (newDisplayLength) => {
-    setdisplayLength(newDisplayLength);
-  };
-
-  const handlepageNumberChange = (newpageNumber) => {
-    
-    setpageNumber(newpageNumber);
-  }
+  const [profileName, setprofileName] = useState(null)
+ 
   const handleIconsClick =(value) => {
         switch (value) {
           case "new":
             handleAdd()
             break;
-        
+          case "close":
+            handleclose()
           default:
             break;
         }
   }
-  const handleCloseModal = () => {
-    setEdit(0)
-    setIsModalOpen(false);
-  };
-
-  const  handleclose=()=>{
-    window.history.back();
-  }
-  const handleOpen = () => {
-    // setOpen(true);
-  };
-
-
   // Handlers for your icons
   const handleAdd = () => {
     setPage("new")
   };
+  const  handleclose=()=>{
+    setPage("summary")
+  }
+  
 
-  const handleEdit = (id) => {
-    // Your logic to edit profile
-  };
 
-  const handleDelete = (id) => {
-    // Your logic to delete profile
-  };
-
-  const handleClose = () => {
-    // Your logic to close the component or dialog
-  };
  
 
-  return (<Box sx={{ display: "flex",flexDirection:"column",maxWidth:"100%" }}>
-    <Box sx={{display:"flex",maxWidth:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
+  return (<Box sx={{ display: "flex",flexDirection:"column",width:"100%" }}>
+    <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
             paddingRight: 1.5,}}>   
        <BasicBreadcrumbs/>
        <DefaultIcons iconsClick={handleIconsClick}/>
        
     </Box>
-    <Box sx={{ maxWidth:"100%",overflowX: 'auto'}}>
+    <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column"}}>
+      <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
+        <Typography sx={{fontSize:"20px",color:secondryColor}}>
+          Create Profile
+        </Typography>
+        <Box sx={{display:"flex",flexDirection:"row",mt:2,gap:4,alignItems:"center"}}>
+          <Typography sx={{color:"#00000" ,opacity:"0.5"}}>Profile Name</Typography>
+          <div style={{minWidth:"200px"}}>
+          <AutocompleteSecurity
+
+            key="profile"
+            value={profileName?.sName??""}
+            onChangeName={setprofileName}
+            label={""}
+           
+
+          />
+          </div>
+         
+          
+        </Box>
+      </Box>
     
   </Box>
   </Box>
