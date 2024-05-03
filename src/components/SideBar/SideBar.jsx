@@ -182,6 +182,8 @@ export default function SideBar() {
         key1:key
       };
       navigate(item?.url ?? "/url", { state: simpleItem });
+      setSubmenuStack([]); //to close entire submenu
+      setOpenSubMenuId(null);
     }
   };
   const handleSubMenuClose = (level) => {
