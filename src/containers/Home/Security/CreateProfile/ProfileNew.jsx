@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack, TextField, FormControlLabel, Checkbox, Divider, FormGroup } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack, TextField, FormControlLabel, Checkbox, Divider, FormGroup, Button as ButtonM } from '@mui/material';
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 import TableSecurity from '../../../../components/Tables/TableSecurity';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -8,7 +8,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { primaryButtonColor, primaryColor, secondryColor, thirdColor } from '../../../../config';
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
-import { Collapse, Button, CardBody, Card, Alert } from "reactstrap";
+import { Collapse, CardBody,Button, Card, Alert } from "reactstrap";
 import Popover from '@mui/material/Popover';
 import PrintIcon from "@mui/icons-material/Print";
 import HomeIcon from "@mui/icons-material/Home";
@@ -92,7 +92,7 @@ const DefaultIcons = ({iconsClick}) => {
       <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              //onClick={()=>iconsClick("close")}
+              onClick={()=>iconsClick("GetHistory")}
             >
               <Stack direction="column" alignItems="center">
         <HistoryIcon sx={{ color:primaryButtonColor }} />
@@ -156,7 +156,7 @@ const DefaultIcons = ({iconsClick}) => {
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              onClick={()=>iconsClick("close")}
+              onClick={()=>iconsClick("GetLoadFrom")}
             >
               <Stack direction="column" alignItems="center">
         <ContentCopyIcon sx={{ color:primaryButtonColor }} />
@@ -345,18 +345,31 @@ function Example() {//AdditionalIcons
   );
 }
 
+const buttonStyle ={
+  backgroundColor: primaryColor,
+  color: primaryButtonColor,
+  textTransform: 'none',
+  padding: "1px",
+  '&:hover': {
+    backgroundColor: primaryColor, // Change as needed
+    color: primaryButtonColor // Example hover color change
+  },
+  
+}
 
 
 const ProfileNew = ({setPage}) => {
  
 
-  const [profileName, setprofileName] = useState(null)
+  const [profileName, setprofileName] = useState({sName:"email",iId:336})
   const [checkedState, setCheckedState] = useState(
     new Array(restrictionItems.length).fill(false)
   );
   const [openRoleInProfile, setOpenRoleInProfile] = useState(false);
+  const [openLoadFrom, setOpenLoadFrom] = useState(false);
+  const [openHistory, setOpenHistory] = useState(false);
  
-  const handleIconsClick =(value) => {console.log(value);
+  const handleIconsClick =(value) => {
         switch (value.trim()) {
           case "new":
             handleAdd()
@@ -367,6 +380,12 @@ const ProfileNew = ({setPage}) => {
           case "GetRolesInProfile":
             handleGetRolesInProfile()  
             break;
+          case "GetLoadFrom":
+            handleLoadFrom()  
+            break;  
+          case "GetHistory":
+            handleLoadHistory()  
+            break;    
           default:
             break;
         }
@@ -379,12 +398,28 @@ const ProfileNew = ({setPage}) => {
     setPage("summary")
   }
   const handleGetRolesInProfile = ()=>{
-    console.log("hi");
+    
       setOpenRoleInProfile(true)
   } 
   const handleCloseGetRolesInProfile = ()=>{
     setOpenRoleInProfile(false)
-}
+  }
+  const handleLoadFrom = ()=>{
+    
+    setOpenLoadFrom(true)
+  }
+  const handleCloseLoadFrom = ()=>{
+    
+    setOpenLoadFrom(false)
+  }
+  const handleLoadHistory = ()=>{
+   
+    setOpenHistory(true)
+  }
+  const handleCloseLoadHistory = ()=>{
+    
+    setOpenHistory(false)
+  }
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
@@ -425,7 +460,7 @@ const ProfileNew = ({setPage}) => {
           <AutocompleteSecurity
 
             key="profile"
-            value={profileName?.sName??""}
+            value={profileName}
             onChangeName={setprofileName}
             label={""}
            
@@ -443,7 +478,7 @@ const ProfileNew = ({setPage}) => {
         </Typography>
       <Tree1 items={createProfileTree} />
       </Box>
-      <Divider orientation="vertical" flexItem />
+      <Divider orientation="vertical" flexItem sx={{ borderWidth: 1 ,borderColor:thirdColor}} />
       <Box sx={{ width: '50%',  height: 550}} >
       <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor}}>
       Restrictions
@@ -534,22 +569,17 @@ const ProfileNew = ({setPage}) => {
 
         </Box>
   <DialogContent>
-  <AutocompleteSecurity
-
-    key="profile"
-    value={""}
-    // onChangeName={}
-    label={"Search"}
-
-
-/>
+  <input placeholder='Search' style={{borderRadius:"5px", border:"1px solid #ddd"}}/>
     {/* You can add more content here such as a list of items */}
   </DialogContent>
   <DialogActions>
-    {/* <Button onClick={handleCloseGetRolesInProfile} sx={{backgroundColor:secondryColor,color:"#fff"}}>
+    <ButtonM onClick={handleCloseGetRolesInProfile} 
+    sx={buttonStyle}
+    
+    >
       Cancel
-    </Button> */}
-    <IconButton
+    </ButtonM>
+    {/* <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               onClick={handleCloseGetRolesInProfile}
@@ -564,7 +594,86 @@ const ProfileNew = ({setPage}) => {
                   Close
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
+    
+  </DialogActions>
+</Dialog>
+<Dialog open={openLoadFrom} onClose={handleCloseLoadFrom} aria-labelledby="form-dialog-title">
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+       Load From
+        </Typography>
+        <Box sx={{minHeight:"200px",ml:2}}>
+          <Typography>
+            Profile1
+          </Typography>
+
+        </Box>
+  <DialogContent>
+  <input placeholder='Search' style={{borderRadius:"5px", border:"1px solid #ddd"}}/>
+    {/* You can add more content here such as a list of items */}
+  </DialogContent>
+  <DialogActions>
+  <ButtonM onClick={handleCloseLoadFrom} 
+     sx={buttonStyle}
+
+    
+    >
+      Ok
+    </ButtonM>
+    <ButtonM onClick={handleCloseLoadFrom} 
+     sx={buttonStyle}
+
+    
+    >
+      Cancel
+    </ButtonM>
+    {/* <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={handleCloseGetRolesInProfile}
+            >
+              <Stack direction="column" alignItems="center">
+        <CloseIcon sx={{ color:primaryColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryColor, fontSize: "0.6rem" }}
+                >
+                  Close
+                </Typography>
+              </Stack>
+            </IconButton> */}
+    
+  </DialogActions>
+</Dialog>
+<Dialog open={openHistory} onClose={handleCloseLoadHistory} aria-labelledby="form-dialog-title">
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+       History
+        </Typography>
+        <Box sx={{minHeight:"200px",ml:2}}>
+         <Table></Table>
+
+        </Box>
+  <DialogContent>
+  
+    {/* You can add more content here such as a list of items */}
+  </DialogContent>
+  <DialogActions>
+  <ButtonM onClick={handleCloseLoadHistory} 
+     sx={buttonStyle}
+
+    
+    >
+      Ok
+    </ButtonM>
+    <ButtonM onClick={handleCloseLoadHistory} 
+     sx={buttonStyle}
+
+    
+    >
+      Cancel
+    </ButtonM>
+    
     
   </DialogActions>
 </Dialog>
