@@ -178,3 +178,11 @@ export const restrictionItems = [
   "Open Close", "Close Product", "Adv Master Import/Export", "General", "Setting",
   "Details", "Print Layout", "VAT Settings", "TabNew", "Department"
 ];
+
+export const historyProfile  = [
+  { id: 1, profileName: "Portal", date: "15-04-2024", time: "13:56:07", loginName: "SU" },
+  { id: 2, profileName: "", date: "", time: "", loginName: "" },
+  { id: 3, profileName: "", date: "", time: "", loginName: "" },
+  { id: 4, profileName: "", date: "", time: "", loginName: "" },
+  { id: 5, profileName: "", date: "", time: "", loginName: "" }
+];
