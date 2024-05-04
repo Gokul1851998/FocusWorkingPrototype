@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack, TextField, FormControlLabel, Checkbox, Divider, FormGroup } from '@mui/material';
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 import TableSecurity from '../../../../components/Tables/TableSecurity';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -18,8 +18,25 @@ import SaveIcon from "@mui/icons-material/Save";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import AutocompleteSecurity from '../../../../components/AutoComplete/AutocompleteSecurity';
+import { createProfileTree, restrictionItems } from '../../../../config/securityConfig';
+import Tree1 from '../../../../components/Tree/Tree1';
+import SelectAllIcon from '@mui/icons-material/SelectAll';
+import DeselectIcon from '@mui/icons-material/Deselect';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
-
+const SelectAllIconStyle ={//style for selectAll and unselectAll
+  fontSize: "0.8rem",
+  padding: "0.5rem",
+  "&:hover": {
+    backgroundColor: 'transparent',  // Removes hover background color
+    "& .MuiTouchRipple-root": {
+      color: 'transparent' // Removes ripple effect color change if needed
+    }
+  },
+  "&:active": {
+    backgroundColor: 'transparent', // Removes active background color
+  }
+}
 
 function handleClick(event) {
   event.preventDefault();
@@ -123,7 +140,7 @@ const DefaultIcons = ({iconsClick}) => {
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              //onClick={()=>iconsClick("close")}
+              onClick={()=>iconsClick("GetRolesInProfile ")}
             >
               <Stack direction="column" alignItems="center">
         <AssignmentIndIcon sx={{ color:primaryButtonColor }} />
@@ -334,14 +351,22 @@ const ProfileNew = ({setPage}) => {
  
 
   const [profileName, setprofileName] = useState(null)
+  const [checkedState, setCheckedState] = useState(
+    new Array(restrictionItems.length).fill(false)
+  );
+  const [openRoleInProfile, setOpenRoleInProfile] = useState(false);
  
-  const handleIconsClick =(value) => {
-        switch (value) {
+  const handleIconsClick =(value) => {console.log(value);
+        switch (value.trim()) {
           case "new":
             handleAdd()
             break;
           case "close":
             handleclose()
+            break;
+          case "GetRolesInProfile":
+            handleGetRolesInProfile()  
+            break;
           default:
             break;
         }
@@ -353,6 +378,30 @@ const ProfileNew = ({setPage}) => {
   const  handleclose=()=>{
     setPage("summary")
   }
+  const handleGetRolesInProfile = ()=>{
+    console.log("hi");
+      setOpenRoleInProfile(true)
+  } 
+  const handleCloseGetRolesInProfile = ()=>{
+    setOpenRoleInProfile(false)
+}
+
+  const handleOnChange = (position) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    setCheckedState(updatedCheckedState);
+  };
+
+  const handleSelectAll = () => {
+    setCheckedState(new Array(restrictionItems.length).fill(true));
+  };
+
+  const handleUnselectAll = () => {
+    setCheckedState(new Array(restrictionItems.length).fill(false));
+  };
+
   
 
 
@@ -365,7 +414,7 @@ const ProfileNew = ({setPage}) => {
        <DefaultIcons iconsClick={handleIconsClick}/>
        
     </Box>
-    <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column"}}>
+    <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",height:"83vh",overflowY:"auto",scrollbarWidth:"thin"}}>
       <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
         <Typography sx={{fontSize:"20px",color:secondryColor}}>
           Create Profile
@@ -386,9 +435,139 @@ const ProfileNew = ({setPage}) => {
          
           
         </Box>
+        <Box sx={{ display: 'flex',border: '1px solid #c4c4c4', borderRadius: 1, overflow: 'hidden',mt:1 }}>
+         
+      <Box sx={{ width: '50%'}}>
+      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor}}>
+          Menu
+        </Typography>
+      <Tree1 items={createProfileTree} />
+      </Box>
+      <Divider orientation="vertical" flexItem />
+      <Box sx={{ width: '50%',  height: 550}} >
+      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor}}>
+      Restrictions
+        </Typography>
+        <Box sx={{height: 410,overflowY:"auto", scrollbarWidth:"thin"}}>
+      <FormGroup>
+        {restrictionItems.map((name, index) => (
+          <FormControlLabel
+            key={index}
+            control={
+              <Checkbox
+                checked={checkedState[index]}
+                onChange={() => handleOnChange(index)}
+                sx={{ '& .MuiSvgIcon-root': { fontSize: 15},padding:"0" }}
+              />
+            }
+            label={name}
+            sx={{ fontSize: '0.75rem', marginY: 0.1, marginLeft: 0.5, marginRight: 0.5 }} 
+          />
+        ))}
+      </FormGroup>
+      </Box>
+      <Stack direction="row" spacing={2} mt={2}>
+      <IconButton
+              aria-label="New"
+              sx={SelectAllIconStyle}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+        <HistoryIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  History
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={SelectAllIconStyle}
+              onClick={handleSelectAll}
+            >
+              <Stack direction="column" alignItems="center">
+        <SelectAllIcon sx={{ color:primaryColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryColor, fontSize: "0.8rem" }}
+                >
+                  Select All
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="New"
+              sx={SelectAllIconStyle}
+              onClick={handleUnselectAll}
+            >
+              <Stack direction="column" alignItems="center">
+        <DeselectIcon sx={{ color:primaryColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryColor, fontSize: "0.8rem" }}
+                >
+                  Unselect All
+                </Typography>
+              </Stack>
+            </IconButton>
+      </Stack>
+     
+    </Box>
+    </Box>
+        
       </Box>
     
   </Box>
+  <Dialog open={openRoleInProfile} onClose={handleCloseGetRolesInProfile} aria-labelledby="form-dialog-title">
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+       Roles in Profile
+        </Typography>
+        <Box sx={{minHeight:"200px",ml:2}}>
+          <Typography>
+            Role1
+          </Typography>
+
+        </Box>
+  <DialogContent>
+  <AutocompleteSecurity
+
+    key="profile"
+    value={""}
+    // onChangeName={}
+    label={"Search"}
+
+
+/>
+    {/* You can add more content here such as a list of items */}
+  </DialogContent>
+  <DialogActions>
+    {/* <Button onClick={handleCloseGetRolesInProfile} sx={{backgroundColor:secondryColor,color:"#fff"}}>
+      Cancel
+    </Button> */}
+    <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={handleCloseGetRolesInProfile}
+            >
+              <Stack direction="column" alignItems="center">
+        <CloseIcon sx={{ color:primaryColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryColor, fontSize: "0.6rem" }}
+                >
+                  Close
+                </Typography>
+              </Stack>
+            </IconButton>
+    
+  </DialogActions>
+</Dialog>
   </Box>
   );
 }

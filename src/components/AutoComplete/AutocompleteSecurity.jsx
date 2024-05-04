@@ -51,15 +51,15 @@ export default function AutocompleteSecurity({
             const encodedSearchkey = encodeURIComponent(searchkey);
            
          
-             const response =await  fetch(`http://103.120.178.195/Sang.Ray.Web.Api/Ray/GetProject?iStatus=1&sSearch=${encodedSearchkey}`)
+            //  const response =await  fetch(`http://103.120.178.195/Sang.Ray.Web.Api/Ray/GetProject?iStatus=1&sSearch=${encodedSearchkey}`)
              
-              const data = await response.json();
+            //   const data = await response.json();
              
-              if(data.Status ==="Success"){
+            //   if(data.Status ==="Success"){
                 
               
-                setSuggestion(JSON.parse(data.ResultData));
-              }
+            //     setSuggestion(JSON.parse(data.ResultData));
+            //   }
               
             // if (response?.status === "Success") {
             //     const myObject = JSON.parse(response?.result);
@@ -191,7 +191,7 @@ export default function AutocompleteSecurity({
             }}
             InputLabelProps={{
               style: {
-                zIndex:10,
+                zIndex:1,
                 backgroundColor: '#fff', // Set the background color you want here
                 padding: '0 0px', // Optional: Padding to prevent background clipping text
                 borderRadius: '0px', // Optional: To make the background look nicer with rounded corners
@@ -209,6 +209,7 @@ export default function AutocompleteSecurity({
               //   transform: "translate(14px, -9px) scale(0.75)", // Adjust label position when focused
               // },
               "& .MuiInputBase-input": {
+                zIndex:2,
                 fontSize: '0.75rem', // Adjust the font size of the input text
               },
               "&.Mui-focused .MuiOutlinedInput-notchedOutline": {

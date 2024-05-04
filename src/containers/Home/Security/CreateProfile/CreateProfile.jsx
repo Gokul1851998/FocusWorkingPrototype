@@ -10,9 +10,9 @@ function CreateProfile({key1,initialPage}) {
    
     
   return (
-    <div>{page && (
-        page === "summary" ? <ProfileSummary setPage={setpage} /> :
-        page === "new" ? <ProfileNew setPage={setpage} /> :null
+    <div >{page && (
+        //page === "summary" ? <ProfileSummary setPage={setpage} /> :
+        page === "summary" ? <ProfileNew setPage={setpage} /> :null
       )}</div>
   )
 }
