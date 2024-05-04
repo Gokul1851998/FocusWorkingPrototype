@@ -155,11 +155,11 @@ export default function AutocompleteSecurity({
             InputProps={{
                 ...params.InputProps,
                 disableUnderline: true, // Disables the underline on the standard variant
-                // endAdornment: (
-                //   <React.Fragment>
-                //       {params.InputProps.endAdornment || <ArrowDropDownIcon />} 
-                //   </React.Fragment>
-                //   ),
+                endAdornment: (
+                  <React.Fragment>
+                      {params.InputProps.endAdornment || <ArrowDropDownIcon />} 
+                  </React.Fragment>
+                  ),
                 style: {
                     // Overrides default styles
                     borderWidth: "1px",
@@ -193,8 +193,9 @@ export default function AutocompleteSecurity({
               style: {
                 zIndex:1,
                 backgroundColor: '#fff', // Set the background color you want here
-                padding: '0 0px', // Optional: Padding to prevent background clipping text
+                padding: '0 7px', // Optional: Padding to prevent background clipping text
                 borderRadius: '0px', // Optional: To make the background look nicer with rounded corners
+                fontSize:"14px",
               }
             }}
             sx={{
@@ -203,7 +204,8 @@ export default function AutocompleteSecurity({
                 height: 30, // Adjust the height of the input area
               },
               "& .MuiInputLabel-root": {
-                transform: "translate(10px, 5px) scale(0.9)", // Adjust label position when not focused
+                transform: "translate(8px, 6.5px) scale(0.9)", // Adjust label position when not focused
+             
               },
               // "& .MuiInputLabel-shrink": {
               //   transform: "translate(14px, -9px) scale(0.75)", // Adjust label position when focused

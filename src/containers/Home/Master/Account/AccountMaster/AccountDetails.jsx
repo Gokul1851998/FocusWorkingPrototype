@@ -16,6 +16,7 @@ import {
   MDBRow,
 } from "mdb-react-ui-kit";
 import AccountInput from "../../../../../components/Inputs/AccountInput";
+import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -90,7 +91,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Select Tree" />
+                    <AutocompleteSecurity label="Select Tree" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
@@ -98,7 +99,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Account Type" />
+                    <AutocompleteSecurity label="Account Type" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
@@ -118,11 +119,11 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="PDC Discount A/C" />
+                    <AutocompleteSecurity label="PDC Discount A/C" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Back A/C" />
+                    <AutocompleteSecurity label="Back A/C" />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
@@ -300,17 +301,30 @@ export default function AccountDetails() {
         <AccordionSummary
           aria-controls="panel4d-content"
           id="panel4d-header"
-          expanded={expanded === "panel4"}
+          expanded={expanded === "panel"}
         >
-          <Typography style={{ fontSize: "14px" }}>Print Layout</Typography>
+          <Typography style={{ fontSize: "14px" }}>VAT Settings</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-            lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
+          <>
+            <div>
+              <MDBCardBody>
+                <MDBRow>
+                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                    <AccountInput label="Place of Supply" />
+                  </MDBCol>
+
+                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                    <AccountInput label="TRP" />
+                  </MDBCol>
+
+                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                    <AccountInput label="Reverse charge" />
+                  </MDBCol>
+                </MDBRow>
+              </MDBCardBody>
+            </div>
+          </>
         </AccordionDetails>
       </Accordion>
 
@@ -321,49 +335,7 @@ export default function AccountDetails() {
         <AccordionSummary
           aria-controls="panel5d-content"
           id="panel5d-header"
-          expanded={expanded === "panel"}
-        >
-          <Typography style={{ fontSize: "14px" }}>VAT Settings</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-            lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion
-        expanded={expanded === "panel6"}
-        onChange={handleChange("panel6")}
-      >
-        <AccordionSummary
-          aria-controls="panel6d-content"
-          id="panel6d-header"
-          expanded={expanded === "panel6"}
-        >
-          <Typography style={{ fontSize: "14px" }}>Department</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-            lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion
-        expanded={expanded === "panel7"}
-        onChange={handleChange("panel7")}
-      >
-        <AccordionSummary
-          aria-controls="panel7d-content"
-          id="panel7d-header"
-          expanded={expanded === "panel7"}
+          expanded={expanded === "panel5"}
         >
           <Typography style={{ fontSize: "14px" }}>Language</Typography>
         </AccordionSummary>
