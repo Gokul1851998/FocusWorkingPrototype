@@ -6,34 +6,17 @@ import {
   ListSubheader,
   Paper,
 } from "@mui/material";
-// import { buttonColor1 } from '../../../config';
-// import { GetAutocompleate } from '../../../apiHelper';
-import { useSelector } from "react-redux";
-import { getAutocomplete, getAutocomplete1 } from "../../../apis/api";
-import { secondaryColorTheme } from "../../../config";
+import { secondryColor } from "../../config";
 
 const AutoComplete2 = ({
   formData,
   setFormData,
-  width,
   autoId,
   autoLabel,
   isMandatory,
   disabled,
-  iMaxSize,
-  iLinkTag,
-  isHeader,
-  sFieldName,
-  formDataHeader,
-  key1,
-  sFieldId,
-  triggerValidation,
-  resetTriggerVAlidation,
-  fieldErrors,
-  setFieldErrors,
-  menuList,
+ 
 }) => {
-  const { iId } = useSelector((state) => state.authState);
 
   const [iTypeF2, setiTypeF2] = useState(1);
   const [AutoMenu, setAutoMenu] = useState([]);
@@ -47,7 +30,7 @@ const AutoComplete2 = ({
     return (
       <ul style={{ paddingTop: 0 }} ref={ref} {...other}>
         <ListSubheader
-          style={{ backgroundColor: secondaryColorTheme, padding: "5px" }}
+          style={{ backgroundColor: secondryColor, padding: "5px" }}
         >
           <div
             style={{
@@ -68,22 +51,21 @@ const AutoComplete2 = ({
   });
   // Effect to sync state with prop changes
   useEffect(() => {
-    setautoSearchKey(formDataHeader[sFieldName] || "");
+    setautoSearchKey(formData?.sName || "");
+    if(formData?.sName)
     setFormData({
       ...formData,
-      sName: formDataHeader[sFieldName] ?? "",
-      iId: formDataHeader[sFieldId] ?? 0,
+      sName: formData?.sName ?? null,
+      iId: formData?.iId ?? null,
     });
   }, []);
-  useEffect(() => {
-    setError({ isError: true, message: [fieldErrors[sFieldName]] });
-  }, [fieldErrors[sFieldName]]);
-
+ 
+console.log(formData);
   const handleAutocompleteChange = (event, newValue) => {
     const updatedFormData = {
       ...formData,
-      sName: newValue ? newValue.Name : null, //"" was replaced by null
-      iId: newValue ? newValue.Id : null, //"" was replaced by null
+      sName: newValue ? newValue.sName : null, //"" was replaced by null
+      iId: newValue ? newValue.iId : null, //"" was replaced by null
     };
 
     setFormData(updatedFormData); // This will now update the parent's state
@@ -104,22 +86,24 @@ const AutoComplete2 = ({
 
   const fetchSelectedItem = async (fieldName) => {
     try {
-      const config = {
-        headers: { "Content-Type": "application/json" },
-      };
-      const iType = iTypeF2;
-      const iUser = iId;
-      const iTag = iLinkTag;
-      const response = await getAutocomplete1(iTag, {
-        iType: iTypeF2,
-        search: fieldName,
-      });
-      if (response?.result) {
-        const items = JSON.parse(response.result);
-        // Assuming the API returns an array, even if it's meant to fetch a single item
-        if (items.length > 0) {
-          return items[0]; // Return the first item if available
+      const encodedSearchkey = encodeURIComponent(fieldName);
+           
+         
+       const response =await  fetch(`http://103.120.178.195/Sang.Ray.Web.Api/Ray/GetProject?iStatus=1&sSearch=${encodedSearchkey}`)
+       
+        const data = await response.json();
+       
+        if(data.Status ==="Success"){
+          
+        
+          setAutoMenu(JSON.parse(data.ResultData));
         }
+        
+      if (response?.status === "Success") {
+          const myObject = JSON.parse(response?.result);
+          setAutoMenu(myObject);
+      } else if (response?.status === "Failure") {
+          setAutoMenu([]);
       }
     } catch (error) {
       console.error("Failed to fetch selected item:", error);
@@ -132,54 +116,42 @@ const AutoComplete2 = ({
     const fetchData = async () => {
       
       try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        const iType = iTypeF2;
-        const iUser = iId;
-        const iTag = iLinkTag;
+        const encodedSearchkey = encodeURIComponent(autoSearchKey);
+           
+         
+       const response =await  fetch(`http://103.120.178.195/Sang.Ray.Web.Api/Ray/GetProject?iStatus=1&sSearch=${encodedSearchkey}`)
        
-        const response = await getAutocomplete1(iTag, {
-          iType,
-          search: autoSearchKey,
-        });
+        const data = await response.json();
+       
+        if(data.Status ==="Success"){
+          const results = JSON.parse(data.ResultData)
+          const currentSelection = results.find(
+            (option) => option.sName === formData?.sName
+          );
 
-        if (response?.result) {
-          const results = JSON.parse(response.result);
-          if (results.length > 0) {
-            const currentSelection = results.find(
-              (option) => option.Name === formDataHeader[sFieldName]
+          // Ensure the current selection is always in the menu
+          if (!currentSelection && formData?.sName) {
+            const selectedItem = await fetchSelectedItem(
+              formData?.sName
             );
-
-            // Ensure the current selection is always in the menu
-            if (!currentSelection && formDataHeader[sFieldName]) {
-              const selectedItem = await fetchSelectedItem(
-                formDataHeader[sFieldName]
-              );
-              if (selectedItem) {
-                results.unshift(selectedItem); // Add to the start of the list
-              }
+            if (selectedItem) {
+              results.unshift(selectedItem); // Add to the start of the list
             }
-
-            setAutoMenu(results);
-          } else {
-            // If resultData is empty but not an error, keep the old companyList
-            setAutoMenu((prevMenuList) =>
-              prevMenuList.length > 0 ? prevMenuList : []
-            );
           }
+        
+          setAutoMenu(JSON.parse(data.ResultData));
         }
+        
+     console.log(JSON.parse(data.ResultData));
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, [iTypeF2, autoSearchKey]);
-
+  
   useEffect(() => {
-    if (AutoMenu && AutoMenu[1]?.Code) {
+    if (AutoMenu && AutoMenu[1]?.sCode) {
       setsCodeReq(true);
     }
   }, [AutoMenu]);
@@ -213,20 +185,20 @@ const AutoComplete2 = ({
           {children}
         </Paper>
       )}
-      sx={{ height: "35px", marginTop: "0px" }}
+      
       id={autoId}
       options={AutoMenu}
-      getOptionLabel={(option) => option?.Name ?? ""}
+      getOptionLabel={(option) => option?.sName ?? ""}
       value={
-        AutoMenu.find((option) => option.Name === formDataHeader[sFieldName]) ||
+        AutoMenu.find((option) => option?.sName.trim() === formData?.sName) ||
         null
       }
       onChange={handleAutocompleteChange}
       filterOptions={(options, { inputValue }) => {
         return options.filter(
           (option) =>
-            option.Name?.toLowerCase().includes(inputValue.toLowerCase()) ||
-            option.Code?.toLowerCase().includes(inputValue.toLowerCase())
+            option.sName?.toLowerCase().includes(inputValue.toLowerCase()) ||
+            option.sCode?.toLowerCase().includes(inputValue.toLowerCase())
         );
       }}
       onInputChange={(event, newInputValue) => {
@@ -243,11 +215,11 @@ const AutoComplete2 = ({
             }}
           >
             <Typography style={{ marginRight: "auto", fontSize: "12px" }}>
-              {option.Name}
+              {option.sName}
             </Typography>
-            {option.Code && (
+            {option.sCode && (
               <Typography style={{ marginLeft: "auto", fontSize: "12px" }}>
-                {option.Code}
+                {option.sCode}
               </Typography>
             )}
           </div>
@@ -266,25 +238,26 @@ const AutoComplete2 = ({
             // disableUnderline: true, // Disables the underline on the standard variant
             style: {
               // Overrides default styles
-              borderWidth: "1px",
+             
               borderColor: "transparent",
               borderStyle: "solid",
-              borderRadius: "10px",
+              
               fontSize: "12px",
-              height: "35px",
+              height: "36px",
               paddingLeft: "0px",
+              
             },
             inputProps: {
               ...params.inputProps,
               autoComplete: "off",
-              maxLength: iMaxSize,
+              //maxLength: iMaxSize,
               onKeyDown: (event, newValue) => {
                 if (event.key === "F2") {
                   // Clear selected option and search key before handling F2 press
                   const updatedFormData = {
                     ...formData,
-                    sName: newValue ? newValue?.Name : "",
-                    iId: newValue ? newValue?.Id : 0,
+                    sName: newValue ? newValue?.sName : "",
+                    iId: newValue ? newValue?.iId : 0,
                   };
                   setFormData(updatedFormData);
 
@@ -301,46 +274,37 @@ const AutoComplete2 = ({
           InputLabelProps={{
             style: {
               fontSize: "16px",
-              color: isMandatory ? "red" : undefined,
+              padding: '0 0px',
+              zIndex:1,
+              backgroundColor: '#fff',
             },
           }}
-          sx={{
+          sx={{paddingTop:"13px",
             "& .MuiOutlinedInput-input": {
               padding: "8px 14px", // Reduce padding to decrease height
-              transform: "translate(10px, -7px) scale(1)",
+              transform: "translate(10px, -10px) scale(1)",
+            },
+            "& .MuiInputBase-input": {
+              zIndex:2,
+              fontSize: '0.75rem', // Adjust the font size of the input text
             },
             "& .MuiInputLabel-outlined": {
-              transform: "translate(14px, 12px) scale(0.75)", // Adjust the label position
+              transform: "translate(14px, 22px) scale(0.85)", // Adjust the label position
             },
             "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
-              transform: "translate(14px, -6px) scale(0.75)",
-              backgroundColor: "#fff",
+              transform: "translate(14px, 6px) scale(0.75)",
+              // backgroundColor: "#fff",
               padding: "0px 2px",
             },
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                top: 0,
-                borderTopLeftRadius: isMandatory ? "10px" : "10px", // Set the top left radius conditionally
-                borderBottomLeftRadius: isMandatory ? "10px" : "10px", // Set the bottom left radius conditionally
-                borderLeftColor: isMandatory ? "red" : "#ddd", // Set the left border color to red conditionally
-                borderLeftWidth: isMandatory ? "2px" : "default", // Adjust the width of the left border conditionally
-              },
-              "&.Mui-focused fieldset": {
-                // Repeat the same for the focused state if necessary
-                top: 0,
-                borderTopLeftRadius: isMandatory ? "10px" : "10px",
-                borderBottomLeftRadius: isMandatory ? "10px" : "10px",
-                borderLeftColor: isMandatory ? "red" : "currentColor",
-                borderLeftWidth: isMandatory ? "2px" : "default",
-              },
-            },
-            "& .MuiInputLabel-outlined.Mui-focused": {
-              color: "currentColor", // Keeps the current color of the label
-            },
-            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: "currentColor", // Keeps the current border color
-              },
+            
+            
+            // "& .MuiInputLabel-outlined.Mui-focused": {
+            //   color: "currentColor", // Keeps the current color of the label
+            // },
+            // "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            //   {
+            //     borderColor: "currentColor", // Keeps the current border color
+            //   },
           }}
         />
       )}
