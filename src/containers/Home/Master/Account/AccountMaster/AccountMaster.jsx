@@ -403,7 +403,9 @@ export default function AccountMaster(args) {
               </div>
             </Alert>
           </Collapse>
-
+       
+      
+      
           <TableAccounts />
         </div>
         <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}>

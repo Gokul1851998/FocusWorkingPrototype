@@ -16,6 +16,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 import {
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Pagination,
@@ -26,6 +27,8 @@ import {
 import { secondryColor, thirdColor } from "../../config";
 import { accountData } from "../../config/masterConfig";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import AutocompleteSecurity from "../AutoComplete/AutocompleteSecurity";
+import WidgetsIcon from "@mui/icons-material/Widgets";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -339,11 +342,26 @@ export default function SummaryPage() {
       <Box
         sx={{
           width: "100%",
-          padding: 2,
+          padding: "0px 10px ",
           zIndex: 1,
           minHeight: "590px",
         }}
       >
+        <Box sx={{ margin: "10px 0px ", display: "flex", gap: "10px" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <AutocompleteSecurity label="" />
+            <IconButton aria-label="tree">
+              <WidgetsIcon sx={{ color: thirdColor }} />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <AutocompleteSecurity label="" />
+            <IconButton aria-label="Table"  >
+              <WidgetsIcon sx={{ color: thirdColor }}  />
+            </IconButton>
+          </Box>
+        </Box>
+
         <>
           <Paper
             sx={{

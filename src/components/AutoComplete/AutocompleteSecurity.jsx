@@ -195,7 +195,7 @@ export default function AutocompleteSecurity({
                 backgroundColor: '#fff', // Set the background color you want here
                 padding: '0 7px', // Optional: Padding to prevent background clipping text
                 borderRadius: '0px', // Optional: To make the background look nicer with rounded corners
-                fontSize:"14px",
+                fontSize:"12px",
               }
             }}
             sx={{

@@ -148,43 +148,43 @@ export default function AccountDetails() {
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Debit/Credit Proposal" />
+                    <AutocompleteSecurity label="Debit/Credit Proposal" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Debit/Credit Required" />
+                    <AutocompleteSecurity label="Debit/Credit Required" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Exchange Adjustment Gain A/C" />
+                    <AutocompleteSecurity label="Exchange Adjustment Gain A/C" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Exchange Adjustment Loss A/C" />
+                    <AutocompleteSecurity label="Exchange Adjustment Loss A/C" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Primary Account" />
+                    <AutocompleteSecurity label="Primary Account" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Default Currency" />
+                    <AutocompleteSecurity label="Default Currency" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Consolidation Method" />
+                    <AutocompleteSecurity label="Consolidation Method" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Payment Terms" />
+                    <AutocompleteSecurity label="Payment Terms" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Reminder Terms" />
+                    <AutocompleteSecurity label="Reminder Terms" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Finance Charge Terms" />
+                    <AutocompleteSecurity label="Finance Charge Terms" />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
@@ -224,7 +224,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="City" />
+                    <AutocompleteSecurity label="City" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
@@ -238,7 +238,7 @@ export default function AccountDetails() {
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
                     {" "}
-                    <AccountInput label="City" />
+                    <AutocompleteSecurity label="City" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
@@ -311,7 +311,7 @@ export default function AccountDetails() {
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Place of Supply" />
+                    <AutocompleteSecurity label="Place of Supply" />
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
@@ -319,7 +319,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="Reverse charge" />
+                    <AutocompleteSecurity label="Reverse charge" />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
