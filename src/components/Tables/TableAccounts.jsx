@@ -14,9 +14,18 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
-import { FormControl, InputLabel, MenuItem, Pagination, Select, TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Pagination,
+  Select,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import { secondryColor, thirdColor } from "../../config";
 import { accountData } from "../../config/masterConfig";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -144,51 +153,89 @@ function EnhancedTableToolbar(props) {
         pr: { xs: 1, sm: 1 },
       }}
     >
-          <FormControl sx={{ m: 1, flex: "1 1 100%" }} className="CLTFormControl">
-        <InputLabel htmlFor="rows-per-page" sx={{
-                '&.Mui-focused': {
-                color: 'currentColor', // Keeps the current color
-                
-                }
-            }}>Show Entries</InputLabel>
-          <Select
-            value={12}
-          
-            label="Rows per page"
-            inputProps={{
-              name: "rows-per-page",
-              id: "rows-per-page",
-            }}
-            sx={{ width: "120px", height: "35px",'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'currentColor', // Keeps the current border color
-            },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'currentColor', // Optional: Keeps the border color on hover
-            } }}
-            
-
-          >
-            <MenuItem  value={10}>10</MenuItem>
-            <MenuItem value={25}>25</MenuItem>
-            <MenuItem value={50}>50</MenuItem>
-            <MenuItem value={100}>100</MenuItem>
-          </Select>
-        </FormControl>
-     
+      <FormControl sx={{ m: 1, flex: "1 1 100%" }} className="CLTFormControl">
+        <InputLabel htmlFor="rows-per-page">Show Entries</InputLabel>
+        <Select
+          value={12}
+          label="Rows per page"
+          inputProps={{
+            name: "rows-per-page",
+            id: "rows-per-page",
+          }}
+          sx={{
+            width: "120px",
+            height: "35px",
+          }}
+        >
+          <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={25}>25</MenuItem>
+          <MenuItem value={50}>50</MenuItem>
+          <MenuItem value={100}>100</MenuItem>
+        </Select>
+      </FormControl>
+      <Tooltip title="Show All Records">
         <a
-  className="btn text-white"
-  data-mdb-ripple-init=""
-  style={{
-    backgroundColor: thirdColor,
-    padding: "0.3rem 0.8rem", // Adjust padding to reduce button size
-    fontSize: "0.8rem", // Adjust font size to reduce icon size
-  }}
-  role="button"
->
-<i class="far fa-folder" style={{ fontSize: "0.8rem" }} /> {/* Adjust font size of the icon */}
-</a>
-
- 
+          className="btn text-white"
+          data-mdb-ripple-init=""
+          style={{
+            backgroundColor: thirdColor,
+            padding: "0.3rem 0.8rem", // Adjust padding to reduce button size
+            fontSize: "0.8rem", // Adjust font size to reduce icon size
+            marginLeft: 3,
+          }}
+          role="button"
+        >
+          <i class="far fa-folder" style={{ fontSize: "0.8rem" }} />
+        </a>
+      </Tooltip>
+      <Tooltip title="Show All Unauthorised Records">
+        <a
+          className="btn text-white"
+          data-mdb-ripple-init=""
+          style={{
+            backgroundColor: thirdColor,
+            padding: "0.3rem 0.8rem",
+            fontSize: "0.8rem",
+            marginLeft: 3,
+          }}
+          role="button"
+        >
+          <i class="far fa-rectangle-list" style={{ fontSize: "0.8rem" }} />
+        </a>
+      </Tooltip>
+      <Tooltip title="Show All Closed Records">
+        <a
+          className="btn text-white"
+          data-mdb-ripple-init=""
+          style={{
+            backgroundColor: thirdColor,
+            padding: "0.3rem 0.8rem",
+            fontSize: "0.8rem",
+            marginLeft: 3,
+          }}
+          role="button"
+        >
+          <i class="fas fa-square-xmark" style={{ fontSize: "0.8rem" }} />
+        </a>
+      </Tooltip>
+      <Tooltip title="Auto Adjust Columns">
+        <a
+          className="btn text-white"
+          data-mdb-ripple-init=""
+          style={{
+            backgroundColor: thirdColor,
+            padding: "0.3rem 0.8rem",
+            fontSize: "0.8rem",
+            marginLeft: 3,
+          }}
+          role="button"
+        >
+          <OpenInNewIcon style={{ fontSize: "0.9rem" }} />
+        </a>
+      </Tooltip>
+      <Tooltip title="Retain Selection">
+        <Checkbox size="small" />
+      </Tooltip>
     </Toolbar>
   );
 }
@@ -297,7 +344,6 @@ export default function SummaryPage() {
           minHeight: "590px",
         }}
       >
-           
         <>
           <Paper
             sx={{
@@ -306,7 +352,6 @@ export default function SummaryPage() {
               boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
             }}
           >
-            
             <EnhancedTableToolbar
               name="Account Name"
               values={searchQuery}
@@ -378,7 +423,6 @@ export default function SummaryPage() {
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
                                       width: "auto",
-                                  
                                     }}
                                     key={row[column]}
                                     component="th"
@@ -400,43 +444,42 @@ export default function SummaryPage() {
                 </Table>
               </TableContainer>
             )}
-          <Pagination
-  rowsPerPageOptions={[15, 25, 50, 100]}
-  component="div"
-  variant="outlined"
-  shape="rounded"
-  count={data.length}
-  rowsPerPage={rowsPerPage}
-  page={page}
-  onPageChange={handleChangePage}
-  onRowsPerPageChange={handleChangeRowsPerPage}
-  sx={{
-    display: "flex", // Use flexbox for the container
-    justifyContent: "center", // Center the pagination horizontally
-    alignItems: "center", // Center the pagination vertically
-    p:1,
-    ".MuiPagination-root": {
-      margin: "0 auto", // Center the pagination container
-    },
-    ".MuiPagination-ul": {
-      justifyContent: "center", // Center the page number links
-    },
-    ".MuiPaginationItem-root": {
-      fontSize: "0.9rem", // Adjust the font size of pagination items
-    },
-    ".MuiSelect-root": {
-      marginLeft: "0.5rem", // Add left margin to the rows per page select
-    },
-    ".MuiTablePagination-input": {
-      marginRight: "0.5rem", // Add right margin to the page input
-    },
-    ".MuiSvgIcon-root": {
-      fontSize: "1.2rem", // Adjust the font size of pagination icons
-    },
-    // Add other styles as needed
-  }}
-/>
-
+            <Pagination
+              rowsPerPageOptions={[15, 25, 50, 100]}
+              component="div"
+              variant="outlined"
+              shape="rounded"
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              sx={{
+                display: "flex", // Use flexbox for the container
+                justifyContent: "center", // Center the pagination horizontally
+                alignItems: "center", // Center the pagination vertically
+                p: 1,
+                ".MuiPagination-root": {
+                  margin: "0 auto", // Center the pagination container
+                },
+                ".MuiPagination-ul": {
+                  justifyContent: "center", // Center the page number links
+                },
+                ".MuiPaginationItem-root": {
+                  fontSize: "0.9rem", // Adjust the font size of pagination items
+                },
+                ".MuiSelect-root": {
+                  marginLeft: "0.5rem", // Add left margin to the rows per page select
+                },
+                ".MuiTablePagination-input": {
+                  marginRight: "0.5rem", // Add right margin to the page input
+                },
+                ".MuiSvgIcon-root": {
+                  fontSize: "1.2rem", // Adjust the font size of pagination icons
+                },
+                // Add other styles as needed
+              }}
+            />
           </Paper>
         </>
       </Box>

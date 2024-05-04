@@ -43,6 +43,7 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
+import AccountDetails from "./AccountDetails";
 
 function handleClick(event) {
   event.preventDefault();
@@ -67,6 +68,7 @@ export default function AccountMaster(args) {
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
   const [infoHide, setInfoHide] = useState(false);
+  const [detailPage, setDetailPage] = useState(false);
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
@@ -94,10 +96,18 @@ export default function AccountMaster(args) {
     }, 400);
   };
 
+  const handleDetailPageOpen = () => {
+    setDetailPage(true);
+  };
+
+  const handleDetailPageClose = () => {
+    setDetailPage(false);
+  };
+
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "0.8rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
       key="1"
       color="white"
       onClick={handleClick}
@@ -109,7 +119,7 @@ export default function AccountMaster(args) {
       underline="hover"
       key="2"
       color="white"
-      sx={{ fontSize: "0.8rem" }}
+      sx={{ fontSize: "1rem" }}
       onClick={handleClick}
     >
       Master
@@ -118,12 +128,12 @@ export default function AccountMaster(args) {
       underline="hover"
       key="3"
       color="white"
-      sx={{ fontSize: "0.8rem" }}
+      sx={{ fontSize: "1rem" }}
       onClick={handleClick}
     >
       Account
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "0.8rem" }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
       Account Master
     </Typography>,
   ];
@@ -155,136 +165,184 @@ export default function AccountMaster(args) {
             </Breadcrumbs>
           </Stack>
 
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={1}
-            sx={{ flex: "0 0 auto" }}
-          >
-            <IconButton
-              aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+          {!detailPage ? (
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{ flex: "0 0 auto" }}
             >
-              <Stack direction="column" alignItems="center">
-                <AddIcon style={{ color: "white" }} />
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
-                >
-                  New
-                </Typography>
-              </Stack>
-            </IconButton>
-            <IconButton
-              aria-label="Add group"
-              sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
-            >
-              <Stack direction="column" alignItems="center">
-                <GroupAddIcon style={{ color: "white" }} />
-
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
-                >
-                  Add Group
-                </Typography>
-              </Stack>
-            </IconButton>
-            <IconButton
-              aria-label="Edit"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-            >
-              <Stack direction="column" alignItems="center">
-                <EditIcon style={{ color: "white" }} />
-
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
-                >
-                  Edit
-                </Typography>
-              </Stack>
-            </IconButton>
-            <IconButton
-              aria-label="Clone"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-            >
-              <Stack direction="column" alignItems="center">
-                <FileCopyIcon style={{ color: "white" }} />
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
-                >
-                  Clone
-                </Typography>
-              </Stack>
-            </IconButton>
-            <IconButton
-              aria-label="Delete"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-            >
-              <Stack direction="column" alignItems="center">
-                <DeleteIcon style={{ color: "white" }} />
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
-                >
-                  Delete
-                </Typography>
-              </Stack>
-            </IconButton>
-            <IconButton
-              aria-label="Close"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-            >
-              <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: "white" }} />
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
-                >
-                  Close
-                </Typography>
-              </Stack>
-            </IconButton>
-            <Stack direction="column" alignItems="center">
-              {/* <Button
-                color="primary"
-                onClick={toggleClose}
-                style={{
-                  padding: "0.3rem",
-
-                  height: "2.5rem",
-                  borderRadius: "0.5rem 0 0 0.5rem",
-                }}
+              <IconButton onClick={handleDetailPageOpen}
+                aria-label="New"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
-                <MoreVertIcon style={{ fontSize: "1rem" }} />
-              </Button> */}
-
-              <SpeedDial
-                ariaLabel="SpeedDial basic example"
-                sx={{ position: "absolute", bottom: 25, right: 16 }}
-                icon={<SpeedDialIcon />}
-                direction="left"
+                <Stack direction="column" alignItems="center">
+                  <AddIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    New
+                  </Typography>
+                </Stack>
+              </IconButton>
+              <IconButton
+                aria-label="Add group"
+                sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
               >
-                {actions.map((action) => (
-                  <SpeedDialAction
-                    key={action.name}
-                    icon={action.icon}
-                    tooltipTitle={action.name}
-                  />
-                ))}
-              </SpeedDial>
+                <Stack direction="column" alignItems="center">
+                  <GroupAddIcon style={{ color: "white" }} />
+
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Add Group
+                  </Typography>
+                </Stack>
+              </IconButton>
+              <IconButton
+                aria-label="Edit"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <EditIcon style={{ color: "white" }} />
+
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Edit
+                  </Typography>
+                </Stack>
+              </IconButton>
+              <IconButton
+                aria-label="Clone"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <FileCopyIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Clone
+                  </Typography>
+                </Stack>
+              </IconButton>
+              <IconButton
+                aria-label="Delete"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <DeleteIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Delete
+                  </Typography>
+                </Stack>
+              </IconButton>
+              <IconButton
+                aria-label="Close"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <CloseIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Close
+                  </Typography>
+                </Stack>
+              </IconButton>
             </Stack>
-          </Stack>
-        </Box>
+          ) : (
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{ flex: "0 0 auto" }}
+            >
+              <IconButton
+                aria-label="Save"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <SaveIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Save
+                  </Typography>
+                </Stack>
+              </IconButton>
 
+              <IconButton
+                aria-label="Clone"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <FileCopyIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Clone
+                  </Typography>
+                </Stack>
+              </IconButton>
+
+              <IconButton onClick={handleDetailPageClose}
+                aria-label="Close"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <CloseIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Close
+                  </Typography>
+                </Stack>
+              </IconButton>
+            </Stack>
+          )}
+
+        </Box>
+  {detailPage? (
+    <AccountDetails /> 
+  ): (
+
+ 
+        <>
+        <SpeedDial
+              ariaLabel="SpeedDial basic example"
+              sx={{ position: "absolute", bottom: 25, right: 16 }}
+              icon={<SpeedDialIcon />}
+              direction="left"
+            >
+              {actions.map((action) => (
+                <SpeedDialAction
+                  key={action.name}
+                  icon={action.icon}
+                  tooltipTitle={action.name}
+                />
+              ))}
+            </SpeedDial>
         <div style={{ display: "flex" }}>
           {!hide ? (
             <div
@@ -345,7 +403,7 @@ export default function AccountMaster(args) {
               </div>
             </Alert>
           </Collapse>
-          
+
           <TableAccounts />
         </div>
         <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}>
@@ -427,6 +485,8 @@ export default function AccountMaster(args) {
             </Button>
           ) : null}
         </div>
+        </>
+         )}
       </React.StrictMode>
     </>
   );

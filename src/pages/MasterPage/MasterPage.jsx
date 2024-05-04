@@ -16,7 +16,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function MasterPage() {
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", }}>
         <SideBar />
         <Box component="main" sx={{ flexGrow: 1 }}>
           <DrawerHeader />
