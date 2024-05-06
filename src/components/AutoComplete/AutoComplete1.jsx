@@ -4,12 +4,12 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 
 export default function AutocompleteSecurity({
-    value,
-    onChangeName,
+    formData,
+    setFormData,
     key,
     label
 }) {
-  console.log(value);
+  
     const CustomListBox = React.forwardRef((props, ref) => {
         const { children, ...other } = props;
         const buttonColor1 = "#1976D2"; // This is an example color value
@@ -39,11 +39,30 @@ export default function AutocompleteSecurity({
     const [open, setOpen] = React.useState(false);
     const [searchkey, setSearchKey] = useState({})
     const [iTypeF2, setiTypeF2] = useState(1);
+    
     useEffect(() => {
-        setSearchKey(value || "");
+        setSearchKey(formData.sName || "");
        
-      }, [value]);
+      }, [formData?.sName]);
 
+      const handleAutocompleteChange = (event, newValue) => {
+        
+          const updatedFormData = {
+            ...formData,
+            sName: newValue ? newValue.sName : null, //"" was replaced by null
+            iId: newValue ? newValue.iId : null, //"" was replaced by null
+          };
+      
+          setFormData(updatedFormData); // This will now update the parent's state
+          setiTypeF2(1);
+       
+       
+        // if (isMandatory && !newValue) {
+        //   setError({ isError: true, message: 'This field is required.' });
+        // } else {
+        //   setError({ isError: false, message: '' });
+        // }
+      };
 
 
     useEffect(() => {
@@ -52,7 +71,7 @@ export default function AutocompleteSecurity({
             const encodedSearchkey = encodeURIComponent(searchkey);
            
          
-             const response =await  fetch(`http://103.120.178.195/Sang.Ray.Web.Api/Ray/GetProject?iStatus=1&sSearch=${encodedSearchkey}`)
+             const response =await  fetch(`http://103.120.178.195/Sang.Ray.Web.Api/Ray/GetProject?iStatus=${iTypeF2}&sSearch=${encodedSearchkey}`)
              
               const data = await response.json();
              
@@ -89,31 +108,17 @@ export default function AutocompleteSecurity({
     freeSolo  // Enable free solo mode
     id={key}
     size="small"
-    value={value || ""}
-    onChange={(event, newValue) => {
-      
-      if (newValue) {
-        onChangeName({
-          sName: newValue.sName || newValue,
-          iId: newValue.iId || 0,
-         
-        });
-      } else {
-        onChangeName({
-          sName: "",
-          iId: 0
-        });
-      }
-    }}
+    value={formData?.sName || ""}
+    onChange={handleAutocompleteChange}
     onInputChange={(event, newInputValue) => {
       
       setSearchKey(newInputValue);
-      onChangeName({
+      setFormData({
         sName: newInputValue,
-        iId: 0 // Assuming default or reset ID
+        iId: null // Assuming default or reset ID
       });
     }}
-    isOptionEqualToValue={(option, value) => option.sName === value}
+    isOptionEqualToValue={(option, value) => option?.sName === value}
     options={suggestion}
     filterOptions={(options, { inputValue }) => {
         return options.filter((option) =>
@@ -173,13 +178,15 @@ export default function AutocompleteSecurity({
                 },
                 inputProps: {
                     ...params.inputProps,
-                    onKeyDown: (event) => {
+                    onKeyDown: (event,newValue) => {
                         if (event.key === "F2") {
                             // Clear selected option and search key before handling F2 press
-                            onChangeName({
-                                sName: "",
-                                iId: 0
-                            });
+                           const updatedFormData = {
+                            ...formData,
+                            sName: newValue ? newValue?.sName : null,
+                            iId: newValue ? newValue?.iId : null,
+                          };
+                          setFormData(updatedFormData);
                             setSearchKey("");
 
                             setiTypeF2((prevType) => (prevType === 1 ? 2 : 1));

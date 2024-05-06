@@ -23,7 +23,13 @@ import Tree1 from '../../../../components/Tree/Tree1';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
 import DeselectIcon from '@mui/icons-material/Deselect';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import AutoComplete2 from '../../../../components/AutoComplete/AutoComplete2';
+import AutoComplete1 from '../../../../components/AutoComplete/AutoComplete1';
+import ProfileHistoryTable from './ProfileHistoryTable';
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import SettingsIcon from '@mui/icons-material/Settings';
+import DraggableColumnsDialog from './ProfileNameField';
+import AccountInput from '../../../../components/Inputs/AccountInput';
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 
 const SelectAllIconStyle ={//style for selectAll and unselectAll
   fontSize: "0.8rem",
@@ -85,11 +91,12 @@ function BasicBreadcrumbs() {
     </div>
   );
 }
-const DefaultIcons = ({iconsClick}) => {
+const DefaultIcons = ({iconsClick,detailPageId}) => {
+  
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
       
-      
+      {detailPageId !=0 ?
       <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -106,6 +113,8 @@ const DefaultIcons = ({iconsClick}) => {
                 </Typography>
               </Stack>
             </IconButton>
+            :null
+      }      
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -122,6 +131,7 @@ const DefaultIcons = ({iconsClick}) => {
                 </Typography>
               </Stack>
             </IconButton>
+            {detailPageId !=0 ?
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -138,6 +148,9 @@ const DefaultIcons = ({iconsClick}) => {
                 </Typography>
               </Stack>
             </IconButton>
+             :null
+            }      
+            {detailPageId !=0 ?
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -154,13 +167,15 @@ const DefaultIcons = ({iconsClick}) => {
                 </Typography>
               </Stack>
             </IconButton>
+            :null
+            }
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               onClick={()=>iconsClick("GetLoadFrom")}
             >
               <Stack direction="column" alignItems="center">
-        <ContentCopyIcon sx={{ color:primaryButtonColor }} />
+        <FileCopyIcon sx={{ color:primaryButtonColor }} />
         <Typography
                   variant="caption"
                   align="center"
@@ -208,82 +223,7 @@ const AdditionalIcons = () => {
     </Box>
   );
 };
-// function Example(args) {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const [hide, setHide] = useState(false);
 
-//   const toggleOpen = () => {
-//     setIsOpen(true);
-//     setHide(true);
-//   };
-//   const toggleClose = () => {
-//     setIsOpen(false);
-//     setTimeout(() => {
-//       setHide(false);
-//     }, 400);
-//   };
-
-//   return (
-//     <React.StrictMode>
-//       {!hide ? (
-//         <div
-//           style={{
-//             display: "flex",
-//             alignItems: "center",
-            
-//           }}
-//         >
-//           <Button
-//             color="primary"
-//             onClick={toggleOpen}
-//             style={{
-//               marginBottom: "1rem",
-//               padding: "0.1rem",
-//               fontSize: "0.6rem",
-//               height: "3rem",
-//               borderRadius: "0.5rem 0 0 0.5rem",
-//             }}
-//           >
-//             <KeyboardDoubleArrowLeftIcon style={{ fontSize: "1rem" }} />
-//           </Button>
-//         </div>
-//       ) : null}
-
-//       <Collapse horizontal isOpen={isOpen} {...args}>
-       
-//       <Alert
-//         style={{
-          
-//           boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.3)',
-//           backgroundColor: secondryColor,
-//           display: 'flex',
-//           alignItems: 'center',
-      
-//         }}
-//       >
-//           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', }}>
-//         < AdditionalIcons/>
-//         <Button
-//         color="primary"
-//         onClick={toggleClose}
-       
-//           style={{
-//             marginBottom: "1rem",
-//             padding: "0.1rem",
-//             fontSize: "0.6rem",
-//             height: "3rem",
-//             borderRadius: "0 0.5rem 0.5rem 0",
-//           }}
-//       >
-//              <KeyboardDoubleArrowLeftIcon style={{ fontSize: "1rem" }} />
-//       </Button>
-//     </div>
-//       </Alert>
-      
-//       </Collapse>
-//     </React.StrictMode>
-//   );
-// }
 
 function Example() {//AdditionalIcons
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -347,21 +287,21 @@ function Example() {//AdditionalIcons
 }
 
 const buttonStyle ={
-  backgroundColor: primaryColor,
+  backgroundColor: secondryColor,
   color: primaryButtonColor,
   textTransform: 'none',
   padding: "1px",
   '&:hover': {
-    backgroundColor: primaryColor, // Change as needed
+    backgroundColor: secondryColor, // Change as needed
     color: primaryButtonColor // Example hover color change
   },
   
 }
 
 
-const ProfileNew = ({setPage}) => {
+const ProfileNew = ({setPage,detailPageId}) => {
  
-
+ 
   const [profileName, setprofileName] = useState({sName:"null",iId:null})
   const [checkedState, setCheckedState] = useState(
     new Array(restrictionItems.length).fill(false)
@@ -369,6 +309,7 @@ const ProfileNew = ({setPage}) => {
   const [openRoleInProfile, setOpenRoleInProfile] = useState(false);
   const [openLoadFrom, setOpenLoadFrom] = useState(false);
   const [openHistory, setOpenHistory] = useState(false);
+  const [openCustomize, setOpenCustomize] = useState(false);
  
   const handleIconsClick =(value) => {
         switch (value.trim()) {
@@ -386,7 +327,10 @@ const ProfileNew = ({setPage}) => {
             break;  
           case "GetHistory":
             handleLoadHistory()  
-            break;    
+            break;  
+          case "customize":
+            handleOpenCustomize()  
+            break;      
           default:
             break;
         }
@@ -421,6 +365,14 @@ const ProfileNew = ({setPage}) => {
     
     setOpenHistory(false)
   }
+  const handleOpenCustomize = ()=>{
+   
+    setOpenCustomize(true)
+  }
+  const handleCloseCustomize = ()=>{
+    
+    setOpenCustomize(false)
+  }
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
@@ -447,29 +399,43 @@ const ProfileNew = ({setPage}) => {
     <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
             paddingRight: 1.5,}}>   
        <BasicBreadcrumbs/>
-       <DefaultIcons iconsClick={handleIconsClick}/>
+       <DefaultIcons detailPageId={detailPageId} iconsClick={handleIconsClick}/>
        
     </Box>
-    <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",height:"83vh",overflowY:"auto",scrollbarWidth:"thin"}}>
+    <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",height:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
       <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
         <Typography sx={{fontSize:"20px",color:secondryColor}}>
           Create Profile
         </Typography>
         <Box sx={{display:"flex",flexDirection:"row",mt:2,gap:4,alignItems:"center"}}>
-          <Typography sx={{color:"#00000" ,opacity:"0.5"}}>Profile Name</Typography>
-          <div style={{minWidth:"200px"}}>
-          <AutoComplete2
+          {/* <Typography sx={{color:"#00000" ,opacity:"0.8"}}>Profile Name</Typography> */}
+          {/* <div style={{minWidth:"200px",display:"flex",alignItems:"center"}}>
+          <AutoComplete1
 
             autoId="profile"
             
             
             autoLabel={""}
-            formData={profileName}
+            formData={profileName.sName}
             setFormData={setprofileName}
            
 
           />
-          </div>
+          <IconButton
+              aria-label="New"
+              sx={SelectAllIconStyle}
+              onClick={()=>handleIconsClick("customize")}
+            >
+              <Stack direction="column" alignItems="center">
+        <SettingsIcon />
+       
+              </Stack>
+            </IconButton>
+          </div> */}
+          <AccountInput label="Profile Name" />
+          
+         
+          
          
           
         </Box>
@@ -649,12 +615,12 @@ const ProfileNew = ({setPage}) => {
     
   </DialogActions>
 </Dialog>
-<Dialog open={openHistory} onClose={handleCloseLoadHistory} aria-labelledby="form-dialog-title">
+<Dialog open={openHistory} onClose={handleCloseLoadHistory}>
   <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
        History
         </Typography>
-        <Box sx={{minHeight:"200px",ml:2}}>
-         <Table></Table>
+        <Box sx={{minHeight:"200px",padding:"30px"}}>
+        <ProfileHistoryTable/>
 
         </Box>
   <DialogContent>
@@ -680,6 +646,8 @@ const ProfileNew = ({setPage}) => {
     
   </DialogActions>
 </Dialog>
+<DraggableColumnsDialog open={openCustomize} onClose={handleCloseCustomize}/>
+
   </Box>
   );
 }
