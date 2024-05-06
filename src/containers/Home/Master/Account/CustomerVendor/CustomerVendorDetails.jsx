@@ -17,6 +17,7 @@ import {
 } from "mdb-react-ui-kit";
 import AccountInput from "../../../../../components/Inputs/AccountInput";
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
+import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -91,7 +92,7 @@ export default function CustomerVendorDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Type" />
+                  <AutoComplete2 autoLabel="Type" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -103,7 +104,7 @@ export default function CustomerVendorDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Salesman" />
+                  <AutoComplete2 autoLabel="Salesman" />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
@@ -128,7 +129,7 @@ export default function CustomerVendorDetails() {
               <MDBCardBody>
                 <MDBRow>
                 <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Default Currency" />
+                <AutoComplete2 autoLabel="Default Currency" />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
@@ -157,7 +158,7 @@ export default function CustomerVendorDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="City" />
+                  <AutoComplete2 autoLabel="City" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -192,11 +193,11 @@ export default function CustomerVendorDetails() {
               <MDBCardBody>
                 <MDBRow>
                 <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Place of supply" />
+                <AutoComplete2 autoLabel="Place of supply" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Reverse chargeable" />
+                  <AutoComplete2 autoLabel="Reverse chargeable" />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>

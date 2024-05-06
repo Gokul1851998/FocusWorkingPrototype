@@ -172,7 +172,8 @@ export default function AccountMaster(args) {
               spacing={1}
               sx={{ flex: "0 0 auto" }}
             >
-              <IconButton onClick={handleDetailPageOpen}
+              <IconButton
+                onClick={handleDetailPageOpen}
                 aria-label="New"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -304,7 +305,8 @@ export default function AccountMaster(args) {
                 </Stack>
               </IconButton>
 
-              <IconButton onClick={handleDetailPageClose}
+              <IconButton
+                onClick={handleDetailPageClose}
                 aria-label="Close"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -321,15 +323,12 @@ export default function AccountMaster(args) {
               </IconButton>
             </Stack>
           )}
-
         </Box>
-  {detailPage? (
-    <AccountDetails /> 
-  ): (
-
- 
-        <>
-        <SpeedDial
+        {detailPage ? (
+          <AccountDetails />
+        ) : (
+          <>
+            <SpeedDial
               ariaLabel="SpeedDial basic example"
               sx={{ position: "absolute", bottom: 25, right: 16 }}
               icon={<SpeedDialIcon />}
@@ -343,152 +342,156 @@ export default function AccountMaster(args) {
                 />
               ))}
             </SpeedDial>
-        <div style={{ display: "flex" }}>
-          {!hide ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                height: isOpen ? null : 590,
-              }}
-            >
-              <Button
-                color="primary"
-                onClick={toggleOpen}
-                style={{
-                  marginBottom: "1rem",
-                  padding: "0.3rem",
-                  fontSize: "0.6rem",
-                  height: "5rem",
-                  borderRadius: "0 0.5rem 0.5rem 0",
-                }}
-              >
-                <KeyboardDoubleArrowRightIcon style={{ fontSize: "1rem" }} />
-              </Button>
-            </div>
-          ) : null}
-
-          <Collapse horizontal isOpen={isOpen} {...args}>
-            <Alert
-              style={{
-                width: 350,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-                backgroundColor: primaryButtonColor,
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Tree1 items={accountTree} />
-
-                <Button
-                  color="primary"
-                  onClick={toggleClose}
+            <div style={{ display: "flex" }}>
+              {!hide ? (
+                <div
                   style={{
-                    marginBottom: "1rem",
-                    padding: "0.3rem",
-                    fontSize: "0.6rem",
-                    height: "5rem",
-                    borderRadius: "0.5rem 0 0 0.5rem",
+                    display: "flex",
+                    alignItems: "center",
+                    height: isOpen ? null : 590,
                   }}
                 >
-                  <KeyboardDoubleArrowLeftIcon style={{ fontSize: "1rem" }} />
-                </Button>
-              </div>
-            </Alert>
-          </Collapse>
-       
-      
-      
-          <TableAccounts />
-        </div>
-        <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}>
-          <Collapse
-            style={{ marginBottom: "0.3rem" }}
-            isOpen={isInfo}
-            {...args}
-          >
-            <Alert
-              style={{
-                width: 350,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-                backgroundColor: primaryButtonColor,
-                flexDirection: "column", // Arrange children vertically
-                alignItems: "center",
-                marginBottom: "0.3rem",
-                position: "relative", // Add position relative to the Alert
-              }}
-            >
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={infoPanelClose}
-                style={{
-                  borderRadius: "0 0 0.5rem 0.5rem",
-                  height: "1.2rem",
-                  width: "8rem",
-                  marginBottom: "0.3rem",
-                  marginLeft: "5rem",
-                  top: 0, // Align to the top
-                  right: 0, // Align to the end
-                  transform: "translateY(-100%)", // Move the button to the top of the container
-                  display: "flex",
-                  justifyContent: "center", // Center horizontally
-                  alignItems: "center", // Center vertically
-                }}
-              >
-                <KeyboardDoubleArrowDownIcon style={{ fontSize: "1rem" }} />
-              </Button>
-              <Box
-                sx={{
-                  overflowX: "hidden",
-                  height: 550,
-                  flexGrow: 1,
-                  minWidth: 300,
-                  scrollbarWidth: "thin",
-                  zIndex: 100,
-                }}
-              >
-                <Typography
-                  sx={{ flex: "1 1 100%" }}
-                  variant="h6"
-                  id="tableTitle"
-                  component="div"
-                >
-                  Info Panel
-                </Typography>
-              </Box>
-            </Alert>
-          </Collapse>
+                  <Button
+                    color="primary"
+                    onClick={toggleOpen}
+                    style={{
+                      marginBottom: "1rem",
+                      padding: "0.3rem",
+                      fontSize: "0.6rem",
+                      height: "5rem",
+                      borderRadius: "0 0.5rem 0.5rem 0",
+                    }}
+                  >
+                    <KeyboardDoubleArrowRightIcon
+                      style={{ fontSize: "1rem" }}
+                    />
+                  </Button>
+                </div>
+              ) : null}
 
-          {!infoHide ? (
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={infoPanelOpen}
-              style={{
-                borderRadius: "0.5rem 0.5rem 0 0",
-                height: "1.2rem",
-                width: "8rem",
-                marginBottom: "0.3rem",
-                marginRight: "5rem",
-                display: "flex",
-                justifyContent: "center", // Center horizontally
-                alignItems: "center", // Center vertically
-              }}
+              <Collapse horizontal isOpen={isOpen} {...args}>
+                <Alert
+                  style={{
+                    width: 350,
+                    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                    backgroundColor: primaryButtonColor,
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Tree1 items={accountTree} />
+
+                    <Button
+                      color="primary"
+                      onClick={toggleClose}
+                      style={{
+                        marginBottom: "1rem",
+                        padding: "0.3rem",
+                        fontSize: "0.6rem",
+                        height: "5rem",
+                        borderRadius: "0.5rem 0 0 0.5rem",
+                      }}
+                    >
+                      <KeyboardDoubleArrowLeftIcon
+                        style={{ fontSize: "1rem" }}
+                      />
+                    </Button>
+                  </div>
+                </Alert>
+              </Collapse>
+
+              <TableAccounts />
+            </div>
+            <div
+              style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}
             >
-              <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
-            </Button>
-          ) : null}
-        </div>
-        </>
-         )}
+              <Collapse
+                style={{ marginBottom: "0.3rem" }}
+                isOpen={isInfo}
+                {...args}
+              >
+                <Alert
+                  style={{
+                    width: 350,
+                    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                    backgroundColor: primaryButtonColor,
+                    flexDirection: "column", // Arrange children vertically
+                    alignItems: "center",
+                    marginBottom: "0.3rem",
+                    position: "relative", // Add position relative to the Alert
+                  }}
+                >
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={infoPanelClose}
+                    style={{
+                      borderRadius: "0 0 0.5rem 0.5rem",
+                      height: "1.2rem",
+                      width: "8rem",
+                      marginBottom: "0.3rem",
+                      marginLeft: "5rem",
+                      top: 0, // Align to the top
+                      right: 0, // Align to the end
+                      transform: "translateY(-100%)", // Move the button to the top of the container
+                      display: "flex",
+                      justifyContent: "center", // Center horizontally
+                      alignItems: "center", // Center vertically
+                    }}
+                  >
+                    <KeyboardDoubleArrowDownIcon style={{ fontSize: "1rem" }} />
+                  </Button>
+                  <Box
+                    sx={{
+                      overflowX: "hidden",
+                      height: 550,
+                      flexGrow: 1,
+                      minWidth: 300,
+                      scrollbarWidth: "thin",
+                      zIndex: 100,
+                    }}
+                  >
+                    <Typography
+                      sx={{ flex: "1 1 100%" }}
+                      variant="h6"
+                      id="tableTitle"
+                      component="div"
+                    >
+                      Info Panel
+                    </Typography>
+                  </Box>
+                </Alert>
+              </Collapse>
+
+              {!infoHide ? (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={infoPanelOpen}
+                  style={{
+                    borderRadius: "0.5rem 0.5rem 0 0",
+                    height: "1.2rem",
+                    width: "8rem",
+                    marginBottom: "0.3rem",
+                    marginRight: "5rem",
+                    display: "flex",
+                    justifyContent: "center", // Center horizontally
+                    alignItems: "center", // Center vertically
+                  }}
+                >
+                  <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
+                </Button>
+              ) : null}
+            </div>
+          </>
+        )}
       </React.StrictMode>
     </>
   );

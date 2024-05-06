@@ -19,6 +19,7 @@ import AccountInput from "../../../../../components/Inputs/AccountInput";
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
 import SearchBox from "../../../../../components/SearchBox/SearchBox";
 import { CustomScroll } from "react-custom-scroll";
+import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 
 const weeks = [
   { title: "ABC", iId: 1 },
@@ -112,7 +113,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Select Tree" />
+                    <AutoComplete2 autoLabel="Select Tree" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -120,7 +121,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Account Type" />
+                  <AutoComplete2 autoLabel="Account Type" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -128,7 +129,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Revision Date" />
+                    <AccountInput label="Revision Date" type="date" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -140,11 +141,11 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="PDC Discount A/C" />
+                  <AutoComplete2 autoLabel="PDC Discount A/C" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Back A/C" />
+                  <AutoComplete2 autoLabel="Back A/C" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -197,43 +198,43 @@ export default function AccountDetails() {
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Debit/Credit Proposal" />
+                  <AutoComplete2 autoLabel="Debit/Credit Proposal" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Debit/Credit Required" />
+                  <AutoComplete2 autoLabel="Debit/Credit Required" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Exchange Adjustment Gain A/C" />
+                  <AutoComplete2 autoLabel="Exchange Adjustment Gain A/C" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Exchange Adjustment Loss A/C" />
+                  <AutoComplete2 autoLabel="Exchange Adjustment Loss A/C" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Primary Account" />
+                  <AutoComplete2 autoLabel="Primary Account" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Default Currency" />
+                  <AutoComplete2 autoLabel="Default Currency" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Consolidation Method" />
+                  <AutoComplete2 autoLabel="Consolidation Method" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Payment Terms" />
+                  <AutoComplete2 autoLabel="Payment Terms" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Reminder Terms" />
+                  <AutoComplete2 autoLabel="Reminder Terms" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Finance Charge Terms" />
+                  <AutoComplete2 autoLabel="Finance Charge Terms" />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
@@ -270,7 +271,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="City" />
+                  <AutoComplete2 autoLabel="City" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -282,7 +283,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="City" />
+                  <AutoComplete2 autoLabel="City" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -354,7 +355,7 @@ export default function AccountDetails() {
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Place of Supply" />
+                  <AutoComplete2 autoLabel="Place of Supply" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -362,7 +363,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="Reverse charge" />
+                  <AutoComplete2 autoLabel="Reverse charge" />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>

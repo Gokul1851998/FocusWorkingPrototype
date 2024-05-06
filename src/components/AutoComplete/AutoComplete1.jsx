@@ -9,7 +9,6 @@ export default function AutocompleteSecurity({
     key,
     label
 }) {
-  console.log(value);
     const CustomListBox = React.forwardRef((props, ref) => {
         const { children, ...other } = props;
         const buttonColor1 = "#1976D2"; // This is an example color value

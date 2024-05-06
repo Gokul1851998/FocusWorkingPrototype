@@ -155,3 +155,35 @@ export const accountData = [
         CreatedBy: "User456"
     },
 ];
+
+export const exchangeRateData = [
+    {
+        MasterId: 1,
+      "Currency Name": "gtgt",
+      "Defined As": "gg",
+      "Rate": 96,
+      "Description": "gtgtg"
+    },
+    {
+        MasterId: 2,
+      "Currency Name": "USD",
+      "Defined As": "US Dollar",
+      "Rate": 1,
+      "Description": "United States Dollar"
+    },
+    {
+        MasterId: 3,
+      "Currency Name": "EUR",
+      "Defined As": "Euro",
+      "Rate": 0.85,
+      "Description": "European Currency"
+    },
+    {
+        MasterId: 4,
+      "Currency Name": "GBP",
+      "Defined As": "British Pound",
+      "Rate": 0.73,
+      "Description": "Pound Sterling"
+    },
+  ];
+  

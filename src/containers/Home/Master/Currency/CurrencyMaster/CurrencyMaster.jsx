@@ -62,6 +62,7 @@ import AutocompleteSecurity from "../../../../../components/AutoComplete/Autocom
 import GetAppIcon from '@mui/icons-material/GetApp';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
+import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 
 function handleClick(event) {
   event.preventDefault();
@@ -339,7 +340,7 @@ export default function CurrencyMaster(args) {
                 <MDBRow>
 
                 <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AutocompleteSecurity label="ISO Currency Code" />
+                <AutoComplete2 autoLabel="ISO Currency Code" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Currency Name" />

@@ -62,6 +62,8 @@ import AutocompleteSecurity from "../../../../../components/AutoComplete/Autocom
 import GetAppIcon from "@mui/icons-material/GetApp";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
+import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
+import ExchangeRateTable from "./ExchangeRateTable";
 
 function handleClick(event) {
   event.preventDefault();
@@ -323,7 +325,7 @@ export default function ExchangeRate(args) {
           <MDBCardBody >
             <MDBRow>
               <MDBCol lg="3" md="4" sm="6" xs="12">
-                <AutocompleteSecurity label="Base Currency" />
+              <AutoComplete2 autoLabel="Base Currency" />
               </MDBCol>
               <MDBCol lg="3" md="4" sm="6" xs="12">
                 <AccountInput label="With Effective Date" type="date" />
@@ -332,7 +334,7 @@ export default function ExchangeRate(args) {
             </MDBRow>
           </MDBCardBody>
         </div>
-
+          <ExchangeRateTable />
         <>
           <SpeedDial
             ariaLabel="SpeedDial basic example"

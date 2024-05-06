@@ -90,7 +90,6 @@ export default function AutocompleteSecurity({
     size="small"
     value={suggestion.find(option => option.sName === value) || null}
     onChange={(event, newValue) => {
-      console.log(newValue,"newValue");
       if (newValue) {
         onChangeName({
           sName: newValue.sName || "",
