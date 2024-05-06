@@ -17,6 +17,22 @@ import {
 } from "mdb-react-ui-kit";
 import AccountInput from "../../../../../components/Inputs/AccountInput";
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
+import SearchBox from "../../../../../components/SearchBox/SearchBox";
+import { CustomScroll } from "react-custom-scroll";
+
+const weeks = [
+  { title: "ABC", iId: 1 },
+  { title: "DEF", iId: 2 },
+  { title: "GHI", iId: 3 },
+];
+
+const language = [
+  { title: "English", iId: 1 },
+  { title: "Arabic", iId: 2 },
+  { title: "Spanish", iId: 3 },
+];
+
+
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -58,9 +74,14 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function AccountDetails() {
   const [expanded, setExpanded] = React.useState("panel1");
+  const [select, setSelect] = React.useState([]);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
+  };
+
+  const handleChild = (data) => {
+    console.log(data);
   };
 
   return (
@@ -82,48 +103,76 @@ export default function AccountDetails() {
             <div>
               <MDBCardBody>
                 <MDBRow>
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Name" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Code" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Select Tree" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Credit Limit" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Account Type" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Credit Days" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Revision Date" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Cheque Discount Limit" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Rate of Interest" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="PDC Discount A/C" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Back A/C" />
+                  </MDBCol>
+
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <div
+                      style={{
+                        width: "auto",
+                        flexDirection: "column",
+                        height: "200px",
+                        overflowY: "auto",
+                        margin: "16px 0",
+                        border: "1px solid #969999",
+                        padding: "0 10px",
+                        boxSizing: "border-box",
+                        borderRadius: 5,
+                      }}
+                    >
+                      <CustomScroll heightRelativeToParent="100%">
+                        <Typography style={{ fontSize: "14px", color: "gray" }}>
+                          Bussness entity
+                        </Typography>
+                        <SearchBox
+                          initialItems={weeks}
+                          selected={select}
+                          params={"projects"}
+                          handleChild={handleChild}
+                        />
+                      </CustomScroll>
+                    </div>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
@@ -147,43 +196,43 @@ export default function AccountDetails() {
             <div>
               <MDBCardBody>
                 <MDBRow>
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Debit/Credit Proposal" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Debit/Credit Required" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Exchange Adjustment Gain A/C" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Exchange Adjustment Loss A/C" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Primary Account" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Default Currency" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Consolidation Method" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Payment Terms" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Reminder Terms" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Finance Charge Terms" />
                   </MDBCol>
                 </MDBRow>
@@ -208,45 +257,39 @@ export default function AccountDetails() {
             <div>
               <MDBCardBody>
                 <MDBRow>
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
-                    {" "}
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Address" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
-                    {" "}
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Tel No" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
-                    {" "}
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Fax No" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="City" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Pin" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
-                    {" "}
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Delivery Address" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
-                    {" "}
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="City" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
-                    {" "}
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Pin" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -264,7 +307,7 @@ export default function AccountDetails() {
                     />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -281,10 +324,10 @@ export default function AccountDetails() {
                       }}
                     />
                   </MDBCol>
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Email" />
                   </MDBCol>
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Password" />
                   </MDBCol>
                 </MDBRow>
@@ -310,15 +353,15 @@ export default function AccountDetails() {
             <div>
               <MDBCardBody>
                 <MDBRow>
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Place of Supply" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="TRP" />
                   </MDBCol>
 
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutocompleteSecurity label="Reverse charge" />
                   </MDBCol>
                 </MDBRow>
@@ -340,48 +383,37 @@ export default function AccountDetails() {
           <Typography style={{ fontSize: "14px" }}>Language</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-            lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
-            amet blandit leo lobortis eget.
-          </Typography>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Language
+                    </Typography>
+                    <SearchBox
+                      initialItems={language }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
         </AccordionDetails>
       </Accordion>
     </div>

@@ -8,6 +8,7 @@ import {
   primaryButtonColor,
   primaryColor,
   secondryColor,
+  thirdColor,
 } from "../../../../../config";
 import { accountTree } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
@@ -43,7 +44,24 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
-import CustomerVendorDetails from "./CustomerVendorDetails";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import MuiAccordion from "@mui/material/Accordion";
+import MuiAccordionSummary from "@mui/material/AccordionSummary";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import { Checkbox, FormControlLabel } from "@mui/material";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCol,
+  MDBInput,
+  MDBRow,
+} from "mdb-react-ui-kit";
+import AccountInput from "../../../../../components/Inputs/AccountInput";
+import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
+import GetAppIcon from '@mui/icons-material/GetApp';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
 
 function handleClick(event) {
   event.preventDefault();
@@ -63,7 +81,45 @@ const actions = [
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
 ];
 
-export default function CustomerVendor(args) {
+const Accordion = styled((props) => (
+    <MuiAccordion disableGutters elevation={0} square {...props} />
+  ))(({ theme }) => ({
+    border: `1px solid ${theme.palette.divider}`,
+    "&:not(:last-child)": {
+      borderBottom: 0,
+    },
+    "&::before": {
+      display: "none",
+    },
+  }));
+  
+  const AccordionSummary = styled((props) => (
+    <MuiAccordionSummary
+      expandIcon={
+        props.expanded ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />
+      }
+      {...props}
+    />
+  ))(({ theme }) => ({
+    color: primaryButtonColor,
+    backgroundColor: thirdColor,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    "& .MuiAccordionSummary-content": {
+      flexGrow: 1,
+    },
+    "& .MuiSvgIcon-root": {
+      fontSize: "1.5rem",
+      color: primaryButtonColor,
+    },
+  }));
+  
+  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+    paddingLeft: theme.spacing(3),
+    borderTop: "1px solid rgba(0, 0, 0, .125)",
+  }));
+
+export default function CurrencyMaster(args) {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
@@ -72,6 +128,11 @@ export default function CustomerVendor(args) {
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
+  const [expanded, setExpanded] = React.useState("panel1");
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   const toggleOpen = () => {
     setIsOpen(true);
@@ -104,6 +165,10 @@ export default function CustomerVendor(args) {
     setDetailPage(false);
   };
 
+  const handleClose = ()=>{
+    window.history.back()
+  }
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -134,7 +199,7 @@ export default function CustomerVendor(args) {
       Account
     </Link>,
     <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
-      Customer/Vendor Master
+     Currency Master
     </Typography>,
   ];
 
@@ -165,25 +230,26 @@ export default function CustomerVendor(args) {
             </Breadcrumbs>
           </Stack>
 
-          {!detailPage ? (
+      
             <Stack
               direction="row"
               alignItems="center"
               spacing={1}
               sx={{ flex: "0 0 auto" }}
             >
-              <IconButton onClick={handleDetailPageOpen}
+              <IconButton
+             
                 aria-label="New"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <AddIcon style={{ color: "white" }} />
+                  <GetAppIcon style={{ color: "white" }} />
                   <Typography
                     variant="caption"
                     align="center"
                     style={{ color: "white", fontSize: "0.6rem" }}
                   >
-                    New
+                    Import
                   </Typography>
                 </Stack>
               </IconButton>
@@ -192,14 +258,14 @@ export default function CustomerVendor(args) {
                 sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <GroupAddIcon style={{ color: "white" }} />
+                  <SwapHorizIcon style={{ color: "white" }} />
 
                   <Typography
                     variant="caption"
                     align="center"
                     style={{ color: "white", fontSize: "0.6rem" }}
                   >
-                    Add Group
+                    Exchange Rate
                   </Typography>
                 </Stack>
               </IconButton>
@@ -208,72 +274,19 @@ export default function CustomerVendor(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <EditIcon style={{ color: "white" }} />
+                  <ClearAllIcon style={{ color: "white" }} />
 
                   <Typography
                     variant="caption"
                     align="center"
                     style={{ color: "white", fontSize: "0.6rem" }}
                   >
-                    Edit
+                    Clear
                   </Typography>
                 </Stack>
               </IconButton>
-              <IconButton
+              <IconButton 
                 aria-label="Clone"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <FileCopyIcon style={{ color: "white" }} />
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Clone
-                  </Typography>
-                </Stack>
-              </IconButton>
-              <IconButton
-                aria-label="Delete"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <DeleteIcon style={{ color: "white" }} />
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Delete
-                  </Typography>
-                </Stack>
-              </IconButton>
-              <IconButton
-                aria-label="Close"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <CloseIcon style={{ color: "white" }} />
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Close
-                  </Typography>
-                </Stack>
-              </IconButton>
-            </Stack>
-          ) : (
-            <Stack
-              direction="row"
-              alignItems="center"
-              spacing={1}
-              sx={{ flex: "0 0 auto" }}
-            >
-              <IconButton
-                aria-label="Save"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
@@ -287,24 +300,8 @@ export default function CustomerVendor(args) {
                   </Typography>
                 </Stack>
               </IconButton>
-
-              <IconButton
-                aria-label="Clone"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <FileCopyIcon style={{ color: "white" }} />
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Clone
-                  </Typography>
-                </Stack>
-              </IconButton>
-
-              <IconButton onClick={handleDetailPageClose}
+             
+              <IconButton onClick={handleClose}
                 aria-label="Close"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -320,16 +317,73 @@ export default function CustomerVendor(args) {
                 </Stack>
               </IconButton>
             </Stack>
-          )}
-
+    
         </Box>
-  {detailPage? (
-   <CustomerVendorDetails />
-  ): (
+        <div>
+      <Accordion
+        expanded={expanded === "panel1"}
+        onChange={handleChange("panel1")}
+      >
+        <AccordionSummary
+          aria-controls="panel1d-content"
+          id="panel1d-header"
+          className
+          expanded={expanded === "panel1"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Currency Details</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <>
+            <div>
+              <MDBCardBody>
+                <MDBRow>
 
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AutocompleteSecurity label="ISO Currency Code" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Name" />
+                  </MDBCol>
+
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Number of Decimal" />
+                  </MDBCol>
+                </MDBRow>
+              </MDBCardBody>
+            </div>
+          </>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel2"}
+        onChange={handleChange("panel2")}
+      >
+        <AccordionSummary
+          aria-controls="panel2d-content"
+          id="panel2d-header"
+          expanded={expanded === "panel2"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Round of Details</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <>
+            <div>
+              <MDBCardBody>
+                <MDBRow>
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="General Round Off" />
+                  </MDBCol>
+                </MDBRow>
+              </MDBCardBody>
+            </div>
+          </>
+        </AccordionDetails>
+      </Accordion>
  
-        <>
-        <SpeedDial
+    </div>
+     
+          <>
+            <SpeedDial
               ariaLabel="SpeedDial basic example"
               sx={{ position: "absolute", bottom: 25, right: 16 }}
               icon={<SpeedDialIcon />}
@@ -343,152 +397,9 @@ export default function CustomerVendor(args) {
                 />
               ))}
             </SpeedDial>
-        <div style={{ display: "flex" }}>
-          {!hide ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                height: isOpen ? null : 590,
-              }}
-            >
-              <Button
-                color="primary"
-                onClick={toggleOpen}
-                style={{
-                  marginBottom: "1rem",
-                  padding: "0.3rem",
-                  fontSize: "0.6rem",
-                  height: "5rem",
-                  borderRadius: "0 0.5rem 0.5rem 0",
-                }}
-              >
-                <KeyboardDoubleArrowRightIcon style={{ fontSize: "1rem" }} />
-              </Button>
-            </div>
-          ) : null}
-
-          <Collapse horizontal isOpen={isOpen} {...args}>
-            <Alert
-              style={{
-                width: 350,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-                backgroundColor: primaryButtonColor,
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Tree1 items={accountTree} />
-
-                <Button
-                  color="primary"
-                  onClick={toggleClose}
-                  style={{
-                    marginBottom: "1rem",
-                    padding: "0.3rem",
-                    fontSize: "0.6rem",
-                    height: "5rem",
-                    borderRadius: "0.5rem 0 0 0.5rem",
-                  }}
-                >
-                  <KeyboardDoubleArrowLeftIcon style={{ fontSize: "1rem" }} />
-                </Button>
-              </div>
-            </Alert>
-          </Collapse>
-       
-      
-      
-          <TableAccounts />
-        </div>
-        <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}>
-          <Collapse
-            style={{ marginBottom: "0.3rem" }}
-            isOpen={isInfo}
-            {...args}
-          >
-            <Alert
-              style={{
-                width: 350,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-                backgroundColor: primaryButtonColor,
-                flexDirection: "column", // Arrange children vertically
-                alignItems: "center",
-                marginBottom: "0.3rem",
-                position: "relative", // Add position relative to the Alert
-              }}
-            >
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={infoPanelClose}
-                style={{
-                  borderRadius: "0 0 0.5rem 0.5rem",
-                  height: "1.2rem",
-                  width: "8rem",
-                  marginBottom: "0.3rem",
-                  marginLeft: "5rem",
-                  top: 0, // Align to the top
-                  right: 0, // Align to the end
-                  transform: "translateY(-100%)", // Move the button to the top of the container
-                  display: "flex",
-                  justifyContent: "center", // Center horizontally
-                  alignItems: "center", // Center vertically
-                }}
-              >
-                <KeyboardDoubleArrowDownIcon style={{ fontSize: "1rem" }} />
-              </Button>
-              <Box
-                sx={{
-                  overflowX: "hidden",
-                  height: 550,
-                  flexGrow: 1,
-                  minWidth: 300,
-                  scrollbarWidth: "thin",
-                  zIndex: 100,
-                }}
-              >
-                <Typography
-                  sx={{ flex: "1 1 100%" }}
-                  variant="h6"
-                  id="tableTitle"
-                  component="div"
-                >
-                  Info Panel
-                </Typography>
-              </Box>
-            </Alert>
-          </Collapse>
-
-          {!infoHide ? (
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={infoPanelOpen}
-              style={{
-                borderRadius: "0.5rem 0.5rem 0 0",
-                height: "1.2rem",
-                width: "8rem",
-                marginBottom: "0.3rem",
-                marginRight: "5rem",
-                display: "flex",
-                justifyContent: "center", // Center horizontally
-                alignItems: "center", // Center vertically
-              }}
-            >
-              <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
-            </Button>
-          ) : null}
-        </div>
-        </>
-         )}
+            <div style={{ display: "flex" }}></div>
+          </>
+     
       </React.StrictMode>
     </>
   );

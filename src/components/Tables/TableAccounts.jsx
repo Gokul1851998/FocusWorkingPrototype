@@ -254,7 +254,7 @@ export default function SummaryPage() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [rowsPerPage, setRowsPerPage] = React.useState(15);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState([]);
 
   const fetchData = async () => {
@@ -463,7 +463,7 @@ export default function SummaryPage() {
               </TableContainer>
             )}
             <Pagination
-              rowsPerPageOptions={[15, 25, 50, 100]}
+              rowsPerPageOptions={[10, 25, 50, 100]}
               component="div"
               variant="outlined"
               shape="rounded"
