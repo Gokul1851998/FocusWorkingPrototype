@@ -23,6 +23,7 @@ import Tree1 from '../../../../components/Tree/Tree1';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
 import DeselectIcon from '@mui/icons-material/Deselect';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import AutoComplete2 from '../../../../components/AutoComplete/AutoComplete2';
 
 const SelectAllIconStyle ={//style for selectAll and unselectAll
   fontSize: "0.8rem",
@@ -361,7 +362,7 @@ const buttonStyle ={
 const ProfileNew = ({setPage}) => {
  
 
-  const [profileName, setprofileName] = useState({sName:"email",iId:336})
+  const [profileName, setprofileName] = useState({sName:"null",iId:null})
   const [checkedState, setCheckedState] = useState(
     new Array(restrictionItems.length).fill(false)
   );
@@ -457,12 +458,14 @@ const ProfileNew = ({setPage}) => {
         <Box sx={{display:"flex",flexDirection:"row",mt:2,gap:4,alignItems:"center"}}>
           <Typography sx={{color:"#00000" ,opacity:"0.5"}}>Profile Name</Typography>
           <div style={{minWidth:"200px"}}>
-          <AutocompleteSecurity
+          <AutoComplete2
 
-            key="profile"
-            value={profileName}
-            onChangeName={setprofileName}
-            label={""}
+            autoId="profile"
+            
+            
+            autoLabel={""}
+            formData={profileName}
+            setFormData={setprofileName}
            
 
           />
