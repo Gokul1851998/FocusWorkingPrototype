@@ -63,7 +63,18 @@ import GetAppIcon from "@mui/icons-material/GetApp";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
-import ExchangeRateTable from "./ExchangeRateTable";
+import ExchangeRateHistoryTable from "./ExchangeRateHistoryTable";
+import ExchangeRateHistTab from "./ExchangeRateHistTab";
+
+const buttonStyle = {
+  textTransform: "none", // Set text transform to none for normal case
+  color: `${primaryButtonColor}`, // Set text color
+  backgroundColor: `${thirdColor}`, // Set background color
+  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
+  margin: 3,
+  fontSize: "12px",
+  padding: "6px 10px",
+};
 
 function handleClick(event) {
   event.preventDefault();
@@ -122,7 +133,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   gap: 100,
 }));
 
-export default function ExchangeRate(args) {
+export default function ExchangeRateHistory(args) {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
@@ -321,20 +332,54 @@ export default function ExchangeRate(args) {
           </Stack>
         </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-            padding: 2,
+        <MDBCard
+          className="text-center"
+          style={{
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+            zIndex: 1,
+            margin: 10,
           }}
         >
-          <AutoComplete2 autoLabel="Base Currency" />
-          <AccountInput label="With Effective Date" type="date" />
-        </Box>
-
-        <ExchangeRateTable />
-       
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              padding: 2,
+            }}
+          >
+            <AutoComplete2 autoLabel="Base Currency" />
+            <AccountInput label="Date Range" type="date" />
+            <AccountInput label="From Date" type="date" />
+            <AccountInput label="To Date" type="date" />
+            
+          </Box>
+          <Stack
+              direction="row"
+              spacing={1}
+              padding={1}
+              justifyContent="flex-end"
+            >
+              <Button variant="contained" style={buttonStyle}>
+                Load
+              </Button>
+              <Button variant="contained" style={buttonStyle}>
+                Clear
+              </Button>
+            </Stack>
+            <ExchangeRateHistoryTable />
+        </MDBCard>
+        
+        <MDBCard
+          className="text-center"
+          style={{
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+            zIndex: 1,
+            margin: 10,
+          }}
+        >
+             <ExchangeRateHistTab />
+        </MDBCard>
       </React.StrictMode>
     </>
   );

@@ -383,23 +383,7 @@ export default function CurrencyMaster(args) {
  
     </div>
      
-          <>
-            <SpeedDial
-              ariaLabel="SpeedDial basic example"
-              sx={{ position: "absolute", bottom: 25, right: 16 }}
-              icon={<SpeedDialIcon />}
-              direction="left"
-            >
-              {actions.map((action) => (
-                <SpeedDialAction
-                  key={action.name}
-                  icon={action.icon}
-                  tooltipTitle={action.name}
-                />
-              ))}
-            </SpeedDial>
-            <div style={{ display: "flex" }}></div>
-          </>
+        
      
       </React.StrictMode>
     </>

@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import CustomerVendor from "../../containers/Home/Master/Account/CustomerVendor/CustomerVendor";
 import CurrencyMaster from "../../containers/Home/Master/Currency/CurrencyMaster/CurrencyMaster";
 import ExchangeRate from "../../containers/Home/Master/Currency/ExchangeRate/ExchangeRate";
+import ExchangeRateHistory from "../../containers/Home/Master/Currency/ExchangeCurrencyHistory/ExchangeRateHistoy";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -20,11 +21,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function MasterPage() {
   const location = useLocation();
   const id = location.state.id;
+  console.log(id);
   return (
     <>
       <Box sx={{ display: "flex" }}>
         <SideBar />
-        <Box component="main" sx={{ flexGrow: 1,marginBottom:3 }}>
+        <Box component="main" sx={{ flexGrow: 1,marginBottom:2 }}>
           <DrawerHeader />
           {id === 19 ? (
             <AccountMaster />
@@ -34,6 +36,8 @@ export default function MasterPage() {
             <CurrencyMaster />
           ) : id === 22 ?(
             <ExchangeRate />
+          ) : id === 23 ?(
+            <ExchangeRateHistory />
           ) : null}
         </Box>
         <Footer />

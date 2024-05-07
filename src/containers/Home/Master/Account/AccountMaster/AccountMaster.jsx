@@ -44,6 +44,10 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
 import AccountDetails from "./AccountDetails";
+import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import StopIcon from '@mui/icons-material/Stop';
+import BlockIcon from '@mui/icons-material/Block';
 
 function handleClick(event) {
   event.preventDefault();
@@ -232,6 +236,69 @@ export default function AccountMaster(args) {
                     style={{ color: "white", fontSize: "0.6rem" }}
                   >
                     Clone
+                  </Typography>
+                </Stack>
+              </IconButton>
+              <IconButton
+                aria-label="Property"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <RoomPreferencesIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Property
+                  </Typography>
+                </Stack>
+              </IconButton>
+
+              <IconButton
+                aria-label="Authorize"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <VerifiedIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Authorize
+                  </Typography>
+                </Stack>
+              </IconButton>
+
+              <IconButton
+                aria-label="Reject"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <BlockIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Reject
+                  </Typography>
+                </Stack>
+              </IconButton>
+
+              <IconButton
+                aria-label="Stop"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <StopIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Stop
                   </Typography>
                 </Stack>
               </IconButton>

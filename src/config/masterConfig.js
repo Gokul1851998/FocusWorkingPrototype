@@ -186,4 +186,14 @@ export const exchangeRateData = [
       "Description": "Pound Sterling"
     },
   ];
+
+
+  export const exchangeRateHistoryData = [
+    {
+        MasterId: 1,
+      "Currency Name": "gtgt",
+      Description: "gg",
+    },
+ 
+  ];
   

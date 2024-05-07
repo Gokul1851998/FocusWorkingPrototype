@@ -31,7 +31,7 @@ import {
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { thirdColor } from "../../../../../config";
-import { exchangeRateData } from "../../../../../config/masterConfig";
+import { exchangeRateData, exchangeRateHistoryData } from "../../../../../config/masterConfig";
 import AutoCompleteTable from "../../../../../components/AutoComplete/AutoCompleteTable";
 import AccountInput from "../../../../../components/Inputs/AccountInput";
 import CurrencyTableInput from "../../../../../components/Inputs/CurrencyTableInput";
@@ -131,7 +131,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function ExchangeRateTable() {
+export default function ExchangeRateHistoryTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState(0);
   const [selected, setSelected] = React.useState([]);
@@ -141,15 +141,12 @@ export default function ExchangeRateTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState([]);
 
-
   const fetchData = async () => {
     setSelected([]);
     setData([
       {
         MasterId: 1,
         "Currency Name": "",
-        "Defined As": "",
-        Rate: 0,
         Description: "",
       },
     ]);
@@ -218,14 +215,12 @@ export default function ExchangeRateTable() {
         {
           MasterId: 1,
           "Currency Name": "",
-          "Defined As": "",
-          Rate: 0,
           Description: "",
         },
       ]);
-    }else{
-        setSelected([]);
-        setData(data.slice(0, -1));
+    } else {
+      setSelected([]);
+      setData(data.slice(0, -1));
     }
   };
 
@@ -268,7 +263,7 @@ export default function ExchangeRateTable() {
                     onSelectAllClick={handleSelectAllClick}
                     onRequestSort={handleRequestSort}
                     rowCount={data.length}
-                    rows={Object.keys(exchangeRateData[0])}
+                    rows={Object.keys(exchangeRateHistoryData[0])}
                   />
 
                   <TableBody>
@@ -289,66 +284,69 @@ export default function ExchangeRateTable() {
                           sx={{ cursor: "pointer" }}
                         >
                           <TableCell padding="checkbox">
-                          <PopupState
-  variant="popover"
-  popupId="demo-popup-popover"
->
-  {(popupState) => (
-    <div>
-      <IconButton
-        aria-label="options"
-        {...bindTrigger(popupState)}
-        sx={{ padding: 0, fontSize: "1.2rem" }}
-      >
-        <MoreVertIcon sx={{ fontSize: "1.2rem" }} />
-      </IconButton>
-      <Popover
-        {...bindPopover(popupState)}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-      >
-        <Stack direction="row">
-          <IconButton
-            onClick={() => {
-              handleRow(1);
-              popupState.close(); // Close the popover
-            }}
-            aria-label="add"
-            color={thirdColor}
-            sx={{
-              fontSize: "1.2rem",
-              color: thirdColor,
-            }}
-          >
-            <AddCircleIcon sx={{ fontSize: "1.2rem" }} />
-          </IconButton>
-          {data?.length > 1 ? (
-            <IconButton
-              onClick={() => {
-                handleRow(0);
-                popupState.close(); // Close the popover
-              }}
-              aria-label="remove"
-              sx={{
-                fontSize: "1.2rem",
-                color: thirdColor,
-              }}
-            >
-              <RemoveCircleIcon sx={{ fontSize: "1.2rem" }} />
-            </IconButton>
-          ) : null}
-        </Stack>
-      </Popover>
-    </div>
-  )}
-</PopupState>
-
+                            <PopupState
+                              variant="popover"
+                              popupId="demo-popup-popover"
+                            >
+                              {(popupState) => (
+                                <div>
+                                  <IconButton
+                                    aria-label="options"
+                                    {...bindTrigger(popupState)}
+                                    sx={{ padding: 0, fontSize: "1.2rem" }}
+                                  >
+                                    <MoreVertIcon sx={{ fontSize: "1.2rem" }} />
+                                  </IconButton>
+                                  <Popover
+                                    {...bindPopover(popupState)}
+                                    anchorOrigin={{
+                                      vertical: "bottom",
+                                      horizontal: "center",
+                                    }}
+                                    transformOrigin={{
+                                      vertical: "top",
+                                      horizontal: "center",
+                                    }}
+                                  >
+                                    <Stack direction="row">
+                                      <IconButton
+                                        onClick={() => {
+                                          handleRow(1);
+                                          popupState.close(); // Close the popover
+                                        }}
+                                        aria-label="add"
+                                        color={thirdColor}
+                                        sx={{
+                                          fontSize: "1.2rem",
+                                          color: thirdColor,
+                                        }}
+                                      >
+                                        <AddCircleIcon
+                                          sx={{ fontSize: "1.2rem" }}
+                                        />
+                                      </IconButton>
+                                      {data?.length > 1 ? (
+                                        <IconButton
+                                          onClick={() => {
+                                            handleRow(0);
+                                            popupState.close(); // Close the popover
+                                          }}
+                                          aria-label="remove"
+                                          sx={{
+                                            fontSize: "1.2rem",
+                                            color: thirdColor,
+                                          }}
+                                        >
+                                          <RemoveCircleIcon
+                                            sx={{ fontSize: "1.2rem" }}
+                                          />
+                                        </IconButton>
+                                      ) : null}
+                                    </Stack>
+                                  </Popover>
+                                </div>
+                              )}
+                            </PopupState>
                           </TableCell>
 
                           {Object.keys(data[0]).map((column, index) => {
@@ -359,7 +357,7 @@ export default function ExchangeRateTable() {
                                     sx={{
                                       border: "1px solid #ddd",
                                       whiteSpace: "nowrap",
-                                      width: "calc(100% / 4)",
+                                      width: "calc(100% / 2)",
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
                                       padding: "4px", // Reduce the padding
