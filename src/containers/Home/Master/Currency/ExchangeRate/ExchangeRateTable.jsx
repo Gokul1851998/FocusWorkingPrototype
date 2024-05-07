@@ -12,15 +12,20 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import Popover from "@mui/material/Popover";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
+  Button,
   FormControl,
   IconButton,
   InputLabel,
   MenuItem,
   Pagination,
   Select,
+  Stack,
   TextField,
   Tooltip,
 } from "@mui/material";
@@ -30,6 +35,8 @@ import { exchangeRateData } from "../../../../../config/masterConfig";
 import AutoCompleteTable from "../../../../../components/AutoComplete/AutoCompleteTable";
 import AccountInput from "../../../../../components/Inputs/AccountInput";
 import CurrencyTableInput from "../../../../../components/Inputs/CurrencyTableInput";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -83,24 +90,14 @@ function EnhancedTableHead(props) {
       }}
     >
       <TableRow>
-        {/* <TableCell
+        <TableCell
           sx={{
             padding: "4px",
             border: "1px solid #ddd",
             whiteSpace: "nowrap",
             cursor: "pointer",
           }}
-          padding="checkbox"
-        >
-          <Checkbox
-            color="default"
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </TableCell> */}
+        ></TableCell>
         {rows.map((header, index) => {
           if (header !== "MasterId") {
             // Exclude "iId", "iAssetType", and "sAltName" from the header
@@ -246,7 +243,6 @@ export default function ExchangeRateTable() {
                 }}
               >
                 <Table
-                
                   aria-labelledby="tableTitle"
                   size={dense ? "small" : "medium"}
                 >
@@ -277,7 +273,56 @@ export default function ExchangeRateTable() {
                           selected={isItemSelected}
                           sx={{ cursor: "pointer" }}
                         >
-                       
+                          <TableCell padding="checkbox">
+                            <PopupState
+                              variant="popover"
+                              popupId="demo-popup-popover"
+                            >
+                              {(popupState) => (
+                                <div>
+                                  <IconButton
+                                    aria-label="options"
+                                    {...bindTrigger(popupState)}
+                                    sx={{ padding: 0, fontSize: "1.2rem" }}
+                                  >
+                                    <MoreVertIcon sx={{ fontSize: "1.2rem" }} />
+                                  </IconButton>
+                                  <Popover
+                                    {...bindPopover(popupState)}
+                                    anchorOrigin={{
+                                      vertical: "bottom",
+                                      horizontal: "center",
+                                    }}
+                                    transformOrigin={{
+                                      vertical: "top",
+                                      horizontal: "center",
+                                    }}
+                                  >
+                                    <Stack direction="row">
+                                      <IconButton
+                                        aria-label="delete"
+                                        sx={{ fontSize: "1.2rem" }}
+                                      >
+                                        <AddCircleIcon
+                                          sx={{ fontSize: "1.2rem" }}
+                                        />
+                                      </IconButton>
+                                      <IconButton
+                                        aria-label="delete"
+                                        color="primary"
+                                        sx={{ fontSize: "1.2rem" }}
+                                      >
+                                        <RemoveCircleIcon
+                                          sx={{ fontSize: "1.2rem" }}
+                                        />
+                                      </IconButton>
+                                    </Stack>
+                                  </Popover>
+                                </div>
+                              )}
+                            </PopupState>
+                          </TableCell>
+
                           {Object.keys(data[0]).map((column, index) => {
                             if (column !== "MasterId") {
                               return (
@@ -289,8 +334,8 @@ export default function ExchangeRateTable() {
                                       width: "calc(100% / 4)",
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
-                                      padding: 0, 
-                                      fontSize: "0.8rem", 
+                                      padding: 0,
+                                      fontSize: "0.8rem",
                                     }}
                                     onChange={() => handleChanges(row)}
                                     key={row[column]}
