@@ -134,7 +134,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function SummaryPage() {
+export default function ExchangeRateTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState(0);
   const [selected, setSelected] = React.useState([]);
@@ -277,15 +277,7 @@ export default function SummaryPage() {
                           selected={isItemSelected}
                           sx={{ cursor: "pointer" }}
                         >
-                          {/* <TableCell padding="checkbox">
-                            <Checkbox
-                              color="primary"
-                              checked={isItemSelected}
-                              inputProps={{
-                                "aria-labelledby": labelId,
-                              }}
-                            />
-                          </TableCell> */}
+                       
                           {Object.keys(data[0]).map((column, index) => {
                             if (column !== "MasterId") {
                               return (
@@ -297,8 +289,8 @@ export default function SummaryPage() {
                                       width: "calc(100% / 4)",
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
-                                      padding: 0, // Adjust the padding
-                                      fontSize: "0.8rem", // Adjust the font size
+                                      padding: 0, 
+                                      fontSize: "0.8rem", 
                                     }}
                                     onChange={() => handleChanges(row)}
                                     key={row[column]}

@@ -321,20 +321,16 @@ export default function ExchangeRate(args) {
           </Stack>
         </Box>
 
-        <div style={{marginLeft:20}}>
-          <MDBCardBody >
-            <MDBRow>
-              <MDBCol lg="3" md="4" sm="6" xs="12">
-              <AutoComplete2 autoLabel="Base Currency" />
-              </MDBCol>
-              <MDBCol lg="3" md="4" sm="6" xs="12">
-                <AccountInput label="With Effective Date" type="date" />
-              </MDBCol>
+    
+          
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px', padding:2 }}>
+  <AutoComplete2 autoLabel="Base Currency" />
+  <AccountInput label="With Effective Date" type="date" />
+</Box>
              
-            </MDBRow>
-          </MDBCardBody>
-        </div>
-          <ExchangeRateTable />
+          
+        
+         <ExchangeRateTable />
         <>
           <SpeedDial
             ariaLabel="SpeedDial basic example"
