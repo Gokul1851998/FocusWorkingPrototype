@@ -60,7 +60,7 @@ const AutoComplete2 = ({
     });
   }, []);
  
-
+console.log(formData);
   const handleAutocompleteChange = (event, newValue) => {
     const updatedFormData = {
       ...formData,
@@ -142,7 +142,7 @@ const AutoComplete2 = ({
           setAutoMenu(JSON.parse(data.ResultData));
         }
         
-    
+     console.log(JSON.parse(data.ResultData));
       } catch (error) {
         console.log(error);
       }
