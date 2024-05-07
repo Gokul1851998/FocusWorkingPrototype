@@ -281,7 +281,7 @@ const AutoComplete2 = ({
           sx={{paddingTop:"13px",
             "& .MuiOutlinedInput-input": {
               padding: "8px 14px", // Reduce padding to decrease height
-              transform: "translate(10px, -10px) scale(1)",
+              transform: "translate(10px, 0px) scale(1)",
             },
             "& .MuiInputBase-input": {
               zIndex:2,
