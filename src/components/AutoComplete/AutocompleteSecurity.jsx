@@ -90,7 +90,6 @@ export default function AutocompleteSecurity({
     size="small"
     value={suggestion.find(option => option.sName === value) || null}
     onChange={(event, newValue) => {
-      console.log(newValue,"newValue");
       if (newValue) {
         onChangeName({
           sName: newValue.sName || "",
@@ -199,7 +198,7 @@ export default function AutocompleteSecurity({
               }
             }}
             sx={{
-              width: 200, // Adjust the width as needed
+              width: 250, // Adjust the width as needed
               "& .MuiInputBase-root": {
                 height: 30, // Adjust the height of the input area
               },

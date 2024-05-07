@@ -6,6 +6,8 @@ import AccountMaster from "../../containers/Home/Master/Account/AccountMaster/Ac
 import Footer from "../../components/Footer/Footer";
 import { useLocation } from "react-router-dom";
 import CustomerVendor from "../../containers/Home/Master/Account/CustomerVendor/CustomerVendor";
+import CurrencyMaster from "../../containers/Home/Master/Currency/CurrencyMaster/CurrencyMaster";
+import ExchangeRate from "../../containers/Home/Master/Currency/ExchangeRate/ExchangeRate";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -16,20 +18,23 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function MasterPage() {
-   const location = useLocation()
-   const id = location.state.id
+  const location = useLocation();
+  const id = location.state.id;
   return (
     <>
-      <Box sx={{ display: "flex", }}>
+      <Box sx={{ display: "flex" }}>
         <SideBar />
-        <Box component="main" sx={{ flexGrow: 1 }}>
+        <Box component="main" sx={{ flexGrow: 1,marginBottom:3 }}>
           <DrawerHeader />
-          {id === 19? (
-        <AccountMaster />
-          ): (
-           <CustomerVendor />
-          )}
-  
+          {id === 19 ? (
+            <AccountMaster />
+          ) : id === 20 ? (
+            <CustomerVendor />
+          ) : id === 21 ? (
+            <CurrencyMaster />
+          ) : id === 22 ?(
+            <ExchangeRate />
+          ) : null}
         </Box>
         <Footer />
       </Box>

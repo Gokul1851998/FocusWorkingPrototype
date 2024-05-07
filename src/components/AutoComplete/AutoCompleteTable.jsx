@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { secondryColor } from "../../config";
 
-const AutoComplete2 = ({
+const AutoCompleteTable = ({
   formData,
   setFormData,
   autoId,
@@ -242,8 +242,7 @@ const AutoComplete2 = ({
               
               fontSize: "12px",
               height: "36px",
-              padding: "0px",
-              margin:0,
+          
               
             },
             inputProps: {
@@ -278,7 +277,7 @@ const AutoComplete2 = ({
               backgroundColor: '#fff',
             },
           }}
-          sx={{paddingTop:"13px",
+          sx={{
             "& .MuiOutlinedInput-input": {
               padding: "8px 14px", // Reduce padding to decrease height
               transform: "translate(10px, -10px) scale(1)",
@@ -308,9 +307,9 @@ const AutoComplete2 = ({
         />
       )}
       ListboxComponent={CustomListBox}
-      style={{ width: 250 }}
+      style={{ width: "auto" }}
     />
   );
 };
 
-export default AutoComplete2;
+export default AutoCompleteTable;

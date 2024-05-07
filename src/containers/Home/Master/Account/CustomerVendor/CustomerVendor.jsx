@@ -43,6 +43,7 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
+import CustomerVendorDetails from "./CustomerVendorDetails";
 
 function handleClick(event) {
   event.preventDefault();
@@ -186,7 +187,22 @@ export default function CustomerVendor(args) {
                   </Typography>
                 </Stack>
               </IconButton>
-             
+              <IconButton
+                aria-label="Add group"
+                sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <GroupAddIcon style={{ color: "white" }} />
+
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Add Group
+                  </Typography>
+                </Stack>
+              </IconButton>
               <IconButton
                 aria-label="Edit"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -200,6 +216,21 @@ export default function CustomerVendor(args) {
                     style={{ color: "white", fontSize: "0.6rem" }}
                   >
                     Edit
+                  </Typography>
+                </Stack>
+              </IconButton>
+              <IconButton
+                aria-label="Clone"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <FileCopyIcon style={{ color: "white" }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: "white", fontSize: "0.6rem" }}
+                  >
+                    Clone
                   </Typography>
                 </Stack>
               </IconButton>
@@ -293,7 +324,7 @@ export default function CustomerVendor(args) {
 
         </Box>
   {detailPage? (
-   null
+   <CustomerVendorDetails />
   ): (
 
  
