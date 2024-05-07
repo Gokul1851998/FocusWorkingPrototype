@@ -217,3 +217,16 @@ export const passwordPolicy = [
   { label: 'Portal', value: 'option2' },
  
 ];
+
+export const masterItems = [
+  "Account", "Item", "Department", "Warehouse", "Cost Center", "Location", "Region", "Country", "State", "City",
+  "Units", "Bins", "Tax Code", "Portal Rights", "Place of supply", "Jurisdiction", "Plant", "Supply Area",
+  "Maintenance Parameter", "Safety Instructions", "Capacity", "Work Center", "Holiday", "Process", "Qc failure reason",
+  "QC Parameters", "Insurance", "Fixed Asset", "Break down standard reason", "Employee", "Designation", "Position",
+  "Qualification", "Specialization", "Nationality", "Skill Type", "Skill", "SourceType", "Source", "RoundType",
+  "Grade", "Scale", "Course Type", "Course", "Trainer", "Airline Sector", "Venue", "Request Types", "Expense Claims",
+  "Employee Bank", "Travel Agent", "Job Grade", "Outlet", "Counter", "Member Type", "Gift Voucher Definition", "Category",
+  "Bank Card Type", "Member", "Discount Voucher Definition", "Floor", "Section", "Table", "Guest", "Void Remarks",
+  "Member Card Definition", "Return Remarks", "Kitchen Display System", "Delivery Time Interval", "E-Payment", "Order Type",
+  "Order Source", "jjjj", "abcd", "New", "testMaster"
+];

@@ -7,7 +7,7 @@ export default function RoleSelect1({ label, value, onChange, options }) {
       margin="normal"
       size="small"
       sx={{
-        width: 200, // Same width as the TextField
+        width: 250, // Same width as the TextField
         "& .MuiInputBase-root": {
           height: 30, // Adjust the height of the input area
         },

@@ -27,10 +27,13 @@ import SaveIcon from "@mui/icons-material/Save";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
-import { passwordPolicy } from "../../../../config/securityConfig";
+import { createProfileTree, masterItems, passwordPolicy, restrictionItems } from "../../../../config/securityConfig";
 import RoleSelect11 from "./RoleSelect1";
 import PersonIcon from '@mui/icons-material/Person';
 import TransferList from "./TransferList";
+import ProfileManagementPanel from "./RoleAddExclusion";
+import RoleRestriction from "./RoleRestrictionForEntry";
+import ChecklistIcon from '@mui/icons-material/Checklist';
 
 
 const Accordion = styled((props) => (
@@ -59,10 +62,13 @@ const Accordion = styled((props) => (
     justifyContent: "space-between",
     "& .MuiAccordionSummary-content": {
       flexGrow: 1,
+      display: 'flex',
+    alignItems: 'center',
     },
     "& .MuiSvgIcon-root": {
       fontSize: "1.5rem",
       color: primaryButtonColor,
+      marginRight: theme.spacing(1),
     },
   }));
   
@@ -117,25 +123,7 @@ const Accordion = styled((props) => (
     return (
       <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
         
-        {detailPageId !=0 ?
-        <IconButton
-                aria-label="New"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-                onClick={()=>iconsClick("GetHistory")}
-              >
-                <Stack direction="column" alignItems="center">
-          <HistoryIcon sx={{ color:primaryButtonColor }} />
-          <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
-                  >
-                    History
-                  </Typography>
-                </Stack>
-              </IconButton>
-              :null
-        }      
+           
               <IconButton
                 aria-label="New"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -173,39 +161,24 @@ const Accordion = styled((props) => (
               }      
               {detailPageId !=0 ?
               <IconButton
-                aria-label="New"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-                onClick={()=>iconsClick("GetRolesInProfile ")}
-              >
-                <Stack direction="column" alignItems="center">
-          <AssignmentIndIcon sx={{ color:primaryButtonColor }} />
-          <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
-                  >
-                    Get Roles In Profile 
-                  </Typography>
-                </Stack>
-              </IconButton>
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={()=>iconsClick("GetLoadFrom")}
+            >
+              <Stack direction="column" alignItems="center">
+        <PersonIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  Get Users On Role
+                </Typography>
+              </Stack>
+            </IconButton>
               :null
               }
-              <IconButton
-                aria-label="New"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-                onClick={()=>iconsClick("GetLoadFrom")}
-              >
-                <Stack direction="column" alignItems="center">
-          <PersonIcon sx={{ color:primaryButtonColor }} />
-          <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
-                  >
-                    Get Users On Role
-                  </Typography>
-                </Stack>
-              </IconButton>
+              
               <IconButton
                 aria-label="New"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -263,6 +236,9 @@ const Accordion = styled((props) => (
           break;
       }
 }
+const  handleclose=()=>{
+  setPage("summary")
+}
     
     return (
       <Box sx={{ display: "flex",flexDirection:"column",width:"100%" }}>
@@ -272,30 +248,32 @@ const Accordion = styled((props) => (
        <DefaultIcons detailPageId={detailPageId} iconsClick={handleIconsClick}/>
        
     </Box>
-    <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",maxHeight:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
+    <Box sx={{ width:"100%",overflowX: 'hidden',display:"flex",flexDirection:"column",maxHeight:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
     <Box sx={{pl:3,display:"flex",flexDirection:"column",paddingTop:"10px"}}>
         <Typography sx={{fontSize:"20px",color:secondryColor}}>
           Create Role
         </Typography>
-        <Box sx={{display:"flex",flexDirection:"row",mt:2,alignItems:"center"}}>
-          
-          
-          
-          <MDBCol lg="2" md="4" sm="6" xs="12">
-           <AccountInput label="Role Name" />
-          </MDBCol>
-          <MDBCol lg="2" md="4" sm="6" xs="12">
-          <RoleSelect11
-          label="Password Policy"
-          value={selectedOption}
-          onChange={handleSelectChange}
-          options={passwordPolicy}
-        />
-          </MDBCol>
-          
-         
-          
-        </Box>
+        
+        <>
+            <div>
+              <MDBCardBody>
+                <MDBRow>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AccountInput label="Role Name" />
+                  </MDBCol>
+
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <RoleSelect11
+                    label="Password Policy"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={passwordPolicy}
+                  />
+                  </MDBCol>
+                  </MDBRow>
+              </MDBCardBody>
+            </div>
+          </>
         </Box>
         <Accordion
           expanded={expanded === "panel1"}
@@ -306,7 +284,18 @@ const Accordion = styled((props) => (
             id="panel1d-header"
             className
             expanded={expanded === "panel1"}
+            sx={{alignItems:"center"}}
           >
+            <IconButton
+         
+          sx={{ fontSize: "0.8rem", padding: "0rem" }}
+          //onClick={()=>iconsClick("close")}
+        >
+          <Stack direction="column" alignItems="center">
+    <PersonIcon sx={{ color:primaryButtonColor }} />
+   
+          </Stack>
+        </IconButton>
             <Typography style={{ fontSize: "14px" }}>Assigned Profiles</Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -325,30 +314,106 @@ const Accordion = styled((props) => (
         >
           <AccordionSummary
             aria-controls="panel1d-content"
-            id="panel1d-header"
+            id="panel2d-header"
             className
             expanded={expanded === "panel2"}
           >
+            <IconButton
+         
+         sx={{ fontSize: "0.8rem", padding: "0rem" }}
+         //onClick={()=>iconsClick("close")}
+       >
+         <Stack direction="column" alignItems="center">
+   <AddCircleOutlineIcon sx={{ color:primaryButtonColor }} />
+  
+         </Stack>
+       </IconButton>
             <Typography style={{ fontSize: "14px" }}>Additions</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <>
               <div>
                 <MDBCardBody >
-                <MDBRow>
-                <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AccountInput label="TRP" />
-                  </MDBCol>
-
-                  <MDBCol lg="2" md="4" sm="6" xs="12">
-                    <AutoComplete2 FormData={formData} setFormData={setFormData} autoLabel="Reverse charge" />
-                  </MDBCol>
-                  </MDBRow>
+                <ProfileManagementPanel
+                  
+                  createProfileTree={createProfileTree}
+                  restrictionItems={restrictionItems}
+                  
+                />
                 </MDBCardBody>
               </div>
             </>
           </AccordionDetails>
         </Accordion>   
+        <Accordion
+          expanded={expanded === "panel3"}
+          onChange={handleChange("panel3")}
+        >
+          <AccordionSummary
+            aria-controls="panel1d-content"
+            id="panel3d-header"
+            className
+            expanded={expanded === "panel3"}
+          >
+            <IconButton
+         
+         sx={{ fontSize: "0.8rem", padding: "0rem" }}
+         //onClick={()=>iconsClick("close")}
+       >
+         <Stack direction="column" alignItems="center">
+       <RemoveCircleOutlineIcon sx={{ color:primaryButtonColor }} />
+  
+         </Stack>
+       </IconButton>
+            <Typography style={{ fontSize: "14px" }}>Exclusions</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody >
+                <ProfileManagementPanel
+                  
+                  createProfileTree={createProfileTree}
+                  restrictionItems={restrictionItems}
+                  
+                />
+                </MDBCardBody>
+              </div>
+            </>
+          </AccordionDetails>
+        </Accordion>  
+        <Accordion
+          expanded={expanded === "panel4"}
+          onChange={handleChange("panel4")}
+        >
+          <AccordionSummary
+            aria-controls="panel1d-content"
+            id="panel3d-header"
+            className
+            expanded={expanded === "panel4"}
+          >
+            <IconButton
+         
+         sx={{ fontSize: "0.8rem", padding: "0rem" }}
+         //onClick={()=>iconsClick("close")}
+       >
+         <Stack direction="column" alignItems="center">
+       <ChecklistIcon sx={{ color:primaryButtonColor }} />
+  
+         </Stack>
+       </IconButton>
+            <Typography style={{ fontSize: "14px" }}>Restrictions For Entry</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody >
+                <RoleRestriction masterItems={masterItems}  restrictionItems={restrictionItems}/>
+                </MDBCardBody>
+              </div>
+            </>
+          </AccordionDetails>
+        </Accordion>  
       
        
 
