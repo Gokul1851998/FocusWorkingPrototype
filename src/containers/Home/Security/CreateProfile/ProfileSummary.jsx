@@ -309,7 +309,7 @@ function Example() {
 
 
 
-const ProfileSummary = ({setPage}) => {
+const ProfileSummary = ({setPage,setdetailPageId}) => {
   const [rows, setRows] = React.useState([]);
   const [displayLength, setdisplayLength] = React.useState(10);
   const [pageNumber, setpageNumber] = React.useState(1);
@@ -362,8 +362,11 @@ const ProfileSummary = ({setPage}) => {
   const handleIconsClick =(value) => {
         switch (value) {
           case "new":
-            handleAdd()
+            handleAdd("new")
             break;
+          case "edit":
+            handleAdd("edit")
+            break;  
           case "close":
             handleclose()
           default:
@@ -384,7 +387,13 @@ const ProfileSummary = ({setPage}) => {
 
 
   // Handlers for your icons
-  const handleAdd = () => {
+  const handleAdd = (value) => {
+    if(value ==="edit"){
+      setdetailPageId(1)
+    }
+    else{
+      setdetailPageId(0)
+    }
     setPage("new")
   };
 

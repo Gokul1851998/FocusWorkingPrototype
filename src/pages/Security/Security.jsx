@@ -3,6 +3,7 @@ import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
 import CreateProfile from "../../containers/Home/Security/CreateProfile/CreateProfile";
 import { useLocation } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -63,6 +64,7 @@ export default function Security() {
       )}
           
         </Box>
+        <Footer />
       </Box>
     </>
   );
