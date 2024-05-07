@@ -24,11 +24,12 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import { secondryColor, thirdColor } from "../../config";
-import { accountData } from "../../config/masterConfig";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import AutocompleteSecurity from "../AutoComplete/AutocompleteSecurity";
-import WidgetsIcon from "@mui/icons-material/Widgets";
+import { thirdColor } from "../../../../../config";
+import { exchangeRateData } from "../../../../../config/masterConfig";
+import AutoCompleteTable from "../../../../../components/AutoComplete/AutoCompleteTable";
+import AccountInput from "../../../../../components/Inputs/AccountInput";
+import CurrencyTableInput from "../../../../../components/Inputs/CurrencyTableInput";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -82,7 +83,7 @@ function EnhancedTableHead(props) {
       }}
     >
       <TableRow>
-        <TableCell
+        {/* <TableCell
           sx={{
             padding: "4px",
             border: "1px solid #ddd",
@@ -99,35 +100,22 @@ function EnhancedTableHead(props) {
               "aria-label": "select all desserts",
             }}
           />
-        </TableCell>
+        </TableCell> */}
         {rows.map((header, index) => {
-          if (true) {
+          if (header !== "MasterId") {
             // Exclude "iId", "iAssetType", and "sAltName" from the header
             return (
               <TableCell
-                sx={{ border: "1px solid #ddd", cursor: "pointer" }}
+                sx={{
+                  border: "1px solid #ddd",
+                  cursor: "pointer",
+                  color: "white",
+                }}
                 key={`${index}-${header}`}
                 align="left" // Set the alignment to left
                 padding="normal"
-                sortDirection={orderBy === header ? order : false}
               >
-                <TableSortLabel
-                  sx={{ color: "#fff" }}
-                  active={orderBy === header}
-                  direction={orderBy === header ? order : "asc"}
-                  onClick={createSortHandler(header)}
-                >
-                  {header === "sDocNo" || header === "sLocation"
-                    ? header?.slice(1)
-                    : header}
-                  {orderBy === header ? (
-                    <Box component="span" sx={visuallyHidden}>
-                      {order === "desc"
-                        ? "sorted descending"
-                        : "sorted ascending"}
-                    </Box>
-                  ) : null}
-                </TableSortLabel>
+                {header}
               </TableCell>
             );
           }
@@ -146,108 +134,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-function EnhancedTableToolbar(props) {
-  const { name, values, changes } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-      }}
-    >
-      <FormControl sx={{ m: 1, flex: "1 1 100%" }} className="CLTFormControl">
-        <InputLabel htmlFor="rows-per-page">Show Entries</InputLabel>
-        <Select
-          value={12}
-          label="Rows per page"
-          inputProps={{
-            name: "rows-per-page",
-            id: "rows-per-page",
-          }}
-          sx={{
-            width: "120px",
-            height: "35px",
-          }}
-        >
-          <MenuItem value={10}>10</MenuItem>
-          <MenuItem value={25}>25</MenuItem>
-          <MenuItem value={50}>50</MenuItem>
-          <MenuItem value={100}>100</MenuItem>
-        </Select>
-      </FormControl>
-      <Tooltip title="Show All Records">
-        <a
-          className="btn text-white"
-          data-mdb-ripple-init=""
-          style={{
-            backgroundColor: thirdColor,
-            padding: "0.3rem 0.8rem", // Adjust padding to reduce button size
-            fontSize: "0.8rem", // Adjust font size to reduce icon size
-            marginLeft: 3,
-          }}
-          role="button"
-        >
-          <i class="far fa-folder" style={{ fontSize: "0.8rem" }} />
-        </a>
-      </Tooltip>
-      <Tooltip title="Show All Unauthorised Records">
-        <a
-          className="btn text-white"
-          data-mdb-ripple-init=""
-          style={{
-            backgroundColor: thirdColor,
-            padding: "0.3rem 0.8rem",
-            fontSize: "0.8rem",
-            marginLeft: 3,
-          }}
-          role="button"
-        >
-          <i class="far fa-rectangle-list" style={{ fontSize: "0.8rem" }} />
-        </a>
-      </Tooltip>
-      <Tooltip title="Show All Closed Records">
-        <a
-          className="btn text-white"
-          data-mdb-ripple-init=""
-          style={{
-            backgroundColor: thirdColor,
-            padding: "0.3rem 0.8rem",
-            fontSize: "0.8rem",
-            marginLeft: 3,
-          }}
-          role="button"
-        >
-          <i class="fas fa-square-xmark" style={{ fontSize: "0.8rem" }} />
-        </a>
-      </Tooltip>
-      <Tooltip title="Auto Adjust Columns">
-        <a
-          className="btn text-white"
-          data-mdb-ripple-init=""
-          style={{
-            backgroundColor: thirdColor,
-            padding: "0.3rem 0.8rem",
-            fontSize: "0.8rem",
-            marginLeft: 3,
-          }}
-          role="button"
-        >
-          <OpenInNewIcon style={{ fontSize: "0.9rem" }} />
-        </a>
-      </Tooltip>
-      <Tooltip title="Retain Selection">
-        <Checkbox size="small" />
-      </Tooltip>
-    </Toolbar>
-  );
-}
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
-export default function SummaryPage() {
+export default function ExchangeRateTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState(0);
   const [selected, setSelected] = React.useState([]);
@@ -259,7 +146,15 @@ export default function SummaryPage() {
 
   const fetchData = async () => {
     setSelected([]);
-    setData(accountData);
+    setData([
+      {
+        MasterId: 1,
+        "Currency Name": "",
+        "Defined As": "",
+        Rate: 0,
+        Description: "",
+      },
+    ]);
   };
 
   React.useEffect(() => {
@@ -317,51 +212,20 @@ export default function SummaryPage() {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const filteredRows = data.filter((row) =>
-    Object.values(row).some((value) => {
-      if (typeof value === "string") {
-        return value.toLowerCase().includes(searchQuery.toLowerCase());
-      }
-      if (typeof value === "number") {
-        return value.toString().includes(searchQuery.toLowerCase());
-      }
-      return false; // Ignore other types
-    })
-  );
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(filteredRows, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      ),
-    [order, orderBy, page, rowsPerPage, filteredRows]
-  );
+
+  const handleChanges = (row) => {
+    console.log("----", row);
+  };
 
   return (
     <>
       <Box
         sx={{
           width: "100%",
-          padding: "0px 10px ",
+          padding: "10px 10px ",
           zIndex: 1,
-          minHeight: "590px",
         }}
       >
-        <Box sx={{ margin: "10px 0px ", display: "flex", gap: "10px" }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AutocompleteSecurity label="" />
-            <IconButton aria-label="tree">
-              <WidgetsIcon sx={{ color: thirdColor }} />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AutocompleteSecurity label="" />
-            <IconButton aria-label="Table"  >
-              <WidgetsIcon sx={{ color: thirdColor }}  />
-            </IconButton>
-          </Box>
-        </Box>
-
         <>
           <Paper
             sx={{
@@ -370,13 +234,6 @@ export default function SummaryPage() {
               boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
             }}
           >
-            <EnhancedTableToolbar
-              name="Account Name"
-              values={searchQuery}
-              changes={handleSearch}
-              numSelected={selected.length} // Provide the numSelected prop
-            />
-
             {data.length > 0 && (
               <TableContainer
                 style={{
@@ -389,7 +246,7 @@ export default function SummaryPage() {
                 }}
               >
                 <Table
-                  sx={{ minWidth: "100%" }}
+                
                   aria-labelledby="tableTitle"
                   size={dense ? "small" : "medium"}
                 >
@@ -400,11 +257,11 @@ export default function SummaryPage() {
                     onSelectAllClick={handleSelectAllClick}
                     onRequestSort={handleRequestSort}
                     rowCount={data.length}
-                    rows={Object.keys(data[0])}
+                    rows={Object.keys(exchangeRateData[0])}
                   />
 
                   <TableBody>
-                    {visibleRows.map((row, index) => {
+                    {data.map((row, index) => {
                       const isItemSelected = isSelected(row.MasterId);
                       const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -420,36 +277,39 @@ export default function SummaryPage() {
                           selected={isItemSelected}
                           sx={{ cursor: "pointer" }}
                         >
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              color="primary"
-                              checked={isItemSelected}
-                              inputProps={{
-                                "aria-labelledby": labelId,
-                              }}
-                            />
-                          </TableCell>
+                       
                           {Object.keys(data[0]).map((column, index) => {
-                            if (true) {
+                            if (column !== "MasterId") {
                               return (
                                 <>
                                   <TableCell
                                     sx={{
-                                      padding: "4px",
                                       border: "1px solid #ddd",
                                       whiteSpace: "nowrap",
+                                      width: "calc(100% / 4)",
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
-                                      width: "auto",
+                                      padding: 0, 
+                                      fontSize: "0.8rem", 
                                     }}
+                                    onChange={() => handleChanges(row)}
                                     key={row[column]}
                                     component="th"
                                     id={labelId}
                                     scope="row"
-                                    padding="normal"
                                     align="left"
                                   >
-                                    {row[column]}
+                                    {column === "Currency Name" ? (
+                                      <AutoCompleteTable />
+                                    ) : column === "Defined As" ? (
+                                      <AutoCompleteTable />
+                                    ) : column === "Rate" ? (
+                                      <CurrencyTableInput />
+                                    ) : column === "Description" ? (
+                                      <CurrencyTableInput />
+                                    ) : (
+                                      row[column]
+                                    )}
                                   </TableCell>
                                 </>
                               );
@@ -462,42 +322,6 @@ export default function SummaryPage() {
                 </Table>
               </TableContainer>
             )}
-            <Pagination
-              rowsPerPageOptions={[10, 25, 50, 100]}
-              component="div"
-              variant="outlined"
-              shape="rounded"
-              count={data.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              sx={{
-                display: "flex", // Use flexbox for the container
-                justifyContent: "center", // Center the pagination horizontally
-                alignItems: "center", // Center the pagination vertically
-                p: 1,
-                ".MuiPagination-root": {
-                  margin: "0 auto", // Center the pagination container
-                },
-                ".MuiPagination-ul": {
-                  justifyContent: "center", // Center the page number links
-                },
-                ".MuiPaginationItem-root": {
-                  fontSize: "0.9rem", // Adjust the font size of pagination items
-                },
-                ".MuiSelect-root": {
-                  marginLeft: "0.5rem", // Add left margin to the rows per page select
-                },
-                ".MuiTablePagination-input": {
-                  marginRight: "0.5rem", // Add right margin to the page input
-                },
-                ".MuiSvgIcon-root": {
-                  fontSize: "1.2rem", // Adjust the font size of pagination icons
-                },
-                // Add other styles as needed
-              }}
-            />
           </Paper>
         </>
       </Box>

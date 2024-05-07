@@ -1,17 +1,19 @@
 import { TextField } from '@mui/material'
 import React from 'react'
 
-export default function AccountInput({label}) {
+export default function AccountInput({label,type}) {
   return (
     <TextField
             margin="normal"
             size="small"
             id="search1"
+            value={type === 'date'? " " : null}
+            type={type}
             label={label}
             autoComplete="off"
             autoFocus
             sx={{
-              width: 200, // Adjust the width as needed
+              width: 250, // Adjust the width as needed
               "& .MuiInputBase-root": {
                 height: 30, // Adjust the height of the input area
               },
