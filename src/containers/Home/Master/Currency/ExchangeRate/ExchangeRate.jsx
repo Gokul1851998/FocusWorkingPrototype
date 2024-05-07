@@ -321,16 +321,19 @@ export default function ExchangeRate(args) {
           </Stack>
         </Box>
 
-    
-          
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px', padding:2 }}>
-  <AutoComplete2 autoLabel="Base Currency" />
-  <AccountInput label="With Effective Date" type="date" />
-</Box>
-             
-          
-        
-         <ExchangeRateTable />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+            padding: 2,
+          }}
+        >
+          <AutoComplete2 autoLabel="Base Currency" />
+          <AccountInput label="With Effective Date" type="date" />
+        </Box>
+
+        <ExchangeRateTable />
         <>
           <SpeedDial
             ariaLabel="SpeedDial basic example"
