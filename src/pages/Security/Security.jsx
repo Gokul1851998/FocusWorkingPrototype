@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
 import CreateProfile from "../../containers/Home/Security/CreateProfile/CreateProfile";
+import CreateRole from "../../containers/Home/Security/CreateRole/CreateRole";
 import { useLocation } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 
@@ -60,7 +61,9 @@ export default function Security() {
         <Box component="main" sx={{ flexGrow: 1, maxWidth: `${mainMaxWidth}px` }}>
           <DrawerHeader />
           {item && (
-        item.id === 12 ? <CreateProfile key1={item.key1} initialPage="summary" /> :null
+        item.id === 12 ? <CreateProfile key1={item.key1} initialPage="summary" /> :
+        item.id === 13 ? <CreateRole key1={item.key1} initialPage="summary" /> :
+        null
       )}
           
         </Box>
