@@ -442,14 +442,14 @@ const ProfileNew = ({setPage,detailPageId}) => {
         <Box sx={{ display: 'flex',border: '1px solid #c4c4c4', borderRadius: 1, overflow: 'hidden',mt:1 }}>
          
       <Box sx={{ width: '50%'}}>
-      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor}}>
+      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,color:primaryButtonColor,pl:1 }}>
           Menu
         </Typography>
       <Tree1 items={createProfileTree} />
       </Box>
       <Divider orientation="vertical" flexItem sx={{ borderWidth: 1 ,borderColor:thirdColor}} />
       <Box sx={{ width: '50%',  height: 550}} >
-      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor}}>
+      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,color:primaryButtonColor,pl:1 }}>
       Restrictions
         </Typography>
         <Box sx={{height: 410,overflowY:"auto", scrollbarWidth:"thin"}}>

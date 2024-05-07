@@ -17,7 +17,7 @@ const AutoComplete2 = ({
   disabled,
  
 }) => {
-
+console.log(formData);
   const [iTypeF2, setiTypeF2] = useState(1);
   const [AutoMenu, setAutoMenu] = useState([]);
   const [autoSearchKey, setautoSearchKey] = useState("");
