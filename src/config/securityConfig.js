@@ -187,3 +187,33 @@ export const historyProfile  = [
   { id: 5, profileName: "", date: "", time: "", loginName: "" },
   
 ];
+
+export const RoleTable = [{
+  iId: 1,
+  RoleName: 'Abc',
+  createdOn: '2020-01-01',
+  modifiedOn: '2020-01-01',
+ 
+  
+  
+},{
+  iId: 2,
+  RoleName: 'def',
+  createdOn: '2020-01-01',
+  modifiedOn: '2020-01-01',
+
+  
+},{
+  iId: 3,
+  RoleName: 'xyz',
+  createdOn: '2020-01-01',
+  modifiedOn: '2020-01-01',
+
+  
+}];
+
+export const passwordPolicy = [
+  { label: 'Simple', value: 'option1' },
+  { label: 'Portal', value: 'option2' },
+ 
+];

@@ -471,22 +471,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
       </FormGroup>
       </Box>
       <Stack direction="row" spacing={2} mt={2}>
-      <IconButton
-              aria-label="New"
-              sx={SelectAllIconStyle}
-              //onClick={()=>iconsClick("close")}
-            >
-              <Stack direction="column" alignItems="center">
-        <HistoryIcon sx={{ color:primaryButtonColor }} />
-        <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
-                >
-                  History
-                </Typography>
-              </Stack>
-            </IconButton>
+     
             <IconButton
               aria-label="New"
               sx={SelectAllIconStyle}
