@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 
-export default function AutocompleteSecurity({
+export default function Autocomplete1({
     formData,
     setFormData,
     key,
@@ -207,7 +207,7 @@ export default function AutocompleteSecurity({
               }
             }}
             sx={{
-              width: 200, // Adjust the width as needed
+              // Adjust the width as needed
               "& .MuiInputBase-root": {
                 height: 30, // Adjust the height of the input area
               },

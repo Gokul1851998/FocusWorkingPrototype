@@ -38,7 +38,7 @@ const RoleRestriction = ({
   
 }) => {
   
-    const [exclusionCheck, setExclusionChecked] = useState(false);
+   
       const [selectedItem, setSelectedItem] = useState('');
 
       const handleClick = (item) => {
@@ -47,9 +47,7 @@ const RoleRestriction = ({
       };
     
 
-      const handleOnChange = () => {
-        setExclusionChecked(!exclusionCheck);  // Toggle the state directly
-      };
+      
   return (
     <Box
       sx={{
@@ -97,16 +95,7 @@ const RoleRestriction = ({
         <Box
           
         >
-          <div style={{display:"flex",flexDirection:"row",marginBottom:"10px"}}>
-          <Checkbox
-                  checked={exclusionCheck}
-                  onChange={handleOnChange}
-                  color="primary"
-                  sx={{padding:0}}
-                />
-                <Typography>Exclusions</Typography>
-
-          </div>
+          
           <RoleRestrictionsTable/>
         </Box>
         {/* Action Buttons */}
