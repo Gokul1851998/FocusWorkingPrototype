@@ -11,10 +11,13 @@ import {
   IconButton,
   Popover,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { secondryColor, thirdColor } from "../../../../config";
-import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
+import {primaryColor, thirdColor } from "../../../../config";
+import Autocomplete1 from "../../../../components/AutoComplete/AutoComplete1";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 
 const cellStyle = {
   padding: "0px",
@@ -56,13 +59,18 @@ const initialRows = Array.from({ length: 10 }, () =>
 );
 
 const RestrictionsTable = () => {
+  const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
   const [rows, setRows] = useState(initialRows);
+  const [exclusionCheck, setExclusionChecked] = useState(false);
   const [popoverInfo, setPopoverInfo] = useState({
     open: false,
     anchorEl: null,
     rowIndex: null,
   });
 
+  const handleOnChange = () => {
+    setExclusionChecked(!exclusionCheck);  // Toggle the state directly
+  };
   const handlePopoverOpen = (event, index) => {
     setPopoverInfo({
       open: true,
@@ -81,33 +89,68 @@ const RestrictionsTable = () => {
     setRows(newRows);
   };
 
-  const handleAddRow = (index) => {
+  const handleAddRow = () => {
     const newRow = createData("", false, false, false);
     const newRows = [
-      ...rows.slice(0, index + 1),
+      ...rows.slice(0, selectedRowIndex + 1),
       newRow,
-      ...rows.slice(index + 1),
+      ...rows.slice(selectedRowIndex + 1),
     ];
     setRows(newRows);
-    handlePopoverClose();
   };
 
-  const handleDeleteRow = (index) => {
-    if (rows.length > 1) {
-      const newRows = [...rows.slice(0, index), ...rows.slice(index + 1)];
+  const handleDeleteRow = () => {
+    if (rows.length > 1 && selectedRowIndex >= 0) {
+      const newRows = [...rows.slice(0, selectedRowIndex), ...rows.slice(selectedRowIndex + 1)];
       setRows(newRows);
     }
-    handlePopoverClose();
   };
   const handleRowSelect = (index) => {
     const updatedRows = rows.map((row, idx) => ({
       ...row,
-      isSelected: idx === index ? true : row.isSelected,
+      isSelected: idx === index ? !row.isSelected : row.isSelected,
     }));
     setRows(updatedRows);
+    setSelectedRowIndex(index);
   };
+
+  return (<>
+  <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginBottom:"10px"}}>
+    <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+          <Checkbox
+                  checked={exclusionCheck}
+                  onChange={handleOnChange}
+                  color="primary"
+                  sx={{padding:0}}
+                />
+                <Typography>Exclusions</Typography>
+                </div>
+                <div>
+                <IconButton
+                aria-label="New"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+                onClick={handleAddRow}
+              >
+                
+          <AddCircleOutlineIcon sx={{ color:primaryColor }} />
+          
+              
+              </IconButton>
+                <IconButton
+                aria-label="New"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+                onClick={handleDeleteRow}
+              >
+                
+          <DeleteIcon sx={{ color:primaryColor }} />
+          
+              
+              </IconButton>
+
+                </div>
+
+          </div>
   
-  return (
     <TableContainer
       component={Paper}
       sx={{ maxHeight: 440, scrollbarWidth: "thin" }}
@@ -130,18 +173,21 @@ const RestrictionsTable = () => {
         </TableHead>
         <TableBody>
           {rows.map((row, index) => (
-            <TableRow key={index} hover onClick={() => handleRowSelect(index)}>
+            <TableRow 
+            key={index} hover onClick={() => handleRowSelect(index)}
+            selected={row.isSelected}
+            >
               <TableCell component="th" scope="row" sx={bodyCell}>
                 <IconButton
                   aria-describedby={`popover-${index}`}
                   size="small"
-                  onMouseEnter={(e) => handlePopoverOpen(e, index)}
+                  //onMouseEnter={(e) => handlePopoverOpen(e, index)}
                   sx={{padding:0}}
                 >
                   {index + 1} {/* Display the index + 1 as ID */}
                   {/* <MoreVertIcon /> */}
                 </IconButton>
-                <Popover
+                {/* <Popover
                   id={`popover-${index}`}
                   open={popoverInfo.open && popoverInfo.rowIndex === index}
                   anchorEl={popoverInfo.anchorEl}
@@ -161,24 +207,30 @@ const RestrictionsTable = () => {
                   <MenuItem onClick={() => handleDeleteRow(index)}>
                     Delete Row
                   </MenuItem>
-                </Popover>
+                </Popover> */}
               </TableCell>
-              <TableCell sx={bodyCell}>{row.isSelected ? (
-                  <AutoComplete2
-                    formData={{ sName: row.master, iId: null }}
-                    setFormData={(data) => {console.log(data);
-                      const newRows = [...rows];
-                      newRows[index] = {...newRows[index], master: data.sName};
-                      console.log(newRows);
-                      setRows(newRows);
-                    }}
-                    
-                  />
-                ) : (
-                  row.master || "Select a Master"  // Placeholder when not selected
-                )}</TableCell>
+              <TableCell sx={{...bodyCell, paddingLeft: "0px"}}>
+  {row.isSelected ? (
+    <div  onClick={(e) => e.stopPropagation()} onMouseDown={(e) => e.stopPropagation()}>
+      <Autocomplete1
+        formData={{ sName: row.master, iId: null }}
+        setFormData={(data) => {
+         
+          const newRows = [...rows];
+          newRows[index] = { ...newRows[index], master: data.sName };
+         
+          setRows(newRows);
+        }}
+        
+      />
+    </div>
+  ) : (
+    row.master || ""  // Placeholder when not selected
+  )}
+</TableCell>
               <TableCell align="center" sx={bodyCell}>
                 <Checkbox
+                  disabled={row.master===""}
                   checked={row.entry}
                   onChange={() => handleCheckboxChange(index, "entry")}
                   color="primary"
@@ -187,6 +239,7 @@ const RestrictionsTable = () => {
               </TableCell>
               <TableCell align="center" sx={bodyCell}>
                 <Checkbox
+                disabled={row.master===""}
                   checked={row.report}
                   onChange={() => handleCheckboxChange(index, "report")}
                   color="primary"
@@ -195,6 +248,7 @@ const RestrictionsTable = () => {
               </TableCell>
               <TableCell align="center" sx={bodyCell}>
                 <Checkbox sx={{padding:0}}
+                disabled={row.master===""}
                   checked={row.view}
                   onChange={() => handleCheckboxChange(index, "view")}
                   color="primary"
@@ -205,6 +259,7 @@ const RestrictionsTable = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 };
 

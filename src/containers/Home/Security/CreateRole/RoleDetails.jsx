@@ -239,6 +239,9 @@ const Accordion = styled((props) => (
 const  handleclose=()=>{
   setPage("summary")
 }
+const handleLoadFrom =() =>{
+
+}  
     
     return (
       <Box sx={{ display: "flex",flexDirection:"column",width:"100%" }}>
