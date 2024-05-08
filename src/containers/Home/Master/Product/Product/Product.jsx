@@ -9,7 +9,7 @@ import {
   primaryColor,
   secondryColor,
 } from "../../../../../config";
-import { accountTree } from "../../../../../config/masterConfig";
+import { accountTree, productData } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
@@ -43,11 +43,12 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
-import AccountDetails from "./AccountDetails";
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import StopIcon from '@mui/icons-material/Stop';
 import BlockIcon from '@mui/icons-material/Block';
+import TableProduct from "../../../../../components/Tables/TableProduct";
+import ProductDetails from "./ProductDetails";
 
 function handleClick(event) {
   event.preventDefault();
@@ -67,7 +68,7 @@ const actions = [
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
 ];
 
-export default function AccountMaster(args) {
+export default function Product(args) {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
@@ -135,10 +136,10 @@ export default function AccountMaster(args) {
       sx={{ fontSize: "1rem" }}
       onClick={handleClick}
     >
-      Account
+      Product
     </Link>,
     <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
-      Account Master
+     Product
     </Typography>,
   ];
 
@@ -397,7 +398,7 @@ export default function AccountMaster(args) {
           )}
         </Box>
         {detailPage ? (
-          <AccountDetails />
+  <ProductDetails  />
         ) : (
           <>
             <SpeedDial
@@ -479,7 +480,7 @@ export default function AccountMaster(args) {
                 </Alert>
               </Collapse>
 
-              <TableAccounts />
+              <TableProduct masterData={productData} />
             </div>
             <div
               style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}

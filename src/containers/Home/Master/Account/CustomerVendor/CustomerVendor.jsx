@@ -143,6 +143,10 @@ export default function CustomerVendor(args) {
     </Typography>,
   ];
 
+  const handleClose = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <CssBaseline />
@@ -318,6 +322,7 @@ export default function CustomerVendor(args) {
                 </Stack>
               </IconButton>
               <IconButton
+              onClick={handleClose}
                 aria-label="Close"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >

@@ -9,6 +9,9 @@ import CustomerVendor from "../../containers/Home/Master/Account/CustomerVendor/
 import CurrencyMaster from "../../containers/Home/Master/Currency/CurrencyMaster/CurrencyMaster";
 import ExchangeRate from "../../containers/Home/Master/Currency/ExchangeRate/ExchangeRate";
 import ExchangeRateHistory from "../../containers/Home/Master/Currency/ExchangeCurrencyHistory/ExchangeRateHistoy";
+import Product from "../../containers/Home/Master/Product/Product/Product";
+import Unit from "../../containers/Home/Master/Product/Unit/Unit";
+import UnitConversion from "../../containers/Home/Master/Product/UnitConversion/UnitConversion";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -38,6 +41,12 @@ export default function MasterPage() {
             <ExchangeRate />
           ) : id === 23 ?(
             <ExchangeRateHistory />
+          ) : id === 24 ?(
+            <Product />
+          ) : id === 25 ?(
+            <Unit />
+          ): id === 26 ?(
+            <UnitConversion />
           ) : null}
         </Box>
         <Footer />

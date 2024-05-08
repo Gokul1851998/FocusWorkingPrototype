@@ -196,4 +196,219 @@ export const exchangeRateData = [
     },
  
   ];
+
+  export const productData = [
+    {
+      "Master": 1,
+      "Name": "Product A",
+      "Code": "PA001",
+      "Recorder Level": 5,
+      "Bin capacity": "Large",
+      "Is Attribute": false,
+      "ItemType": "Widget",
+      "Valuation Method": "FIFO"
+    },
+    {
+      "Master": 2,
+      "Name": "Product B",
+      "Code": "PB002",
+      "Recorder Level": 3,
+      "Bin capacity": "Small",
+      "Is Attribute": true,
+      "ItemType": "Gadget",
+      "Valuation Method": "LIFO"
+    },
+    {
+      "Master": 3,
+      "Name": "Product C",
+      "Code": "PC003",
+      "Recorder Level": 4,
+      "Bin capacity": "Medium",
+      "Is Attribute": false,
+      "ItemType": "Tool",
+      "Valuation Method": "Weighted Average"
+    },
+    {
+      "Master": 4,
+      "Name": "Product D",
+      "Code": "PD004",
+      "Recorder Level": 2,
+      "Bin capacity": "Small",
+      "Is Attribute": true,
+      "ItemType": "Device",
+      "Valuation Method": "Specific Identification"
+    },
+    {
+      "Master": 5,
+      "Name": "Product E",
+      "Code": "PE005",
+      "Recorder Level": 6,
+      "Bin capacity": "Large",
+      "Is Attribute": false,
+      "ItemType": "Equipment",
+      "Valuation Method": "Average Cost"
+    },
+    {
+      "Master": 6,
+      "Name": "Product F",
+      "Code": "PF006",
+      "Recorder Level": 3,
+      "Bin capacity": "Medium",
+      "Is Attribute": true,
+      "ItemType": "Appliance",
+      "Valuation Method": "FIFO"
+    },
+    {
+      "Master": 7,
+      "Name": "Product G",
+      "Code": "PG007",
+      "Recorder Level": 4,
+      "Bin capacity": "Large",
+      "Is Attribute": false,
+      "ItemType": "Accessory",
+      "Valuation Method": "LIFO"
+    },
+    {
+      "Master": 8,
+      "Name": "Product H",
+      "Code": "PH008",
+      "Recorder Level": 2,
+      "Bin capacity": "Small",
+      "Is Attribute": true,
+      "ItemType": "Component",
+      "Valuation Method": "Weighted Average"
+    },
+    {
+      "Master": 9,
+      "Name": "Product I",
+      "Code": "PI009",
+      "Recorder Level": 5,
+      "Bin capacity": "Medium",
+      "Is Attribute": false,
+      "ItemType": "Material",
+      "Valuation Method": "Specific Identification"
+    },
+    {
+      "Master": 10,
+      "Name": "Product J",
+      "Code": "PJ010",
+      "Recorder Level": 3,
+      "Bin capacity": "Large",
+      "Is Attribute": true,
+      "ItemType": "Supply",
+      "Valuation Method": "Average Cost"
+    },
+    {
+      "Master": 11,
+      "Name": "Product K",
+      "Code": "PK011",
+      "Recorder Level": 4,
+      "Bin capacity": "Small",
+      "Is Attribute": false,
+      "ItemType": "Resource",
+      "Valuation Method": "FIFO"
+    },
+    {
+      "Master": 12,
+      "Name": "Product L",
+      "Code": "PL012",
+      "Recorder Level": 2,
+      "Bin capacity": "Medium",
+      "Is Attribute": true,
+      "ItemType": "Product",
+      "Valuation Method": "LIFO"
+    }
+  ];
+
+ export const UnitData = [
+    {
+      Master: 1,
+      Name: "Item 1",
+      Code: "ITM001",
+      "No of decimal": 2,
+      "Rounding Type": "Normal",
+    },
+    {
+      Master: 2,
+      Name: "Item 2",
+      Code: "ITM002",
+      "No of decimal": 3,
+      "Rounding Type": "Up",
+    },
+    {
+      Master: 3,
+      Name: "Item 3",
+      Code: "ITM003",
+      "No of decimal": 2,
+      "Rounding Type": "Down",
+    },
+    {
+      Master: 4,
+      Name: "Item 4",
+      Code: "ITM004",
+      "No of decimal": 4,
+      "Rounding Type": "Normal",
+    },
+    {
+      Master: 5,
+      Name: "Item 5",
+      Code: "ITM005",
+      "No of decimal": 2,
+      "Rounding Type": "Up",
+    },
+    {
+      Master: 6,
+      Name: "Item 6",
+      Code: "ITM006",
+      "No of decimal": 3,
+      "Rounding Type": "Down",
+    },
+    {
+      Master: 7,
+      Name: "Item 7",
+      Code: "ITM007",
+      "No of decimal": 2,
+      "Rounding Type": "Normal",
+    },
+    {
+      Master: 8,
+      Name: "Item 8",
+      Code: "ITM008",
+      "No of decimal": 3,
+      "Rounding Type": "Up",
+    },
+    {
+      Master: 9,
+      Name: "Item 9",
+      Code: "ITM009",
+      "No of decimal": 2,
+      "Rounding Type": "Down",
+    },
+    {
+      Master: 10,
+      Name: "Item 10",
+      Code: "ITM010",
+      "No of decimal": 4,
+      "Rounding Type": "Normal",
+    },
+    {
+      Master: 11,
+      Name: "Item 11",
+      Code: "ITM011",
+      "No of decimal": 2,
+      "Rounding Type": "Up",
+    },
+    {
+      Master: 12,
+      Name: "Item 12",
+      Code: "ITM012",
+      "No of decimal": 3,
+      "Rounding Type": "Down",
+    },
+  ];
+  
+  
+  
+
+  
   
