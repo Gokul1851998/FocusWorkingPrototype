@@ -230,3 +230,15 @@ export const masterItems = [
   "Member Card Definition", "Return Remarks", "Kitchen Display System", "Delivery Time Interval", "E-Payment", "Order Type",
   "Order Source", "jjjj", "abcd", "New", "testMaster"
 ];
+
+export const masterTrees = [
+  "tree1", "tree2", "tree3", "tree4",
+];
+
+export const roleRightSelectItem = [
+  { label: 'Not Applicable', value: 'option1' },
+  { label: 'Allow', value: 'option2' },
+  { label: 'Alert', value: 'option3' },
+  { label: 'Stop', value: 'option4' },
+ 
+];

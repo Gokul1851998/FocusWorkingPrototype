@@ -14,7 +14,7 @@ import { MDBCard,
   MDBRow,} from "mdb-react-ui-kit";
 import AccountInput from "../../../../components/Inputs/AccountInput";
 import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
-import { Box, IconButton, Stack } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, IconButton, Stack } from "@mui/material";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -28,13 +28,16 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 import { createProfileTree, masterItems, passwordPolicy, restrictionItems } from "../../../../config/securityConfig";
-import RoleSelect11 from "./RoleSelect1";
+import RoleSelect1 from "./RoleSelect1";
 import PersonIcon from '@mui/icons-material/Person';
 import TransferList from "./TransferList";
 import ProfileManagementPanel from "./RoleAddExclusion";
 import RoleRestriction from "./RoleRestrictionForEntry";
 import ChecklistIcon from '@mui/icons-material/Checklist';
-
+import RoleTreeRestriction from "./RestrictionForTrees";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import RoleTransactionRights from "./RoleTransactionRights";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -163,7 +166,7 @@ const Accordion = styled((props) => (
               <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              onClick={()=>iconsClick("GetLoadFrom")}
+              onClick={()=>iconsClick("GetUsersOnRole")}
             >
               <Stack direction="column" alignItems="center">
         <PersonIcon sx={{ color:primaryButtonColor }} />
@@ -200,10 +203,23 @@ const Accordion = styled((props) => (
     );
   };
 
+  const buttonStyle ={
+    backgroundColor: secondryColor,
+    color: primaryButtonColor,
+    textTransform: 'none',
+    padding: "1px",
+    '&:hover': {
+      backgroundColor: secondryColor, // Change as needed
+      color: primaryButtonColor // Example hover color change
+    },
+    
+  }
+
   export default function RoleDetails({detailPageId,setPage}) {
     const [expanded, setExpanded] = React.useState("panel1");
     const [formData, setFormData] = React.useState({sName:null,iId:null})
     const [selectedOption, setSelectedOption] = React.useState('');
+    const [openUsersOnRole, setOpenUsersOnRole] = React.useState(false)
   
     const handleChange = (panel) => (event, newExpanded) => {
       setExpanded(newExpanded ? panel : false);
@@ -220,18 +236,9 @@ const Accordion = styled((props) => (
         case "close":
           handleclose()
           break;
-        case "GetRolesInProfile":
-          handleGetRolesInProfile()  
-          break;
-        case "GetLoadFrom":
-          handleLoadFrom()  
-          break;  
-        case "GetHistory":
-          handleLoadHistory()  
-          break;  
-        case "customize":
-          handleOpenCustomize()  
-          break;      
+        case "GetUsersOnRole":
+          handleUsersOnRole()  
+          break;     
         default:
           break;
       }
@@ -239,12 +246,17 @@ const Accordion = styled((props) => (
 const  handleclose=()=>{
   setPage("summary")
 }
-const handleLoadFrom =() =>{
-
-}  
+const handleUsersOnRole = ()=>{
+    
+  setOpenUsersOnRole(true)
+}
+const handleCloseUsersOnRole = ()=>{
+  
+  setOpenUsersOnRole(false)
+} 
     
     return (
-      <Box sx={{ display: "flex",flexDirection:"column",width:"100%" }}>
+      <Box sx={{ display: "flex",flexDirection:"column",width:"100%"}}>
     <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
             paddingRight: 1.5,}}>   
        <BasicBreadcrumbs/>
@@ -266,7 +278,7 @@ const handleLoadFrom =() =>{
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <RoleSelect11
+                  <RoleSelect1
                     label="Password Policy"
                     value={selectedOption}
                     onChange={handleSelectChange}
@@ -316,7 +328,7 @@ const handleLoadFrom =() =>{
           onChange={handleChange("panel2")}
         >
           <AccordionSummary
-            aria-controls="panel1d-content"
+            aria-controls="panel2d-content"
             id="panel2d-header"
             className
             expanded={expanded === "panel2"}
@@ -353,7 +365,7 @@ const handleLoadFrom =() =>{
           onChange={handleChange("panel3")}
         >
           <AccordionSummary
-            aria-controls="panel1d-content"
+            aria-controls="panel3d-content"
             id="panel3d-header"
             className
             expanded={expanded === "panel3"}
@@ -390,8 +402,8 @@ const handleLoadFrom =() =>{
           onChange={handleChange("panel4")}
         >
           <AccordionSummary
-            aria-controls="panel1d-content"
-            id="panel3d-header"
+            aria-controls="panel4d-content"
+            id="panel4d-header"
             className
             expanded={expanded === "panel4"}
           >
@@ -417,10 +429,121 @@ const handleLoadFrom =() =>{
             </>
           </AccordionDetails>
         </Accordion>  
-      
+        <Accordion
+          expanded={expanded === "panel5"}
+          onChange={handleChange("panel5")}
+        >
+          <AccordionSummary
+            aria-controls="panel5d-content"
+            id="panel5d-header"
+            className
+            expanded={expanded === "panel5"}
+          >
+            <IconButton
+         
+         sx={{ fontSize: "0.8rem", padding: "0rem" }}
+         //onClick={()=>iconsClick("close")}
+       >
+         <Stack direction="column" alignItems="center">
+       <WidgetsIcon sx={{ color:primaryButtonColor }} />
+  
+         </Stack>
+       </IconButton>
+            <Typography style={{ fontSize: "14px" }}>Restrictions For Trees</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody >
+                <RoleTreeRestriction masterItems={masterItems}  />
+                </MDBCardBody>
+              </div>
+            </>
+          </AccordionDetails>
+        </Accordion> 
+        <Accordion
+          expanded={expanded === "panel6"}
+          onChange={handleChange("panel6")}
+        >
+          <AccordionSummary
+            aria-controls="panel6d-content"
+            id="panel6d-header"
+            className
+            expanded={expanded === "panel6"}
+          >
+            <IconButton
+         
+         sx={{ fontSize: "0.8rem", padding: "0rem" }}
+         //onClick={()=>iconsClick("close")}
+       >
+         <Stack direction="column" alignItems="center">
+       <SwapHorizIcon sx={{ color:primaryButtonColor }} />
+  
+         </Stack>
+       </IconButton>
+            <Typography style={{ fontSize: "14px" }}>Transaction Rights</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody >
+                <RoleTransactionRights/>
+                </MDBCardBody>
+              </div>
+            </>
+          </AccordionDetails>
+        </Accordion> 
        
 
         </Box>
+        <Dialog open={openUsersOnRole} onClose={handleCloseUsersOnRole} aria-labelledby="form-dialog-title">
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+       Users in role
+        </Typography>
+        <Box sx={{minHeight:"200px",ml:2}}>
+          <Typography>
+            User1
+          </Typography>
+
+        </Box>
+  <DialogContent>
+  <input placeholder='Search' style={{borderRadius:"5px", border:"1px solid #ddd"}}/>
+    {/* You can add more content here such as a list of items */}
+  </DialogContent>
+  <DialogActions>
+  <Button onClick={handleCloseUsersOnRole} 
+     sx={buttonStyle}
+
+    
+    >
+      Ok
+    </Button>
+    <Button onClick={handleCloseUsersOnRole} 
+     sx={buttonStyle}
+
+    
+    >
+      Cancel
+    </Button>
+    {/* <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={handleCloseGetRolesInProfile}
+            >
+              <Stack direction="column" alignItems="center">
+        <CloseIcon sx={{ color:primaryColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryColor, fontSize: "0.6rem" }}
+                >
+                  Close
+                </Typography>
+              </Stack>
+            </IconButton> */}
+    
+  </DialogActions>
+</Dialog>
         </Box>
   );
 }        
