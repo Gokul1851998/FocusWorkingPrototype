@@ -406,6 +406,70 @@ export const exchangeRateData = [
       "Rounding Type": "Down",
     },
   ];
+
+
+  export const warehouseData = [
+    {
+        MasterId: 1,
+        Name: "Example Name 1",
+        Code: "ABC123",
+    },
+    {
+        MasterId: 2,
+        Name: "Example Name 2",
+        Code: "DEF456",
+    },
+    {
+        MasterId: 3,
+        Name: "Example Name 3",
+        Code: "GHI789",
+    },
+    {
+        MasterId: 4,
+        Name: "Example Name 4",
+        Code: "JKL012",
+    },
+    {
+        MasterId: 5,
+        Name: "Example Name 5",
+        Code: "MNO345",
+    },
+    {
+        MasterId: 6,
+        Name: "Example Name 6",
+        Code: "PQR678",
+    },
+    {
+        MasterId: 7,
+        Name: "Example Name 7",
+        Code: "STU901",
+    },
+    {
+        MasterId: 8,
+        Name: "Example Name 8",
+        Code: "VWX234",
+    },
+    {
+        MasterId: 9,
+        Name: "Example Name 9",
+        Code: "YZA567",
+    },
+    {
+        MasterId: 10,
+        Name: "Example Name 10",
+        Code: "BCD890",
+    },
+    {
+        MasterId: 11,
+        Name: "Example Name 11",
+        Code: "EFG123",
+    },
+    {
+        MasterId: 12,
+        Name: "Example Name 12",
+        Code: "HIJ456",
+    },
+];
   
   
   

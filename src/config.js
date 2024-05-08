@@ -37,7 +37,7 @@ export const SideBarIcons = [
     { id: 26, parent:17, iconName: "Unit Conversion", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
     { id: 27, parent:17, iconName: "Seller Price Book", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
     { id: 28,parent:17, iconName: "Buyer Price Book", icon:  import("@mui/icons-material/PointOfSale") ,url:"/Master" },
-    { id: 29, parent:17, iconName: "Barcode Definition", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
+    // { id: 29, parent:17, iconName: "Barcode Definition", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
     { id: 30, parent:8, iconName: "Main Settings", icon:  import("@mui/icons-material/Inventory"),child:true },
     { id: 31,parent:8, iconName: "Voucher Settings", icon:  import("@mui/icons-material/PointOfSale") ,url:"/VoucherSettings" },
     { id: 32, parent:8, iconName: "Master Settings", icon:  import("@mui/icons-material/Inventory"),url:"/MasterSettings" },

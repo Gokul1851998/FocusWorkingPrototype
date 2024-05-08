@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, CssBaseline, IconButton, TextField, styled } from "@mui/material";
+import {
+  Box,
+  CssBaseline,
+  FormGroup,
+  IconButton,
+  Popover,
+  TextField,
+  styled,
+} from "@mui/material";
 import { Collapse, Button, CardBody, Card, Alert } from "reactstrap";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -63,8 +71,17 @@ import GetAppIcon from "@mui/icons-material/GetApp";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
-import ExchangeRateHistoryTable from "./ExchangeRateHistoryTable";
-import ExchangeRateHistTab from "./ExchangeRateHistTab";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import SelectAllIcon from "@mui/icons-material/SelectAll";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import PopupState, { bindPopover, bindTrigger } from "material-ui-popup-state";
+import SellerPriceBookTable from "../SellerPriceBook/SellerPriceBookTable";
+
+function handleClick(event) {
+  event.preventDefault();
+  console.info("You clicked a breadcrumb.");
+}
 
 const buttonStyle = {
   textTransform: "none", // Set text transform to none for normal case
@@ -75,11 +92,6 @@ const buttonStyle = {
   fontSize: "12px",
   padding: "6px 10px",
 };
-
-function handleClick(event) {
-  event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
 
 const actions = [
   { icon: <GroupAddIcon />, name: "Group" },
@@ -133,7 +145,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   gap: 100,
 }));
 
-export default function ExchangeRateHistory(args) {
+export default function BuyerPriceBook(args) {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
@@ -210,10 +222,10 @@ export default function ExchangeRateHistory(args) {
       sx={{ fontSize: "1rem" }}
       onClick={handleClick}
     >
-      Account
+      Product
     </Link>,
     <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
-      Exchange Rate History
+      Buyer Price Book
     </Typography>,
   ];
 
@@ -251,38 +263,22 @@ export default function ExchangeRateHistory(args) {
             sx={{ flex: "0 0 auto" }}
           >
             <IconButton
-              aria-label="New"
+              aria-label="Append"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <GetAppIcon style={{ color: "white" }} />
+                <PostAddIcon style={{ color: "white" }} />
                 <Typography
                   variant="caption"
                   align="center"
                   style={{ color: "white", fontSize: "0.6rem" }}
                 >
-                  Import
+                  Append
                 </Typography>
               </Stack>
             </IconButton>
             <IconButton
-              aria-label="Add group"
-              sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
-            >
-              <Stack direction="column" alignItems="center">
-                <SwapHorizIcon style={{ color: "white" }} />
-
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
-                >
-                  Exchange Rate
-                </Typography>
-              </Stack>
-            </IconButton>
-            <IconButton
-              aria-label="Edit"
+              aria-label="Clear"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
@@ -298,6 +294,53 @@ export default function ExchangeRateHistory(args) {
               </Stack>
             </IconButton>
             <IconButton
+              aria-label="paste"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <ContentPasteIcon style={{ color: "white" }} />
+
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Paste
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="Copy"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <FileCopyIcon style={{ color: "white" }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Copy
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="SelectAll"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <SelectAllIcon style={{ color: "white" }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Select All
+                </Typography>
+              </Stack>
+            </IconButton>
+
+            <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -312,7 +355,22 @@ export default function ExchangeRateHistory(args) {
                 </Typography>
               </Stack>
             </IconButton>
+            <IconButton
+              aria-label="Delete"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <DeleteIcon style={{ color: "white" }} />
 
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Delete
+                </Typography>
+              </Stack>
+            </IconButton>
             <IconButton
               onClick={handleClose}
               aria-label="Close"
@@ -332,54 +390,196 @@ export default function ExchangeRateHistory(args) {
           </Stack>
         </Box>
 
-        <MDBCard
-          className="text-center"
-          style={{
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-            zIndex: 1,
-            margin: 10,
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+            padding: 2,
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
-              padding: 2,
-            }}
+          <AutoComplete2 autoLabel="Price Book" />
+          <AccountInput label="Abbreviation" />
+
+          <PopupState variant="popover" popupId="demo-popup-popover">
+            {(popupState) => (
+              <div>
+                <IconButton
+                  aria-label="options"
+                  {...bindTrigger(popupState)}
+                  sx={{ padding: 0, fontSize: "1.2rem" }}
+                >
+                  <HandymanIcon sx={{ fontSize: "1.2rem" }} />
+                </IconButton>
+                <Popover
+                  {...bindPopover(popupState)}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                >
+                  <FormGroup sx={{ padding: 1 }}>
+                    {" "}
+                    {/* Adjust the font size here */}
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 0.7 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Date Range"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                        },
+                      }}
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 0.7 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Vendor"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                        },
+                      }}
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 0.7 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Department"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                        },
+                      }}
+                    />
+                        <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 0.7 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Qty Range"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                       
+                        },
+                      }}
+                    />
+                        <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 0.7 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Currency"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                       
+                        },
+                      }}
+                    />
+                        <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 0.7 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Unit"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                       
+                        },
+                      }}
+                    />
+                  </FormGroup>
+                </Popover>
+              </div>
+            )}
+          </PopupState>
+        </Box>
+        <Accordion
+          expanded={expanded === "panel1"}
+          onChange={handleChange("panel1")}
+        >
+          <AccordionSummary
+            aria-controls="panel1d-content"
+            id="panel1d-header"
+            className
+            expanded={expanded === "panel1"}
           >
-            <AutoComplete2 autoLabel="Base Currency" />
-            <AccountInput label="Date Range" type="date" />
-            <AccountInput label="From Date" type="date" />
-            <AccountInput label="To Date" type="date" />
-            
-          </Box>
-          <Stack
-              direction="row"
-              spacing={1}
-              padding={1}
-              justifyContent="flex-end"
-            >
-              <Button variant="contained" style={buttonStyle}>
-                Load
-              </Button>
-              <Button variant="contained" style={buttonStyle}>
-                Clear
-              </Button>
-            </Stack>
-            <ExchangeRateHistoryTable />
-        </MDBCard>
-        
-        <MDBCard
-          className="text-center"
-          style={{
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-            zIndex: 1,
-            margin: 10,
-          }}
-        >
-             <ExchangeRateHistTab />
-        </MDBCard>
+            <Typography style={{ fontSize: "14px" }}>Filter</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody>
+                  <MDBRow>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <AccountInput label="Start Date" type="date" />
+                    </MDBCol>
+
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <AccountInput label="End Date" type="date" />
+                    </MDBCol>
+
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <AutoComplete2 autoLabel="Item" />
+                    </MDBCol>
+
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <AutoComplete2 autoLabel="Currency" />
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <AutoComplete2 autoLabel="Customer" />
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <AutoComplete2 autoLabel="Department" />
+                    </MDBCol>
+                  </MDBRow>
+                </MDBCardBody>
+              </div>
+
+              <Stack
+                direction="row"
+                spacing={1}
+                padding={1}
+                justifyContent="flex-end"
+              >
+                <Button variant="contained" style={buttonStyle}>
+                  Clear
+                </Button>
+                <Button variant="contained" style={buttonStyle}>
+                  Filter
+                </Button>
+                <Button variant="contained" style={buttonStyle}>
+                  Filter & Load
+                </Button>
+              </Stack>
+            </>
+          </AccordionDetails>
+        </Accordion>
+        <SellerPriceBookTable />
       </React.StrictMode>
     </>
   );

@@ -276,7 +276,7 @@ export default function TableProduct({masterData}) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = data.map((n) => n.Master);
+      const newSelected = data.map((n) => n.Master? n.Master : n.MasterId);
       setSelected(newSelected);
       return;
     }
@@ -405,18 +405,18 @@ export default function TableProduct({masterData}) {
 
                   <TableBody>
                     {visibleRows.map((row, index) => {
-                      const isItemSelected = isSelected(row.Master);
+                      const isItemSelected = isSelected(row.Master? row.Master : row.MasterId);
                       const labelId = `enhanced-table-checkbox-${index}`;
 
                       return (
                         <TableRow
                           hover
                           className={`table-row `}
-                          onClick={(event) => handleClick(event, row.Master)}
+                          onClick={(event) => handleClick(event, row.Master? row.Master : row.MasterId)}
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
-                          key={row.Master}
+                          key={row.Master? row.Master : row.MasterId}
                           selected={isItemSelected}
                           sx={{ cursor: "pointer" }}
                         >
