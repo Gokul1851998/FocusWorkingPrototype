@@ -219,7 +219,7 @@ export default function Autocomplete1({
               //   transform: "translate(14px, -9px) scale(0.75)", // Adjust label position when focused
               // },
               "& .MuiInputBase-input": {
-                zIndex:2,
+                zIndex:1,
                 fontSize: '0.75rem', // Adjust the font size of the input text
               },
               "&.Mui-focused .MuiOutlinedInput-notchedOutline": {

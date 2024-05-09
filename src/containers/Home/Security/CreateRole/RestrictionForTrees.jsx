@@ -13,6 +13,7 @@ import { primaryButtonColor, primaryColor, thirdColor } from '../../../../config
 import DeselectIcon from '@mui/icons-material/Deselect';
 import { List, ListItem, ListItemText, Box, ListItemButton } from '@mui/material';
 import RoleRestrictionsTable from './RoleRestrictionTable';
+import { masterTrees } from '../../../../config/securityConfig';
 
 
 
@@ -30,7 +31,7 @@ const SelectAllIconStyle ={//style for selectAll and unselectAll
       backgroundColor: 'transparent', // Removes active background color
     }
   }
-const RoleRestriction = ({
+const RoleTreeRestriction = ({
   
   masterItems,
   restrictionItems
@@ -40,10 +41,21 @@ const RoleRestriction = ({
   
    
       const [selectedItem, setSelectedItem] = useState('');
+      const [checkedState, setCheckedState] = useState(
+        new Array(masterTrees.length).fill(false)
+      );
+
 
       const handleClick = (item) => {
         setSelectedItem(item);
         
+      };
+      const handleOnChange = (position) => {
+        const updatedCheckedState = checkedState.map((item, index) =>
+          index === position ? !item : item
+        );
+    
+        setCheckedState(updatedCheckedState);
       };
     
 
@@ -68,11 +80,11 @@ const RoleRestriction = ({
         >
           Masters
         </Typography>
-        <List component="nav" aria-label="main mailbox folders" sx={{height: "50vh", overflowY: 'auto', scrollbarWidth: 'thin',padding:0,pl:1  }}>
+        <List component="nav" aria-label="main mailbox folders" sx={{height: " 40vh ", overflowY: 'auto', scrollbarWidth: 'thin',padding:0,pl:1  }}>
         {masterItems.map((item, index) => (
-          <ListItemButton key={index} onClick={() => handleClick(item)} sx={{ padding: 0 }}>
-          <ListItemText primary={item} primaryTypographyProps={{ style: { fontSize: '0.8rem' } }} />
-          </ListItemButton>
+         <ListItemButton key={index} onClick={() => handleClick(item)} sx={{ padding: 0 }}>
+            <ListItemText primary={item} primaryTypographyProps={{ style: { fontSize: '0.8rem' } }} />
+            </ListItemButton>
         ))}
       </List>
       </Box>
@@ -83,20 +95,47 @@ const RoleRestriction = ({
         sx={{ borderWidth: 1, borderColor: thirdColor }}
       />
       {/* Right Panel: Restrictions */}
-      <Box sx={{ width: '50%', height: "50vh" }}>
+      <Box sx={{ width: '50%', height:" 40vh "}}>
         <Typography
           variant="h6"
           gutterBottom
           component="div"
           sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1   }}
         >
-          Restrictions
+          Master Trees
         </Typography>
         <Box
           
         >
+          <Box
+          sx={{ height: " 40vh ", overflowY: 'auto', scrollbarWidth: 'thin' }}
+        >
+          <FormGroup>
+            {masterTrees.map((name, index) => (
+              <FormControlLabel
+                key={index}
+                control={
+                  <Checkbox
+                    checked={checkedState[index]}
+                    onChange={() => handleOnChange(index)}
+                    sx={{
+                      '& .MuiSvgIcon-root': { fontSize: 15 },
+                      padding: '0',
+                    }}
+                  />
+                }
+                label={name}
+                sx={{
+                  fontSize: '0.75rem',
+                  marginY: 0.1,
+                  marginLeft: 0.5,
+                  marginRight: 0.5,
+                }}
+              />
+            ))}
+          </FormGroup>
+        </Box>
           
-          <RoleRestrictionsTable/>
         </Box>
         {/* Action Buttons */}
         
@@ -105,4 +144,4 @@ const RoleRestriction = ({
   );
 };
 
-export default RoleRestriction;
+export default RoleTreeRestriction;

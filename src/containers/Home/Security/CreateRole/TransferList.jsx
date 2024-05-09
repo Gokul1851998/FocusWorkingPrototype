@@ -93,10 +93,15 @@ export default function TransferList() {
               key={value}
               role="listitem"
               onClick={handleToggle(value)}
-              
+              sx={{
+                backgroundColor: checked.indexOf(value) !== -1 ? "#E6E6FA" : "transparent", // Change color if selected
+                '&:hover': {
+                  backgroundColor: "#E6E6FA" // Lighter pink for hover
+                }
+              }}
               
             >
-              <ListItemIcon sx={{padding:0,mr:0}}>
+              {/* <ListItemIcon sx={{padding:0,mr:0}}>
                 <Checkbox
                   checked={checked.indexOf(value) !== -1}
                   tabIndex={-1}
@@ -107,7 +112,7 @@ export default function TransferList() {
                   }}
                   sx={{padding:"0"}}  
                 />
-              </ListItemIcon>
+              </ListItemIcon> */}
               <ListItemText  id={labelId} primary={`List item ${value + 1}`} />
             </ListItemButton>
           );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Table,
   TableBody,
@@ -18,6 +18,7 @@ import {primaryColor, thirdColor } from "../../../../config";
 import Autocomplete1 from "../../../../components/AutoComplete/AutoComplete1";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
+import WarningMessage from "../../../../components/Warning/Warnings";
 
 const cellStyle = {
   padding: "0px",
@@ -67,6 +68,24 @@ const RestrictionsTable = () => {
     anchorEl: null,
     rowIndex: null,
   });
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [alertType, setAlertType] = useState("");
+
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setSelectedRowIndex(-1);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   const handleOnChange = () => {
     setExclusionChecked(!exclusionCheck);  // Toggle the state directly
@@ -82,8 +101,24 @@ const RestrictionsTable = () => {
   const handlePopoverClose = () => {
     setPopoverInfo({ ...popoverInfo, open: false });
   };
+  const handleAlertClose = () => {
+    setAlert(false);
+    setMessage("")
+    setAlertType("")
+  };
+  const areAllAboveRowsValid = (index) => {
+    
+    // Check every row up to the current index
+    for (let i = 0; i < index; i++) {
+      if (!rows[i].master) {
+        return false;  // Immediately return false if any row fails the check
+      }
+    }
+    return true;  // All rows up to the current index are valid
+  };
 
   const handleCheckboxChange = (index, field) => {
+    
     const newRows = [...rows];
     newRows[index][field] = !newRows[index][field];
     setRows(newRows);
@@ -91,11 +126,17 @@ const RestrictionsTable = () => {
 
   const handleAddRow = () => {
     const newRow = createData("", false, false, false);
-    const newRows = [
+    let newRows;
+    if (selectedRowIndex >= 0) {
+     newRows = [
       ...rows.slice(0, selectedRowIndex + 1),
       newRow,
       ...rows.slice(selectedRowIndex + 1),
     ];
+    } else {
+      // Add the new row at the end of the table
+      newRows = [...rows, newRow];
+    }
     setRows(newRows);
   };
 
@@ -104,8 +145,15 @@ const RestrictionsTable = () => {
       const newRows = [...rows.slice(0, selectedRowIndex), ...rows.slice(selectedRowIndex + 1)];
       setRows(newRows);
     }
+    setSelectedRowIndex(-1)
   };
   const handleRowSelect = (index) => {
+    if (!areAllAboveRowsValid(index)) {
+      setAlertType("warning");
+      setMessage("Please complete all above 'master' fields before making changes to this row")
+      setAlert(true)
+      return;  // Prevent the checkbox change
+    }
     const updatedRows = rows.map((row, idx) => ({
       ...row,
       isSelected: idx === index ? !row.isSelected : row.isSelected,
@@ -115,7 +163,7 @@ const RestrictionsTable = () => {
   };
 
   return (<>
-  <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginBottom:"10px"}}>
+  <div ref={wrapperRef} style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginBottom:"10px"}}>
     <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
           <Checkbox
                   checked={exclusionCheck}
@@ -153,7 +201,7 @@ const RestrictionsTable = () => {
   
     <TableContainer
       component={Paper}
-      sx={{ maxHeight: 440, scrollbarWidth: "thin" }}
+      sx={{ maxHeight: "40vh", scrollbarWidth: "thin" }}
     >
       <Table stickyHeader aria-label="sticky table">
         <TableHead>
@@ -175,7 +223,13 @@ const RestrictionsTable = () => {
           {rows.map((row, index) => (
             <TableRow 
             key={index} hover onClick={() => handleRowSelect(index)}
-            selected={row.isSelected}
+            
+            sx={{
+              backgroundColor: index === selectedRowIndex ? "#E6E6FA" : "transparent", // Change color based on the selected index
+              '&:hover': {
+                backgroundColor: index === selectedRowIndex ? "#E6E6FA": "#E6E6FA", // Adjust hover color accordingly
+              }
+            }}
             >
               <TableCell component="th" scope="row" sx={bodyCell}>
                 <IconButton
@@ -230,7 +284,7 @@ const RestrictionsTable = () => {
 </TableCell>
               <TableCell align="center" sx={bodyCell}>
                 <Checkbox
-                  disabled={row.master===""}
+                  disabled={!row.master}
                   checked={row.entry}
                   onChange={() => handleCheckboxChange(index, "entry")}
                   color="primary"
@@ -239,7 +293,7 @@ const RestrictionsTable = () => {
               </TableCell>
               <TableCell align="center" sx={bodyCell}>
                 <Checkbox
-                disabled={row.master===""}
+               disabled={!row.master}
                   checked={row.report}
                   onChange={() => handleCheckboxChange(index, "report")}
                   color="primary"
@@ -248,7 +302,7 @@ const RestrictionsTable = () => {
               </TableCell>
               <TableCell align="center" sx={bodyCell}>
                 <Checkbox sx={{padding:0}}
-                disabled={row.master===""}
+                disabled={!row.master}
                   checked={row.view}
                   onChange={() => handleCheckboxChange(index, "view")}
                   color="primary"
@@ -259,6 +313,12 @@ const RestrictionsTable = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    <WarningMessage
+        open={alert}
+        handleClose={handleAlertClose}
+        message={message}
+        type={alertType}
+      />
     </>
   );
 };

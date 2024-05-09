@@ -18,26 +18,22 @@ import { Box, Button, Dialog, DialogActions, DialogContent, IconButton, Stack } 
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import Popover from '@mui/material/Popover';
-import PrintIcon from "@mui/icons-material/Print";
 import HomeIcon from "@mui/icons-material/Home";
-import AddIcon from "@mui/icons-material/Add";
-import HistoryIcon from '@mui/icons-material/History';
 import SaveIcon from "@mui/icons-material/Save";
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
+import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon, InfoOutlined, Language, FormatListBulleted  } from '@mui/icons-material';
 import { createProfileTree, masterItems, passwordPolicy, restrictionItems } from "../../../../config/securityConfig";
 import PersonIcon from '@mui/icons-material/Person';
-import TransferList from "./TransferList";
-import ProfileManagementPanel from "./RoleAddExclusion";
-import RoleRestriction from "./RoleRestrictionForEntry";
 import ChecklistIcon from '@mui/icons-material/Checklist';
-import RoleTreeRestriction from "./RestrictionForTrees";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import RoleTransactionRights from "./RoleTransactionRights";
-import RoleSelect1 from "../../../../components/Select/RoleSelect1";
+import RoleTransactionRights from "../CreateRole/RoleTransactionRights";
+import LockIcon from '@mui/icons-material/Lock';
+import RoleRestriction from "../CreateRole/RoleRestrictionForEntry";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -114,7 +110,7 @@ const Accordion = styled((props) => (
       </Link>,
      
       <Typography key="3" color="white" sx={{ fontSize: "0.8rem" }}>
-      Create Role
+      Create User
       </Typography>,
         </Breadcrumbs>
         </Stack>
@@ -215,7 +211,7 @@ const Accordion = styled((props) => (
     
   }
 
-  export default function RoleDetails({detailPageId,setPage}) {
+  export default function UserDetails({detailPageId,setPage}) {
     const [expanded, setExpanded] = React.useState("panel1");
     const [formData, setFormData] = React.useState({sName:null,iId:null})
     const [selectedOption, setSelectedOption] = React.useState('');
@@ -264,31 +260,22 @@ const handleCloseUsersOnRole = ()=>{
        
     </Box>
     <Box sx={{ width:"100%",overflowX: 'hidden',display:"flex",flexDirection:"column",maxHeight:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
-    <Box sx={{pl:3,display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-        <Typography sx={{fontSize:"20px",color:secondryColor}}>
-          Create Role
-        </Typography>
+    <Box sx={{pl:3,pb:2,display:"flex",flexDirection:"column",paddingTop:"10px"}}>
+     
+    <FormControl>
+    <FormLabel sx={{mb:1}} id="demo-row-radio-buttons-group-label">User/Group</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+      >
+        <FormControlLabel sx={{padding:0,mr:5}} value="User" control={<Radio  sx={{padding:0}}/>} label="User" />
+        <FormControlLabel value="Group" control={<Radio sx={{padding:0}}/>} label="Group" />
         
-        <>
-            <div>
-              <MDBCardBody>
-                <MDBRow>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AccountInput label="Role Name" />
-                  </MDBCol>
-
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <RoleSelect1
-                    label="Password Policy"
-                    value={selectedOption}
-                    onChange={handleSelectChange}
-                    options={passwordPolicy}
-                  />
-                  </MDBCol>
-                  </MDBRow>
-              </MDBCardBody>
-            </div>
-          </>
+       
+      </RadioGroup>
+    </FormControl>
+       
         </Box>
         <Accordion
           expanded={expanded === "panel1"}
@@ -311,13 +298,13 @@ const handleCloseUsersOnRole = ()=>{
    
           </Stack>
         </IconButton>
-            <Typography style={{ fontSize: "14px" }}>Assigned Profiles</Typography>
+            <Typography style={{ fontSize: "14px" }}>User Information</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <>
               <div>
                 <MDBCardBody >
-                <TransferList />
+               
                 </MDBCardBody>
               </div>
             </>
@@ -339,22 +326,17 @@ const handleCloseUsersOnRole = ()=>{
          //onClick={()=>iconsClick("close")}
        >
          <Stack direction="column" alignItems="center">
-   <AddCircleOutlineIcon sx={{ color:primaryButtonColor }} />
+   <InfoOutlined sx={{ color:primaryButtonColor }} />
   
          </Stack>
        </IconButton>
-            <Typography style={{ fontSize: "14px" }}>Additions</Typography>
+            <Typography style={{ fontSize: "14px" }}>Additional Info</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <>
               <div>
                 <MDBCardBody >
-                <ProfileManagementPanel
-                  
-                  createProfileTree={createProfileTree}
-                  restrictionItems={restrictionItems}
-                  
-                />
+                
                 </MDBCardBody>
               </div>
             </>
@@ -376,22 +358,17 @@ const handleCloseUsersOnRole = ()=>{
          //onClick={()=>iconsClick("close")}
        >
          <Stack direction="column" alignItems="center">
-       <RemoveCircleOutlineIcon sx={{ color:primaryButtonColor }} />
+       <LockIcon sx={{ color:primaryButtonColor }} />
   
          </Stack>
        </IconButton>
-            <Typography style={{ fontSize: "14px" }}>Exclusions</Typography>
+            <Typography style={{ fontSize: "14px" }}>Restrictions</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <>
               <div>
                 <MDBCardBody >
-                <ProfileManagementPanel
-                  
-                  createProfileTree={createProfileTree}
-                  restrictionItems={restrictionItems}
-                  
-                />
+               
                 </MDBCardBody>
               </div>
             </>
@@ -413,17 +390,17 @@ const handleCloseUsersOnRole = ()=>{
          //onClick={()=>iconsClick("close")}
        >
          <Stack direction="column" alignItems="center">
-       <ChecklistIcon sx={{ color:primaryButtonColor }} />
+       <Language  sx={{ color:primaryButtonColor }} />
   
          </Stack>
        </IconButton>
-            <Typography style={{ fontSize: "14px" }}>Restrictions For Entry</Typography>
+            <Typography style={{ fontSize: "14px" }}>Device</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <>
               <div>
                 <MDBCardBody >
-                <RoleRestriction masterItems={masterItems}  restrictionItems={restrictionItems}/>
+                
                 </MDBCardBody>
               </div>
             </>
@@ -445,54 +422,23 @@ const handleCloseUsersOnRole = ()=>{
          //onClick={()=>iconsClick("close")}
        >
          <Stack direction="column" alignItems="center">
-       <WidgetsIcon sx={{ color:primaryButtonColor }} />
+       <ChecklistIcon  sx={{ color:primaryButtonColor }} />
   
          </Stack>
        </IconButton>
-            <Typography style={{ fontSize: "14px" }}>Restrictions For Trees</Typography>
+            <Typography style={{ fontSize: "14px" }}>Restrictions For Entry</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <>
               <div>
                 <MDBCardBody >
-                <RoleTreeRestriction masterItems={masterItems}  />
+                <RoleRestriction masterItems={masterItems}  restrictionItems={restrictionItems}/>
                 </MDBCardBody>
               </div>
             </>
           </AccordionDetails>
         </Accordion> 
-        <Accordion
-          expanded={expanded === "panel6"}
-          onChange={handleChange("panel6")}
-        >
-          <AccordionSummary
-            aria-controls="panel6d-content"
-            id="panel6d-header"
-            className
-            expanded={expanded === "panel6"}
-          >
-            <IconButton
-         
-         sx={{ fontSize: "0.8rem", padding: "0rem" }}
-         //onClick={()=>iconsClick("close")}
-       >
-         <Stack direction="column" alignItems="center">
-       <SwapHorizIcon sx={{ color:primaryButtonColor }} />
-  
-         </Stack>
-       </IconButton>
-            <Typography style={{ fontSize: "14px" }}>Transaction Rights</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <>
-              <div>
-                <MDBCardBody >
-                <RoleTransactionRights/>
-                </MDBCardBody>
-              </div>
-            </>
-          </AccordionDetails>
-        </Accordion> 
+        
        
 
         </Box>
