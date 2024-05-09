@@ -17,7 +17,7 @@ const AutoComplete2 = ({
   disabled,
  
 }) => {
-console.log(formData);
+
   const [iTypeF2, setiTypeF2] = useState(1);
   const [AutoMenu, setAutoMenu] = useState([]);
   const [autoSearchKey, setautoSearchKey] = useState("");
@@ -284,7 +284,7 @@ console.log(formData);
               transform: "translate(10px, 0px) scale(1)",
             },
             "& .MuiInputBase-input": {
-              zIndex:2,
+              // zIndex:1,
               fontSize: '0.75rem', // Adjust the font size of the input text
             },
             "& .MuiInputLabel-outlined": {
