@@ -4,6 +4,7 @@ import LoginPage from '../pages/LoginPage/LoginPage'
 import HomePage from '../pages/HomePage/HomePage'
 import MasterPage from '../pages/MasterPage/MasterPage'
 import Security from '../pages/Security/Security'
+import MainSettingsPage from '../pages/MainSettingsPage/MainSettingsPage'
 
 export default function RoutePath() {
   return (
@@ -13,6 +14,7 @@ export default function RoutePath() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/Master" element={<MasterPage />} />
         <Route path="/security" element={<Security />} />
+        <Route path="/MainSettings" element={<MainSettingsPage />} />
         </Routes>
     </div>
   )

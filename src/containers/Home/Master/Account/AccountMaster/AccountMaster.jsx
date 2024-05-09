@@ -8,6 +8,7 @@ import {
   primaryButtonColor,
   primaryColor,
   secondryColor,
+  thirdColor,
 } from "../../../../../config";
 import { accountTree } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
@@ -31,9 +32,7 @@ import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SaveIcon from "@mui/icons-material/Save";
-import PrintIcon from "@mui/icons-material/Print";
-import ShareIcon from "@mui/icons-material/Share";
-import GroupsIcon from "@mui/icons-material/Groups";
+import WidgetsIcon from "@mui/icons-material/Widgets";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import EventBusyIcon from "@mui/icons-material/EventBusy";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
@@ -44,10 +43,11 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
 import AccountDetails from "./AccountDetails";
-import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
-import VerifiedIcon from '@mui/icons-material/Verified';
-import StopIcon from '@mui/icons-material/Stop';
-import BlockIcon from '@mui/icons-material/Block';
+import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import StopIcon from "@mui/icons-material/Stop";
+import BlockIcon from "@mui/icons-material/Block";
+import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
 
 function handleClick(event) {
   event.preventDefault();
@@ -451,30 +451,32 @@ export default function AccountMaster(args) {
                     alignItems: "center",
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Tree1 items={accountTree} />
+                  <div>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <AutocompleteSecurity label="" />
+                      <IconButton aria-label="tree">
+                        <WidgetsIcon sx={{ color: thirdColor }} />
+                      </IconButton>
+                    </Box>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Tree1 items={accountTree} />
 
-                    <Button
-                      color="primary"
-                      onClick={toggleClose}
-                      style={{
-                        marginBottom: "1rem",
-                        padding: "0.3rem",
-                        fontSize: "0.6rem",
-                        height: "5rem",
-                        borderRadius: "0.5rem 0 0 0.5rem",
-                      }}
-                    >
-                      <KeyboardDoubleArrowLeftIcon
-                        style={{ fontSize: "1rem" }}
-                      />
-                    </Button>
+                      <Button
+                        color="primary"
+                        onClick={toggleClose}
+                        style={{
+                        
+                          padding: "0.3rem",
+                          fontSize: "0.6rem",
+                          height: "5rem",
+                          borderRadius: "0.5rem 0 0 0.5rem",
+                        }}
+                      >
+                        <KeyboardDoubleArrowLeftIcon
+                          style={{ fontSize: "1rem" }}
+                        />
+                      </Button>
+                    </Box>
                   </div>
                 </Alert>
               </Collapse>

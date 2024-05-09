@@ -470,6 +470,30 @@ export const exchangeRateData = [
         Code: "HIJ456",
     },
 ];
+
+export const productTree = [
+  {
+      id: "1",
+      label: "Product",
+  
+  },
+]
+
+export const unitTree = [
+  {
+      id: "1",
+      label: "Unit",
+  
+  },
+]
+
+export const warehouseTree = [
+  {
+      id: "1",
+      label: "Warehouse",
+  
+  },
+]
   
   
   

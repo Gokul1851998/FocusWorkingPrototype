@@ -35,12 +35,14 @@ const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
 
 export default function ({items}) {
   return (
+    <>
     <RichTreeView
       aria-label="customized"
       defaultExpandedItems={["1"]}
-      sx={{ overflowX: "hidden", height: 550, flexGrow: 1, minWidth: 300, scrollbarWidth:"thin", zIndex:5}}
+      sx={{ overflowX: "hidden", height: 498, flexGrow: 1, minWidth: 300, scrollbarWidth:"thin", zIndex:5}}
       slots={{ item: StyledTreeItem }}
       items={items}
     />
+    </>
   );
 }

@@ -354,12 +354,6 @@ export default function TableProduct({masterData}) {
               <WidgetsIcon sx={{ color: thirdColor }} />
             </IconButton>
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AutocompleteSecurity label="" />
-            <IconButton aria-label="Table">
-              <WidgetsIcon sx={{ color: thirdColor }} />
-            </IconButton>
-          </Box>
         </Box>
 
         <>

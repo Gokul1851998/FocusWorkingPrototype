@@ -19,7 +19,7 @@ import { Box, Grid, TextField } from "@mui/material";
 const emails = ["username@gmail.com", "user02@gmail.com"];
 
 function SimpleDialog(props) {
-  const { onClose, selectedValue, open, setName, setPassword } = props;
+  const { onClose, selectedValue, open, setName, setPassword, setOptions } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -29,11 +29,13 @@ function SimpleDialog(props) {
     onClose(value);
   };
 
+
+
   return (
     <Dialog
       onClose={handleClose}
       open={open}
-      sx={{ position: "absolute", bottom: "30%", left: "80%" }}
+    
     >
       <Grid
         item
@@ -84,7 +86,7 @@ function SimpleDialog(props) {
               />
             </div>
             <Button
-              type="submit"
+              
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
@@ -104,20 +106,84 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
-export default function SettingsLogin({ handleClose, open }) {
+export default function SettingsLogin({ handleClose, open ,setOptions}) {
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
   const [settingsName, setSettingsName] = React.useState("")
   const [settingsPassword, setSettingsPassword] = React.useState("")
 
+
+  const handleLogin = ()=>{
+    if(settingsName === "test" && settingsPassword === "test"){
+      setOptions(true)
+      handleClose()
+    }
+  }
   return (
-    <div>
-      <SimpleDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-        setName={setSettingsName}
-        setPassword={setSettingsPassword}
-      />
-    </div>
+    <Dialog
+      onClose={handleClose}
+      open={open}
+    
+    >
+      <Grid
+        item
+        xs={10}
+        sm={8}
+        md={6}
+        lg={4}
+        borderRadius={2}
+        component={Paper}
+        elevation={6}
+        square
+      >
+        <Box
+          sx={{
+            my: 8,
+            mx: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            LOGIN
+          </Typography>
+          <Box component="form" noValidate sx={{ mt: 1, width: "100%" }}>
+            <TextField
+              margin="normal"
+              size="small"
+              required
+              fullWidth
+              id="email"
+              label="UserName"
+              autoComplete="off"
+              onChange={(e)=>setSettingsName(e.target.value)}
+              autoFocus
+            />
+            <div style={{ position: "relative" }}>
+              <TextField
+                margin="normal"
+                size="small"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                onChange={(e)=>setSettingsPassword(e.target.value)}
+              />
+            </div>
+            <Button
+              onClick={handleLogin}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              LOGIN
+            </Button>
+          </Box>
+        </Box>
+      </Grid>
+    </Dialog>
   );
 }

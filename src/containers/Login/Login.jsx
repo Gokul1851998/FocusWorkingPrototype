@@ -35,7 +35,8 @@ export default function Login() {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [alertType, setAlertType] = useState("");
-  const [settings, setSettings] = useState(false)
+  const [settings, setSettings] = useState(false);
+  const [options, setOptions] = useState(false);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -94,7 +95,6 @@ export default function Login() {
     setSettings(false);
   };
 
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid
@@ -110,55 +110,60 @@ export default function Login() {
       >
         <Box sx={{ position: "absolute", top: 0, right: 0, margin: "10px" }}>
           <Tooltip title="Settings">
-            <IconButton onClick={handleSettingsLoginOpen}
+            <IconButton
+              onClick={handleSettingsLoginOpen}
               aria-label="Settings"
               sx={{ color: "white", fontSize: "32px" }}
             >
               <SettingsIcon sx={{ fontSize: 32 }} />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Create Company">
-            <IconButton
-              aria-label="Create company"
-              sx={{ color: "white", fontSize: "32px" }}
-            >
-              <BusinessIcon sx={{ fontSize: 32 }} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Restore Company">
-            <IconButton
-              aria-label="Restore company"
-              sx={{ color: "white", fontSize: "32px" }}
-            >
-              <RestoreIcon sx={{ fontSize: 32 }} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Protected Company">
-            <IconButton
-              aria-label="Protected company"
-              sx={{ color: "white", fontSize: "32px" }}
-            >
-              <AssuredWorkloadIcon sx={{ fontSize: 32 }} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Keyboard">
-            <IconButton
-              aria-label="Keyboard "
-              sx={{ color: "white", fontSize: "32px" }}
-            >
-              <KeyboardIcon sx={{ fontSize: 32 }} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Refresh">
-            <IconButton
-              aria-label="Refresh"
-              sx={{ color: "white", fontSize: "32px" }}
-            >
-              <RefreshIcon sx={{ fontSize: 32 }} />
-            </IconButton>
-          </Tooltip>
+          {options ? (
+          <>
+            <Tooltip title="Create Company">
+              <IconButton
+                aria-label="Create company"
+                sx={{ color: "white", fontSize: "32px" }}
+              >
+                <BusinessIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Restore Company">
+              <IconButton
+                aria-label="Restore company"
+                sx={{ color: "white", fontSize: "32px" }}
+              >
+                <RestoreIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Protected Company">
+              <IconButton
+                aria-label="Protected company"
+                sx={{ color: "white", fontSize: "32px" }}
+              >
+                <AssuredWorkloadIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Keyboard">
+              <IconButton
+                aria-label="Keyboard "
+                sx={{ color: "white", fontSize: "32px" }}
+              >
+                <KeyboardIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Refresh">
+              <IconButton
+                aria-label="Refresh"
+                sx={{ color: "white", fontSize: "32px" }}
+              >
+                <RefreshIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+            </Tooltip>
+          </>
+        ) : null}
         </Box>
-
+     
         <Grid
           item
           xs={10}
@@ -253,7 +258,8 @@ export default function Login() {
         message={message}
         type={alertType}
       />
-      <SettingsLogin open={settings} handleClose={handleSettingsLoginClose} />
+      {options? null : (<SettingsLogin open={settings} handleClose={handleSettingsLoginClose} setOptions={setOptions} />)}
+      
     </ThemeProvider>
   );
 }

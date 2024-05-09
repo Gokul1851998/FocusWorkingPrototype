@@ -23,9 +23,7 @@ import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SaveIcon from "@mui/icons-material/Save";
-import PrintIcon from "@mui/icons-material/Print";
-import ShareIcon from "@mui/icons-material/Share";
-import GroupsIcon from "@mui/icons-material/Groups";
+import WidgetsIcon from "@mui/icons-material/Widgets";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import EventBusyIcon from "@mui/icons-material/EventBusy";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
@@ -39,10 +37,12 @@ import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import StopIcon from '@mui/icons-material/Stop';
 import BlockIcon from '@mui/icons-material/Block';
-import { primaryButtonColor, secondryColor } from "../../../../config";
-import { productData, warehouseData } from "../../../../config/masterConfig";
+import { primaryButtonColor, secondryColor, thirdColor } from "../../../../config";
+import { productData, warehouseData, warehouseTree } from "../../../../config/masterConfig";
 import TableProduct from "../../../../components/Tables/TableProduct";
 import WarehouseDetails from "./WarehouseDetails";
+import AutocompleteSecurity from "../../../../components/AutoComplete/AutocompleteSecurity";
+import Tree1 from "../../../../components/Tree/Tree1";
 
 function handleClick(event) {
   event.preventDefault();
@@ -427,7 +427,7 @@ export default function Warehouse(args) {
                 </div>
               ) : null}
 
-              <Collapse horizontal isOpen={isOpen} {...args}>
+<Collapse horizontal isOpen={isOpen} {...args}>
                 <Alert
                   style={{
                     width: 350,
@@ -437,30 +437,32 @@ export default function Warehouse(args) {
                     alignItems: "center",
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    
+                  <div>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <AutocompleteSecurity label="" />
+                      <IconButton aria-label="tree">
+                        <WidgetsIcon sx={{ color: thirdColor }} />
+                      </IconButton>
+                    </Box>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Tree1 items={warehouseTree} />
 
-                    <Button
-                      color="primary"
-                      onClick={toggleClose}
-                      style={{
-                        marginBottom: "1rem",
-                        padding: "0.3rem",
-                        fontSize: "0.6rem",
-                        height: "5rem",
-                        borderRadius: "0.5rem 0 0 0.5rem",
-                      }}
-                    >
-                      <KeyboardDoubleArrowLeftIcon
-                        style={{ fontSize: "1rem" }}
-                      />
-                    </Button>
+                      <Button
+                        color="primary"
+                        onClick={toggleClose}
+                        style={{
+                        
+                          padding: "0.3rem",
+                          fontSize: "0.6rem",
+                          height: "5rem",
+                          borderRadius: "0.5rem 0 0 0.5rem",
+                        }}
+                      >
+                        <KeyboardDoubleArrowLeftIcon
+                          style={{ fontSize: "1rem" }}
+                        />
+                      </Button>
+                    </Box>
                   </div>
                 </Alert>
               </Collapse>
