@@ -5,6 +5,7 @@ import CreateProfile from "../../containers/Home/Security/CreateProfile/CreatePr
 import CreateRole from "../../containers/Home/Security/CreateRole/CreateRole";
 import { useLocation } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
+import CreateUser from "../../containers/Home/Security/CreateUser/CreateUser";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -63,6 +64,7 @@ export default function Security() {
           {item && (
         item.id === 12 ? <CreateProfile key1={item.key1} initialPage="summary" /> :
         item.id === 13 ? <CreateRole key1={item.key1} initialPage="summary" /> :
+        item.id === 14 ? <CreateUser key1={item.key1} initialPage="summary" /> :
         null
       )}
           

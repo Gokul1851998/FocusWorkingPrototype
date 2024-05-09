@@ -7,8 +7,8 @@ import { MDBCard,
   MDBInput,
   MDBRow,} from "mdb-react-ui-kit";
 import { roleRightSelectItem } from '../../../../config/securityConfig';
-import RoleSelect1 from './RoleSelect1';
-import RoleSelect2 from './RoleSelect2';
+import RoleSelect1 from '../../../../components/Select/RoleSelect1';
+import RoleSelect2 from '../../../../components/Select/RoleSelect2';
 
 const textFieldStyle= {
   width: 100,

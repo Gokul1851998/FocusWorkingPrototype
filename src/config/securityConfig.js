@@ -242,3 +242,27 @@ export const roleRightSelectItem = [
   { label: 'Stop', value: 'option4' },
  
 ];
+
+export const UserTable = [{
+  iId: 1,
+  User_Group: 'Abc',
+  createdOn: '2020-01-01',
+  modifiedOn: '2020-01-01',
+ 
+  
+  
+},{
+  iId: 2,
+  User_Group: 'def',
+  createdOn: '2020-01-01',
+  modifiedOn: '2020-01-01',
+
+  
+},{
+  iId: 3,
+  User_Group: 'xyz',
+  createdOn: '2020-01-01',
+  modifiedOn: '2020-01-01',
+
+  
+}];
