@@ -73,13 +73,13 @@ import { useState } from "react";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Autocomplete1 from "../../../../components/AutoComplete/AutoComplete1";
-import BasicDateTimePicker from "./DateAndTimePicker";
 import { useEffect } from "react";
 import UserDomainComponent from "./UserRestrictionDomain";
 import UserDeviceTable from "./UserDeviceTable";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import BasicDateTimePicker from "../../../../components/DateAndTimePicker/DateAndTimePicker";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
