@@ -65,7 +65,7 @@ function BasicBreadcrumbs() {
       
       <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "0.8rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
       key="1"
       color="white"
       onClick={handleClick}
@@ -77,13 +77,13 @@ function BasicBreadcrumbs() {
       underline="hover"
       key="2"
       color="white"
-      sx={{ fontSize: "0.8rem" }}
+      sx={{ fontSize: "1rem" }}
       onClick={handleClick}
     >
       Security
     </Link>,
    
-    <Typography key="3" color="white" sx={{ fontSize: "0.8rem" }}>
+    <Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
     Create Profile
     </Typography>,
       </Breadcrumbs>
