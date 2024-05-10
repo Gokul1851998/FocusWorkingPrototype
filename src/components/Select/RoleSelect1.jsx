@@ -1,7 +1,7 @@
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import React from 'react';
 
-export default function RoleSelect1({ label, value, onChange, options }) {
+export default function RoleSelect1({ label, value, onChange, options,disabled }) {
   return (
     <FormControl
       margin="normal"
@@ -36,10 +36,19 @@ export default function RoleSelect1({ label, value, onChange, options }) {
         onChange={onChange}
         label={label}
         size="small"
+        disabled={disabled}
         autoWidth={false}
         sx={{
           height: 30, // Adjust the height
           fontSize: "0.75rem", // Adjust the font size
+        }}
+        MenuProps={{
+          PaperProps: {
+            style: {
+              maxHeight: 200, // Set maximum height for the dropdown list
+              scrollbarWidth: "thin"
+            },
+          },
         }}
       >
         {options.map((option, index) => (

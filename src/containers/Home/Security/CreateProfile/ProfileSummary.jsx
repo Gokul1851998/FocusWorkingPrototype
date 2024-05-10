@@ -132,7 +132,7 @@ const DefaultIcons = ({iconsClick}) => {
                 </Typography>
               </Stack>
             </IconButton>
-      <Example/>
+      {/* <Example/> */}
     </Box>
   );
 };
