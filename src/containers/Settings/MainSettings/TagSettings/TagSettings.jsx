@@ -3,15 +3,15 @@ import { Box, CssBaseline, IconButton, TextField, styled } from "@mui/material";
 import { Collapse, Button, CardBody, Card, Alert } from "reactstrap";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import Tree1 from "../../../../../components/Tree/Tree1";
+import Tree1 from "../../../../components/Tree/Tree1";
 import {
   primaryButtonColor,
   primaryColor,
   secondryColor,
   thirdColor,
-} from "../../../../../config";
-import { accountTree } from "../../../../../config/masterConfig";
-import TableAccounts from "../../../../../components/Tables/TableAccounts";
+} from "../../../../config";
+import { accountTree } from "../../../../config/masterConfig";
+import TableAccounts from "../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
@@ -46,12 +46,12 @@ import {
   MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
-import AccountInput from "../../../../../components/Inputs/AccountInput";
-import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
+import AccountInput from "../../../../components/Inputs/AccountInput";
+import AutocompleteSecurity from "../../../../components/AutoComplete/AutocompleteSecurity";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
+import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
 
 function handleClick(event) {
   event.preventDefault();

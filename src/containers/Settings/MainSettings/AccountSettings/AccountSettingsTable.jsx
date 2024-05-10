@@ -30,11 +30,11 @@ import {
   Tooltip,
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { thirdColor } from "../../../../../config";
-import { exchangeRateData } from "../../../../../config/masterConfig";
-import AutoCompleteTable from "../../../../../components/AutoComplete/AutoCompleteTable";
-import AccountInput from "../../../../../components/Inputs/AccountInput";
-import CurrencyTableInput from "../../../../../components/Inputs/CurrencyTableInput";
+import { thirdColor } from "../../../../config";
+import { exchangeRateData } from "../../../../config/masterConfig";
+import AutoCompleteTable from "../../../../components/AutoComplete/AutoCompleteTable";
+import AccountInput from "../../../../components/Inputs/AccountInput";
+import CurrencyTableInput from "../../../../components/Inputs/CurrencyTableInput";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 

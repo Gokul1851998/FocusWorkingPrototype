@@ -3,8 +3,8 @@ import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
 import Footer from "../../components/Footer/Footer";
 import { useLocation } from "react-router-dom";
-import TagSettings from "../../containers/Home/Settings/MainSettings/TagSettings/TagSettings";
-import AccountSettings from "../../containers/Home/Settings/MainSettings/AccountSettings/AccountSettings";
+import TagSettings from "../../containers/Settings/MainSettings/TagSettings/TagSettings";
+import AccountSettings from "../../containers/Settings/MainSettings/AccountSettings/AccountSettings";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
