@@ -95,7 +95,7 @@ const Accordion = styled((props) => (
         
         <Link
         underline="hover"
-        sx={{ display: "flex", alignItems: "center", fontSize: "0.8rem" }} // Reduce font size
+        sx={{ display: "flex", alignItems: "center", fontSize: "1rem"  }} // Reduce font size
         key="1"
         color="white"
         
@@ -107,13 +107,13 @@ const Accordion = styled((props) => (
         underline="hover"
         key="2"
         color="white"
-        sx={{ fontSize: "0.8rem" }}
-       
+        sx={{ fontSize: "1rem"  }}
+        
       >
         Security
       </Link>,
      
-      <Typography key="3" color="white" sx={{ fontSize: "0.8rem" }}>
+      <Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
       Create Role
       </Typography>,
         </Breadcrumbs>

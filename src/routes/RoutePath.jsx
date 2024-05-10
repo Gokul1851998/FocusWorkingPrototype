@@ -6,6 +6,7 @@ import MasterPage from '../pages/MasterPage/MasterPage'
 import Security from '../pages/Security/Security'
 import MainSettingsPage from '../pages/MainSettingsPage/MainSettingsPage'
 import VoucherSettingsPage from '../pages/VoucherSettings/VoucherSettings'
+import MasterSettings from '../pages/MasterSettings/MasterSettings'
 
 export default function RoutePath() {
   return (
@@ -17,6 +18,7 @@ export default function RoutePath() {
         <Route path="/security" element={<Security />} />
         <Route path="/MainSettings" element={<MainSettingsPage />} />
         <Route path="/VoucherSettings" element={<VoucherSettingsPage />} />
+        <Route path="/MasterSettings" element={<MasterSettings />} />
         </Routes>
     </div>
   )
