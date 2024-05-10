@@ -3,6 +3,7 @@ import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
+import MasterSettingsContainer from "../../containers/Settings/MasterSettings/MasterSettingsContainer";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -57,7 +58,7 @@ function MasterSettings() {
       </div>
       <Box component="main" sx={{ flexGrow: 1, maxWidth: `${mainMaxWidth}px` }}>
         <DrawerHeader />
-       
+        <MasterSettingsContainer/>
         
       </Box>
       <Footer />
