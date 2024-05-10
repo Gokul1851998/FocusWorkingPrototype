@@ -242,7 +242,7 @@ export default function AccountDetails() {
           </>
         </AccordionDetails>
       </Accordion>
-      <Accordion
+      {/* <Accordion
         expanded={expanded === "panel3"}
         onChange={handleChange("panel3")}
       >
@@ -336,7 +336,7 @@ export default function AccountDetails() {
             </div>
           </>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       <Accordion
         expanded={expanded === "panel4"}
