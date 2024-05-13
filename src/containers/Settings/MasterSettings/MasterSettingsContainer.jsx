@@ -331,14 +331,14 @@ function MasterSettingsContainer() {
           </AccordionDetails>
         </Accordion>
         <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
+          expanded={expanded === "panel2"}
+          onChange={handleChange("panel2")}
         >
           <AccordionSummary
-            aria-controls="panel1d-content"
-            id="panel1d-header"
+            aria-controls="panel2d-content"
+            id="panel2d-header"
             className
-            expanded={expanded === "panel1"}
+            expanded={expanded === "panel2"}
             sx={{ alignItems: "center" }}
           >
             <IconButton
@@ -369,14 +369,14 @@ function MasterSettingsContainer() {
           </AccordionDetails>
         </Accordion>
         <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
+          expanded={expanded === "panel3"}
+          onChange={handleChange("panel3")}
         >
           <AccordionSummary
-            aria-controls="panel1d-content"
-            id="panel1d-header"
+            aria-controls="panel3d-content"
+            id="panel3d-header"
             className
-            expanded={expanded === "panel1"}
+            expanded={expanded === "panel3"}
             sx={{ alignItems: "center" }}
           >
             <IconButton
