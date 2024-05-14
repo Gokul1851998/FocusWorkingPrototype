@@ -2,6 +2,7 @@ import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
 import { TreeItem, treeItemClasses } from "@mui/x-tree-view/TreeItem";
+import { SimpleTreeView } from "@mui/x-tree-view";
 
 const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   color:
@@ -33,16 +34,22 @@ const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   },
 }));
 
-export default function ({items}) {
+
+
+export default function CustomizedTreeView({ items, setSelect }) {
+  const renderTreeItems = (items) =>
+    items.map(({ id, label, children }) => (
+      <StyledTreeItem key={id} itemId={id} label={label} onClick={()=>setSelect(id)}>
+        {children && renderTreeItems(children)}
+      </StyledTreeItem>
+    ));
   return (
-    <>
-    <RichTreeView
+    <SimpleTreeView
       aria-label="customized"
-      defaultExpandedItems={["1"]}
-      sx={{ overflowX: "hidden", height: 498, flexGrow: 1, minWidth: 300, scrollbarWidth:"thin", zIndex:5}}
-      slots={{ item: StyledTreeItem }}
-      items={items}
-    />
-    </>
+      defaultExpandedItems={items.map(({ id }) => id)}
+      sx={{ overflowX: "hidden", minHeight: 270, flexGrow: 1, maxWidth: 300 }}
+    >
+      {renderTreeItems(items)}
+    </SimpleTreeView>
   );
 }

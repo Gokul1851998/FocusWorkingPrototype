@@ -7,7 +7,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import SettingsIcon from "@mui/icons-material/Settings";
-
+import HandymanIcon from '@mui/icons-material/Handyman';
 import {
   primaryButtonColor,
   secondryColor,
@@ -68,6 +68,7 @@ import Tree1 from '../../../components/Tree/Tree1';
 import { accountTree } from '../../../config/masterConfig';
 import { createProfileTree } from '../../../config/securityConfig';
 import MasterDefinition from './MasterDefinition';
+import MasterCustomization from './MasterCustomization';
 
 
 const Accordion = styled((props) => (
@@ -346,7 +347,7 @@ function MasterSettingsContainer() {
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <PersonIcon sx={{ color: primaryButtonColor }} />
+                <HandymanIcon sx={{ color: primaryButtonColor }} />
               </Stack>
             </IconButton>
             <Typography style={{ fontSize: "14px" }}>
@@ -357,12 +358,8 @@ function MasterSettingsContainer() {
             <>
               <div>
                 <MDBCardBody>
-                  <MDBRow>
-                    
-                   
-                    
-                    
-                  </MDBRow>
+                  
+                  <MasterCustomization />
                 </MDBCardBody>
               </div>
             </>
