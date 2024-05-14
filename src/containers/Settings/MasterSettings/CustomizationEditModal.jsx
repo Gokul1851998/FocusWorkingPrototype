@@ -5,8 +5,15 @@ import SaveIcon from "@mui/icons-material/Save";
 import {
   Box,
   Button,
+  Checkbox,
+  Divider,
+  FormControlLabel,
   IconButton,
+  Radio,
+  RadioGroup,
   Stack,
+  Tab,
+  Tabs,
   TextField,
   Typography,
   Zoom,
@@ -34,6 +41,8 @@ import AccountInput from "../../../components/Inputs/AccountInput";
 import AutoComplete2 from "../../../components/AutoComplete/AutoComplete2";
 import CheckBox1 from "../../../components/CheckBox/CheckBox1";
 import CheckBox2 from "../../../components/CheckBox/CheckBox2";
+import PropTypes from "prop-types";
+import CustomizationTable1 from "./CustomizationTable1";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -73,14 +82,62 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
 export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
   const [expanded, setExpanded] = React.useState("panel1");
+  const [value, setValue] = React.useState(0);
+  const [hide, setHide] = useState(false);
+  const [tab2, setTab2] = useState(0);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
   const modalStyle = {
     display: isOpen ? "block" : "none",
+  };
+
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleTabChange2 = (event, newValue) => {
+    setTab2(newValue);
+  };
+
+  const handleTabChecked = (event) => {
+    setHide(event.target.checked);
   };
 
   const buttonStyle = {
@@ -123,7 +180,15 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
           style={modalStyle}
         >
           <div className="modal-dialog modal-dialog-centered modal-xl">
-            <div className="modal-content" ref={modalRef}>
+            <div
+              className="modal-content"
+              ref={modalRef}
+              style={{
+                maxHeight: "80vh",
+                overflowY: "auto",
+                scrollbarWidth: "thin",
+              }}
+            >
               <Stack
                 direction="row"
                 spacing={1}
@@ -411,14 +476,13 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                           <Box
                             sx={{
                               width: "auto",
-                         
+
                               zIndex: 1,
                             }}
                           >
                             <Stack
                               direction="row"
                               spacing={1}
-                          
                               justifyContent="flex-end"
                             >
                               <IconButton
@@ -468,7 +532,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                                     align="center"
                                     style={{
                                       color: thirdColor,
-                                      fontSize: "0.6rem",   
+                                      fontSize: "0.6rem",
                                     }}
                                   >
                                     Delete
@@ -476,6 +540,277 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                                 </Stack>
                               </IconButton>
                             </Stack>
+                            <MDBRow>
+                              <Typography
+                                sx={{ pl: 2 }}
+                                variant="p"
+                                color="gray"
+                                gutterBottom
+                              >
+                                Rules
+                              </Typography>
+                              <Divider
+                                sx={{
+                                  borderColor: "rgba(0, 0, 0, 0.3)",
+                                  borderWidth: "1px",
+                                }}
+                              />
+
+                              <MDBCol>
+                                <AutoComplete2 autoLabel="Rule Name" />
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBRow>
+                              <Typography
+                                sx={{ pl: 2, pt: 2 }}
+                                variant="p"
+                                color="gray"
+                                gutterBottom
+                              >
+                                Setting
+                              </Typography>
+                              <Divider
+                                sx={{
+                                  borderColor: "rgba(0, 0, 0, 0.3)",
+                                  borderWidth: "1px",
+                                }}
+                              />
+                            </MDBRow>
+                            <MDBRow>
+                              <Typography
+                                sx={{ pl: 1, pt: 1, fontSize: 13 }}
+                                variant="p"
+                                color="gray"
+                                gutterBottom
+                              >
+                                Apply On
+                              </Typography>
+
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="Creating Groups" />
+                              </MDBCol>
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="New Record" />
+                              </MDBCol>
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="Edit" />
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBRow>
+                              <Typography
+                                sx={{ pl: 1, pt: 1, fontSize: 13 }}
+                                variant="p"
+                                color="gray"
+                                gutterBottom
+                              >
+                                Evaluate On
+                              </Typography>
+
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="Load" />
+                              </MDBCol>
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="On Leave" />
+                              </MDBCol>
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="On Enter" />
+                              </MDBCol>
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="Before Save" />
+                              </MDBCol>
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="Before Delete" />
+                              </MDBCol>
+                            </MDBRow>
+
+                            <MDBRow>
+                              <Typography
+                                sx={{ pl: 1, pt: 1, fontSize: 13 }}
+                                variant="p"
+                                color="gray"
+                                gutterBottom
+                              >
+                                Status
+                              </Typography>
+
+                              <MDBCol lg="2" md="3" sm="6" xs="12">
+                                <CheckBox2 label="Active" />
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBRow>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "flex-end",
+                                }}
+                              >
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      onChange={(e) => handleTabChecked(e)}
+                                      sx={{
+                                        transform: "scale(0.75)",
+                                        paddingTop: 1,
+                                      }}
+                                    />
+                                  }
+                                  label="No Condition"
+                                  sx={{
+                                    "& .MuiFormControlLabel-label": {
+                                      fontSize: "0.75rem",
+                                      color: "gray",
+                                      width: "200px",
+                                    },
+                                  }}
+                                />
+                              </Box>
+                            </MDBRow>
+
+                            {!hide ? (
+                              <MDBRow>
+                                <Box sx={{ width: "100%" }}>
+                                  <Box
+                                    sx={{
+                                      borderBottom: 1,
+                                      borderColor: "divider",
+                                    }}
+                                  >
+                                    <Tabs
+                                      value={value}
+                                      onChange={handleTabChange}
+                                      aria-label="basic tabs example"
+                                    >
+                                      <Tab
+                                        style={{ textTransform: "none" }}
+                                        label="If"
+                                        {...a11yProps(0)}
+                                      />
+                                      <Tab
+                                        style={{ textTransform: "none" }}
+                                        label="Else"
+                                        {...a11yProps(1)}
+                                      />
+                                    </Tabs>
+                                  </Box>
+                                  <CustomTabPanel value={value} index={0}>
+                                    Item One
+                                  </CustomTabPanel>
+                                </Box>
+                              </MDBRow>
+                            ) : null}
+
+                            <MDBRow>
+                              <Box sx={{ width: "100%" }}>
+                                <Box
+                                  sx={{
+                                    borderBottom: 1,
+                                    borderColor: "divider",
+                                  }}
+                                >
+                                  <Tabs
+                                    value={tab2}
+                                    onChange={handleTabChange2}
+                                    aria-label="basic tabs example"
+                                  >
+                                    <Tab
+                                      style={{ textTransform: "none" }}
+                                      label="Formatting"
+                                      {...a11yProps(0)}
+                                    />
+                                    <Tab
+                                      style={{ textTransform: "none" }}
+                                      label="Message"
+                                      {...a11yProps(1)}
+                                    />
+                                    <Tab
+                                      style={{ textTransform: "none" }}
+                                      label="Alert"
+                                      {...a11yProps(2)}
+                                    />
+                                  </Tabs>
+                                </Box>
+                                <CustomTabPanel value={tab2} index={0}>
+                                  <CustomizationTable1 />
+                                </CustomTabPanel>
+                                <CustomTabPanel value={tab2} index={1}>
+                                  <MDBRow>
+                                    <MDBCol lg="2" md="3" sm="6" xs="12">
+                                      <AccountInput label="General Message" />
+                                    </MDBCol>
+                                  </MDBRow>
+                                  <MDBRow>
+                                    <Typography
+                                      sx={{ pl: 1, pt: 1, fontSize: 13 }}
+                                      variant="p"
+                                      color="gray"
+                                      gutterBottom
+                                    >
+                                      Message Type
+                                    </Typography>
+
+                                    <RadioGroup
+                                      aria-labelledby="demo-radio-buttons-group-label"
+                                      name="radio-buttons-group"
+                                      sx={{
+                                        "& .MuiSvgIcon-root": { fontSize: 16 },
+                                      }}
+                                    >
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                        }}
+                                      >
+                                        <FormControlLabel
+                                          value="Send as attachment"
+                                          control={<Radio />}
+                                          label="Information"
+                                          sx={{
+                                            "& .MuiFormControlLabel-label": {
+                                              fontSize: "0.9rem",
+                                              color: "gray",
+                                            },
+                                            margin: 0,
+                                            padding: 0,
+                                          }}
+                                        />
+
+                                        <FormControlLabel
+                                          value="Stop"
+                                          control={<Radio />}
+                                          label="Warn And Proceed"
+                                          sx={{
+                                            "& .MuiFormControlLabel-label": {
+                                              fontSize: "0.9rem",
+                                              color: "gray",
+                                            },
+                                            margin: 0,
+                                            padding: 0,
+                                          }}
+                                        />
+
+                                        <FormControlLabel
+                                          value="Warn"
+                                          control={<Radio />}
+                                          label="Warn And Stop"
+                                          sx={{
+                                            "& .MuiFormControlLabel-label": {
+                                              fontSize: "0.9rem",
+                                              color: "gray",
+                                            },
+                                            margin: 0,
+                                            padding: 0,
+                                          }}
+                                        />
+                                      </div>
+                                    </RadioGroup>
+                                  </MDBRow>
+                                </CustomTabPanel>
+                                <CustomTabPanel value={tab2} index={2}>
+                                  Item One
+                                </CustomTabPanel>
+                              </Box>
+                            </MDBRow>
                           </Box>
                         </MDBCardBody>
                       </div>
@@ -484,14 +819,14 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                 </Accordion>
 
                 <Accordion
-                  expanded={expanded === "panel4"}
-                  onChange={handleChange("panel4")}
+                  expanded={expanded === "panel5"}
+                  onChange={handleChange("panel5")}
                 >
                   <AccordionSummary
-                    aria-controls="panel4d-content"
-                    id="panel4d-header"
+                    aria-controls="panel5d-content"
+                    id="panel5d-header"
                     className
-                    expanded={expanded === "panel4"}
+                    expanded={expanded === "panel5"}
                   >
                     <Typography style={{ fontSize: "14px" }}>
                       External Modules
