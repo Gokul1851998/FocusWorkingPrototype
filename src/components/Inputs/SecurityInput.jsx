@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
 import React from 'react'
 
-export default function SecurityInput({label,type,disabled,value,setValue}) {
+export default function SecurityInput({label,type,disabled,value,setValue,width}) {
   
   const handleChange = (event) => {
     const value = event.target.value
@@ -32,15 +32,15 @@ export default function SecurityInput({label,type,disabled,value,setValue}) {
                 
                 autoComplete: `new-${label}`,
                 ...(type === "date" ? {
-                  onKeyDown: (e) => e.preventDefault(),
+                  // onKeyDown: (e) => e.preventDefault(),
                   onClick: (e) => e.target.showPicker?.(),
-                  onFocus: (e) => e.target.showPicker?.()
+                  // onFocus: (e) => e.target.showPicker?.()
                 } : {})
                 
               },
             }}
             sx={{
-              width: 250, // Adjust the width as needed
+              width: width?width:250, // Adjust the width as needed
               "& .MuiInputBase-root": {
                 height: 30, // Adjust the height of the input area
               },
