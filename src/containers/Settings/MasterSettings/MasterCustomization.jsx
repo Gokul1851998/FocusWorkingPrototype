@@ -24,13 +24,15 @@ import { MDBCol } from "mdb-react-ui-kit";
 import Definitiontable1 from "./DefinitionTable1";
 import { CustomizationTree } from "../../../config/masterConfig";
 import CustomizationTable from "./CustomizationTable";
+import SettingsTable from "./SettingsTable";
+import VatSettingsTable from "./VatSettingsTable";
 
 function MasterCustomization() {
   const [isOpen, setIsOpen] = useState(true);
   const [hide, setHide] = useState(true);
   const [formData, setformData] = useState({});
   const [treeSelect, setTreeSelect] = useState(7);
-  
+
   const handleRadioChange = (event) => {
     setformData({ ...formData, searchBy: event.target.value });
   };
@@ -62,7 +64,7 @@ function MasterCustomization() {
           style={{
             display: "flex",
             // alignItems: "center",
-            height: isOpen ? null : 590,
+            height: "auto",
           }}
         >
           <Button
@@ -117,7 +119,15 @@ function MasterCustomization() {
         </Alert>
       </Collapse>
 
-      {treeSelect == 7 ? <CustomizationTable /> : null}
+      {treeSelect == 7 ? (
+        <CustomizationTable />
+      ) : treeSelect == 8 ? (
+        <SettingsTable />
+      ) :treeSelect == 9 ? (
+        <VatSettingsTable />
+      ) :treeSelect == 10 ? (
+        <VatSettingsTable />
+      ) : null }
     </div>
   );
 }

@@ -59,7 +59,7 @@ function MasterDefinition() {
           style={{
             display: "flex",
             // alignItems: "center",
-            height: isOpen ? null : 590,
+            height: "auto",
           }}
         >
           <Button

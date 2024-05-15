@@ -456,7 +456,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                     </>
                   </AccordionDetails>
                 </Accordion>
-
+{/* 
                 <Accordion
                   expanded={expanded === "panel4"}
                   onChange={handleChange("panel4")}
@@ -816,9 +816,9 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                       </div>
                     </>
                   </AccordionDetails>
-                </Accordion>
+                </Accordion> */}
 
-                <Accordion
+                {/* <Accordion
                   expanded={expanded === "panel5"}
                   onChange={handleChange("panel5")}
                 >
@@ -839,7 +839,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                       </div>
                     </>
                   </AccordionDetails>
-                </Accordion>
+                </Accordion> */}
               </div>
             </div>
           </div>

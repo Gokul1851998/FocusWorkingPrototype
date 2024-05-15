@@ -500,6 +500,9 @@ export const CustomizationTree = [
     label: "Master Fields",
     children: [
       { id: "7", label: "General" },
+      { id: "8", label: "Settings" },
+      { id: "9", label: "VAT Settings" },
+      { id: "10", label: "Language" },
     ],
   },
   {

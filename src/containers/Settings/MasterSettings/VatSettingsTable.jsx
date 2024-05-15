@@ -28,8 +28,11 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import CustomizationPreviewModal from "./CustomizationPreviewModal";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import CustomizationEditModal from "./CustomizationEditModal";
+import OpenWithIcon from '@mui/icons-material/OpenWith';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-function CustomizationTable() {
+function VatSettingsTable() {
   const [selectedTab, setSelectedTab] = useState(0);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -66,9 +69,41 @@ function CustomizationTable() {
         onChange={handleChange}
         aria-label="basic tabs example"
       >
-        <Tab sx={{ textTransform: "none" }}label="Main" />
         <Tab sx={{ textTransform: "none" }} label="Header Details" />
+        <Tab sx={{ textTransform: "none" }} label="Body Details" />
         <Box sx={{ marginLeft: "auto" }}>
+        <IconButton
+          
+            aria-label="Preview"
+            sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+          >
+            <Stack direction="column" alignItems="center">
+              <OpenWithIcon sx={{ color: thirdColor }} />
+              <Typography
+                variant="caption"
+                align="center"
+                style={{ color: thirdColor, fontSize: "0.6rem" }}
+              >
+                Move
+              </Typography>
+            </Stack>
+          </IconButton>
+          <IconButton
+              onClick={handleEditModalOpen}
+            aria-label="Preview"
+            sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+          >
+            <Stack direction="column" alignItems="center">
+              <AddIcon sx={{ color: thirdColor }} />
+              <Typography
+                variant="caption"
+                align="center"
+                style={{ color: thirdColor, fontSize: "0.6rem" }}
+              >
+                Add
+              </Typography>
+            </Stack>
+          </IconButton>
           <IconButton
             onClick={handleModalOpen}
             aria-label="Preview"
@@ -141,6 +176,15 @@ function CustomizationTable() {
                       <EditNoteIcon sx={{ color: thirdColor }} />
                     </Stack>
                   </IconButton>
+                  <IconButton
+      
+                    aria-label="Preview"
+                    sx={{ fontSize: "0.7rem", padding: 0 }}
+                  >
+                    <Stack direction="column" alignItems="center">
+                      <DeleteIcon sx={{ color: thirdColor }} />
+                    </Stack>
+                  </IconButton>
                 </TableCell>
 
                 {Object.keys(row).map((key, cellIndex) => (
@@ -180,4 +224,4 @@ function CustomizationTable() {
   );
 }
 
-export default CustomizationTable;
+export default VatSettingsTable;
