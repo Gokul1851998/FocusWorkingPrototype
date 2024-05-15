@@ -7,6 +7,9 @@ import Security from '../pages/Security/Security'
 import MainSettingsPage from '../pages/MainSettingsPage/MainSettingsPage'
 import VoucherSettingsPage from '../pages/VoucherSettings/VoucherSettings'
 import MasterSettings from '../pages/MasterSettings/MasterSettings'
+import Company from '../pages/Company/Company'
+import AdminDashboard from '../containers/AdminDashboard/AdminDashboard'
+
 
 export default function RoutePath() {
   return (
@@ -19,6 +22,8 @@ export default function RoutePath() {
         <Route path="/MainSettings" element={<MainSettingsPage />} />
         <Route path="/VoucherSettings" element={<VoucherSettingsPage />} />
         <Route path="/MasterSettings" element={<MasterSettings />} />
+        <Route path="/Company" element={<Company />} />
+        <Route path="/companySettings" element={<AdminDashboard />} />
         </Routes>
     </div>
   )

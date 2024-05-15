@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
-import CreateProfile from "../../containers/Home/Security/CreateProfile/CreateProfile";
-import CreateRole from "../../containers/Home/Security/CreateRole/CreateRole";
 import { useLocation } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
-import CreateUser from "../../containers/Home/Security/CreateUser/CreateUser";
+import CompanyContainer from "../../containers/Home/Company/CompanyContainer";
+import AdminHeader from "../../components/AdminHeader/AdminHeader";
+
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -15,13 +15,15 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-export default function Security() {
+export default function Company() {
 
   const location = useLocation();
   const item = location.state;
   const sidebarRef = useRef(null);
   const [sidebarWidth, setSidebarWidth] = useState(0);
   const [mainMaxWidth, setMainMaxWidth] = useState(2000);
+  const [page, setpage] = useState(null)
+  const [detailPageId, setdetailPageId] = useState(null)
   
 
 
@@ -56,15 +58,20 @@ export default function Security() {
   return (
     <>
       <Box sx={{ display: "flex" }}>
+      {item && (
+        (item.id === 36 || item.id === 36)?
       <div ref={sidebarRef}>
           <SideBar />
-        </div>
+        </div>:null)}
         <Box component="main" sx={{ flexGrow: 1, maxWidth: `${mainMaxWidth}px` }}>
-          <DrawerHeader />
+        {item && (
+        (item.id === 36 || item.id === 36)?<DrawerHeader />:<><AdminHeader/><DrawerHeader /></>)}
           {item && (
-        item.id === 12 ? <CreateProfile key1={item.key1} initialPage="summary" /> :
-        item.id === 13 ? <CreateRole key1={item.key1} initialPage="summary" /> :
-        item.id === 14 ? <CreateUser key1={item.key1} initialPage="summary" /> :
+        item.id === 36 ? <CompanyContainer  pageType={1} pageId={0}/> :
+        item.id === 37 ? <CompanyContainer  pageType={2} pageId={0}/> :
+        item.id === "36A" ? <CompanyContainer  pageType={1} pageId={1}/> :
+        item.id === "37A" ? <CompanyContainer  pageType={2} pageId={2}/> :
+        
         null
       )}
           
