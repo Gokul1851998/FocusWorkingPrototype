@@ -69,6 +69,7 @@ import { accountTree } from '../../../config/masterConfig';
 import { createProfileTree } from '../../../config/securityConfig';
 import MasterDefinition from './MasterDefinition';
 import MasterCustomization from './MasterCustomization';
+import CustomizationView from './CustomizationView';
 
 
 const Accordion = styled((props) => (
@@ -392,12 +393,7 @@ function MasterSettingsContainer() {
             <>
               <div>
                 <MDBCardBody>
-                  <MDBRow>
-                    
-                   
-                    
-                    
-                  </MDBRow>
+                  <CustomizationView />
                 </MDBCardBody>
               </div>
             </>

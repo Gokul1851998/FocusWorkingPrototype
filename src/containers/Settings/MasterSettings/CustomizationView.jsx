@@ -9,8 +9,10 @@ import { primaryButtonColor } from "../../../config";
 import {
   Box,
   Checkbox,
+  Divider,
   FormControlLabel,
   Radio,
+  Stack,
   Typography,
 } from "@mui/material";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
@@ -20,17 +22,20 @@ import {
   masterSettingsModule,
 } from "../../../config/masterSettings";
 import SecurityInput from "../../../components/Inputs/SecurityInput";
-import { MDBCol } from "mdb-react-ui-kit";
+import { MDBCol, MDBRow } from "mdb-react-ui-kit";
 import Definitiontable1 from "./DefinitionTable1";
-import { CustomizationTree } from "../../../config/masterConfig";
+import { CustomizationTree, viewTree } from "../../../config/masterConfig";
 import CustomizationTable from "./CustomizationTable";
 import SettingsTable from "./SettingsTable";
 import VatSettingsTable from "./VatSettingsTable";
 import UniqueConstrains from "./UniqueConstrains";
 import InfoPanel from "./InfoPanel";
 import CustomizationReports from "./CustomizationReports";
+import AccountInput from "../../../components/Inputs/AccountInput";
+import CheckBox2 from "../../../components/CheckBox/CheckBox2";
+import ViewTable from "./ViewTable";
 
-function MasterCustomization() {
+export default function CustomizationView() {
   const [isOpen, setIsOpen] = useState(true);
   const [hide, setHide] = useState(true);
   const [formData, setformData] = useState({});
@@ -103,7 +108,7 @@ function MasterCustomization() {
                 //  alignItems: "center"
               }}
             >
-              <Tree1 items={CustomizationTree} setSelect={setTreeSelect} />
+              <Tree1 items={viewTree} setSelect={setTreeSelect} />
 
               <Button
                 color="primary"
@@ -122,23 +127,47 @@ function MasterCustomization() {
         </Alert>
       </Collapse>
 
-      {treeSelect == 7 ? (
-        <CustomizationTable />
-      ) : treeSelect == 8 ? (
-        <SettingsTable />
-      ) :treeSelect == 9 ? (
-        <VatSettingsTable />
-      ) :treeSelect == 10 ? (
-        <VatSettingsTable />
-      ):treeSelect == 2 ? (
-        <UniqueConstrains />
-      ):treeSelect == 3 ? (
-        <InfoPanel />
-      ):treeSelect == 4 ? (
-        <CustomizationReports />
-      )  : null }
+      <>
+        <Stack width={"100%"} padding={2} spacing={2}>
+          <Typography variant="h6" color="gray" gutterBottom>
+            Master View
+          </Typography>
+          <Divider
+            sx={{
+              borderColor: "rgba(0, 0, 0, 0.3)",
+              borderWidth: "1px",
+            }}
+          />
+          <MDBRow>
+                            <MDBCol>
+                            <AutoComplete2 autoLabel="View Name" />
+                            </MDBCol>
+                            <MDBCol>
+                            <CheckBox2 label="Visible" />
+                            </MDBCol>
+                            <MDBCol>
+                            <CheckBox2 label="Available in Mobile App" />
+                            </MDBCol>
+                          </MDBRow>
+          <>
+            {treeSelect == 7 ? (
+              <ViewTable />
+            ) : treeSelect == 8 ? (
+                <ViewTable />
+            ) : treeSelect == 9 ? (
+                <ViewTable />
+            ) : treeSelect == 10 ? (
+                <ViewTable />
+            ) : treeSelect == 2 ? (
+                <ViewTable />
+            ) : treeSelect == 3 ? (
+                <ViewTable />
+            ) : treeSelect == 4 ? (
+                <ViewTable />
+            ) : null}
+          </>
+        </Stack>
+      </>
     </div>
   );
 }
-
-export default MasterCustomization;

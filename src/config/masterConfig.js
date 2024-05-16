@@ -511,21 +511,27 @@ export const CustomizationTree = [
   },
   {
     id: "3",
-    label: "Rules",
-  },
-
-  {
-    id: "4",
-    label: "External Modules",
-  },
-  {
-    id: "5",
     label: "Info Panel Customization",
   },
   {
-    id: "6",
+    id: "4",
     label: "Reports",
   },
+];
+
+
+export const viewTree = [
+  {
+    id: "1",
+    label: "Master Fields",
+    children: [
+      { id: "7", label: "General" },
+      { id: "8", label: "Settings" },
+      { id: "9", label: "VAT Settings" },
+      { id: "10", label: "Language" },
+    ],
+  },
+ 
 ];
 
 
