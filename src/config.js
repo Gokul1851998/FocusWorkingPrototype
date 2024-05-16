@@ -43,10 +43,10 @@ export const SideBarIcons = [
     { id: 32, parent:8, iconName: "Master Settings", icon:  import("@mui/icons-material/Inventory"),url:"/MasterSettings" },
     { id: 33,parent:30, iconName: "Tag Settings", icon:  import("@mui/icons-material/PointOfSale") ,url:"/MainSettings" },
     { id: 34, parent:30, iconName: "Account Settings", icon:  import("@mui/icons-material/Inventory"),url:"/MainSettings" },
-    { id: 35, parent:9, iconName: "Open Company", icon:  import("@mui/icons-material/Home"),url:"/OpenCompany" },
-    { id: 36, parent:9, iconName: "Create Company", icon:  import("@mui/icons-material/Home"),url:"/CreateCompany" },
-    { id: 37, parent:9, iconName: "Edit Company", icon:  import("@mui/icons-material/Home"),url:"/EditCompany" },
-    { id: 38, parent:9, iconName: "Delete Company", icon:  import("@mui/icons-material/Home"),url:"/DeleteCompany" },
+    { id: 35, parent:9, iconName: "Open Company", icon:  import("@mui/icons-material/Home"),url:"/" },
+    // { id: 36, parent:9, iconName: "Create Company", icon:  import("@mui/icons-material/Home"),url:"/Company" },
+    { id: 37, parent:9, iconName: "Update Company", icon:  import("@mui/icons-material/Home"),url:"/Company" },
+    // { id: 38, parent:9, iconName: "Delete Company", icon:  import("@mui/icons-material/Home"),url:"/DeleteCompany" },
     
 
   ];

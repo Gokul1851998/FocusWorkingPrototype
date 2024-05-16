@@ -16,7 +16,7 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton, Popover, Tooltip } from "@mui/material";
 import WarningMessage from "../../components/Warning/Warnings";
 import SettingsLogin from "./SettingsLogin";
 
@@ -37,6 +37,7 @@ export default function Login() {
   const [alertType, setAlertType] = useState("");
   const [settings, setSettings] = useState(false);
   const [options, setOptions] = useState(false);
+  const [settingsAnchorEl, setSettingsAnchorEl] = useState(null);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -87,13 +88,18 @@ export default function Login() {
     setAlert(false);
   };
 
-  const handleSettingsLoginOpen = () => {
-    setSettings(true);
+
+
+  const handleSettingsLoginOpen = (event) => {
+    setSettingsAnchorEl(event.currentTarget);
   };
 
-  const handleSettingsLoginClose = (value) => {
-    setSettings(false);
+  const handleSettingsLoginClose = () => {
+    setSettingsAnchorEl(null);
   };
+
+  const settingsOpen = Boolean(settingsAnchorEl);
+  const settingsId = settingsOpen ? "settings-popover" : undefined;
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -118,7 +124,7 @@ export default function Login() {
               <SettingsIcon sx={{ fontSize: 32 }} />
             </IconButton>
           </Tooltip>
-          {options ? (
+          {/* {options ? (
           <>
             <Tooltip title="Create Company">
               <IconButton
@@ -161,7 +167,7 @@ export default function Login() {
               </IconButton>
             </Tooltip>
           </>
-        ) : null}
+        ) : null} */}
         </Box>
      
         <Grid
@@ -258,8 +264,23 @@ export default function Login() {
         message={message}
         type={alertType}
       />
-      {options? null : (<SettingsLogin open={settings} handleClose={handleSettingsLoginClose} setOptions={setOptions} />)}
-      
+      {/* {options? null : (<SettingsLogin open={settings} handleClose={handleSettingsLoginClose} setOptions={setOptions} />)} */}
+      <Popover
+        id={settingsId}
+        open={settingsOpen}
+        anchorEl={settingsAnchorEl}
+        onClose={handleSettingsLoginClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <SettingsLogin handleClose={handleSettingsLoginClose} open={settingsOpen} setOptions={setOptions} />
+      </Popover>
     </ThemeProvider>
   );
 }
