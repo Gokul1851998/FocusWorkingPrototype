@@ -59,18 +59,18 @@ export default function Company() {
     <>
       <Box sx={{ display: "flex" }}>
       {item && (
-        (item.id === 36 || item.id === 36)?
+        (item.id === 36 || item.id === 37)?
       <div ref={sidebarRef}>
           <SideBar />
         </div>:null)}
         <Box component="main" sx={{ flexGrow: 1, maxWidth: `${mainMaxWidth}px` }}>
         {item && (
-        (item.id === 36 || item.id === 36)?<DrawerHeader />:<><AdminHeader/><DrawerHeader /></>)}
+        (item.id === 36 || item.id === 37)?<DrawerHeader />:<><AdminHeader/><DrawerHeader /></>)}
           {item && (
         item.id === 36 ? <CompanyContainer  pageType={1} pageId={0}/> :
-        item.id === 37 ? <CompanyContainer  pageType={2} pageId={0}/> :
-        item.id === "36A" ? <CompanyContainer  pageType={1} pageId={1}/> :
-        item.id === "37A" ? <CompanyContainer  pageType={2} pageId={2}/> :
+        item.id === 37 ? <CompanyContainer  pageType={2} pageId={0}/> ://update
+        item.id === "36A" ? <CompanyContainer  pageType={1} pageId={1}/> ://new
+        item.id === "37A" ? <CompanyContainer  pageType={2} pageId={2}/> ://edit
         
         null
       )}
