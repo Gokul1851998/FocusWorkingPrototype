@@ -112,25 +112,25 @@ export default function AccountDetails() {
                     <AccountInput label="Code" />
                   </MDBCol>
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutoComplete2 autoLabel="Select Tree" />
-                  </MDBCol>
+                  </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Credit Limit" />
-                  </MDBCol>
+                  </MDBCol> */}
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Account Type" />
                   </MDBCol>
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Credit Days" />
-                  </MDBCol>
+                  </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Revision Date" type="date" />
-                  </MDBCol>
+                  </MDBCol> */}
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Cheque Discount Limit" />
@@ -148,7 +148,7 @@ export default function AccountDetails() {
                   <AutoComplete2 autoLabel="Back A/C" />
                   </MDBCol>
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <div
                       style={{
                         width: "auto",
@@ -174,7 +174,7 @@ export default function AccountDetails() {
                         />
                       </CustomScroll>
                     </div>
-                  </MDBCol>
+                  </MDBCol> */}
                 </MDBRow>
               </MDBCardBody>
             </div>
@@ -197,45 +197,45 @@ export default function AccountDetails() {
             <div>
               <MDBCardBody>
                 <MDBRow>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Debit/Credit Proposal" />
-                  </MDBCol>
+                  </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Debit/Credit Required" />
-                  </MDBCol>
+                  </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Exchange Adjustment Gain A/C" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Exchange Adjustment Loss A/C" />
-                  </MDBCol>
+                  </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Primary Account" />
-                  </MDBCol>
+                  </MDBCol> */}
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Default Currency" />
                   </MDBCol>
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Consolidation Method" />
-                  </MDBCol>
+                  </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Payment Terms" />
-                  </MDBCol>
+                  </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Reminder Terms" />
-                  </MDBCol>
+                  </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Finance Charge Terms" />
-                  </MDBCol>
+                  </MDBCol> */}
                 </MDBRow>
               </MDBCardBody>
             </div>
