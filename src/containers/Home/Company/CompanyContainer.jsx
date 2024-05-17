@@ -439,6 +439,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                         value={formData?.calendarType ?? ""}
                         onChange={(e) => handleSelectChange(e, "calendarType")}
                         options={calendarType}
+                        disabled={pageType==2}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -449,6 +450,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                         setValue={(data) =>
                           setformData({ ...formData, accountingDate: data })
                         }
+                        disabled={pageType==2}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -518,6 +520,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                           label: country.label,
                           value: country.value,
                         }))}
+                        disabled={pageType==2}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -529,13 +532,15 @@ export default function CompanyContainer({ pageType,pageId }) {
                           label: country.currency,
                           value: country.currencyCode,
                         }))}
+                        disabled={pageType==2}
+                        helperText="Note:Can't edit currency as Transaction exist"
                       />
                     </MDBCol>
                     
                   </MDBRow>
                   <MDBRow>
                   <MDBCol >
-                      <SecurityInput label="Database Path" width={"50%"} />
+                      <SecurityInput label="Customer/Vendor Portal Link" width={"50%"} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
@@ -688,6 +693,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                             onChange={(event) => handleLanguagesCheck(event, language)}
                               inputProps={{ "aria-label": "controlled" }}
                               sx={{ padding: 0 }}
+                              disabled={pageType==2}
                             />
                             <Typography
                               sx={{ fontSize: "14px", padding: 0 }}
@@ -706,6 +712,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                         value={formData?.defaultLanguage ?? ""}
                         onChange={(e) => handleSelectChange(e, "defaultLanguage")}
                         options={defaultLanguage}
+                        disabled={pageType==2}
                       />
                     </MDBCol>
                   </MDBRow>
