@@ -70,6 +70,8 @@ import { createProfileTree } from '../../../config/securityConfig';
 import MasterDefinition from './MasterDefinition';
 import MasterCustomization from './MasterCustomization';
 import CustomizationView from './CustomizationView';
+import TreeCustomization from './TreeCustomization';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
 
 
 const Accordion = styled((props) => (
@@ -399,6 +401,39 @@ function MasterSettingsContainer() {
             </>
           </AccordionDetails>
         </Accordion>
+        <Accordion
+          expanded={expanded === "panel4"}
+          onChange={handleChange("panel4")}
+        >
+          <AccordionSummary
+            aria-controls="panel4d-content"
+            id="panel4d-header"
+            className
+            expanded={expanded === "panel4"}
+            sx={{ alignItems: "center" }}
+          >
+            <IconButton
+              sx={{ fontSize: "0.8rem", padding: "0rem" }}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+                <AccountTreeIcon sx={{ color: primaryButtonColor }} />
+              </Stack>
+            </IconButton>
+            <Typography style={{ fontSize: "14px" }}>
+              Tree Customization
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody>
+                  <TreeCustomization/>
+                </MDBCardBody>
+              </div>
+            </>
+          </AccordionDetails>
+        </Accordion>
         
       </Box>
     </Box>
