@@ -170,7 +170,7 @@ function RoleTransactionRights() {
           />
            <Typography  sx={{fontSize:"14px" }}>th day of the month</Typography>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center',  }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center',  }}>
           <Typography sx={{ minWidth: '350px',fontSize:"14px" }}>Cannot Print After</Typography>
           <TextField
             size="small"
@@ -221,7 +221,7 @@ function RoleTransactionRights() {
             sx={{ padding: 0 }}
           />
           <Typography sx={{fontSize:"14px",padding:0}}  variant="body1">Do not allow Batch Customization</Typography>
-        </Box>
+        </Box> */}
         
       </Box>
       

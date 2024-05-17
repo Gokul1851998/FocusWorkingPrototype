@@ -533,13 +533,14 @@ export default function CompanyContainer({ pageType,pageId }) {
                           value: country.currencyCode,
                         }))}
                         disabled={pageType==2}
+                        helperText="Note:Can't edit currency as Transaction exist"
                       />
                     </MDBCol>
                     
                   </MDBRow>
                   <MDBRow>
                   <MDBCol >
-                      <SecurityInput label="Database Path" width={"50%"} />
+                      <SecurityInput label="Customer/Vendor Portal Link" width={"50%"} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>

@@ -68,76 +68,77 @@ const TreeCustomization = () => {
     <Box sx={{ width: '100%', margin: '0 auto' }}>
       
       <Box sx={{ display:"flex",justifyContent:"space-between" }}>
-      <Typography>Select the columns you want to display for the master in the Grid</Typography>
-          <IconButton
-            
-            aria-label="done"
-            sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-          >
-            <Stack direction="column" alignItems="center">
-              <CheckCircleOutlineIcon sx={{ color: thirdColor }} />
-              <Typography
-                variant="caption"
-                align="center"
-                style={{ color: thirdColor, fontSize: "0.6rem" }}
-              >
-                Ok
-              </Typography>
-            </Stack>
-          </IconButton>
-        </Box>
+        <Typography>Select the columns you want to display for the master in the Grid</Typography>
+        <IconButton
+          aria-label="done"
+          sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+        >
+          <Stack direction="column" alignItems="center">
+            <CheckCircleOutlineIcon sx={{ color: thirdColor }} />
+            <Typography
+              variant="caption"
+              align="center"
+              style={{ color: thirdColor, fontSize: "0.6rem" }}
+            >
+              Ok
+            </Typography>
+          </Stack>
+        </IconButton>
+      </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '0px',paddingBottom:"20px" }}>
         <Box sx={{ width: '80%', marginRight: '16px',border: '1px solid #ccc', borderRadius: '4px' }}>
-        <ListItem gutterBottom sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 8px', backgroundColor: thirdColor,color:primaryButtonColor}}>
-              <Typography sx={{ width: '50%' }}>Column</Typography>
-              <div style={{display:"flex",marginRight:"30px" }}>
+          <Box sx={{padding: '0px', backgroundColor: thirdColor, color:primaryButtonColor }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2px 8px',marginRight:"0.4rem" }}>
+
+            
+            <Typography sx={{ width: '50%' }}>Column</Typography>
+            <Stack direction="row" alignItems="center" spacing={1} sx={{marginRight:"0.4rem"}}>
               <Typography sx={{ width: '100px' }}>Width (Pixel)</Typography>
               <Typography sx={{ width: '100px' }}>Text Align</Typography>
-              </div>
-            </ListItem>
-          <List sx={{ padding:"8px",margin:"auto", height: '45vh', overflowY: 'scroll', scrollbarWidth: 'thin' }}>
-          
+            </Stack>
+            </Box>
+          </Box>
+          <List sx={{padding:"8px", height: '45vh', overflowY: 'scroll', scrollbarWidth: 'thin', '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: thirdColor } }}>
             {columns.map((column, index) => (
               <ListItemButton
                 key={column.name}
                 selected={selectedIndex === index}
                 onClick={() => setSelectedIndex(index)}
-                sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 8px' }}
+                sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2px 8px' }}
               >
                 <FormControlLabel
                   control={
                     <Checkbox
                       checked={column.selected}
                       onChange={(e) => handleCheckboxChange(e, index)}
-                      sx={{ marginRight: '8px' ,padding:"0px"}}
+                      sx={{ marginRight: '8px', padding:"0px"}}
                     />
                   }
                   label={column.name.replace(/([A-Z])/g, ' $1').trim()}
                   sx={{ marginRight: '0px'}}
                 />
                 <div>
-                <TextField
-                //   label="Width (Pixel)"
-                  type="number"
-                  value={column.width}
-                  onChange={(e) => handlePropertyChange(index, 'width', e.target.value)}
-                  sx={{ width: '100px', marginRight: '8px' }}
-                  InputProps={{ sx: { height: '28px' } }}
-                />
-                <FormControl sx={{ width: '100px', marginRight: '8px' }}>
-                  {/* <InputLabel>Text Align</InputLabel> */}
-                  <Select
-                    value={column.textAlign}
-                    onChange={(e) => handlePropertyChange(index, 'textAlign', e.target.value)}
-                    // label="Text Align"
-                    sx={{ height: '28px' }}
-                    MenuProps={{ PaperProps: { sx: { maxHeight: '200px' } } }}
-                  >
-                    <MenuItem value="Left">Left</MenuItem>
-                    <MenuItem value="Center">Center</MenuItem>
-                    <MenuItem value="Right">Right</MenuItem>
-                  </Select>
-                </FormControl>
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <TextField
+                      type="number"
+                      value={column.width}
+                      onChange={(e) => handlePropertyChange(index, 'width', e.target.value)}
+                      sx={{ width: '100px' }}
+                      InputProps={{ sx: { height: '28px' } }}
+                    />
+                    <FormControl sx={{ width: '100px' }}>
+                      <Select
+                        value={column.textAlign}
+                        onChange={(e) => handlePropertyChange(index, 'textAlign', e.target.value)}
+                        sx={{ height: '28px' }}
+                        MenuProps={{ PaperProps: { sx: { maxHeight: '200px' } } }}
+                      >
+                        <MenuItem value="Left">Left</MenuItem>
+                        <MenuItem value="Center">Center</MenuItem>
+                        <MenuItem value="Right">Right</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Stack>
                 </div>
               </ListItemButton>
             ))}
@@ -158,8 +159,6 @@ const TreeCustomization = () => {
           </IconButton>
         </Box>
       </Box>
-
-     
     </Box>
   );
 };

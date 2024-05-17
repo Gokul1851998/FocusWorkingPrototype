@@ -1,7 +1,7 @@
-import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel, FormHelperText } from '@mui/material';
 import React from 'react';
 
-export default function RoleSelect1({ label, value, onChange, options,disabled }) {
+export default function RoleSelect1({ label, value, onChange, options,disabled,helperText  }) {
   return (
     <FormControl
       margin="normal"
@@ -56,7 +56,11 @@ export default function RoleSelect1({ label, value, onChange, options,disabled }
             {option.label}
           </MenuItem>
         ))}
+       
       </Select>
+      {helperText && (
+        <FormHelperText sx={{ fontSize: "0.65rem", whiteSpace: "nowrap" }}>{helperText}</FormHelperText>
+      )}
     </FormControl>
   );
 }
