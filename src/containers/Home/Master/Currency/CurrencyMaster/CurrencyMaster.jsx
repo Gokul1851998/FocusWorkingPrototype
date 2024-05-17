@@ -63,6 +63,8 @@ import GetAppIcon from '@mui/icons-material/GetApp';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
+import SearchBox from "../../../../../components/SearchBox/SearchBox";
+import { CustomScroll } from "react-custom-scroll";
 
 function handleClick(event) {
   event.preventDefault();
@@ -130,6 +132,22 @@ export default function CurrencyMaster(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [select, setSelect] = React.useState([]);
+
+  const language = [
+    { title: "English", iId: 1 },
+    { title: "Arabic", iId: 2 },
+    { title: "Spanish", iId: 3 },
+  ];
+
+  const BusinessUnit = [
+    { title: "Unit1", iId: 1 },
+    { title: "Unit3", iId: 2 },
+    { title: "Unit3", iId: 3 },
+  ];
+  const handleChild = (data) => {
+    console.log(data);
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -165,6 +183,8 @@ export default function CurrencyMaster(args) {
   const handleDetailPageClose = () => {
     setDetailPage(false);
   };
+
+  
 
   const handleClose = ()=>{
     window.history.back()
@@ -343,7 +363,16 @@ export default function CurrencyMaster(args) {
                 <AutoComplete2 autoLabel="ISO Currency Code" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Coins Name" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Currency Name" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AutoComplete2 autoLabel="Numeric Seperator" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AutoComplete2 autoLabel="Symbol" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -374,10 +403,174 @@ export default function CurrencyMaster(args) {
                 <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="General Round Off" />
                   </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AutoComplete2 autoLabel="Rounding Type" />
+                  </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </div>
           </>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel3"}
+        onChange={handleChange("panel3")}
+      >
+        <AccordionSummary
+          aria-controls="panel3d-content"
+          id="panel3d-header"
+          expanded={expanded === "panel3"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Currency Connector</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <>
+            <div>
+              <MDBCardBody>
+                <MDBRow>
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Unit" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Unit Alias" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Sub Unit" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Sub Unit Alias" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Connector" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Connector Alias" />
+                  </MDBCol>
+                 
+                </MDBRow>
+              </MDBCardBody>
+            </div>
+          </>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <AccordionSummary
+          aria-controls="panel4d-content"
+          id="panel4d-header"
+          expanded={expanded === "panel4"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Denominal Details</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <>
+            <div>
+              <MDBCardBody>
+                <MDBRow>
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Denomination Code" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Denomination Value" />
+                  </MDBCol>
+                  
+                 
+                </MDBRow>
+              </MDBCardBody>
+            </div>
+          </>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel5"}
+        onChange={handleChange("panel5")}
+      >
+        <AccordionSummary
+          aria-controls="panel5d-content"
+          id="panel5d-header"
+          expanded={expanded === "panel5"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Language</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Language
+                    </Typography>
+                    <SearchBox
+                      initialItems={language }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel6"}
+        onChange={handleChange("panel6")}
+      >
+        <AccordionSummary
+          aria-controls="panel6d-content"
+          id="panel6d-header"
+          expanded={expanded === "panel6"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Business Unit</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Business Unit
+                    </Typography>
+                    <SearchBox
+                      initialItems={BusinessUnit }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
         </AccordionDetails>
       </Accordion>
  
