@@ -52,6 +52,7 @@ import GetAppIcon from "@mui/icons-material/GetApp";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
+import TagTable from "./TagTable";
 
 function handleClick(event) {
   event.preventDefault();
@@ -263,7 +264,7 @@ export default function TagSettings(args) {
  
   }}
 >
-  <AutoComplete2 autoLabel="Account" />
+  {/* <AutoComplete2 autoLabel="Account" />
   <AutoComplete2 autoLabel="Department" />
   <AutoComplete2 autoLabel="Cost Center" />
   <AutoComplete2 autoLabel="Region" />
@@ -272,7 +273,8 @@ export default function TagSettings(args) {
   <AutoComplete2 autoLabel="Tax Code" />
   <AutoComplete2 autoLabel="Pace of Supply" />
   <AutoComplete2 autoLabel="Plant" />
-  <AutoComplete2 autoLabel="Maintenance Parameter" />
+  <AutoComplete2 autoLabel="Maintenance Parameter" /> */}
+  <TagTable/>
 </Box>
 
       </React.StrictMode>

@@ -187,6 +187,14 @@ export const historyProfile  = [
   { id: 5, profileName: "", date: "", time: "", loginName: "" },
   
 ];
+export const historyRole  = [
+  { id: 1, roleName: "Role1", date: "15-04-2024", time: "13:56:07", loginName: "SU" },
+  { id: 2, roleName: "Role2", date: "16-04-2024", time: "14:56:07", loginName: "DI" },
+  { id: 3, roleName: "", date: "", time: "", loginName: "" },
+  { id: 4, roleName: "", date: "", time: "", loginName: "" },
+  { id: 5, roleName: "", date: "", time: "", loginName: "" },
+  
+];
 
 export const RoleTable = [{
   iId: 1,
@@ -410,3 +418,40 @@ export const userDevice  = [
   { id: 5, status: "Online", device: "Laptop2", macId: "113.555.7.777" },
   
 ];
+
+export const roleTabData = {
+  tab1: [
+    { id: 1, ProfileName: 'Portal', Status: 'added' },
+    { id: 2, ProfileName: 'profile2', Status: 'added'},
+    { id: 3, ProfileName: 'Portal', Status: 'added' },
+    { id: 4, ProfileName: 'profile2', Status: 'added'},
+    { id: 5, ProfileName: 'Portal', Status: 'added' },
+    { id: 6, ProfileName: 'profile2', Status: 'added'},
+    { id: 7, ProfileName: 'Portal', Status: 'added' },
+    { id: 8, ProfileName: 'profile2', Status: 'added'},
+    { id: 9, ProfileName: 'Portal', Status: 'added' },
+    { id: 10, ProfileName: 'profile2', Status: 'added'},
+    { id: 11, ProfileName: 'Portal', Status: 'added' },
+    { id: 12, ProfileName: 'profile2', Status: 'added'},
+    { id: 13, ProfileName: 'Portal', Status: 'added' },
+    { id: 14, ProfileName: 'profile2', Status: 'added'},
+  ],
+  tab2: [
+    { id: 1, Action: 'test', Menu: 'test', Status: 'test' },
+    
+  ],
+  tab3: [
+    { id: 1, Action: 'test', Menu: 'test', Status: 'test' },
+    
+  ],
+  tab4: [
+    { id: 1, MasterName: 'Master', NewValue: 'test', Oldvalue: 'test',NewAction:"test",OldAction:"test",Status:"test" },
+    
+  ],
+  tab5: [
+    { id: 1, MasterName: 'Master', Value: 'test', Status: 'test' },
+  ],
+  tab6: [
+    { id: 1, FieldName: 'test', NewValue: 'test', OldValue: 'test' },
+  ],
+};

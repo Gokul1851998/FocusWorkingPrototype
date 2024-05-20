@@ -14,7 +14,8 @@ import { MDBCard,
   MDBRow,} from "mdb-react-ui-kit";
 import AccountInput from "../../../../components/Inputs/AccountInput";
 import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
-import { Box, Button, Dialog, DialogActions, DialogContent, IconButton, Stack } from "@mui/material";
+import { Box,Button as ButtonM , Dialog, DialogActions, DialogContent, IconButton, Stack } from "@mui/material";
+import { Collapse, CardBody,Button, Card, Alert } from "reactstrap";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -26,8 +27,8 @@ import HistoryIcon from '@mui/icons-material/History';
 import SaveIcon from "@mui/icons-material/Save";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
-import { createProfileTree, masterItems, passwordPolicy, restrictionItems } from "../../../../config/securityConfig";
+import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon } from '@mui/icons-material';
+import { createProfileTree, masterItems, passwordPolicy, restrictionItems, roleTabData } from "../../../../config/securityConfig";
 import PersonIcon from '@mui/icons-material/Person';
 import TransferList from "./TransferList";
 import ProfileManagementPanel from "./RoleAddExclusion";
@@ -38,6 +39,10 @@ import WidgetsIcon from "@mui/icons-material/Widgets";
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import RoleTransactionRights from "./RoleTransactionRights";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
+import { useState } from "react";
+import ProfileHistoryTable from "../CreateProfile/ProfileHistoryTable";
+import RoleHistoryTable from "./RoleHistoryTable";
+import TabDetails from "./RoleHistoryTab";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -125,7 +130,25 @@ const Accordion = styled((props) => (
     
     return (
       <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-        
+        {detailPageId !=0 ?
+      <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={()=>iconsClick("GetHistory")}
+            >
+              <Stack direction="column" alignItems="center">
+        <HistoryIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  History
+                </Typography>
+              </Stack>
+            </IconButton>
+            :null
+      }  
            
               <IconButton
                 aria-label="New"
@@ -220,7 +243,24 @@ const Accordion = styled((props) => (
     const [formData, setFormData] = React.useState({sName:null,iId:null})
     const [selectedOption, setSelectedOption] = React.useState('');
     const [openUsersOnRole, setOpenUsersOnRole] = React.useState(false)
+    const [openHistory, setOpenHistory] = useState(false);
+    const [selectedRow, setSelectedRow] = useState(null);
   
+    const handleRowClick = (row) => {
+
+      
+      setSelectedRow(roleTabData);
+      
+    };
+
+    const handleLoadHistory = ()=>{
+   
+      setOpenHistory(true)
+    }
+    const handleCloseLoadHistory = ()=>{
+      setSelectedRow(null)
+      setOpenHistory(false)
+    }
     const handleChange = (panel) => (event, newExpanded) => {
       setExpanded(newExpanded ? panel : false);
     };
@@ -231,14 +271,17 @@ const Accordion = styled((props) => (
     const handleIconsClick =(value) => {
       switch (value.trim()) {
         case "new":
-          handleAdd()
+          handleAdd();
           break;
         case "close":
-          handleclose()
+          handleclose();
           break;
         case "GetUsersOnRole":
-          handleUsersOnRole()  
-          break;     
+          handleUsersOnRole();
+          break;
+        case "GetHistory":
+          handleLoadHistory();
+          break;
         default:
           break;
       }
@@ -511,20 +554,20 @@ const handleCloseUsersOnRole = ()=>{
     {/* You can add more content here such as a list of items */}
   </DialogContent>
   <DialogActions>
-  <Button onClick={handleCloseUsersOnRole} 
+  <ButtonM onClick={handleCloseUsersOnRole} 
      sx={buttonStyle}
 
     
     >
       Ok
-    </Button>
-    <Button onClick={handleCloseUsersOnRole} 
+    </ButtonM>
+    <ButtonM onClick={handleCloseUsersOnRole} 
      sx={buttonStyle}
 
     
     >
       Cancel
-    </Button>
+    </ButtonM>
     {/* <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -541,6 +584,51 @@ const handleCloseUsersOnRole = ()=>{
                 </Typography>
               </Stack>
             </IconButton> */}
+    
+  </DialogActions>
+</Dialog>
+<Dialog  open={openHistory} onClose={handleCloseLoadHistory} 
+sx={{
+  '& .MuiDialog-paper': {
+    width: '70vw', // Set your desired width here (e.g., '80vw' for 80% of the viewport width or '600px' for a fixed width)
+    maxWidth: 'none',
+    height:"90vh"
+  },
+}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center",color:primaryButtonColor}}>
+       History
+        </Typography>
+        <Box sx={{minHeight:"200px",padding:"30px",maxHeight:"80vh",overflowY:"scroll",scrollbarWidth:"thin"}}>
+        <RoleHistoryTable  onRowClick={handleRowClick}/>
+        {selectedRow && (
+                <Box sx={{ marginTop: 2 }}>
+                  {/* <Typography>Selected Row Details:</Typography> */}
+                  {/* Render additional table based on selected row */}
+                  <TabDetails data={selectedRow} />
+                </Box>
+              )}
+
+        </Box>
+  <DialogContent>
+  
+    {/* You can add more content here such as a list of items */}
+  </DialogContent>
+  <DialogActions>
+  <ButtonM onClick={handleCloseLoadHistory} 
+     sx={buttonStyle}
+
+    
+    >
+      Ok
+    </ButtonM>
+    <ButtonM onClick={handleCloseLoadHistory} 
+     sx={buttonStyle}
+
+    
+    >
+      Cancel
+    </ButtonM>
+    
     
   </DialogActions>
 </Dialog>

@@ -30,6 +30,12 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import DraggableColumnsDialog from './ProfileNameField';
 import AccountInput from '../../../../components/Inputs/AccountInput';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import ProfileHistoryTable2 from './ProfileHistoryTable2';
+import Autocomplete1 from '../../../../components/AutoComplete/AutoComplete1';
+import { MDBCardBody, MDBCol, MDBRow } from 'mdb-react-ui-kit';
+import AutoComplete2 from '../../../../components/AutoComplete/AutoComplete2';
+import { CustomScroll } from 'react-custom-scroll';
+import SearchBox from '../../../../components/SearchBox/SearchBox';
 
 const SelectAllIconStyle ={//style for selectAll and unselectAll
   fontSize: "0.8rem",
@@ -299,6 +305,12 @@ const buttonStyle ={
 }
 
 
+const BusinessUnit = [
+  { title: "Unit1", iId: 1 },
+  { title: "Unit3", iId: 2 },
+  { title: "Unit3", iId: 3 },
+];
+
 const ProfileNew = ({setPage,detailPageId}) => {
  
  
@@ -310,6 +322,20 @@ const ProfileNew = ({setPage,detailPageId}) => {
   const [openLoadFrom, setOpenLoadFrom] = useState(false);
   const [openHistory, setOpenHistory] = useState(false);
   const [openCustomize, setOpenCustomize] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [select, setSelect] = React.useState([]);
+
+
+  const handleChild = (data) => {
+    console.log(data);
+  };
+
+  const handleRowClick = (row) => {
+
+    const data=[{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"}]
+    setSelectedRow(data);
+    
+  };
  
   const handleIconsClick =(value) => {
         switch (value.trim()) {
@@ -404,9 +430,43 @@ const ProfileNew = ({setPage,detailPageId}) => {
     </Box>
     <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",height:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
       <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-        <Typography sx={{fontSize:"20px",color:secondryColor}}>
+      <Typography sx={{fontSize:"20px",color:secondryColor}}>
           Create Profile
-        </Typography>
+          </Typography>    
+      <MDBCardBody>
+                <MDBRow>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Create Profile" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Business Unit
+                    </Typography>
+                    <SearchBox
+                      initialItems={BusinessUnit }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+                  </MDBRow>
+              </MDBCardBody>          
         <Box sx={{display:"flex",flexDirection:"row",mt:2,gap:4,alignItems:"center"}}>
           {/* <Typography sx={{color:"#00000" ,opacity:"0.8"}}>Profile Name</Typography> */}
           {/* <div style={{minWidth:"200px",display:"flex",alignItems:"center"}}>
@@ -432,7 +492,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
               </Stack>
             </IconButton>
           </div> */}
-          <AccountInput label="Profile Name" />
+         
           
          
           
@@ -601,11 +661,18 @@ const ProfileNew = ({setPage,detailPageId}) => {
   </DialogActions>
 </Dialog>
 <Dialog open={openHistory} onClose={handleCloseLoadHistory}>
-  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center",color:primaryButtonColor}}>
        History
         </Typography>
-        <Box sx={{minHeight:"200px",padding:"30px"}}>
-        <ProfileHistoryTable/>
+        <Box sx={{minHeight:"200px",padding:"30px",maxHeight:"80vh",overflowY:"scroll",scrollbarWidth:"thin"}}>
+        <ProfileHistoryTable onRowClick={handleRowClick}/>
+        {selectedRow && (
+                <Box sx={{ marginTop: 2 }}>
+                  {/* <Typography>Selected Row Details:</Typography> */}
+                  {/* Render additional table based on selected row */}
+                  <ProfileHistoryTable2 selectedRow={selectedRow} />
+                </Box>
+              )}
 
         </Box>
   <DialogContent>
