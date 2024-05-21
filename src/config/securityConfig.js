@@ -455,3 +455,17 @@ export const roleTabData = {
     { id: 1, FieldName: 'test', NewValue: 'test', OldValue: 'test' },
   ],
 };
+
+export const entityList = [
+  { label: 'Entity1', value: 'Entity1' },
+  { label: 'Entity2', value: 'Entity2' },
+ 
+];
+
+export const searchAdvanceSelect = [
+  { value: 'Default', label: 'Default' },
+{ value: 'type1', label: 'type1' },
+
+  
+ 
+];

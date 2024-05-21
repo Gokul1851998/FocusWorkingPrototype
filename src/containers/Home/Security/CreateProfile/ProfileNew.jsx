@@ -18,7 +18,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import AutocompleteSecurity from '../../../../components/AutoComplete/AutocompleteSecurity';
-import { createProfileTree, restrictionItems } from '../../../../config/securityConfig';
+import { createProfileTree, entityList, restrictionItems } from '../../../../config/securityConfig';
 import Tree1 from '../../../../components/Tree/Tree1';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
 import DeselectIcon from '@mui/icons-material/Deselect';
@@ -36,6 +36,8 @@ import { MDBCardBody, MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import AutoComplete2 from '../../../../components/AutoComplete/AutoComplete2';
 import { CustomScroll } from 'react-custom-scroll';
 import SearchBox from '../../../../components/SearchBox/SearchBox';
+import RoleSelect1 from '../../../../components/Select/RoleSelect1';
+import SecurityInput from '../../../../components/Inputs/SecurityInput';
 
 const SelectAllIconStyle ={//style for selectAll and unselectAll
   fontSize: "0.8rem",
@@ -324,6 +326,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
   const [openCustomize, setOpenCustomize] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [select, setSelect] = React.useState([]);
+  const [selectedOption, setSelectedOption] = React.useState('');
 
 
   const handleChild = (data) => {
@@ -416,7 +419,9 @@ const ProfileNew = ({setPage,detailPageId}) => {
     setCheckedState(new Array(restrictionItems.length).fill(false));
   };
 
-  
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
 
  
@@ -439,32 +444,16 @@ const ProfileNew = ({setPage,detailPageId}) => {
                     <AccountInput label="Create Profile" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                <div
-                  style={{
-                    width: "auto",
-                    flexDirection: "column",
-                    height: "200px",
-                    overflowY: "auto",
-                    margin: "16px 0",
-                    border: "1px solid #969999",
-                    padding: "0 10px",
-                    boxSizing: "border-box",
-                    borderRadius: 5,
-                  }}
-                >
-                  <CustomScroll heightRelativeToParent="100%">
-                    <Typography style={{ fontSize: "14px", color: "gray" }}>
-                      Business Unit
-                    </Typography>
-                    <SearchBox
-                      initialItems={BusinessUnit }
-                      selected={select}
-                      params={"projects"}
-                      handleChild={handleChild}
-                    />
-                  </CustomScroll>
-                </div>
-              </MDBCol>
+                  <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={entityList}
+                  />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput label="Remarks" multiline={true}/>
+                    </MDBCol>
                   </MDBRow>
               </MDBCardBody>          
         <Box sx={{display:"flex",flexDirection:"row",mt:2,gap:4,alignItems:"center"}}>

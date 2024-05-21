@@ -10,7 +10,7 @@ import {
   secondryColor,
   thirdColor,
 } from "../../../../../config";
-import { accountTree } from "../../../../../config/masterConfig";
+import { accountTree, searchadvanceTreeItemsAccount } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
@@ -481,7 +481,7 @@ export default function AccountMaster(args) {
                 </Alert>
               </Collapse>
 
-              <TableAccounts />
+              <TableAccounts items={searchadvanceTreeItemsAccount}/>
             </div>
             <div
               style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}

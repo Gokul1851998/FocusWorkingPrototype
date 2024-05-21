@@ -534,6 +534,39 @@ export const viewTree = [
  
 ];
 
+export const searchadvanceTreeItemsAccount = [
+  { id: '1', label: 'General', children: [
+    { id: '2', label: 'Name' },
+    { id: '3', label: 'Code' },
+    { id: '4', label: 'Account Type' },
+    { id: '5', label: 'Group' },
+    { id: '6', label: 'Cheque Discount Limit' },
+    { id: '7', label: 'Rate Of interest' },
+    { id: '8', label: 'PDC Discount A/C' },
+    { id: '9', label: 'Bank A/C' },
+  ] },
+  { id: '10', label: 'Settings', children: [
+    { id: '11', label: 'Default Currency' },
+    
+  ] },
+  { id: '12', label: 'VAT Settings', children: [
+    { id: '13', label: 'Place of Supply' },
+    { id: '14', label: 'TRP' },
+    { id: '15', label: 'Reverse charge' },
+    
+  ] },
+  { id: '16', label: 'Languages', children: [
+    { id: '17', label: 'Language' },
+   
+    
+  ] },
+  { id: '18', label: 'Business Unit', children: [
+    { id: '19', label: 'Business Unit' },
+    
+    
+  ] }
+];
+
 
 
 
