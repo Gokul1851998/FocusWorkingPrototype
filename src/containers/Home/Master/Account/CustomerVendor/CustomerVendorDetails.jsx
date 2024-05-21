@@ -373,7 +373,7 @@ export default function CustomerVendorDetails() {
           id="panel7d-header"
           expanded={expanded === "panel7"}
         >
-          <Typography style={{ fontSize: "14px" }}>Business Unit</Typography>
+          <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <MDBCardBody>
@@ -394,7 +394,7 @@ export default function CustomerVendorDetails() {
                 >
                   <CustomScroll heightRelativeToParent="100%">
                     <Typography style={{ fontSize: "14px", color: "gray" }}>
-                      Business Unit
+                      Business Entity
                     </Typography>
                     <SearchBox
                       initialItems={BusinessUnit }

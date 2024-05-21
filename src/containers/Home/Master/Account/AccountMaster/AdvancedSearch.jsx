@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import {
   Box, Button, Dialog, DialogContent, FormControl, InputLabel, Select, MenuItem, TextField, ToggleButton, ToggleButtonGroup,
   Typography, IconButton, Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Tooltip,
-  Switch
+  Switch,
+  Menu
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
@@ -14,7 +15,13 @@ import AccountInput from '../../../../../components/Inputs/AccountInput';
 import { primaryButtonColor, primaryColor, thirdColor } from '../../../../../config';
 import CurrencyTableInput from '../../../../../components/Inputs/CurrencyTableInput';
 import RoleSelect1 from '../../../../../components/Select/RoleSelect1';
-import { searchAdvanceSelect } from '../../../../../config/securityConfig';
+import { useEffect } from 'react';
+import SecurityInput from '../../../../../components/Inputs/SecurityInput';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import AdvancedSearchSelect from '../../../../../components/Select/AdvanceSearchSelect';
+import AdvanceSearchInput from '../../../../../components/Inputs/AdvanceSearchInput';
+import { searchAdvanceSelect } from '../../../../../config/masterConfig';
 
 
 const cellStyle = {
@@ -41,13 +48,34 @@ const cellStyle = {
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+    
   }
 
 const AdvancedSearchDialog = ({ open, onClose,items }) => {
   
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const [selectedNodes, setSelectedNodes] = useState([]);
-  const [formData, setformData] = useState({})
+  const [formData, setformData] = useState({searchSelect:"Default"})
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+  const [newSearchSelect, setnewSearchSelect] = useState("")
+  const [searchSelect, setsearchSelect] = useState(searchAdvanceSelect)
+  const [searchSelectMappings, setSearchSelectMappings] = useState({//already exist
+    Default: [
+      { id: '2', label: 'Name' },
+      { id: '3', label: 'Code' }
+    ]
+  });
+  const [confirmUpdateDialogOpen, setConfirmUpdateDialogOpen] = useState(false);
+  const [rows, setRows] = useState([
+    { conjunction: '', field: '', operator: '', compareWith: '', value: '' }
+  ]);
+
+
+  useEffect(() => {
+    const selected = searchSelectMappings[formData.searchSelect] || [];
+    setSelectedNodes(selected);
+  }, [formData.searchSelect, searchSelectMappings,open]);
 
   const handleSelectChange = (event, key) => {
     const newFormData = { ...formData, [key]: event.target.value };
@@ -65,8 +93,86 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
     console.log(selectedNodes);
     setSelectedNodes(selectedNodes);
   };
+  const handleSearchClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSearchAndSaveClick = (data) => {
+    setAnchorEl(null);
+    setSaveDialogOpen(true);
+    setnewSearchSelect("")
+   
+  };
+
+  const handleSaveDialogClose = () => {
+    setSaveDialogOpen(false);
+  };
+  const handleSaveSelect = () => {
+    if (newSearchSelect) {
+      const existingItemIndex = searchSelect.findIndex(item => item.value === newSearchSelect);
+      if (existingItemIndex !== -1) {
+        setConfirmUpdateDialogOpen(true);
+      } else {
+        saveNewSearchSelect();
+      }
+    } else {
+      setSaveDialogOpen(false);
+    }
+  };
+
+  const handleConfirmUpdateDialogClose = () => {
+    setConfirmUpdateDialogOpen(false);
+  };
+  const saveNewSearchSelect = () => {
+    const newSearchItem = { value: newSearchSelect, label: newSearchSelect };
+    const existingItemIndex = searchSelect.findIndex(item => item.value === newSearchSelect);
+
+    if (existingItemIndex !== -1) {
+      // Replace existing item
+      const updatedSearchSelect = [...searchSelect];
+      updatedSearchSelect[existingItemIndex] = newSearchItem;
+      setsearchSelect(updatedSearchSelect);
+    } else {
+      // Add new item
+      setsearchSelect([...searchSelect, newSearchItem]);
+    }
+
+    setSearchSelectMappings({
+      ...searchSelectMappings,
+      [newSearchSelect]: selectedNodes
+    });
+    setformData({ ...formData, searchSelect: newSearchSelect });
+    setSaveDialogOpen(false);
+    setConfirmUpdateDialogOpen(false);
+  };
+
+  const handleConfirmUpdate = () => {
+    saveNewSearchSelect();
+  };
+
+  const handleAddRow = () => {
+    setRows([...rows, { conjunction: '', field: '', operator: '', compareWith: '', value: '' }]);
+  };
+
+  const handleRemoveSelectedRows = () => {
+    setRows(rows.filter(row => !row.selected));
+  };
+
+  const handleRowChange = (index, field, value) => {
+    const updatedRows = [...rows];
+    updatedRows[index][field] = value;
+    setRows(updatedRows);
+  };
+
+  const handleRowSelect = (index, selected) => {
+    const updatedRows = [...rows];
+    updatedRows[index].selected = selected;
+    setRows(updatedRows);
+  };
  
 
   return (
@@ -85,7 +191,7 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
         <Box>
           <Button
             variant="contained"
-            
+            onClick={onClose}
             startIcon={<LoadIcon />}
             sx={{ mr: 2,backgroundColor:primaryColor,textTransform:"none" }}
           >
@@ -110,32 +216,48 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
           inputProps={{ 'aria-label': 'advanced search' }}
         />
       </Box>
+      {!advancedSearch && <>
       <Box sx={{ display: 'flex', alignItems: 'center', p: 2,justifyContent:"space-between" }}>
         <Box sx={{display:"flex",alignItems:"center"}}>
         
-                    <CurrencyTableInput label="Name" />
+                    {/* <CurrencyTableInput label="Name" /> */}
                     <IconButton
                 
                 aria-label="Close"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem",color:thirdColor, }}
+                onClick={handleSearchClick}
               >
               
                   <SearchIcon style={{ color: thirdColor }} />
-                  
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color:thirdColor, fontSize: "0.8rem" }}
+                  >
+                    Search
+                  </Typography>
                
               </IconButton>
+              <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleCloseMenu}
+          >
+            <MenuItem onClick={handleCloseMenu}>Search</MenuItem>
+            <MenuItem onClick={handleSearchAndSaveClick}>Search and Save</MenuItem>
+          </Menu>
                  
         </Box>
         <RoleSelect1
                         label=""
-                        value={formData?.CompanyEdit ?? ""}
-                        onChange={(e) => handleSelectChange(e, "CompanyEdit")}
-                        options={searchAdvanceSelect}
+                        value={formData?.searchSelect ?? ""}
+                        onChange={(e) => handleSelectChange(e, "searchSelect")}
+                        options={searchSelect}
                       />
       </Box>
       <Box sx={{ display: 'flex',flexDirection:"row" ,gap:"10px",border:"1px solid #ddd",width:"98%",margin:"auto"}}>
-        <Box >
-        <TreeWithCheckBox items={items} setSelect={handleNodeSelect} />
+        <Box sx={{padding:1,border:"1px solid #ddd",margin:1}}>
+        <TreeWithCheckBox items={items} setSelect={handleNodeSelect} checkedNodes={selectedNodes} />
         </Box>
         <Box sx={{display:"flex",flexWrap:"wrap",gap:"10px",height: 200,overflowY:"auto",scrollbarWidth:"thin",padding:1}}>
           {selectedNodes && selectedNodes.map((item) => (
@@ -150,7 +272,7 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
       <Table stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell sx={headerCellStyle }>Select</TableCell>
+                {/* <TableCell sx={headerCellStyle }>Select</TableCell> */}
                 <TableCell sx={headerCellStyle }>Master</TableCell>
                 <TableCell sx={headerCellStyle }>Name</TableCell>
                 <TableCell sx={headerCellStyle }>Code</TableCell>
@@ -160,9 +282,9 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
             <TableBody>
               {[...Array(10).keys()].map((_, index) => (
                 <TableRow key={index}>
-                  <TableCell sx={bodyCell}>
+                  {/* <TableCell sx={bodyCell}>
                     <Checkbox size="small" />
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell sx={bodyCell}>{index + 1}</TableCell>
                   <TableCell sx={bodyCell}>{`Name ${index + 1}`}</TableCell>
                   <TableCell sx={bodyCell}>{`Code ${index + 1}`}</TableCell>
@@ -173,6 +295,153 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
           </Table>
         </TableContainer>
       </Box>
+      </>}
+      {advancedSearch &&
+        <Box sx={{ padding: "10px" }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+          <Tooltip title="Add">
+            <IconButton onClick={handleAddRow}>
+              <AddCircleIcon sx={{color:primaryColor}} />
+            </IconButton>
+            </Tooltip>
+            <Tooltip title="Remove">
+            <IconButton onClick={handleRemoveSelectedRows}>
+              <RemoveCircleIcon sx={{color:primaryColor}} />
+            </IconButton>
+            </Tooltip>
+          </Box>
+          <TableContainer component={Paper} sx={{ maxHeight: "40vh", minHeight: "40vh", scrollbarWidth: "thin" }}>
+            <Table stickyHeader>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={headerCellStyle}></TableCell>
+                  <TableCell sx={headerCellStyle}>Conjunction</TableCell>
+                  <TableCell sx={headerCellStyle}>Field</TableCell>
+                  <TableCell sx={headerCellStyle}>Operator</TableCell>
+                  <TableCell sx={headerCellStyle}>Compare With</TableCell>
+                  <TableCell sx={headerCellStyle}>Value</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row, index) => (
+                  <TableRow key={index} sx={{ height: "30px", padding: "0px" }}>
+                    <TableCell sx={{ ...bodyCell, minWidth: "null" }}>
+                      <Checkbox
+                        checked={row.selected || false}
+                        onChange={(e) => handleRowSelect(index, e.target.checked)}
+                        sx={{ padding: "0px", height: "30px" }}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ ...bodyCell, paddingLeft: "0px" }}>
+                      <AdvancedSearchSelect
+                        value={row.conjunction}
+                        onChange={(e) => handleRowChange(index, 'conjunction', e.target.value)}
+                        options={[
+                          { value: 'Where', label: 'Where' },
+                          { value: 'And', label: 'And' },
+                          { value: 'Or', label: 'Or' }
+                        ]}
+                        width={"100%"}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ ...bodyCell, paddingLeft: "0px" }}>
+                      <AdvancedSearchSelect
+                        value={row.field}
+                        onChange={(e) => handleRowChange(index, 'field', e.target.value)}
+                        options={[
+                          { value: 'Field1', label: 'Field1' },
+                          { value: 'Field2', label: 'Field2' },
+                          { value: 'Field3', label: 'Field3' }
+                        ]}
+                        width={"100%"}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ ...bodyCell, paddingLeft: "0px" }}>
+                      <AdvancedSearchSelect
+                        value={row.operator}
+                        onChange={(e) => handleRowChange(index, 'operator', e.target.value)}
+                        options={[
+                          { value: '=', label: '=' },
+                          { value: '>', label: '>' },
+                          { value: '<', label: '<' }
+                        ]}
+                        width={'100%'}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ ...bodyCell, paddingLeft: "0px" }}>
+                      <AdvancedSearchSelect
+                        value={row.compareWith}
+                        onChange={(e) => handleRowChange(index, 'compareWith', e.target.value)}
+                        options={[
+                          { value: 'Value1', label: 'Value1' },
+                          { value: 'Value2', label: 'Value2' },
+                          { value: 'Value3', label: 'Value3' }
+                        ]}
+                        width={"100%"}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ ...bodyCell, paddingLeft: "0px" }}>
+                      <AdvanceSearchInput
+                        value={row.value}
+                        onChange={(e) => handleRowChange(index, 'value', e.target.value)}
+                        width={"100%"}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      }
+      <Dialog open={saveDialogOpen} onClose={handleSaveDialogClose}>
+  <DialogContent>
+    <Typography variant="h6">Search and Save</Typography>
+    <Box sx={{ mt: 2 }}>
+      <SecurityInput
+        label="Enter a Name"
+        type={"text"}
+        value={newSearchSelect}
+        setValue={(data) => setnewSearchSelect(data)}
+        disabled={newSearchSelect ==="Default"}
+      />
+    </Box>
+    <Box sx={{ mt: 2, display: 'flex', alignItems: 'center' }}>
+      <Checkbox
+        checked={newSearchSelect === "Default"}
+        onChange={(e) => setnewSearchSelect(e.target.checked ? "Default" : "")}
+      />
+      <Typography variant="body1">Set as default</Typography>
+    </Box>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+      <Button
+        variant="contained"
+        sx={{ backgroundColor: primaryColor, textTransform: "none" }}
+        onClick={handleSaveSelect}
+      >
+        Save
+      </Button>
+      <Button
+        variant="contained"
+        sx={{ backgroundColor: primaryColor, textTransform: "none" }}
+        onClick={handleSaveDialogClose}
+      >
+        Close
+      </Button>
+    </Box>
+  </DialogContent>
+</Dialog>
+
+      <Dialog open={confirmUpdateDialogOpen} onClose={handleConfirmUpdateDialogClose}>
+        <DialogContent>
+          <Typography variant="h6">Confirm Update</Typography>
+          <Typography variant="body1" sx={{ mt: 2 }}>The item already exists. Do you want to update it?</Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+            <Button variant="contained" sx={{ backgroundColor: primaryColor, textTransform: "none" }} onClick={handleConfirmUpdate}>Yes</Button>
+            <Button variant="contained" sx={{ backgroundColor: primaryColor, textTransform: "none" }} onClick={handleConfirmUpdateDialogClose}>No</Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Dialog>
   );
 };

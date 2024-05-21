@@ -10,7 +10,7 @@ import {
   secondryColor,
   thirdColor,
 } from "../../../../../config";
-import { accountTree } from "../../../../../config/masterConfig";
+import { accountTree, searchadvanceTreeItemsAccount, searchadvanceTreeItemsCustomer } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
@@ -483,7 +483,7 @@ export default function CustomerVendor(args) {
        
       
       
-          <TableAccounts />
+          <TableAccounts  items={searchadvanceTreeItemsCustomer}/>
         </div>
         <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}>
           <Collapse

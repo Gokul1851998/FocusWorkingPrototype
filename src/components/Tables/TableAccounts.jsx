@@ -149,7 +149,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { name, values, changes,handleOpenDialog } = props;
+  const { name, values, changes,handleOpenDialog,isSearch } = props;
 
   return (
     <Toolbar
@@ -180,6 +180,7 @@ function EnhancedTableToolbar(props) {
           <MenuItem value={100}>100</MenuItem>
         </Select>
       </FormControl>
+      {isSearch &&
       <Tooltip title="Search">
         <a
           className="btn text-white"
@@ -196,6 +197,7 @@ function EnhancedTableToolbar(props) {
           <i className="fas fa-search" style={{ fontSize: "0.8rem" }} />
         </a>
       </Tooltip>
+      }
     </Box>
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Tooltip title="Show All Records">
@@ -400,6 +402,7 @@ export default function SummaryPage({items}) {
               numSelected={selected.length} // Provide the numSelected prop
               handleOpenDialog={handleOpenDialog}
               handleCloseDialog={handleCloseDialog}
+              isSearch={items?.length>0?true:false}
             />
 
             {data.length > 0 && (

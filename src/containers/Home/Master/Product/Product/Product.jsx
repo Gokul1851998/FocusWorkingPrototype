@@ -10,7 +10,7 @@ import {
   secondryColor,
   thirdColor,
 } from "../../../../../config";
-import { accountTree, productData, productTree } from "../../../../../config/masterConfig";
+import { accountTree, productData, productTree, searchadvanceTreeItemsProduct } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
@@ -482,7 +482,7 @@ export default function Product(args) {
                 </Alert>
               </Collapse>
 
-              <TableProduct masterData={productData} />
+              <TableProduct masterData={productData} items={searchadvanceTreeItemsProduct} />
             </div>
             <div
               style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}

@@ -4,6 +4,7 @@ import { TreeItem, treeItemClasses } from "@mui/x-tree-view/TreeItem";
 import { SimpleTreeView } from "@mui/x-tree-view";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
+import { useEffect } from "react";
 
 const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   color:
@@ -37,8 +38,12 @@ const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   },
 }));
 
-const TreeWithCheckBox = ({ items, setSelect }) => {
+const TreeWithCheckBox = ({ items, setSelect,checkedNodes }) => {
   const [checked, setChecked] = React.useState([]);
+
+  useEffect(() => {
+    setChecked(checkedNodes);
+  }, [checkedNodes]);
 
   const handleToggle = (id, label) => {
     const currentIndex = checked.findIndex((item) => item.id === id);

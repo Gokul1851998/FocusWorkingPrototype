@@ -462,10 +462,3 @@ export const entityList = [
  
 ];
 
-export const searchAdvanceSelect = [
-  { value: 'Default', label: 'Default' },
-{ value: 'type1', label: 'type1' },
-
-  
- 
-];
