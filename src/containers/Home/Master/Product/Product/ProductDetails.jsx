@@ -18,6 +18,7 @@ import {
 import AccountInput from "../../../../../components/Inputs/AccountInput";
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
+import SecurityInput from "../../../../../components/Inputs/SecurityInput";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -90,15 +91,62 @@ export default function ProductDetails() {
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Code" />
                   </MDBCol>
-
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Type" />
+                    <AccountInput label="Item Description" />
                   </MDBCol>
 
-                
-
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Item Type" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Reorder Level" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Bin capacity" />
+                  </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Valuation Method" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Group" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Category" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Item Make" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Country of Origin" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Sub category" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Hse Code" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Printer" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Alternate category" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="CBM" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput label="Description" multiline={true}/>
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12" style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+                  
+                  <Checkbox
+                    //checked={checkedBillwise}
+                    //onChange={handleChangeBillwise}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                    sx={{padding:0}}
+                  />
+                  <Typography sx={{fontSize:"14px",padding:0}} variant="body1">Perishable Item</Typography>
+                
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>

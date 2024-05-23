@@ -180,19 +180,19 @@ export const restrictionItems = [
 ];
 
 export const historyProfile  = [
-  { id: 1, profileName: "Portal", date: "15-04-2024", time: "13:56:07", loginName: "SU" },
-  { id: 2, profileName: "Portal2", date: "16-04-2024", time: "14:56:07", loginName: "DI" },
-  { id: 3, profileName: "", date: "", time: "", loginName: "" },
-  { id: 4, profileName: "", date: "", time: "", loginName: "" },
-  { id: 5, profileName: "", date: "", time: "", loginName: "" },
+  { id: 1, profileName: "Portal", date: "15-04-2024", time: "13:56:07", createdBy: "SU" },
+  { id: 2, profileName: "Portal2", date: "16-04-2024", time: "14:56:07", createdBy: "DI" },
+  { id: 3, profileName: "", date: "", time: "", createdBy: "" },
+  { id: 4, profileName: "", date: "", time: "", createdBy: "" },
+  { id: 5, profileName: "", date: "", time: "", createdBy: "" },
   
 ];
 export const historyRole  = [
-  { id: 1, roleName: "Role1", date: "15-04-2024", time: "13:56:07", loginName: "SU" },
-  { id: 2, roleName: "Role2", date: "16-04-2024", time: "14:56:07", loginName: "DI" },
-  { id: 3, roleName: "", date: "", time: "", loginName: "" },
-  { id: 4, roleName: "", date: "", time: "", loginName: "" },
-  { id: 5, roleName: "", date: "", time: "", loginName: "" },
+  { id: 1, roleName: "Role1", date: "15-04-2024", time: "13:56:07", createdBy: "SU" },
+  { id: 2, roleName: "Role2", date: "16-04-2024", time: "14:56:07", createdBy: "DI" },
+  { id: 3, roleName: "", date: "", time: "", createdBy: "" },
+  { id: 4, roleName: "", date: "", time: "", createdBy: "" },
+  { id: 5, roleName: "", date: "", time: "", createdBy: "" },
   
 ];
 
@@ -274,6 +274,15 @@ export const UserTable = [{
 
   
 }];
+export const historyUser  = [
+  { id: 1, userName: "User1", date: "15-04-2024", time: "13:56:07", createdBy: "SU" },
+  { id: 2, userName: "User2", date: "16-04-2024", time: "14:56:07", createdBy: "DI" },
+  { id: 3, userName: "", date: "", time: "", createdBy: "" },
+  { id: 4, userName: "", date: "", time: "", createdBy: "" },
+  { id: 5, userName: "", date: "", time: "", createdBy: "" },
+  
+];
+
 
 export const erpRoles = [
   { label: 'Portal Role', value: 'PortalRole' },
@@ -397,9 +406,9 @@ export const timeZone = [
 
 
 export const UserType = [
-  { label: "Employee", value: "UT1" },
-  { label: "Customer", value: "UT2" },
-  { label: "Other", value: "UT3" },
+  { label: "Employee", value: "Employee" },
+  { label: "Customer", value: "Customer" },
+  { label: "Other", value: "Other" },
 ]
 
 export const CRMRoles = [
@@ -455,7 +464,21 @@ export const roleTabData = {
     { id: 1, FieldName: 'test', NewValue: 'test', OldValue: 'test' },
   ],
 };
-
+export const userTabData = {
+  tab1: [
+    { id: 1, FiledName: 'Email Password',  NewValue: 'email password changed', Oldvalue: '---',},
+    { id: 2, FiledName: 'Erp Roles',  NewValue: 'role', Oldvalue: 'portal role',},
+    
+  ],
+  tab2: [
+    { id: 1, MasterName: '',  NewValue: '', Oldvalue: '', NewAction: '', OldAction: '',Status:""},
+    { id: 2, MasterName: '',  NewValue: '', Oldvalue: '', NewAction: '', OldAction: '',Status:""},
+    
+    
+  ],
+  tab3: [],
+  
+};
 export const entityList = [
   { label: 'Entity1', value: 'Entity1' },
   { label: 'Entity2', value: 'Entity2' },

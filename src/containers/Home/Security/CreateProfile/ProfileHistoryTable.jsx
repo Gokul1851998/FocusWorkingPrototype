@@ -41,7 +41,7 @@ const ProfileHistoryTable = ({ onRowClick }) => {
             <TableCell sx={headerCellStyle }>Profile Name</TableCell>
             <TableCell sx={headerCellStyle }>Date</TableCell>
             <TableCell sx={headerCellStyle }>Time</TableCell>
-            <TableCell sx={headerCellStyle }>Login name</TableCell>
+            <TableCell sx={headerCellStyle }>Created by</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -51,7 +51,7 @@ const ProfileHistoryTable = ({ onRowClick }) => {
               <TableCell sx={bodyCell}>{row.profileName}</TableCell>
               <TableCell sx={bodyCell}>{row.date}</TableCell>
               <TableCell sx={bodyCell}>{row.time}</TableCell>
-              <TableCell sx={bodyCell}>{row.loginName}</TableCell>
+              <TableCell sx={bodyCell}>{row.createdBy}</TableCell>
             </TableRow>
           ))}
         </TableBody>

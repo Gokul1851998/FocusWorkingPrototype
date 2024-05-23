@@ -55,6 +55,7 @@ import {
   restrictionItems,
   securityQuestions,
   timeZone,
+  userTabData,
   workingDays,
 } from "../../../../config/securityConfig";
 import PersonIcon from "@mui/icons-material/Person";
@@ -80,6 +81,9 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import BasicDateTimePicker from "../../../../components/DateAndTimePicker/DateAndTimePicker";
+import UserHistoryTable from "./UserHistoryTable";
+import UserTabDetails from "./UserHistoryTab";
+import HistoryIcon from '@mui/icons-material/History';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -177,6 +181,25 @@ function BasicBreadcrumbs() {
 const DefaultIcons = ({ iconsClick, detailPageId }) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+      {detailPageId !=0 ?
+      <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={()=>iconsClick("GetHistory")}
+            >
+              <Stack direction="column" alignItems="center">
+        <HistoryIcon sx={{ color:primaryButtonColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                >
+                  History
+                </Typography>
+              </Stack>
+            </IconButton>
+            :null
+      }
       {detailPageId != 0 ? (
       <IconButton
         aria-label="New"
@@ -336,6 +359,24 @@ export default function UserDetails({ detailPageId, setPage }) {
   });
   const [image, setImage] = useState(null);
   const [checkedDays, setCheckedDays] = useState([])
+  const [openHistory, setOpenHistory] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+  
+    const handleRowClick = (row) => {
+
+      
+      setSelectedRow(userTabData);
+      
+    };
+
+  const handleLoadHistory = ()=>{
+   
+    setOpenHistory(true)
+  }
+  const handleCloseLoadHistory = ()=>{
+    setSelectedRow(null)
+    setOpenHistory(false)
+  }
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -354,6 +395,9 @@ export default function UserDetails({ detailPageId, setPage }) {
         break;
       case "Loadfrom":
         handleLoadFrom();
+        break;
+      case "GetHistory":
+        handleLoadHistory();
         break;
       default:
         break;
@@ -782,7 +826,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
                       <Autocomplete2
-                        // autoLabel={"User"}
+                        autoLabel={formData.PUserType?`${formData.PUserType} Name`:""}
                         formData={{
                           sName: formData?.PUserType1 ?? "",
                           iId: null,
@@ -793,7 +837,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         disabled={!formData.PUserType}
                       />
                     </MDBCol>
-                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                    {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                       <RoleSelect1
                         label="CRM Roles"
                         value={formData?.CRMRoles ?? ""}
@@ -801,7 +845,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         options={CRMRoles}
                         disabled={formData.userType === "Group"}
                       />
-                    </MDBCol>
+                    </MDBCol> */}
                     <MDBCol
                       lg="3"
                       md="4"
@@ -810,6 +854,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -822,6 +867,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Enable email authorization
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                   </MDBRow>
@@ -852,6 +898,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -864,6 +911,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Mobile
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                     <MDBCol
@@ -874,6 +922,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -886,6 +935,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Web
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                   </MDBRow>
@@ -916,6 +966,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ marginBottom: "20px" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -928,6 +979,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Account disabled
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                     <MDBCol
@@ -938,6 +990,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ marginBottom: "20px" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -950,6 +1003,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Do not lock account
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                     <MDBCol
@@ -960,6 +1014,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ marginBottom: "20px" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -972,6 +1027,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Allow multi login
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                     <MDBCol
@@ -982,6 +1038,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ marginBottom: "20px" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -994,6 +1051,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Send email notification
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                     <MDBCol
@@ -1004,6 +1062,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ marginBottom: "20px" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -1016,6 +1075,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Email user on login success
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                     <MDBCol
@@ -1026,6 +1086,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                       style={{ marginBottom: "20px" }}
                     >
                       <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checked}
                           // onChange={handleChange}
@@ -1038,6 +1099,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           Email on login failure
                         </Typography>
+                        </label>
                       </Box>
                     </MDBCol>
                   </MDBRow>
@@ -1187,6 +1249,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         key={index}
                         sx={{ display: "flex", alignItems: "center" }}
                       >
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                         <Checkbox
                           // checked={checkedDays.includes(index + 1)}
                           // onChange={() => handleDayChange(index + 1)}
@@ -1201,6 +1264,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         >
                           {day}
                         </Typography>
+                        </label>
                       </Box>
                       </MDBCol>
                     ))}
@@ -1213,7 +1277,7 @@ export default function UserDetails({ detailPageId, setPage }) {
             </>
           </AccordionDetails>
         </Accordion>
-        <Accordion
+        {/* <Accordion
           expanded={expanded === "panel4"}
           onChange={handleChange("panel4")}
         >
@@ -1242,7 +1306,7 @@ export default function UserDetails({ detailPageId, setPage }) {
               </div>
             </>
           </AccordionDetails>
-        </Accordion>
+        </Accordion> */}
         <Accordion
           expanded={expanded === "panel5"}
           onChange={handleChange("panel5")}
@@ -1327,6 +1391,45 @@ export default function UserDetails({ detailPageId, setPage }) {
             </IconButton> */}
         </DialogActions>
       </Dialog>
+      <Dialog  open={openHistory} onClose={handleCloseLoadHistory} 
+sx={{
+  '& .MuiDialog-paper': {
+    width: '70vw', // Set your desired width here (e.g., '80vw' for 80% of the viewport width or '600px' for a fixed width)
+    maxWidth: 'none',
+    height:"90vh"
+  },
+}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center",color:primaryButtonColor}}>
+       History
+        </Typography>
+        <Box sx={{minHeight:"200px",padding:"30px",maxHeight:"80vh",overflowY:"scroll",scrollbarWidth:"thin"}}>
+        <UserHistoryTable  onRowClick={handleRowClick}/>
+        {selectedRow && (
+                <Box sx={{ marginTop: 2 }}>
+                  {/* <Typography>Selected Row Details:</Typography> */}
+                  {/* Render additional table based on selected row */}
+                  <UserTabDetails data={selectedRow} />
+                </Box>
+              )}
+
+        </Box>
+  <DialogContent>
+  
+    {/* You can add more content here such as a list of items */}
+  </DialogContent>
+  <DialogActions>
+ 
+    <Button onClick={handleCloseLoadHistory} 
+     sx={buttonStyle}
+
+    
+    >
+      Close
+    </Button>
+    
+    
+  </DialogActions>
+</Dialog>
     </Box>
   );
 }

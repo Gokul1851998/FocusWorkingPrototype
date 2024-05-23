@@ -614,19 +614,19 @@ sx={{
     {/* You can add more content here such as a list of items */}
   </DialogContent>
   <DialogActions>
-  <ButtonM onClick={handleCloseLoadHistory} 
+  {/* <ButtonM onClick={handleCloseLoadHistory} 
      sx={buttonStyle}
 
     
     >
       Ok
-    </ButtonM>
+    </ButtonM> */}
     <ButtonM onClick={handleCloseLoadHistory} 
      sx={buttonStyle}
 
     
     >
-      Cancel
+      Close
     </ButtonM>
     
     

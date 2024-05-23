@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import { historyProfile, historyRole } from '../../../../config/securityConfig';
+import { historyProfile, historyRole, historyUser } from '../../../../config/securityConfig';
 import { thirdColor } from '../../../../config';
 
 const cellStyle = {
@@ -28,7 +28,7 @@ const bodyCell={
   overflow: "hidden",
   textOverflow: "ellipsis",
 }
-const RoleHistoryTable = ({onRowClick}) => {
+const UserHistoryTable = ({onRowClick}) => {
   // Sample data
 
   const [selectedRow, setSelectedRow] = useState(null);
@@ -45,17 +45,17 @@ const RoleHistoryTable = ({onRowClick}) => {
         <TableHead>
           <TableRow style={{ backgroundColor: "#0076A3", color: "#fff" }}>
             <TableCell sx={headerCellStyle }></TableCell>
-            <TableCell sx={headerCellStyle }>Role Name</TableCell>
+            <TableCell sx={headerCellStyle }>User Name</TableCell>
             <TableCell sx={headerCellStyle }>Date</TableCell>
             <TableCell sx={headerCellStyle }>Time</TableCell>
             <TableCell sx={headerCellStyle }>Created by</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {historyRole.map((row) => (
+          {historyUser.map((row) => (
              <TableRow key={row.id || index} onClick={() => handleRowClick(row)}>
               <TableCell sx={bodyCell}>{row.id}</TableCell>
-              <TableCell sx={bodyCell}>{row.roleName}</TableCell>
+              <TableCell sx={bodyCell}>{row.userName}</TableCell>
               <TableCell sx={bodyCell}>{row.date}</TableCell>
               <TableCell sx={bodyCell}>{row.time}</TableCell>
               <TableCell sx={bodyCell}>{row.createdBy}</TableCell>
@@ -67,4 +67,4 @@ const RoleHistoryTable = ({onRowClick}) => {
   );
 };
 
-export default RoleHistoryTable;
+export default UserHistoryTable;
