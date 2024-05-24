@@ -74,6 +74,8 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
 import CheckBox1 from "../../../../components/CheckBox/CheckBox1";
 import AccountSettingsTable from "./AccountSettingsTable";
+import { entityList } from "../../../../config/securityConfig";
+import RoleSelect1 from "../../../../components/Select/RoleSelect1";
 
 function handleClick(event) {
   event.preventDefault();
@@ -83,8 +85,8 @@ function handleClick(event) {
 const actions = [
   { icon: <GroupAddIcon />, name: "Group" },
   { icon: <DeleteSweepIcon />, name: "Delete All" },
-  { icon: <EventBusyIcon />, name: "Close Account" },
-  { icon: <FolderOpenIcon />, name: "Open Close Account" },
+  // { icon: <EventBusyIcon />, name: "Close Account" },
+  // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
   { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
@@ -141,6 +143,11 @@ export default function AccountSettings(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [selectedOption, setSelectedOption] = React.useState('');
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -322,6 +329,21 @@ export default function AccountSettings(args) {
           </Stack>
         </Box>
         <div>
+        <Box sx={{ width:"97%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px",paddingBottom:"10px"}}>
+        <MDBCardBody>
+                <MDBRow>
+                  
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={entityList}
+                  />
+                  </MDBCol>
+                  </MDBRow>
+              </MDBCardBody>
+              </Box>    
           <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
@@ -380,6 +402,12 @@ export default function AccountSettings(args) {
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AutoComplete2 autoLabel="Cash and Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Customer Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Vendor Group" />
                       </MDBCol>
 
                       <MDBCol lg="3" md="4" sm="6" xs="12">

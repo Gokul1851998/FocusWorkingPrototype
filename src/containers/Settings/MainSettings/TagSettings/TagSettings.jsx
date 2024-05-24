@@ -53,6 +53,8 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
 import TagTable from "./TagTable";
+import RoleSelect1 from "../../../../components/Select/RoleSelect1";
+import { entityList } from "../../../../config/securityConfig";
 
 function handleClick(event) {
   event.preventDefault();
@@ -62,8 +64,8 @@ function handleClick(event) {
 const actions = [
   { icon: <GroupAddIcon />, name: "Group" },
   { icon: <DeleteSweepIcon />, name: "Delete All" },
-  { icon: <EventBusyIcon />, name: "Close Account" },
-  { icon: <FolderOpenIcon />, name: "Open Close Account" },
+  // { icon: <EventBusyIcon />, name: "Close Account" },
+  // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
   { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
@@ -121,6 +123,11 @@ export default function TagSettings(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [selectedOption, setSelectedOption] = React.useState('');
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -253,17 +260,32 @@ export default function TagSettings(args) {
             </IconButton>
           </Stack>
         </Box>
-
+        <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
+        <MDBCardBody>
+                <MDBRow>
+                  
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={entityList}
+                  />
+                  </MDBCol>
+                  </MDBRow>
+              </MDBCardBody>
+             
         <Box
   sx={{
     display: "flex",
     alignItems: "center",
     gap: "20px",
-    padding: 1,
+   paddingTop:"10px",
     flexWrap: "wrap", // Allow items to wrap onto multiple lines
  
   }}
 >
+
   {/* <AutoComplete2 autoLabel="Account" />
   <AutoComplete2 autoLabel="Department" />
   <AutoComplete2 autoLabel="Cost Center" />
@@ -276,7 +298,7 @@ export default function TagSettings(args) {
   <AutoComplete2 autoLabel="Maintenance Parameter" /> */}
   <TagTable/>
 </Box>
-
+</Box>
       </React.StrictMode>
     </>
   );

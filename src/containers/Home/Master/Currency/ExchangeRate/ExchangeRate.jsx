@@ -73,8 +73,8 @@ function handleClick(event) {
 const actions = [
   { icon: <GroupAddIcon />, name: "Group" },
   { icon: <DeleteSweepIcon />, name: "Delete All" },
-  { icon: <EventBusyIcon />, name: "Close Account" },
-  { icon: <FolderOpenIcon />, name: "Open Close Account" },
+  // { icon: <EventBusyIcon />, name: "Close Account" },
+  // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
   { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },

@@ -525,7 +525,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
                       <RoleSelect1
-                        label="Global Currency"
+                        label="Reporting Currency"
                         value={formData?.currency ?? ""}
                         onChange={(e) => handleSelectChange(e, "currency")}
                         options={countryList.map((country) => ({
@@ -538,11 +538,11 @@ export default function CompanyContainer({ pageType,pageId }) {
                     </MDBCol>
                     
                   </MDBRow>
-                  <MDBRow>
+                  {/* <MDBRow>
                   <MDBCol >
                       <SecurityInput label="Customer/Vendor Portal Link" width={"50%"} />
                     </MDBCol>
-                  </MDBRow>
+                  </MDBRow> */}
                   <MDBRow>
                   <MDBCol >
                       <SecurityInput label="Database Path" width={"50%"} />
@@ -753,9 +753,9 @@ export default function CompanyContainer({ pageType,pageId }) {
                 <MDBCardBody>
                   <MDBRow>
                     
-                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                    {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                       <SecurityInput label="Email" />
-                    </MDBCol>
+                    </MDBCol> */}
                     <MDBCol lg="3" md="4" sm="6" xs="12">
                       <SecurityInput label="Telephone Number" />
                     </MDBCol>

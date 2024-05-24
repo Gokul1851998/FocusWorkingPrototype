@@ -29,7 +29,7 @@ const nameOptions = [
   // Add more options as needed
 ];
 
-const MAX_ROWS = 15;
+const MAX_ROWS = 20;
 
 const cellStyle = {
   padding: '0px',
