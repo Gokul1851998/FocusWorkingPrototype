@@ -18,7 +18,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import AutocompleteSecurity from '../../../../components/AutoComplete/AutocompleteSecurity';
-import { createProfileTree, restrictionItems } from '../../../../config/securityConfig';
+import { createProfileTree, entityList, restrictionItems } from '../../../../config/securityConfig';
 import Tree1 from '../../../../components/Tree/Tree1';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
 import DeselectIcon from '@mui/icons-material/Deselect';
@@ -30,6 +30,14 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import DraggableColumnsDialog from './ProfileNameField';
 import AccountInput from '../../../../components/Inputs/AccountInput';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import ProfileHistoryTable2 from './ProfileHistoryTable2';
+import Autocomplete1 from '../../../../components/AutoComplete/AutoComplete1';
+import { MDBCardBody, MDBCol, MDBRow } from 'mdb-react-ui-kit';
+import AutoComplete2 from '../../../../components/AutoComplete/AutoComplete2';
+import { CustomScroll } from 'react-custom-scroll';
+import SearchBox from '../../../../components/SearchBox/SearchBox';
+import RoleSelect1 from '../../../../components/Select/RoleSelect1';
+import SecurityInput from '../../../../components/Inputs/SecurityInput';
 
 const SelectAllIconStyle ={//style for selectAll and unselectAll
   fontSize: "0.8rem",
@@ -299,6 +307,12 @@ const buttonStyle ={
 }
 
 
+const BusinessUnit = [
+  { title: "Unit1", iId: 1 },
+  { title: "Unit3", iId: 2 },
+  { title: "Unit3", iId: 3 },
+];
+
 const ProfileNew = ({setPage,detailPageId}) => {
  
  
@@ -310,6 +324,21 @@ const ProfileNew = ({setPage,detailPageId}) => {
   const [openLoadFrom, setOpenLoadFrom] = useState(false);
   const [openHistory, setOpenHistory] = useState(false);
   const [openCustomize, setOpenCustomize] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [select, setSelect] = React.useState([]);
+  const [selectedOption, setSelectedOption] = React.useState('');
+
+
+  const handleChild = (data) => {
+    console.log(data);
+  };
+
+  const handleRowClick = (row) => {
+
+    const data=[{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"},{menu:"Create profile",action:"Access",status:"Added"}]
+    setSelectedRow(data);
+    
+  };
  
   const handleIconsClick =(value) => {
         switch (value.trim()) {
@@ -390,7 +419,9 @@ const ProfileNew = ({setPage,detailPageId}) => {
     setCheckedState(new Array(restrictionItems.length).fill(false));
   };
 
-  
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
 
  
@@ -404,9 +435,27 @@ const ProfileNew = ({setPage,detailPageId}) => {
     </Box>
     <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",height:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
       <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-        <Typography sx={{fontSize:"20px",color:secondryColor}}>
+      <Typography sx={{fontSize:"20px",color:secondryColor}}>
           Create Profile
-        </Typography>
+          </Typography>    
+      <MDBCardBody>
+                <MDBRow>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Create Profile" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={entityList}
+                  />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput label="Remarks" multiline={true}/>
+                    </MDBCol>
+                  </MDBRow>
+              </MDBCardBody>          
         <Box sx={{display:"flex",flexDirection:"row",mt:2,gap:4,alignItems:"center"}}>
           {/* <Typography sx={{color:"#00000" ,opacity:"0.8"}}>Profile Name</Typography> */}
           {/* <div style={{minWidth:"200px",display:"flex",alignItems:"center"}}>
@@ -432,7 +481,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
               </Stack>
             </IconButton>
           </div> */}
-          <AccountInput label="Profile Name" />
+         
           
          
           
@@ -601,11 +650,18 @@ const ProfileNew = ({setPage,detailPageId}) => {
   </DialogActions>
 </Dialog>
 <Dialog open={openHistory} onClose={handleCloseLoadHistory}>
-  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center",color:primaryButtonColor}}>
        History
         </Typography>
-        <Box sx={{minHeight:"200px",padding:"30px"}}>
-        <ProfileHistoryTable/>
+        <Box sx={{minHeight:"200px",padding:"30px",maxHeight:"80vh",overflowY:"scroll",scrollbarWidth:"thin"}}>
+        <ProfileHistoryTable onRowClick={handleRowClick}/>
+        {selectedRow && (
+                <Box sx={{ marginTop: 2 }}>
+                  {/* <Typography>Selected Row Details:</Typography> */}
+                  {/* Render additional table based on selected row */}
+                  <ProfileHistoryTable2 selectedRow={selectedRow} />
+                </Box>
+              )}
 
         </Box>
   <DialogContent>
@@ -613,19 +669,19 @@ const ProfileNew = ({setPage,detailPageId}) => {
     {/* You can add more content here such as a list of items */}
   </DialogContent>
   <DialogActions>
-  <ButtonM onClick={handleCloseLoadHistory} 
+  {/* <ButtonM onClick={handleCloseLoadHistory} 
      sx={buttonStyle}
 
     
     >
       Ok
-    </ButtonM>
+    </ButtonM> */}
     <ButtonM onClick={handleCloseLoadHistory} 
      sx={buttonStyle}
 
     
     >
-      Cancel
+      Close
     </ButtonM>
     
     

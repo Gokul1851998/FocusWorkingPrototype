@@ -525,7 +525,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
                       <RoleSelect1
-                        label="Global Currency"
+                        label="Reporting Currency"
                         value={formData?.currency ?? ""}
                         onChange={(e) => handleSelectChange(e, "currency")}
                         options={countryList.map((country) => ({
@@ -533,14 +533,19 @@ export default function CompanyContainer({ pageType,pageId }) {
                           value: country.currencyCode,
                         }))}
                         disabled={pageType==2}
-                        helperText="Note:Can't edit currency as Transaction exist"
+                        helperText={pageType==2?"Note:Can't edit currency as Transaction exist":""}
                       />
                     </MDBCol>
                     
                   </MDBRow>
-                  <MDBRow>
+                  {/* <MDBRow>
                   <MDBCol >
                       <SecurityInput label="Customer/Vendor Portal Link" width={"50%"} />
+                    </MDBCol>
+                  </MDBRow> */}
+                  <MDBRow>
+                  <MDBCol >
+                      <SecurityInput label="Database Path" width={"50%"} />
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
@@ -716,6 +721,60 @@ export default function CompanyContainer({ pageType,pageId }) {
                       />
                     </MDBCol>
                   </MDBRow>
+                </MDBCardBody>
+              </div>
+            </>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === "panel2"}
+          onChange={handleChange("panel2")}
+        >
+          <AccordionSummary
+            aria-controls="panel2d-content"
+            id="panel2d-header"
+            className
+            expanded={expanded === "panel2"}
+            sx={{ alignItems: "center" }}
+          >
+            <IconButton
+              sx={{ fontSize: "0.8rem", padding: "0rem" }}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+                <PersonIcon sx={{ color: primaryButtonColor }} />
+              </Stack>
+            </IconButton>
+            <Typography style={{ fontSize: "14px" }}>Company Details</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody>
+                  <MDBRow>
+                    
+                    {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput label="Email" />
+                    </MDBCol> */}
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput label="Telephone Number" />
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput label="Fax Number" />
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput label="WebSite" />
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput label="Address" multiline={true}/>
+                    </MDBCol>
+
+        
+                    
+                 
+                    
+                  </MDBRow>
+                 
                 </MDBCardBody>
               </div>
             </>

@@ -1,7 +1,26 @@
 import { TextField } from '@mui/material'
 import React from 'react'
+import { styled } from '@mui/system';
 
-export default function SecurityInput({label,type,disabled,value,setValue,width}) {
+const CustomTextField = styled(TextField)({
+  '& .MuiInputBase-root': {
+    '& textarea': {
+      '&::-webkit-scrollbar': {
+        width: '6px', // Adjust the width as needed
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(0, 0, 0, 0.2)', // Adjust the color as needed
+        borderRadius: '3px', // Adjust the border radius as needed
+        cursor: 'pointer',
+      },
+      '&::-webkit-scrollbar-track': {
+        backgroundColor: 'rgba(0, 0, 0, 0.1)', // Adjust the track color as needed
+      },
+    },
+  },
+});
+
+export default function SecurityInput({label,type,disabled,value,setValue,width,multiline}) {
   
   const handleChange = (event) => {
     const value = event.target.value
@@ -16,13 +35,15 @@ export default function SecurityInput({label,type,disabled,value,setValue,width}
   }
   };
   return (
-    <TextField
+    <CustomTextField
             margin="normal"
             size="small"
             id="search1"
             value={value}
             type={type}
             label={label}
+            multiline={multiline}
+            rows={multiline?3:null}
             autoComplete="nope"
             autoFocus
             disabled={disabled}
@@ -42,7 +63,7 @@ export default function SecurityInput({label,type,disabled,value,setValue,width}
             sx={{
               width: width?width:250, // Adjust the width as needed
               "& .MuiInputBase-root": {
-                height: 30, // Adjust the height of the input area
+                ...(multiline ? {} : { height: 30 }), // Adjust the height of the input area if not multiline
               },
               "& .MuiInputLabel-root": {
                 transform: "translate(10px, 5px) scale(0.9)", // Adjust label position when not focused

@@ -29,6 +29,8 @@ import { accountData } from "../../config/masterConfig";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import AutocompleteSecurity from "../AutoComplete/AutocompleteSecurity";
 import WidgetsIcon from "@mui/icons-material/Widgets";
+import AdvancedSearchDialog from "../../containers/Home/Master/Account/AccountMaster/AdvancedSearch";
+import { useState } from "react";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -147,16 +149,19 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { name, values, changes } = props;
+  const { name, values, changes,handleOpenDialog,isSearch } = props;
 
   return (
     <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-      }}
-    >
-      <FormControl sx={{ m: 1, flex: "1 1 100%" }} className="CLTFormControl">
+    sx={{
+      pl: { sm: 2 },
+      pr: { xs: 1, sm: 1 },
+      display: 'flex',
+      justifyContent: 'space-between',
+    }}
+  >
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <FormControl sx={{ m: 1, minWidth: 120 }} className="CLTFormControl">
         <InputLabel htmlFor="rows-per-page">Show Entries</InputLabel>
         <Select
           value={12}
@@ -166,7 +171,6 @@ function EnhancedTableToolbar(props) {
             id: "rows-per-page",
           }}
           sx={{
-            width: "120px",
             height: "35px",
           }}
         >
@@ -176,19 +180,39 @@ function EnhancedTableToolbar(props) {
           <MenuItem value={100}>100</MenuItem>
         </Select>
       </FormControl>
+      {isSearch &&
+      <Tooltip title="Search">
+        <a
+          className="btn text-white"
+          data-mdb-ripple-init=""
+          style={{
+            backgroundColor: thirdColor,
+            padding: "0.3rem 0.8rem",
+            fontSize: "0.8rem",
+            marginLeft: 3,
+          }}
+          role="button"
+          onClick={handleOpenDialog}
+        >
+          <i className="fas fa-search" style={{ fontSize: "0.8rem" }} />
+        </a>
+      </Tooltip>
+      }
+    </Box>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Tooltip title="Show All Records">
         <a
           className="btn text-white"
           data-mdb-ripple-init=""
           style={{
             backgroundColor: thirdColor,
-            padding: "0.3rem 0.8rem", // Adjust padding to reduce button size
-            fontSize: "0.8rem", // Adjust font size to reduce icon size
+            padding: "0.3rem 0.8rem",
+            fontSize: "0.8rem",
             marginLeft: 3,
           }}
           role="button"
         >
-          <i class="far fa-folder" style={{ fontSize: "0.8rem" }} />
+          <i className="far fa-folder" style={{ fontSize: "0.8rem" }} />
         </a>
       </Tooltip>
       <Tooltip title="Show All Unauthorised Records">
@@ -203,7 +227,7 @@ function EnhancedTableToolbar(props) {
           }}
           role="button"
         >
-          <i class="far fa-rectangle-list" style={{ fontSize: "0.8rem" }} />
+          <i className="far fa-rectangle-list" style={{ fontSize: "0.8rem" }} />
         </a>
       </Tooltip>
       <Tooltip title="Show All Closed Records">
@@ -218,7 +242,7 @@ function EnhancedTableToolbar(props) {
           }}
           role="button"
         >
-          <i class="fas fa-square-xmark" style={{ fontSize: "0.8rem" }} />
+          <i className="fas fa-square-xmark" style={{ fontSize: "0.8rem" }} />
         </a>
       </Tooltip>
       <Tooltip title="Auto Adjust Columns">
@@ -237,9 +261,10 @@ function EnhancedTableToolbar(props) {
         </a>
       </Tooltip>
       <Tooltip title="Retain Selection">
-        <Checkbox size="small" />
+        <Checkbox size="small" sx={{ marginLeft: 1 }} />
       </Tooltip>
-    </Toolbar>
+    </Box>
+  </Toolbar>
   );
 }
 
@@ -247,7 +272,8 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function SummaryPage() {
+export default function SummaryPage({items}) {
+  
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState(0);
   const [selected, setSelected] = React.useState([]);
@@ -256,6 +282,10 @@ export default function SummaryPage() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
 
   const fetchData = async () => {
     setSelected([]);
@@ -370,6 +400,9 @@ export default function SummaryPage() {
               values={searchQuery}
               changes={handleSearch}
               numSelected={selected.length} // Provide the numSelected prop
+              handleOpenDialog={handleOpenDialog}
+              handleCloseDialog={handleCloseDialog}
+              isSearch={items?.length>0?true:false}
             />
 
             {data.length > 0 && (
@@ -495,7 +528,9 @@ export default function SummaryPage() {
             />
           </Paper>
         </>
+
       </Box>
+      <AdvancedSearchDialog open={openDialog} onClose={handleCloseDialog} items={items} />
     </>
   );
 }

@@ -10,7 +10,7 @@ import {
   secondryColor,
   thirdColor,
 } from "../../../../../config";
-import { accountTree, productData, productTree } from "../../../../../config/masterConfig";
+import { accountTree, productData, productTree, searchadvanceTreeItemsProduct } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
@@ -58,8 +58,8 @@ function handleClick(event) {
 const actions = [
   { icon: <GroupAddIcon />, name: "Group" },
   { icon: <DeleteSweepIcon />, name: "Delete All" },
-  { icon: <EventBusyIcon />, name: "Close Account" },
-  { icon: <FolderOpenIcon />, name: "Open Close Account" },
+  // { icon: <EventBusyIcon />, name: "Close Account" },
+  // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
   { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
@@ -482,7 +482,7 @@ export default function Product(args) {
                 </Alert>
               </Collapse>
 
-              <TableProduct masterData={productData} />
+              <TableProduct masterData={productData} items={searchadvanceTreeItemsProduct} />
             </div>
             <div
               style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}

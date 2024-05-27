@@ -534,6 +534,136 @@ export const viewTree = [
  
 ];
 
+export const searchadvanceTreeItemsAccount = [
+  { id: '1', label: 'General', children: [
+    { id: '2', label: 'Name' },
+    { id: '3', label: 'Code' },
+    { id: '4', label: 'Account Type' },
+    { id: '5', label: 'Group' },
+    { id: '6', label: 'Cheque Discount Limit' },
+    { id: '7', label: 'Rate Of interest' },
+    { id: '8', label: 'PDC Discount A/C' },
+    { id: '9', label: 'Bank A/C' },
+  ] },
+  { id: '10', label: 'Settings', children: [
+    { id: '11', label: 'Default Currency' },
+    
+  ] },
+  { id: '12', label: 'VAT Settings', children: [
+    { id: '13', label: 'Place of Supply' },
+    { id: '14', label: 'TRP' },
+    { id: '15', label: 'Reverse charge' },
+    
+  ] },
+  { id: '16', label: 'Languages', children: [
+    { id: '17', label: 'Language' },
+   
+    
+  ] },
+  { id: '18', label: 'Business Entity', children: [
+    { id: '19', label: 'Business Entity' },
+    
+    
+  ] }
+];
+
+export const searchadvanceTreeItemsCustomer = [
+  { id: '1', label: 'General', children: [
+    { id: '2', label: 'Name' },
+    { id: '3', label: 'Code' },
+    { id: '4', label: 'Type' },
+    { id: '5', label: 'Credit Limit' },
+    { id: '6', label: 'Credit days' },
+    { id: '7', label: 'Salesman' },
+   
+  ] },
+  { id: '8', label: 'Settings', children: [
+    { id: '9', label: 'Default Currency' },
+    { id: '10', label: 'Reminder Terms' },
+    { id: '11', label: 'Exchange Adjustment Gain' },
+    { id: '12', label: 'Exchange Adjustment Loss' },
+    
+  ] },
+  { id: '13', label: 'Details', children: [
+    
+    { id: '14', label: 'address' },
+    { id: '15', label: 'City' },
+    { id: '16', label: 'Contry'},
+    { id: '17', label: 'Delivery Address' },
+    { id: '18', label: 'Email' },
+    
+    
+  ] },
+  { id: '19', label: 'VAT Settings', children: [
+    { id: '20', label: 'Place of supply' },
+    { id: '21', label: 'Reverse chargeable' },
+   
+    
+  ] },
+  { id: '22', label: 'INFO', children: [
+    { id: '23', label: 'Telephone Number' },
+    { id: '24', label: 'Fax Number' },
+    { id: '25', label: 'Pin' },
+    { id: '26', label: 'Bank Account Name' },
+    { id: '27', label: 'Bank Account Number' },
+    { id: '28', label: 'IFSC Code' },
+    { id: '29', label: 'Payment type' },
+    { id: '30', label: 'Finance Email' },
+    
+    
+  ] }
+  ,
+  { id: '31', label: 'Language', children: [
+    { id: '32', label: 'Language' },
+  ] } 
+  ,
+  { id: '33', label: 'Business Entity', children: [
+    { id: '34', label: 'Business Entity' },
+  ] }  
+];
+
+export const searchadvanceTreeItemsProduct = [
+  { id: '1', label: 'General', children: [
+    { id: '2', label: 'Name' },
+    { id: '3', label: 'Code' },
+    { id: '4', label: 'Type' },
+    { id: '5', label: 'Credit Limit' },
+    { id: '6', label: 'Credit days' },
+    { id: '7', label: 'Salesman' },
+   
+  ] },
+  { id: '8', label: 'Settings', children: [
+    { id: '9', label: 'Default Currency' },
+    { id: '10', label: 'Reminder Terms' },
+    { id: '11', label: 'Exchange.Adj Gain' },
+    { id: '12', label: 'Exchange.Adj Loass' },
+    
+  ] },
+  { id: '13', label: 'Details', children: [
+    
+    { id: '14', label: 'address' },
+    { id: '15', label: 'City' },
+    { id: '16', label: 'Contry'}
+    
+  ] },
+  { id: '17', label: 'Languages', children: [
+    { id: '18', label: 'Language' },
+   
+    
+  ] },
+  { id: '19', label: 'Business Entity', children: [
+    { id: '20', label: 'Business Entity' },
+    
+    
+  ] }
+];
+
+export const searchAdvanceSelect = [
+  { value: 'Default', label: 'Default' }
+
+  
+ 
+];
 
 
 

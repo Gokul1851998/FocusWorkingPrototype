@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import { historyProfile } from '../../../../config/securityConfig';
+import { historyProfile, historyRole, historyUser } from '../../../../config/securityConfig';
 import { thirdColor } from '../../../../config';
 
 const cellStyle = {
@@ -28,27 +28,34 @@ const bodyCell={
   overflow: "hidden",
   textOverflow: "ellipsis",
 }
-const ProfileHistoryTable = ({ onRowClick }) => {
+const UserHistoryTable = ({onRowClick}) => {
   // Sample data
+
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  const handleRowClick = (row) => {
+    setSelectedRow(row);
+    onRowClick(row)
+  };
   
 
   return (
-    <TableContainer component={Paper} sx={{maxHeight:"40vh"}}>
-      <Table>
+    <TableContainer component={Paper} sx={{maxHeight:"40vh",width: 'fit-content'}}>
+      <Table stickyHeader>
         <TableHead>
-          <TableRow style={{ backgroundColor: thirdColor, color: "#fff" }}>
+          <TableRow style={{ backgroundColor: "#0076A3", color: "#fff" }}>
             <TableCell sx={headerCellStyle }></TableCell>
-            <TableCell sx={headerCellStyle }>Profile Name</TableCell>
+            <TableCell sx={headerCellStyle }>User Name</TableCell>
             <TableCell sx={headerCellStyle }>Date</TableCell>
             <TableCell sx={headerCellStyle }>Time</TableCell>
             <TableCell sx={headerCellStyle }>Created by</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {historyProfile.map((row) => (
-             <TableRow key={row.id || index} onClick={() => onRowClick(row)}>
+          {historyUser.map((row) => (
+             <TableRow key={row.id || index} onClick={() => handleRowClick(row)}>
               <TableCell sx={bodyCell}>{row.id}</TableCell>
-              <TableCell sx={bodyCell}>{row.profileName}</TableCell>
+              <TableCell sx={bodyCell}>{row.userName}</TableCell>
               <TableCell sx={bodyCell}>{row.date}</TableCell>
               <TableCell sx={bodyCell}>{row.time}</TableCell>
               <TableCell sx={bodyCell}>{row.createdBy}</TableCell>
@@ -60,4 +67,4 @@ const ProfileHistoryTable = ({ onRowClick }) => {
   );
 };
 
-export default ProfileHistoryTable;
+export default UserHistoryTable;

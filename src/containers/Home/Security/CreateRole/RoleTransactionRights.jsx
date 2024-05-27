@@ -60,7 +60,7 @@ function RoleTransactionRights() {
               <MDBCardBody >
                 <MDBRow style={{display:"flex",alignItems:"center"}}>
                   <MDBCol lg="3" md="4" sm="6" xs="12" style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                  
+                  <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                   <Checkbox
                     checked={checkedBillwise}
                     onChange={handleChangeBillwise}
@@ -68,7 +68,7 @@ function RoleTransactionRights() {
                     sx={{padding:0}}
                   />
                   <Typography sx={{fontSize:"14px",padding:0}} variant="body1">Allow Bill Wise On-Account</Typography>
-                
+                  </label>
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -122,6 +122,7 @@ function RoleTransactionRights() {
           <Typography gutterBottom component="div" variant="h6" sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1   }}>Edit Options</Typography>
           <Box sx={{ pl: 3,gap:"5px",display:"flex",flexDirection:"column" }}>
         <Box sx={{ display: 'flex', alignItems: 'center',  }}>
+        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
           <Checkbox
             // checked={checked}
             // onChange={handleChange}
@@ -129,6 +130,7 @@ function RoleTransactionRights() {
             sx={{ padding: 0 }}
           />
           <Typography sx={{fontSize:"14px",padding:0}}  variant="body1">Cannot add future Transactions</Typography>
+          </label>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center',  }}>
           <Typography  sx={{ minWidth: '350px',fontSize:"14px" }}>Cannot Add Transaction that are more than</Typography>

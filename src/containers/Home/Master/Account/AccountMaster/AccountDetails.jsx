@@ -33,6 +33,12 @@ const language = [
   { title: "Spanish", iId: 3 },
 ];
 
+const BusinessUnit = [
+  { title: "Unit1", iId: 1 },
+  { title: "Unit3", iId: 2 },
+  { title: "Unit3", iId: 3 },
+];
+
 
 
 const Accordion = styled((props) => (
@@ -122,6 +128,9 @@ export default function AccountDetails() {
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Account Type" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Group" />
                   </MDBCol>
 
                   {/* <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -406,6 +415,51 @@ export default function AccountDetails() {
                     </Typography>
                     <SearchBox
                       initialItems={language }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel6"}
+        onChange={handleChange("panel6")}
+      >
+        <AccordionSummary
+          aria-controls="panel6d-content"
+          id="panel6d-header"
+          expanded={expanded === "panel6"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Business Entity
+                    </Typography>
+                    <SearchBox
+                      initialItems={BusinessUnit }
                       selected={select}
                       params={"projects"}
                       handleChild={handleChild}

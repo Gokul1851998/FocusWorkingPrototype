@@ -20,7 +20,7 @@ function MasterSettings() {
     const item = location.state;
     const sidebarRef = useRef(null);
     const [sidebarWidth, setSidebarWidth] = useState(0);
-    const [mainMaxWidth, setMainMaxWidth] = useState(0);
+    const [mainMaxWidth, setMainMaxWidth] = useState(2000);
 
 
     useEffect(() => {

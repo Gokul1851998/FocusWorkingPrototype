@@ -3,7 +3,7 @@ import { Alert, Button, Collapse } from "reactstrap";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import Tree1 from "../../../components/Tree/Tree1";
-import { createProfileTree, workingDays } from "../../../config/securityConfig";
+import { createProfileTree, entityList, workingDays } from "../../../config/securityConfig";
 import { useState } from "react";
 import { primaryButtonColor } from "../../../config";
 import {
@@ -27,6 +27,8 @@ function MasterDefinition() {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [formData, setformData] = useState({});
+  const [selectedOption, setSelectedOption] = React.useState('');
+
 
   const handleRadioChange = (event) => {
     setformData({ ...formData, searchBy: event.target.value });
@@ -140,6 +142,12 @@ function MasterDefinition() {
             autoLabel={"Name"}
           />
           <SecurityInput label={"Master Caption"} />
+          <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={(e) => handleSelectChange(e, "BusinessEntity")}
+                    options={entityList}
+                  />
         </div>
         <div
           style={{

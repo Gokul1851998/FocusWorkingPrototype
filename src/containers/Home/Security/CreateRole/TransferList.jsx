@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 import { primaryButtonColor, thirdColor } from '../../../../config';
 
 // Utility functions to handle list operations
@@ -89,6 +89,7 @@ export default function TransferList() {
           const labelId = `transfer-list-item-${value}-label`;
 
           return (
+            <Tooltip title={`Assigned for Entity${value+1}`} key={value}>
             <ListItemButton
               key={value}
               role="listitem"
@@ -115,6 +116,7 @@ export default function TransferList() {
               </ListItemIcon> */}
               <ListItemText  id={labelId} primary={`List item ${value + 1}`} />
             </ListItemButton>
+            </Tooltip>
           );
         })}
       </List>

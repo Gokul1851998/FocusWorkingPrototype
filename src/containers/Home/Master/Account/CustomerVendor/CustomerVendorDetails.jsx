@@ -18,6 +18,8 @@ import {
 import AccountInput from "../../../../../components/Inputs/AccountInput";
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
+import SearchBox from "../../../../../components/SearchBox/SearchBox";
+import { CustomScroll } from "react-custom-scroll";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -59,6 +61,22 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function CustomerVendorDetails() {
   const [expanded, setExpanded] = React.useState("panel1");
+  const [select, setSelect] = React.useState([]);
+
+  const language = [
+    { title: "English", iId: 1 },
+    { title: "Arabic", iId: 2 },
+    { title: "Spanish", iId: 3 },
+  ];
+
+  const BusinessUnit = [
+    { title: "Unit1", iId: 1 },
+    { title: "Unit3", iId: 2 },
+    { title: "Unit3", iId: 3 },
+  ];
+  const handleChild = (data) => {
+    console.log(data);
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -131,6 +149,16 @@ export default function CustomerVendorDetails() {
                 <MDBCol lg="3" md="4" sm="6" xs="12">
                 <AutoComplete2 autoLabel="Default Currency" />
                   </MDBCol>
+                   <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Reminder Terms" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Exchange Adjustment Gain A/C" />
+                  </MDBCol>
+
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Exchange Adjustment Loss A/C" />
+                  </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </div>
@@ -160,6 +188,9 @@ export default function CustomerVendorDetails() {
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="City" />
                   </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Country" />
+                  </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Delivery Address" />
@@ -167,6 +198,23 @@ export default function CustomerVendorDetails() {
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Email" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Send Email to Customer"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
                   </MDBCol>
 
                 </MDBRow>
@@ -192,6 +240,7 @@ export default function CustomerVendorDetails() {
             <div>
               <MDBCardBody>
                 <MDBRow>
+                  
                 <MDBCol lg="3" md="4" sm="6" xs="12">
                 <AutoComplete2 autoLabel="Place of supply" />
                   </MDBCol>
@@ -203,6 +252,161 @@ export default function CustomerVendorDetails() {
               </MDBCardBody>
             </div>
           </>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel5"}
+        onChange={handleChange("panel5")}
+      >
+        <AccordionSummary
+          aria-controls="panel5d-content"
+          id="panel5d-header"
+          expanded={expanded === "panel5"}
+        >
+          <Typography style={{ fontSize: "14px" }}>INFO</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <>
+            <div>
+              <MDBCardBody>
+                <MDBRow>
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Telephone Number" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Fax Number" />
+                  </MDBCol>  
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Pin" />
+                  </MDBCol>  
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Allow customer/vendor portal-checkbox"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="bank Account Name" />
+                  </MDBCol>  
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="bank Account Number" />
+                  </MDBCol>  
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="IFSC Code" />
+                  </MDBCol> 
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AutoComplete2 autoLabel="Payment Type" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Finance Email" />
+                  </MDBCol>   
+
+                 
+                </MDBRow>
+              </MDBCardBody>
+            </div>
+          </>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel6"}
+        onChange={handleChange("panel6")}
+      >
+        <AccordionSummary
+          aria-controls="panel6d-content"
+          id="panel6d-header"
+          expanded={expanded === "panel6"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Language</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Language
+                    </Typography>
+                    <SearchBox
+                      initialItems={language }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel7"}
+        onChange={handleChange("panel7")}
+      >
+        <AccordionSummary
+          aria-controls="panel7d-content"
+          id="panel7d-header"
+          expanded={expanded === "panel7"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Business Entity
+                    </Typography>
+                    <SearchBox
+                      initialItems={BusinessUnit }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
         </AccordionDetails>
       </Accordion>
 

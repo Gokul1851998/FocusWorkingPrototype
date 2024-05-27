@@ -74,6 +74,8 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
 import CheckBox1 from "../../../../components/CheckBox/CheckBox1";
 import AccountSettingsTable from "./AccountSettingsTable";
+import { entityList } from "../../../../config/securityConfig";
+import RoleSelect1 from "../../../../components/Select/RoleSelect1";
 
 function handleClick(event) {
   event.preventDefault();
@@ -83,8 +85,8 @@ function handleClick(event) {
 const actions = [
   { icon: <GroupAddIcon />, name: "Group" },
   { icon: <DeleteSweepIcon />, name: "Delete All" },
-  { icon: <EventBusyIcon />, name: "Close Account" },
-  { icon: <FolderOpenIcon />, name: "Open Close Account" },
+  // { icon: <EventBusyIcon />, name: "Close Account" },
+  // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
   { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
@@ -141,6 +143,11 @@ export default function AccountSettings(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [selectedOption, setSelectedOption] = React.useState('');
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -240,7 +247,7 @@ export default function AccountSettings(args) {
             spacing={1}
             sx={{ flex: "0 0 auto" }}
           >
-            <IconButton
+            {/* <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -286,7 +293,7 @@ export default function AccountSettings(args) {
                   Clear
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -322,6 +329,21 @@ export default function AccountSettings(args) {
           </Stack>
         </Box>
         <div>
+        <Box sx={{ width:"97%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px",paddingBottom:"10px"}}>
+        <MDBCardBody>
+                <MDBRow>
+                  
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={entityList}
+                  />
+                  </MDBCol>
+                  </MDBRow>
+              </MDBCardBody>
+              </Box>    
           <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
@@ -380,6 +402,12 @@ export default function AccountSettings(args) {
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AutoComplete2 autoLabel="Cash and Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Customer Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Vendor Group" />
                       </MDBCol>
 
                       <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -650,7 +678,7 @@ export default function AccountSettings(args) {
                           </div>
                         </MDBCol>
 
-                        <MDBCol>
+                        {/* <MDBCol>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -665,8 +693,8 @@ export default function AccountSettings(args) {
                               },
                             }}
                           />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -681,7 +709,7 @@ export default function AccountSettings(args) {
                               },
                             }}
                           />
-                        </MDBCol>
+                        </MDBCol> */}
                       </MDBCardBody>
                       <MDBCardBody>
                         <MDBCol>
@@ -760,7 +788,7 @@ export default function AccountSettings(args) {
                                 }}
                               />
                             </MDBCol>
-                            <div style={{ paddingLeft: 40 }}>
+                            {/* <div style={{ paddingLeft: 40 }}>
                               <MDBCol>
                                 <FormControlLabel
                                   control={
@@ -780,8 +808,8 @@ export default function AccountSettings(args) {
                                   }}
                                 />
                               </MDBCol>
-                            </div>
-                            <MDBCol>
+                            </div> */}
+                            {/* <MDBCol>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -799,7 +827,7 @@ export default function AccountSettings(args) {
                                   },
                                 }}
                               />
-                            </MDBCol>
+                            </MDBCol> */}
                             <MDBCol>
                               <Typography
                                 style={{ fontSize: "0.8rem", color: "gray" }}
@@ -903,7 +931,7 @@ export default function AccountSettings(args) {
                                   }}
                                 />
 
-                                <FormControlLabel
+                                {/* <FormControlLabel
                                   value="Stop"
                                   control={<Radio />} // Adjust the size of the radio button itself
                                   label="Payment Terms"
@@ -915,8 +943,8 @@ export default function AccountSettings(args) {
                                     margin: 0,
                                     padding: 0,
                                   }}
-                                />
-                                <FormControlLabel
+                                /> */}
+                                {/* <FormControlLabel
                                   value="Req"
                                   control={<Radio />} // Adjust the size of the radio button itself
                                   label="Sales A/C"
@@ -928,13 +956,13 @@ export default function AccountSettings(args) {
                                     margin: 0,
                                     padding: 0,
                                   }}
-                                />
+                                /> */}
                               </RadioGroup>
                             </MDBCol>
                           </div>
                         </MDBCol>
 
-                        <MDBCol>
+                        {/* <MDBCol>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -965,6 +993,168 @@ export default function AccountSettings(args) {
                               },
                             }}
                           />
+                        </MDBCol> */}
+                      </MDBCardBody>
+                      <MDBCardBody>
+                        <MDBCol>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                sx={{
+                                  transform: "scale(0.9)",
+                                  paddingTop: 1,
+                                }}
+                              />
+                            }
+                            label="Enable Credit days check"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.9rem",
+                                color: "gray",
+                              },
+                            }}
+                          />
+                          <div style={{ paddingLeft: 40 }}>
+                            <MDBCol>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    sx={{
+                                      transform: "scale(0.75)",
+                                      paddingTop: 1,
+                                    }}
+                                  />
+                                } // Reduce the size of the checkbox
+                                label="Include pending sales orders value in credit days"
+                                sx={{
+                                  "& .MuiFormControlLabel-label": {
+                                    fontSize: "0.8rem", // Adjust the label font size
+                                    color: "gray", // Change the label color to gray
+                                  },
+                                }}
+                              />
+                            </MDBCol>
+                            <MDBCol>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    sx={{
+                                      transform: "scale(0.75)",
+                                      paddingTop: 1,
+                                    }}
+                                  />
+                                } // Reduce the size of the checkbox
+                                label="Check credit days in orders"
+                                sx={{
+                                  "& .MuiFormControlLabel-label": {
+                                    fontSize: "0.8rem", // Adjust the label font size
+                                    color: "gray", // Change the label color to gray
+                                  },
+                                }}
+                              />
+                            </MDBCol>
+                           
+                            {/* <div style={{ paddingLeft: 40 }}>
+                              <MDBCol>
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      sx={{
+                                        transform: "scale(0.75)",
+                                        paddingTop: 1,
+                                      }}
+                                    />
+                                  } // Reduce the size of the checkbox
+                                  label="Define Credit Days by Department"
+                                  sx={{
+                                    "& .MuiFormControlLabel-label": {
+                                      fontSize: "0.8rem", // Adjust the label font size
+                                      color: "gray", // Change the label color to gray
+                                    },
+                                  }}
+                                />
+                              </MDBCol>
+                            </div> */}
+                            {/* <MDBCol>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    sx={{
+                                      transform: "scale(0.75)",
+                                      paddingTop: 1,
+                                    }}
+                                  />
+                                } // Reduce the size of the checkbox
+                                label="Allow credit limit Authorization mapping to customer group"
+                                sx={{
+                                  "& .MuiFormControlLabel-label": {
+                                    fontSize: "0.8rem", // Adjust the label font size
+                                    color: "gray", // Change the label color to gray
+                                  },
+                                }}
+                              />
+                            </MDBCol> */}
+                            <MDBCol>
+                              <Typography
+                                style={{ fontSize: "0.8rem", color: "gray" }}
+                              >
+                                {" "}
+                                When Credit limit exceeded
+                              </Typography>
+                              <div style={{ paddingLeft: 40 }}>
+                                <MDBCol>
+                                  <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    name="radio-buttons-group"
+                                    sx={{
+                                      "& .MuiSvgIcon-root": { fontSize: 14 },
+                                    }} // Adjust the size of the radio button icon
+                                  >
+                                    <FormControlLabel
+                                      value="Warn and Allow"
+                                      control={<Radio />} // Adjust the size of the radio button itself
+                                      label="Warn and Allow"
+                                      sx={{
+                                        "& .MuiFormControlLabel-label": {
+                                          fontSize: "0.8rem", // Adjust the label font size
+                                          color: "gray", // Change the label color to gray
+                                        },
+                                        margin: 0,
+                                        padding: 0,
+                                      }}
+                                    />
+
+                                    <FormControlLabel
+                                      value="Stop"
+                                      control={<Radio />} // Adjust the size of the radio button itself
+                                      label="Stop"
+                                      sx={{
+                                        "& .MuiFormControlLabel-label": {
+                                          fontSize: "0.8rem", // Adjust the label font size
+                                          color: "gray", // Change the label color to gray
+                                        },
+                                        margin: 0,
+                                        padding: 0,
+                                      }}
+                                    />
+                                    <FormControlLabel
+                                      value="Req"
+                                      control={<Radio />} // Adjust the size of the radio button itself
+                                      label="Request credit limit increase"
+                                      sx={{
+                                        "& .MuiFormControlLabel-label": {
+                                          fontSize: "0.8rem", // Adjust the label font size
+                                          color: "gray", // Change the label color to gray
+                                        },
+                                        margin: 0,
+                                        padding: 0,
+                                      }}
+                                    />
+                                  </RadioGroup>
+                                </MDBCol>
+                              </div>
+                            </MDBCol>
+                          </div>
                         </MDBCol>
                       </MDBCardBody>
                     </Box>
@@ -1009,7 +1199,7 @@ export default function AccountSettings(args) {
                           </div>
                         </MDBCol>
 
-                        <MDBCol>
+                        {/* <MDBCol>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -1040,9 +1230,9 @@ export default function AccountSettings(args) {
                               },
                             }}
                           />
-                        </MDBCol>
+                        </MDBCol> */}
                       </MDBCardBody>
-                      <MDBCardBody>
+                      {/* <MDBCardBody>
                         <MDBCol>
                           <FormControlLabel
                             control={
@@ -1121,9 +1311,9 @@ export default function AccountSettings(args) {
                             />
                           </MDBCol>
                         </div>
-                      </MDBCardBody>
+                      </MDBCardBody> */}
                       <MDBCardBody>
-                        <MDBCol>
+                        {/* <MDBCol>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -1141,9 +1331,9 @@ export default function AccountSettings(args) {
                               },
                             }}
                           />
-                        </MDBCol>
+                        </MDBCol> */}
                         <div style={{ paddingLeft: 40 }}>
-                          <MDBCol>
+                          {/* <MDBCol>
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -1161,66 +1351,291 @@ export default function AccountSettings(args) {
                                 },
                               }}
                             />
-                          </MDBCol>
-                          <MDBCol>
-                            <Typography
-                              style={{ fontSize: "0.8rem", color: "gray" }}
-                            >
-                              When credit days limit exceeded
-                            </Typography>
-                            <div style={{ paddingLeft: 40 }}>
+                          </MDBCol> */}
+                          <MDBCardBody>
+                        <MDBCol>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                sx={{
+                                  transform: "scale(0.9)",
+                                  paddingTop: 1,
+                                }}
+                              />
+                            }
+                            label="Enable Credit Limit check"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.9rem",
+                                color: "gray",
+                              },
+                            }}
+                          />
+                          <div style={{ paddingLeft: 40 }}>
+                            <MDBCol>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    sx={{
+                                      transform: "scale(0.75)",
+                                      paddingTop: 1,
+                                    }}
+                                  />
+                                } // Reduce the size of the checkbox
+                                label="Include ‘Pending sales orders’ value in credit limit check"
+                                sx={{
+                                  "& .MuiFormControlLabel-label": {
+                                    fontSize: "0.8rem", // Adjust the label font size
+                                    color: "gray", // Change the label color to gray
+                                  },
+                                }}
+                              />
+                            </MDBCol>
+                            <MDBCol>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    sx={{
+                                      transform: "scale(0.75)",
+                                      paddingTop: 1,
+                                    }}
+                                  />
+                                } // Reduce the size of the checkbox
+                                label="Check Credit limit in orders"
+                                sx={{
+                                  "& .MuiFormControlLabel-label": {
+                                    fontSize: "0.8rem", // Adjust the label font size
+                                    color: "gray", // Change the label color to gray
+                                  },
+                                }}
+                              />
+                            </MDBCol>
+                            <MDBCol>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    sx={{
+                                      transform: "scale(0.75)",
+                                      paddingTop: 1,
+                                    }}
+                                  />
+                                } // Reduce the size of the checkbox
+                                label="Define Credit Limit by Department"
+                                sx={{
+                                  "& .MuiFormControlLabel-label": {
+                                    fontSize: "0.8rem", // Adjust the label font size
+                                    color: "gray", // Change the label color to gray
+                                  },
+                                }}
+                              />
+                            </MDBCol>
+                            {/* <div style={{ paddingLeft: 40 }}>
                               <MDBCol>
-                                <RadioGroup
-                                  aria-labelledby="demo-radio-buttons-group-label"
-                                  name="radio-buttons-group"
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      sx={{
+                                        transform: "scale(0.75)",
+                                        paddingTop: 1,
+                                      }}
+                                    />
+                                  } // Reduce the size of the checkbox
+                                  label="Define Credit Days by Department"
                                   sx={{
-                                    "& .MuiSvgIcon-root": { fontSize: 14 },
-                                  }} // Adjust the size of the radio button icon
-                                >
-                                  <FormControlLabel
-                                    value="Warn and Allow"
-                                    control={<Radio />} // Adjust the size of the radio button itself
-                                    label="Warn and Allow"
-                                    sx={{
-                                      "& .MuiFormControlLabel-label": {
-                                        fontSize: "0.8rem", // Adjust the label font size
-                                        color: "gray", // Change the label color to gray
-                                      },
-                                      margin: 0,
-                                      padding: 0,
-                                    }}
-                                  />
-
-                                  <FormControlLabel
-                                    value="Stop"
-                                    control={<Radio />} // Adjust the size of the radio button itself
-                                    label="Stop"
-                                    sx={{
-                                      "& .MuiFormControlLabel-label": {
-                                        fontSize: "0.8rem", // Adjust the label font size
-                                        color: "gray", // Change the label color to gray
-                                      },
-                                      margin: 0,
-                                      padding: 0,
-                                    }}
-                                  />
-                                  <FormControlLabel
-                                    value="Req"
-                                    control={<Radio />} // Adjust the size of the radio button itself
-                                    label="Request credit days increase"
-                                    sx={{
-                                      "& .MuiFormControlLabel-label": {
-                                        fontSize: "0.8rem", // Adjust the label font size
-                                        color: "gray", // Change the label color to gray
-                                      },
-                                      margin: 0,
-                                      padding: 0,
-                                    }}
-                                  />
-                                </RadioGroup>
+                                    "& .MuiFormControlLabel-label": {
+                                      fontSize: "0.8rem", // Adjust the label font size
+                                      color: "gray", // Change the label color to gray
+                                    },
+                                  }}
+                                />
                               </MDBCol>
-                            </div>
-                          </MDBCol>
+                            </div> */}
+                            {/* <MDBCol>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    sx={{
+                                      transform: "scale(0.75)",
+                                      paddingTop: 1,
+                                    }}
+                                  />
+                                } // Reduce the size of the checkbox
+                                label="Allow credit limit Authorization mapping to customer group"
+                                sx={{
+                                  "& .MuiFormControlLabel-label": {
+                                    fontSize: "0.8rem", // Adjust the label font size
+                                    color: "gray", // Change the label color to gray
+                                  },
+                                }}
+                              />
+                            </MDBCol> */}
+                            <MDBCol>
+                              <Typography
+                                style={{ fontSize: "0.8rem", color: "gray" }}
+                              >
+                                {" "}
+                                When Credit limit exceeded
+                              </Typography>
+                              <div style={{ paddingLeft: 40 }}>
+                                <MDBCol>
+                                  <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    name="radio-buttons-group"
+                                    sx={{
+                                      "& .MuiSvgIcon-root": { fontSize: 14 },
+                                    }} // Adjust the size of the radio button icon
+                                  >
+                                    <FormControlLabel
+                                      value="Warn and Allow"
+                                      control={<Radio />} // Adjust the size of the radio button itself
+                                      label="Warn and Allow"
+                                      sx={{
+                                        "& .MuiFormControlLabel-label": {
+                                          fontSize: "0.8rem", // Adjust the label font size
+                                          color: "gray", // Change the label color to gray
+                                        },
+                                        margin: 0,
+                                        padding: 0,
+                                      }}
+                                    />
+
+                                    <FormControlLabel
+                                      value="Stop"
+                                      control={<Radio />} // Adjust the size of the radio button itself
+                                      label="Stop"
+                                      sx={{
+                                        "& .MuiFormControlLabel-label": {
+                                          fontSize: "0.8rem", // Adjust the label font size
+                                          color: "gray", // Change the label color to gray
+                                        },
+                                        margin: 0,
+                                        padding: 0,
+                                      }}
+                                    />
+                                    <FormControlLabel
+                                      value="Req"
+                                      control={<Radio />} // Adjust the size of the radio button itself
+                                      label="Request credit limit increase"
+                                      sx={{
+                                        "& .MuiFormControlLabel-label": {
+                                          fontSize: "0.8rem", // Adjust the label font size
+                                          color: "gray", // Change the label color to gray
+                                        },
+                                        margin: 0,
+                                        padding: 0,
+                                      }}
+                                    />
+                                  </RadioGroup>
+                                </MDBCol>
+                              </div>
+                            </MDBCol>
+                          </div>
+                        </MDBCol>
+                      </MDBCardBody>
+                      <MDBCardBody>
+                        <MDBCol>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                sx={{
+                                  transform: "scale(0.9)",
+                                  paddingTop: 1,
+                                }}
+                              />
+                            }
+                            label="Pick Credit day from"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.9rem",
+                                color: "gray",
+                              },
+                            }}
+                          />
+                          <div style={{ paddingLeft: 40 }}>
+                            <MDBCol>
+                              <RadioGroup
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                name="radio-buttons-group"
+                                sx={{ "& .MuiSvgIcon-root": { fontSize: 14 } }} // Adjust the size of the radio button icon
+                              >
+                                <FormControlLabel
+                                  value="Warn and Allow"
+                                  control={<Radio />} // Adjust the size of the radio button itself
+                                  label="Customer/Vendor A/C "
+                                  sx={{
+                                    "& .MuiFormControlLabel-label": {
+                                      fontSize: "0.8rem", // Adjust the label font size
+                                      color: "gray", // Change the label color to gray
+                                    },
+                                    margin: 0,
+                                    padding: 0,
+                                  }}
+                                />
+
+                                {/* <FormControlLabel
+                                  value="Stop"
+                                  control={<Radio />} // Adjust the size of the radio button itself
+                                  label="Payment Terms"
+                                  sx={{
+                                    "& .MuiFormControlLabel-label": {
+                                      fontSize: "0.8rem", // Adjust the label font size
+                                      color: "gray", // Change the label color to gray
+                                    },
+                                    margin: 0,
+                                    padding: 0,
+                                  }}
+                                /> */}
+                                {/* <FormControlLabel
+                                  value="Req"
+                                  control={<Radio />} // Adjust the size of the radio button itself
+                                  label="Sales A/C"
+                                  sx={{
+                                    "& .MuiFormControlLabel-label": {
+                                      fontSize: "0.8rem", // Adjust the label font size
+                                      color: "gray", // Change the label color to gray
+                                    },
+                                    margin: 0,
+                                    padding: 0,
+                                  }}
+                                /> */}
+                              </RadioGroup>
+                            </MDBCol>
+                          </div>
+                        </MDBCol>
+
+                        {/* <MDBCol>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                sx={{ transform: "scale(0.9)", paddingTop: 1 }}
+                              />
+                            } // Reduce the size of the checkbox
+                            label="Apply Payment Discount on Partial Payment"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.9rem", // Adjust the label font size
+                                color: "gray", // Change the label color to gray
+                              },
+                            }}
+                          />
+                        </MDBCol>
+                        <MDBCol>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                sx={{ transform: "scale(0.9)", paddingTop: 1 }}
+                              />
+                            } // Reduce the size of the checkbox
+                            label="User direct conversion for adjustment"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.9rem", // Adjust the label font size
+                                color: "gray", // Change the label color to gray
+                              },
+                            }}
+                          />
+                        </MDBCol> */}
+                      </MDBCardBody>
                         </div>
                       </MDBCardBody>
                     </Box>
@@ -1253,7 +1668,7 @@ export default function AccountSettings(args) {
                       alignItems="flex-start"
                     >
                       <MDBCardBody>
-                        <MDBCol>
+                        {/* <MDBCol>
                           <CheckBox1 label="Add free items on a new line" />
                         </MDBCol>
                         <MDBCol>
@@ -1264,25 +1679,25 @@ export default function AccountSettings(args) {
                         </MDBCol>
                         <MDBCol>
                           <CheckBox1 label="Dialog based entry in vouchers" />
-                        </MDBCol>
+                        </MDBCol> */}
                         <MDBCol>
                           <CheckBox1 label="Do not refresh description with Account/Item in document" />
                         </MDBCol>
                         <MDBCol>
                           <CheckBox1 label="Include un-committed transactions in reports" />
                         </MDBCol>
-                        <MDBCol>
+                        {/* <MDBCol>
                           <CheckBox1 label="Maintain links for only one side of stock transfer" />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <CheckBox1 label="Show status message in popup also" />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <CheckBox1 label="Use Non-Profit Organization’s Terminology" />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <CheckBox1 label="Prefix location code while importing from different location" />
-                        </MDBCol>
+                        </MDBCol> */}
                         <MDBCol>
                           <CheckBox1 label="Show Transaction data in FIFO order" />
                         </MDBCol>
@@ -1295,21 +1710,21 @@ export default function AccountSettings(args) {
                         <MDBCol>
                           <CheckBox1 label="Do not show opening balance in nominal ledgers" />
                         </MDBCol>
-                        <MDBCol>
+                        {/* <MDBCol>
                           <CheckBox1 label="Do not store date of entries" />
-                        </MDBCol>
+                        </MDBCol> */}
                         <MDBCol>
                           <CheckBox1 label="Show exchange rate difference in ledger" />
                         </MDBCol>
-                        <MDBCol>
+                        {/* <MDBCol>
                           <CheckBox1 label="Enable hijri date" />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <CheckBox1 label="Enable profitability check by Item" />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <CheckBox1 label="Do not Load document in exclusive mode" />
-                        </MDBCol>
+                        </MDBCol> */}
                         <MDBCol>
                           <CheckBox1 label="Create master in transaction entry" />
                         </MDBCol>
@@ -1319,12 +1734,12 @@ export default function AccountSettings(args) {
                         <MDBCol>
                           <CheckBox1 label="Open search if master not found" />
                         </MDBCol>
-                        <MDBCol>
+                        {/* <MDBCol>
                           <CheckBox1 label="Do not save document in background" />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <CheckBox1 label="Load date based on the last saved voucher" />
-                        </MDBCol>
+                        </MDBCol> */}
                       </MDBCardBody>
                     </Box>
                   </MDBCol>
@@ -1349,17 +1764,17 @@ export default function AccountSettings(args) {
                         <MDBCol>
                           <AutoComplete2 autoLabel="Numeric separator" />
                         </MDBCol>
-                        <MDBCol>
+                        {/* <MDBCol>
                           <AutoComplete2 autoLabel="Transaction body column heading alignment" />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <AutoComplete2 autoLabel="" />
-                        </MDBCol>
-                        <MDBCol>
+                        </MDBCol> */}
+                        {/* <MDBCol>
                           <AutoComplete2 autoLabel="Allow difference of upto" />
-                        </MDBCol>
+                        </MDBCol> */}
                       </MDBCardBody>
-                      <MDBCardBody style={{ marginTop: 20 }}>
+                      {/* <MDBCardBody style={{ marginTop: 20 }}>
                         <MDBCol>
                           <Typography variant="h6" color="gray" gutterBottom>
                             Exclude voucher during Repost
@@ -1405,8 +1820,8 @@ export default function AccountSettings(args) {
                             <AccountSettingsTable />
                           </RadioGroup>
                         </MDBCol>
-                      </MDBCardBody>
-                      <MDBCardBody style={{ marginTop: 20 }}>
+                      </MDBCardBody> */}
+                      {/* <MDBCardBody style={{ marginTop: 20 }}>
                         <MDBCol>
                           <Typography variant="h6" color="gray" gutterBottom>
                           Invoice Email Settings
@@ -1452,7 +1867,7 @@ export default function AccountSettings(args) {
                        
                           </RadioGroup>
                         </MDBCol>
-                      </MDBCardBody>
+                      </MDBCardBody> */}
                     </Box>
                   </MDBCol>
                 </MDBRow>
