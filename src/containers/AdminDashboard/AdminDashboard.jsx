@@ -14,12 +14,12 @@ import AdminHeader from '../../components/AdminHeader/AdminHeader';
 
 const iconMap = {
   "Create Company": <BusinessIcon fontSize="large" />,
-  "Edit Company": <EditIcon fontSize="large" />,
+  // "Edit Company": <EditIcon fontSize="large" />,
   "Restore Company": <RestoreIcon fontSize="large" />,
-  "Protected company": <AssuredWorkloadIcon fontSize="large" />,
+  // "Protected company": <AssuredWorkloadIcon fontSize="large" />,
   "Settings": <SettingsIcon fontSize="large" />,
-  "Refresh": <RefreshIcon fontSize="large" />,
-  "Keyboard": <KeyboardIcon fontSize="large" />,
+  // "Refresh": <RefreshIcon fontSize="large" />,
+  // "Keyboard": <KeyboardIcon fontSize="large" />,
   
 };
 
