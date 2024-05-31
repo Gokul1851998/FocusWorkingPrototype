@@ -19,6 +19,9 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import { IconButton, Popover, Tooltip } from "@mui/material";
 import WarningMessage from "../../components/Warning/Warnings";
 import SettingsLogin from "./SettingsLogin";
+import { useTheme } from "../../config/themeContext";
+import ThemeSelector from "../../components/ThemeSelector/ThemeSelector";
+import AutofillStyle from "../../components/AutoFillStyle/AutofillStyle";
 
 const idleTime = 10 * 60 * 1000;
 
@@ -38,6 +41,11 @@ export default function Login() {
   const [settings, setSettings] = useState(false);
   const [options, setOptions] = useState(false);
   const [settingsAnchorEl, setSettingsAnchorEl] = useState(null);
+
+  const { currentTheme,switchTheme } = useTheme();
+
+
+
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -105,11 +113,12 @@ export default function Login() {
     <ThemeProvider theme={defaultTheme}>
       <Grid
         sx={{
-          background: `linear-gradient(0deg, #1b77e9, #1842b6)`,
+          backgroundColor: currentTheme.primaryColor,
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
           position: "relative",
+          display:"flex",
         }}
         container
         component="main"
@@ -119,11 +128,20 @@ export default function Login() {
             <IconButton
               onClick={handleSettingsLoginOpen}
               aria-label="Settings"
-              sx={{ color: "white", fontSize: "32px" }}
+              sx={{ color: currentTheme.primaryButtonColor, fontSize: "32px" }}
             >
               <SettingsIcon sx={{ fontSize: 32 }} />
             </IconButton>
           </Tooltip>
+          <Tooltip title="Keyboard">
+              <IconButton
+                aria-label="Keyboard "
+                sx={{ color: currentTheme.primaryButtonColor, fontSize: "32px" }}
+              >
+                <KeyboardIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+            </Tooltip>
+          
           {/* {options ? (
           <>
             <Tooltip title="Create Company">
@@ -150,14 +168,7 @@ export default function Login() {
                 <AssuredWorkloadIcon sx={{ fontSize: 32 }} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Keyboard">
-              <IconButton
-                aria-label="Keyboard "
-                sx={{ color: "white", fontSize: "32px" }}
-              >
-                <KeyboardIcon sx={{ fontSize: 32 }} />
-              </IconButton>
-            </Tooltip>
+           
             <Tooltip title="Refresh">
               <IconButton
                 aria-label="Refresh"
@@ -180,6 +191,7 @@ export default function Login() {
           component={Paper}
           elevation={6}
           square
+          sx={{backgroundColor:currentTheme.secondaryColor}}
         >
           <Box
             sx={{
@@ -188,11 +200,13 @@ export default function Login() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              
             }}
           >
+             <AutofillStyle currentTheme={currentTheme} />
             <img src={imageIcon} alt="Logo" style={{ width: "80px" }} />
 
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" sx={{color:currentTheme.primaryButtonColor}}>
               LOGIN
             </Typography>
             <Box
@@ -214,6 +228,18 @@ export default function Login() {
                 label="UserName"
                 autoComplete="off"
                 autoFocus
+                InputProps={{
+                  style: {
+                    color: currentTheme.primaryButtonColor, // Text color
+                    backgroundColor: currentTheme.thirdColor, // Background color
+                    borderColor: currentTheme.activePrimaryColor, // You might need to create a custom Input component for border color
+                  }
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: currentTheme.primaryButtonColor, // Label color
+                  }
+                }}
               />
               <div style={{ position: "relative" }}>
                 <TextField
@@ -231,6 +257,18 @@ export default function Login() {
                   id="password"
                   autoComplete="current-password"
                   onKeyDown={handleKeyPress}
+                  InputProps={{
+                    style: {
+                      color: currentTheme.primaryButtonColor, // Text color
+                      backgroundColor: currentTheme.thirdColor, // Background color
+                      borderColor: currentTheme.activePrimaryColor, // You might need to create a custom Input component for border color
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      color: currentTheme.primaryButtonColor, // Label color
+                    }
+                  }}
                 />
                 <div
                   onClick={handleTogglePasswordVisibility}
@@ -243,21 +281,26 @@ export default function Login() {
                     color: passwordError ? "red" : "gray",
                   }}
                 >
-                  {showPassword ? <LockOpenIcon /> : <LockIcon />}
+                  {showPassword ? <LockOpenIcon sx={{ color: currentTheme.primaryButtonColor }} /> : <LockIcon  sx={{ color: currentTheme.primaryButtonColor }}/>}
                 </div>
               </div>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2,color:currentTheme.primaryButtonColor,backgroundColor:currentTheme.thirdColor, '&:hover': {
+                  backgroundColor: currentTheme.primaryColor,  // Change hover background color
+                }}}
               >
                 LOGIN
               </Button>
             </Box>
           </Box>
         </Grid>
+        <ThemeSelector />
+        
       </Grid>
+      
       <WarningMessage
         open={alert}
         handleClose={handleAlertClose}
@@ -281,6 +324,7 @@ export default function Login() {
       >
         <SettingsLogin handleClose={handleSettingsLoginClose} open={settingsOpen} setOptions={setOptions} />
       </Popover>
+      
     </ThemeProvider>
   );
 }
