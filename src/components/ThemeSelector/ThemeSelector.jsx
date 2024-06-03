@@ -11,7 +11,7 @@ export default function ThemeSelector() {
   const themes = {
     default: '#2460A7',
     dark: '#333',
-    light: '#FFFFFF',
+    light: '#ddd',
     monochrome: '#000000',
   };
 

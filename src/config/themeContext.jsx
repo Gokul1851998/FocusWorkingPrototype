@@ -17,7 +17,7 @@ const themes = {
     activePrimaryColor: "#222"
   },
   light: {
-    primaryColor: "#FFFFFF",
+    primaryColor: "#ddd",
     secondaryColor: "#F0F0F0",
     thirdColor: "#E0E0E0",
     primaryButtonColor: "#000",

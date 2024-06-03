@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
@@ -22,6 +22,9 @@ import SettingsLogin from "./SettingsLogin";
 import { useTheme } from "../../config/themeContext";
 import ThemeSelector from "../../components/ThemeSelector/ThemeSelector";
 import AutofillStyle from "../../components/AutoFillStyle/AutofillStyle";
+import Keyboard from 'react-simple-keyboard';
+import 'react-simple-keyboard/build/css/index.css';
+import Draggable from 'react-draggable';
 
 const idleTime = 10 * 60 * 1000;
 
@@ -41,10 +44,45 @@ export default function Login() {
   const [settings, setSettings] = useState(false);
   const [options, setOptions] = useState(false);
   const [settingsAnchorEl, setSettingsAnchorEl] = useState(null);
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
+  const [inputFocused, setInputFocused] = useState("");
+  const [keyboardLayout, setKeyboardLayout] = useState("default");
+
 
   const { currentTheme,switchTheme } = useTheme();
 
+  const keyboard = useRef();
 
+
+  
+  const handleInputFocus = (inputName) => {
+    setInputFocused(inputName);
+    setKeyboardLayout("default");
+};
+
+  const handleInputChange = (input) => {
+    if (inputFocused === "sLoginName") {
+      setLoginName(input);
+    } else if (inputFocused === "sPassword") {
+      setSPassword(input);
+    }
+  };
+
+   // This effect keeps the virtual keyboard in sync with the input fields
+   useEffect(() => {
+    if (inputFocused) {
+      let keyboardElement = document.querySelector(".simple-keyboard");
+      if (keyboardElement) {
+        keyboard.current.setInput(inputFocused === "sLoginName" ? sLoginName : sPassword);
+      }
+    }
+  }, [sLoginName, sPassword, inputFocused]);
+
+  const handleKeyPress = (button) => {
+    if (button === "{shift}" || button === "{lock}") {
+        setKeyboardLayout(keyboardLayout === "default" ? "shift" : "default");
+    }
+};
 
 
   const handleTogglePasswordVisibility = () => {
@@ -74,11 +112,11 @@ export default function Login() {
     }
   };
 
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSubmit(event);
-    }
-  };
+  // const handleKeyPress = (event) => {
+  //   if (event.key === "Enter") {
+  //     handleSubmit(event);
+  //   }
+  // };
 
   const handleLoaderClose = () => {
     setLoader(false);
@@ -135,6 +173,7 @@ export default function Login() {
           </Tooltip>
           <Tooltip title="Keyboard">
               <IconButton
+              onClick={() => setKeyboardOpen(!keyboardOpen)}
                 aria-label="Keyboard "
                 sx={{ color: currentTheme.primaryButtonColor, fontSize: "32px" }}
               >
@@ -180,6 +219,37 @@ export default function Login() {
           </>
         ) : null} */}
         </Box>
+        {/* Draggable Keyboard */}
+        {keyboardOpen && (
+          <Draggable>
+            <div style={{ position: "absolute", bottom: 20, right: 20, zIndex: 1000 }}>
+            <Keyboard
+    keyboardRef={(r) => (keyboard.current = r)}
+    onChange={(input) => handleInputChange(input)}
+    onKeyPress={handleKeyPress}
+    layoutName={keyboardLayout}
+    inputName={inputFocused}
+    baseClass="simple-keyboard"
+    layout={{
+        default: [
+            "` 1 2 3 4 5 6 7 8 9 0 - = {backspace}",
+            "q w e r t y u i o p [ ] \\",
+            "a s d f g h j k l ; ' {enter}",
+            "{shift} z x c v b n m , . / {shift}",
+            "{space}"
+        ],
+        shift: [
+            "~ ! @ # $ % ^ & * ( ) _ + {backspace}",
+            "Q W E R T Y U I O P { } |",
+            "A S D F G H J K L : \" {enter}",
+            "{shift} Z X C V B N M < > ? {shift}",
+            "{space}"
+        ]
+    }}
+/>
+            </div>
+          </Draggable>
+        )}
      
         <Grid
           item
@@ -220,6 +290,8 @@ export default function Login() {
                 onChange={(e) => (
                   setLoginName(e.target.value), setEmailError(false)
                 )}
+                onFocus={() => handleInputFocus("sLoginName")}
+                value={sLoginName}
                 margin="normal"
                 size="small"
                 required
@@ -247,6 +319,8 @@ export default function Login() {
                   onChange={(e) => (
                     setSPassword(e.target.value), setPasswordError(false)
                   )}
+                  onFocus={() => handleInputFocus("sPassword")}
+                  value={sPassword}
                   margin="normal"
                   size="small"
                   required
