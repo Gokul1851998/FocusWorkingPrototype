@@ -38,15 +38,17 @@ export const SideBarIcons = [
     { id: 27, parent:17, iconName: "Seller Price Book", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
     { id: 28,parent:17, iconName: "Buyer Price Book", icon:  import("@mui/icons-material/PointOfSale") ,url:"/Master" },
     // { id: 29, parent:17, iconName: "Barcode Definition", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
-    { id: 30, parent:8, iconName: "Main Settings", icon:  import("@mui/icons-material/Inventory"),child:true },
+    { id: 30, parent:8, iconName: "General Settings", icon:  import("@mui/icons-material/Inventory"),child:true },
     { id: 31,parent:8, iconName: "Voucher Settings", icon:  import("@mui/icons-material/PointOfSale") ,url:"/VoucherSettings" },
     { id: 32, parent:8, iconName: "Master Settings", icon:  import("@mui/icons-material/Inventory"),url:"/MasterSettings" },
     { id: 33,parent:30, iconName: "Tag Settings", icon:  import("@mui/icons-material/PointOfSale") ,url:"/MainSettings" },
-    { id: 34, parent:30, iconName: "Account Settings", icon:  import("@mui/icons-material/Inventory"),url:"/MainSettings" },
+    { id: 34, parent:30, iconName: "Account tag Management", icon:  import("@mui/icons-material/Inventory"),url:"/MainSettings" },
     { id: 35, parent:9, iconName: "Open Company", icon:  import("@mui/icons-material/Home"),url:"/" },
     // { id: 36, parent:9, iconName: "Create Company", icon:  import("@mui/icons-material/Home"),url:"/Company" },
     { id: 37, parent:9, iconName: "Update Company", icon:  import("@mui/icons-material/Home"),url:"/Company" },
     // { id: 38, parent:9, iconName: "Delete Company", icon:  import("@mui/icons-material/Home"),url:"/DeleteCompany" },
-    
+    { id: 38,parent:30, iconName: "Inventory Tags Management", icon:  import("@mui/icons-material/PointOfSale") ,url:"/MainSettings" },
+    { id: 39, parent:30, iconName: "Fixed Asset Tags Management", icon:  import("@mui/icons-material/Inventory"),url:"/MainSettings" },
+    { id: 40, parent:8, iconName: "Entity Settings", icon:  import("@mui/icons-material/Inventory"),url:"/MainSettings" },
 
   ];

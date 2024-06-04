@@ -65,6 +65,7 @@ import ClearAllIcon from '@mui/icons-material/ClearAll';
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import SearchBox from "../../../../../components/SearchBox/SearchBox";
 import { CustomScroll } from "react-custom-scroll";
+import MasterLanguage from "../../Account/AccountMaster/MasterLanguage";
 
 function handleClick(event) {
   event.preventDefault();
@@ -133,6 +134,12 @@ export default function CurrencyMaster(args) {
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
   const [select, setSelect] = React.useState([]);
+  const [accountName, setAccountName] = React.useState("");
+
+  const handleAccountNameChange = (event) => {
+   
+    setAccountName(event.target.value);
+  };
 
   const language = [
     { title: "English", iId: 1 },
@@ -378,13 +385,43 @@ export default function CurrencyMaster(args) {
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Number of Decimal" />
                   </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="General Round Off" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AutoComplete2 autoLabel="Rounding Type" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Unit" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Unit Alias" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Sub Unit" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Currency Sub Unit Alias" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Connector" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Connector Alias" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Denomination Code" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <AccountInput label="Denomination Value" />
+                  </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </div>
           </>
         </AccordionDetails>
       </Accordion>
-      <Accordion
+      {/* <Accordion
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
       >
@@ -411,8 +448,8 @@ export default function CurrencyMaster(args) {
             </div>
           </>
         </AccordionDetails>
-      </Accordion>
-      <Accordion
+      </Accordion> */}
+      {/* <Accordion
         expanded={expanded === "panel3"}
         onChange={handleChange("panel3")}
       >
@@ -452,8 +489,8 @@ export default function CurrencyMaster(args) {
             </div>
           </>
         </AccordionDetails>
-      </Accordion>
-      <Accordion
+      </Accordion> */}
+      {/* <Accordion
         expanded={expanded === "panel4"}
         onChange={handleChange("panel4")}
       >
@@ -482,7 +519,7 @@ export default function CurrencyMaster(args) {
             </div>
           </>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
       <Accordion
         expanded={expanded === "panel5"}
         onChange={handleChange("panel5")}
@@ -496,7 +533,7 @@ export default function CurrencyMaster(args) {
         </AccordionSummary>
         <AccordionDetails>
           <MDBCardBody>
-            <MDBRow>
+            {/* <MDBRow>
               <MDBCol lg="3" md="4" sm="6" xs="12">
                 <div
                   style={{
@@ -524,7 +561,8 @@ export default function CurrencyMaster(args) {
                   </CustomScroll>
                 </div>
               </MDBCol>
-            </MDBRow>
+            </MDBRow> */}
+            <MasterLanguage accountName={accountName} />
           </MDBCardBody>
         </AccordionDetails>
       </Accordion>

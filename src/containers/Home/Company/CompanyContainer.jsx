@@ -459,6 +459,84 @@ export default function CompanyContainer({ pageType,pageId }) {
                     <MDBCol lg="3" md="4" sm="6" xs="12">
                       <SecurityInput label="Email" type="email" />
                     </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <RoleSelect1
+                        label="Country"
+                        value={formData?.country ?? ""}
+                        onChange={(e) => handleSelectChange(e, "country")}
+                        options={countryList.map((country) => ({
+                          label: country.label,
+                          value: country.value,
+                        }))}
+                        disabled={pageType==2}
+                      />
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <RoleSelect1
+                        label="Reporting Currency"
+                        value={formData?.currency ?? ""}
+                        onChange={(e) => handleSelectChange(e, "currency")}
+                        options={countryList.map((country) => ({
+                          label: country.currency,
+                          value: country.currencyCode,
+                        }))}
+                        disabled={pageType==2}
+                        helperText={pageType==2?"Note:Can't edit currency as Transaction exist":""}
+                      />
+                    </MDBCol>
+                    
+                    <MDBCol
+                      lg="3"
+                      md="4"
+                      sm="6"
+                      xs="12"
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
+                      <Checkbox
+                        //checked={checkedBillwise}
+                        //onChange={handleChangeBillwise}
+                        inputProps={{ "aria-label": "controlled" }}
+                        sx={{ padding: 0 }}
+                      />
+                      <Typography
+                        sx={{ fontSize: "14px", padding: 0 }}
+                        variant="body1"
+                      >
+                        Enable multi language
+                      </Typography>
+                      </label>
+                    </MDBCol>
+                    <MDBCol
+                      lg="3"
+                      md="4"
+                      sm="6"
+                      xs="12"
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                       <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
+                      <Checkbox
+                        //checked={checkedBillwise}
+                        //onChange={handleChangeBillwise}
+                        inputProps={{ "aria-label": "controlled" }}
+                        sx={{ padding: 0 }}
+                      />
+                      <Typography
+                        sx={{ fontSize: "14px", padding: 0 }}
+                        variant="body1"
+                      >
+                        Multi Entity selection
+                      </Typography>
+                      </label>
+                    </MDBCol>
                     <MDBCol
                       lg="3"
                       md="4"
@@ -496,7 +574,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                         alignItems: "center",
                       }}
                     >
-                      <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
+                       <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                       <Checkbox
                         //checked={checkedBillwise}
                         //onChange={handleChangeBillwise}
@@ -507,34 +585,9 @@ export default function CompanyContainer({ pageType,pageId }) {
                         sx={{ fontSize: "14px", padding: 0 }}
                         variant="body1"
                       >
-                        Hide this company from Unauthorized users
+                        Do not Allow Remember Login Credentials
                       </Typography>
                       </label>
-                    </MDBCol>
-                    <MDBCol lg="3" md="4" sm="6" xs="12">
-                      <RoleSelect1
-                        label="Country"
-                        value={formData?.country ?? ""}
-                        onChange={(e) => handleSelectChange(e, "country")}
-                        options={countryList.map((country) => ({
-                          label: country.label,
-                          value: country.value,
-                        }))}
-                        disabled={pageType==2}
-                      />
-                    </MDBCol>
-                    <MDBCol lg="3" md="4" sm="6" xs="12">
-                      <RoleSelect1
-                        label="Reporting Currency"
-                        value={formData?.currency ?? ""}
-                        onChange={(e) => handleSelectChange(e, "currency")}
-                        options={countryList.map((country) => ({
-                          label: country.currency,
-                          value: country.currencyCode,
-                        }))}
-                        disabled={pageType==2}
-                        helperText={pageType==2?"Note:Can't edit currency as Transaction exist":""}
-                      />
                     </MDBCol>
                     
                   </MDBRow>
@@ -543,7 +596,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                       <SecurityInput label="Customer/Vendor Portal Link" width={"50%"} />
                     </MDBCol>
                   </MDBRow> */}
-                  <MDBRow>
+                  <MDBRow style={{marginTop:"10px",marginBottom:"10px"}}>
                   <MDBCol >
                       <SecurityInput label="Database Path" width={"50%"} />
                     </MDBCol>
@@ -664,7 +717,7 @@ export default function CompanyContainer({ pageType,pageId }) {
     </MDBCol>
 
                   </MDBRow>
-                  <Box
+                  {/* <Box
                     sx={{
                       display: "grid",
                       gridTemplateColumns: "auto 1fr",
@@ -720,7 +773,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                         disabled={pageType==2}
                       />
                     </MDBCol>
-                  </MDBRow>
+                  </MDBRow> */}
                 </MDBCardBody>
               </div>
             </>

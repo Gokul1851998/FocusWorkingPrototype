@@ -20,6 +20,8 @@ import AutocompleteSecurity from "../../../../../components/AutoComplete/Autocom
 import SearchBox from "../../../../../components/SearchBox/SearchBox";
 import { CustomScroll } from "react-custom-scroll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
+import MasterLanguage from "./MasterLanguage";
+import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
 
 const weeks = [
   { title: "ABC", iId: 1 },
@@ -82,13 +84,19 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 export default function AccountDetails() {
   const [expanded, setExpanded] = React.useState("panel1");
   const [select, setSelect] = React.useState([]);
+  const [accountName, setAccountName] = React.useState("");
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
   const handleChild = (data) => {
-    console.log(data);
+    
+  };
+
+  const handleAccountNameChange = (event) => {
+   
+    setAccountName(event.target.value);
   };
 
   return (
@@ -111,7 +119,7 @@ export default function AccountDetails() {
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Name" />
+                    <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange}/>
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -395,8 +403,8 @@ export default function AccountDetails() {
         <AccordionDetails>
           <MDBCardBody>
             <MDBRow>
-              <MDBCol lg="3" md="4" sm="6" xs="12">
-                <div
+              <MDBCol  xs="12">
+                {/* <div
                   style={{
                     width: "auto",
                     flexDirection: "column",
@@ -420,7 +428,8 @@ export default function AccountDetails() {
                       handleChild={handleChild}
                     />
                   </CustomScroll>
-                </div>
+                </div> */}
+                 <MasterLanguage accountName={accountName} />
               </MDBCol>
             </MDBRow>
           </MDBCardBody>

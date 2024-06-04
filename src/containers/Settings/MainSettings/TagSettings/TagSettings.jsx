@@ -261,7 +261,7 @@ export default function TagSettings(args) {
           </Stack>
         </Box>
         <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-        <MDBCardBody>
+        {/* <MDBCardBody>
                 <MDBRow>
                   
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -273,7 +273,7 @@ export default function TagSettings(args) {
                   />
                   </MDBCol>
                   </MDBRow>
-              </MDBCardBody>
+              </MDBCardBody> */}
              
         <Box
   sx={{
