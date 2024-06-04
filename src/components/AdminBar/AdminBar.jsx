@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -13,8 +13,10 @@ import {
   CardContent,
   CardActionArea,
   Container,
+  Tooltip,
+  Button,
 } from "@mui/material";
-import { primaryColor, imageIcon, primaryButtonColor } from "../../config";
+import { primaryColor, imageIcon, primaryButtonColor, SideBarIcons } from "../../config";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -25,10 +27,28 @@ function AdminBar() {
   const [openup, setOpenup] = useState(false);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [activeSubMenuId, setActiveSubMenuId] = React.useState(null);
+  const [menu, setMenu] = React.useState([]);
+  const [menuId, setMenuId] = React.useState(0);
   const navigate = useNavigate();
+
+  useEffect(()=>{
+   setMenu(SideBarIcons)
+  },[])
+
+  const handleSubMenu = (event, Id) => {
+      setAnchorEl(event.currentTarget);
+      setMenuId(Id);
+  
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+    setActiveSubMenuId(null);
+  };
+
+  const handleMenuList = () => {
+    setAnchorEl(null);
+    setAnchorElNav(null); // This line will close the menu
     setActiveSubMenuId(null);
   };
 
@@ -47,6 +67,17 @@ function AdminBar() {
     localStorage.removeItem("userName");
     navigate("/");
   };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+    setActiveSubMenuId(null);
+  };
+
+  let menuItems;
+
+  const handleClickEvent = async(menu)=>{
+
+  }
 
   return (
     <>
@@ -135,7 +166,7 @@ function AdminBar() {
                 <MenuIcon />
               </IconButton>
 
-              {/* <Menu
+              <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
@@ -154,10 +185,10 @@ function AdminBar() {
                 }}
               >
                 {menuItems}
-              </Menu> */}
+              </Menu>
             </Box>
 
-            {/* <Box
+            <Box
               sx={{
                 flexGrow: 1,
                 display: { xs: "none", md: "flex" },
@@ -167,22 +198,22 @@ function AdminBar() {
             >
               {menu &&
                 menu
-                  .filter((menuList) => menuList.iType === 0)
+                  .filter((menuList) => menuList.parent === 0)
                   .map((menuList, index) => (
-                    <Button
-                      key={menuList.iScreenId}
+                    <IconButton
+                      key={menuList.id}
                       aria-controls="master-menu"
                       aria-haspopup="true"
-                      onClick={(e) => handleSubMenu(e, menuList.iScreenId)}
+                      onClick={(e) => handleSubMenu(e, menuList.id)}
                       variant="#00498E" // Note: This is not a valid variant, you might want to use 'contained', 'outlined', or 'text'
                       sx={{
                         mr: 0,
-                        bgcolor: `#1976d2`, // Use template literal here
+             
                         color: "white",
                       }}
                     >
-                      {menuList.sScreen}
-                    </Button>
+                      {menuList.iconName}
+                    </IconButton>
                   ))}
 
               <Menu
@@ -193,34 +224,32 @@ function AdminBar() {
               >
                 {menu &&
                   menu
-                    .filter((menuList) => menuList.iType === menuId)
+                    .filter((menuList) => menuList.id === menuId)
                     .map((menuList, index) => (
                       <MenuItem
-                        key={menuList.iScreenId}
+                        key={menuList.id}
                         onClick={() => handleClickEvent(menuList)}
                       >
-                        {menuList.sScreen}
+                        {menuList.iconName}
                       </MenuItem>
                     ))}
               </Menu>
-            </Box> */}
+            </Box>
 
-            {/* <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0 }}>
              
               <Tooltip title="Log out">
                 <IconButton
-                  onClick={handleLogoutClick}
+                  onClick={handleClose}
                   sx={{
                     p: 0,
                     "&:hover": { backgroundColor: "transparent !important" },
                   }}
                 >
-                  <PowerSettingsNewIcon
-                    sx={{ marginRight: "20px", color: "#FFF" }}
-                  />
+                 
                 </IconButton>
               </Tooltip>
-            </Box> */}
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>
