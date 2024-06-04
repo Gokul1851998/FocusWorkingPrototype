@@ -76,6 +76,7 @@ import CheckBox1 from "../../../../components/CheckBox/CheckBox1";
 import AccountSettingsTable from "./AccountSettingsTable";
 import { entityList } from "../../../../config/securityConfig";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
+import TagTable from "../TagSettings/TagTable";
 
 function handleClick(event) {
   event.preventDefault();
@@ -199,18 +200,10 @@ export default function AccountSettings(args) {
       <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
       Settings
     </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      color="white"
-      sx={{ fontSize: "1rem" }}
-      onClick={handleClick}
-    >
-      Main Settings
-    </Link>,
+   
 
     <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
-      Account Tag Management
+      General Settings
     </Typography>,
   ];
 
@@ -329,7 +322,7 @@ export default function AccountSettings(args) {
           </Stack>
         </Box>
         <div>
-        <Box sx={{ width:"97%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px",paddingBottom:"10px"}}>
+          {/* <Box sx={{ width:"97%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px",paddingBottom:"10px"}}>
         <MDBCardBody>
                 <MDBRow>
                   
@@ -343,7 +336,7 @@ export default function AccountSettings(args) {
                   </MDBCol>
                   </MDBRow>
               </MDBCardBody>
-              </Box>    
+              </Box>     */}
           <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
@@ -355,7 +348,41 @@ export default function AccountSettings(args) {
               expanded={expanded === "panel1"}
             >
               <Typography style={{ fontSize: "14px" }}>
-                Accounting Tags
+                Tag Management
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <>
+                <div>
+                  <MDBCardBody>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "20px",
+                        paddingTop: "10px",
+                        flexWrap: "wrap", // Allow items to wrap onto multiple lines
+                      }}
+                    >
+                      <TagTable />
+                    </Box>
+                  </MDBCardBody>
+                </div>
+              </>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel2"}
+            onChange={handleChange("panel2")}
+          >
+            <AccordionSummary
+              aria-controls="panel2d-content"
+              id="panel2d-header"
+              className
+              expanded={expanded === "panel2"}
+            >
+              <Typography style={{ fontSize: "14px" }}>
+              Account Tag Management
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -375,11 +402,254 @@ export default function AccountSettings(args) {
                       </MDBCol>
                     </MDBRow>
                   </MDBCardBody>
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "auto 1fr",
+                      alignItems: "center",
+                      width: "100%",
+                      mt: 3,
+                      mb: 3,
+                    }}
+                  >
+                    <Typography variant="body1">Account Mapping</Typography>
+                    <Box
+                      sx={{
+                        borderBottom: "1px dotted #000",
+                        marginLeft: "8px", // Adjust spacing to your preference
+                      }}
+                    />
+                  </Box>
+                  <MDBCardBody>
+                    <MDBRow>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Asset Groups" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Cash and Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Customer Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Vendor Group" />
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Control A/C" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Depreciation and Amortization" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Expenses Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Foregin Exchange Gain A/C" />
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Foregin Exchange Loss A/C" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="General and Administration Expenses" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Income Taxes A/C" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Incomes Group" />
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Liabilities Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Other Expenses A/C" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Petty-Cash Expenses Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Profit / loss A/C" />
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Purchases Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Sales Group" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="TDS Account" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Margin Account" />
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Round off for Exchange gain/loss" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12"></MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                            />
+                          } // Reduce the size of the checkbox
+                          label="Check Negative Cash Balance"
+                          sx={{
+                            "& .MuiFormControlLabel-label": {
+                              fontSize: "0.8rem", // Adjust the label font size
+                              color: "gray", // Change the label color to gray
+                              paddingTop: 1,
+                            },
+                          }}
+                        />
+                        <RadioGroup
+                          aria-labelledby="demo-radio-buttons-group-label"
+                          name="radio-buttons-group"
+                          sx={{ "& .MuiSvgIcon-root": { fontSize: 14 } }} // Adjust the size of the radio button icon
+                        >
+                          <FormControlLabel
+                            value="Warn and Allow"
+                            control={<Radio />} // Adjust the size of the radio button itself
+                            label="Warn and Allow"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.7rem", // Adjust the label font size
+                                color: "gray", // Change the label color to gray
+                              },
+                              margin: 0,
+                              padding: 0,
+                            }}
+                          />
+
+                          <FormControlLabel
+                            value="Stop"
+                            control={<Radio />} // Adjust the size of the radio button itself
+                            label="Stop"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.7rem", // Adjust the label font size
+                                color: "gray", // Change the label color to gray
+                              },
+                              margin: 0,
+                              padding: 0,
+                            }}
+                          />
+                        </RadioGroup>
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                            />
+                          } // Reduce the size of the checkbox
+                          label="Check Negative Cash by Tag"
+                          sx={{
+                            "& .MuiFormControlLabel-label": {
+                              fontSize: "0.8rem", // Adjust the label font size
+                              color: "gray", // Change the label color to gray
+                              paddingTop: 1,
+                            },
+                          }}
+                        />
+                        <RadioGroup
+                          aria-labelledby="demo-radio-buttons-group-label"
+                          name="radio-buttons-group"
+                          sx={{ "& .MuiSvgIcon-root": { fontSize: 14 } }} // Adjust the size of the radio button icon
+                        >
+                          <FormControlLabel
+                            value="Warn and Allow"
+                            control={<Radio />} // Adjust the size of the radio button itself
+                            label="Warn and Allow"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.7rem", // Adjust the label font size
+                                color: "gray", // Change the label color to gray
+                              },
+                              margin: 0,
+                              padding: 0,
+                            }}
+                          />
+
+                          <FormControlLabel
+                            value="Stop"
+                            control={<Radio />} // Adjust the size of the radio button itself
+                            label="Stop"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.7rem", // Adjust the label font size
+                                color: "gray", // Change the label color to gray
+                              },
+                              margin: 0,
+                              padding: 0,
+                            }}
+                          />
+                        </RadioGroup>
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                            />
+                          } // Reduce the size of the checkbox
+                          label="General Info"
+                          sx={{
+                            "& .MuiFormControlLabel-label": {
+                              fontSize: "0.8rem", // Adjust the label font size
+                              color: "gray", // Change the label color to gray
+                              paddingTop: 1,
+                            },
+                          }}
+                        />
+                        <RadioGroup
+                          aria-labelledby="demo-radio-buttons-group-label"
+                          name="radio-buttons-group"
+                          sx={{ "& .MuiSvgIcon-root": { fontSize: 14 } }} // Adjust the size of the radio button icon
+                        >
+                          <FormControlLabel
+                            value="Warn and Allow"
+                            control={<Radio />} // Adjust the size of the radio button itself
+                            label="Do not balance stock transfers when posting to FA"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.7rem", // Adjust the label font size
+                                color: "gray", // Change the label color to gray
+                              },
+                              margin: 0,
+                              padding: 0,
+                            }}
+                          />
+
+                          <FormControlLabel
+                            value="Stop"
+                            control={<Radio />} // Adjust the size of the radio button itself
+                            label="Restrict account based on Department"
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontSize: "0.7rem", // Adjust the label font size
+                                color: "gray", // Change the label color to gray
+                              },
+                              margin: 0,
+                              padding: 0,
+                            }}
+                          />
+                        </RadioGroup>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCardBody>
                 </div>
               </>
             </AccordionDetails>
           </Accordion>
-          <Accordion
+          {/* <Accordion
             expanded={expanded === "panel2"}
             onChange={handleChange("panel2")}
           >
@@ -623,10 +893,9 @@ export default function AccountSettings(args) {
                 </div>
               </>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
 
-          {
-  /* <Accordion
+          {/* <Accordion
             expanded={expanded === "panel3"}
             onChange={handleChange("panel3")}
           >
@@ -1020,11 +1289,9 @@ export default function AccountSettings(args) {
                 </MDBRow>
               </>
             </AccordionDetails>
-          </Accordion> */
-}
-
-
-          <Accordion
+          </Accordion> */}
+          
+          {/* <Accordion
             expanded={expanded === "panel4"}
             onChange={handleChange("panel4")}
           >
@@ -1047,36 +1314,14 @@ export default function AccountSettings(args) {
                       alignItems="flex-start"
                     >
                       <MDBCardBody>
-                        {/* <MDBCol>
-                          <CheckBox1 label="Add free items on a new line" />
-                        </MDBCol>
-                        <MDBCol>
-                          <CheckBox1 label="Calculate due-date from LR-date" />
-                        </MDBCol>
-                        <MDBCol>
-                          <CheckBox1 label="Create Customer Profile Fields" />
-                        </MDBCol>
-                        <MDBCol>
-                          <CheckBox1 label="Dialog based entry in vouchers" />
-                        </MDBCol> */}
+                       
                         <MDBCol>
                           <CheckBox1 label="Do not refresh description with Account/Item in document" />
                         </MDBCol>
                         <MDBCol>
                           <CheckBox1 label="Include un-committed transactions in reports" />
                         </MDBCol>
-                        {/* <MDBCol>
-                          <CheckBox1 label="Maintain links for only one side of stock transfer" />
-                        </MDBCol> */}
-                        {/* <MDBCol>
-                          <CheckBox1 label="Show status message in popup also" />
-                        </MDBCol> */}
-                        {/* <MDBCol>
-                          <CheckBox1 label="Use Non-Profit Organization’s Terminology" />
-                        </MDBCol> */}
-                        {/* <MDBCol>
-                          <CheckBox1 label="Prefix location code while importing from different location" />
-                        </MDBCol> */}
+                        
                         <MDBCol>
                           <CheckBox1 label="Show Transaction data in FIFO order" />
                         </MDBCol>
@@ -1089,21 +1334,11 @@ export default function AccountSettings(args) {
                         <MDBCol>
                           <CheckBox1 label="Do not show opening balance in nominal ledgers" />
                         </MDBCol>
-                        {/* <MDBCol>
-                          <CheckBox1 label="Do not store date of entries" />
-                        </MDBCol> */}
+                       
                         <MDBCol>
                           <CheckBox1 label="Show exchange rate difference in ledger" />
                         </MDBCol>
-                        {/* <MDBCol>
-                          <CheckBox1 label="Enable hijri date" />
-                        </MDBCol> */}
-                        {/* <MDBCol>
-                          <CheckBox1 label="Enable profitability check by Item" />
-                        </MDBCol> */}
-                        {/* <MDBCol>
-                          <CheckBox1 label="Do not Load document in exclusive mode" />
-                        </MDBCol> */}
+                        
                         <MDBCol>
                           <CheckBox1 label="Create master in transaction entry" />
                         </MDBCol>
@@ -1113,18 +1348,13 @@ export default function AccountSettings(args) {
                         <MDBCol>
                           <CheckBox1 label="Open search if master not found" />
                         </MDBCol>
-                        {/* <MDBCol>
-                          <CheckBox1 label="Do not save document in background" />
-                        </MDBCol> */}
-                        {/* <MDBCol>
-                          <CheckBox1 label="Load date based on the last saved voucher" />
-                        </MDBCol> */}
+                       
                       </MDBCardBody>
                     </Box>
                   </MDBCol>
 
                   <MDBCol lg="6" md="6" sm="12" xs="12">
-                    {/* Right side */}
+                    
                     <Box
                       display="flex"
                       flexDirection="column"
@@ -1143,113 +1373,76 @@ export default function AccountSettings(args) {
                         <MDBCol>
                           <AutoComplete2 autoLabel="Numeric separator" />
                         </MDBCol>
-                        {/* <MDBCol>
-                          <AutoComplete2 autoLabel="Transaction body column heading alignment" />
-                        </MDBCol> */}
-                        {/* <MDBCol>
-                          <AutoComplete2 autoLabel="" />
-                        </MDBCol> */}
-                        {/* <MDBCol>
-                          <AutoComplete2 autoLabel="Allow difference of upto" />
-                        </MDBCol> */}
-                      </MDBCardBody>
-                      {/* <MDBCardBody style={{ marginTop: 20 }}>
-                        <MDBCol>
-                          <Typography variant="h6" color="gray" gutterBottom>
-                            Exclude voucher during Repost
-                          </Typography>
-
-                          <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            name="radio-buttons-group"
-                            sx={{ "& .MuiSvgIcon-root": { fontSize: 16 } }}
-                          >
-                            <div
-                              style={{ display: "flex", alignItems: "center" }}
-                            >
-                              <FormControlLabel
-                                value="Warn and Allow"
-                                control={<Radio />}
-                                label="Document Type"
-                                sx={{
-                                  "& .MuiFormControlLabel-label": {
-                                    fontSize: "0.9rem",
-                                    color: "gray",
-                                  },
-                                  margin: 0,
-                                  padding: 0,
-                                }}
-                              />
-
-                              <FormControlLabel
-                                value="Stop"
-                                control={<Radio />}
-                                label="DocClass"
-                                sx={{
-                                  "& .MuiFormControlLabel-label": {
-                                    fontSize: "0.9rem",
-                                    color: "gray",
-                                  },
-                                  margin: 0,
-                                  padding: 0,
-                                }}
-                              />
-                            
-                            </div>
-                            <AccountSettingsTable />
-                          </RadioGroup>
-                        </MDBCol>
-                      </MDBCardBody> */}
-                      {/* <MDBCardBody style={{ marginTop: 20 }}>
-                        <MDBCol>
-                          <Typography variant="h6" color="gray" gutterBottom>
-                          Invoice Email Settings
-                          </Typography>
-
-                          <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            name="radio-buttons-group"
-                            sx={{ "& .MuiSvgIcon-root": { fontSize: 16 } }}
-                          >
-                            <div
-                              style={{ display: "flex", alignItems: "center" }}
-                            >
-                              <FormControlLabel
-                                value="Send as attachment"
-                                control={<Radio />}
-                                label="Document Type"
-                                sx={{
-                                  "& .MuiFormControlLabel-label": {
-                                    fontSize: "0.9rem",
-                                    color: "gray",
-                                  },
-                                  margin: 0,
-                                  padding: 0,
-                                }}
-                              />
-
-                              <FormControlLabel
-                                value="Stop"
-                                control={<Radio />}
-                                label="Send as body"
-                                sx={{
-                                  "& .MuiFormControlLabel-label": {
-                                    fontSize: "0.9rem",
-                                    color: "gray",
-                                  },
-                                  margin: 0,
-                                  padding: 0,
-                                }}
-                              />
-                            
-                            </div>
                        
-                          </RadioGroup>
-                        </MDBCol>
-                      </MDBCardBody> */}
+                      </MDBCardBody>
+                      
                     </Box>
                   </MDBCol>
                 </MDBRow>
+              </>
+            </AccordionDetails>
+          </Accordion> */}
+           <Accordion
+            expanded={expanded === "panel3"}
+            onChange={handleChange("panel3")}
+          >
+            <AccordionSummary
+              aria-controls="panel3d-content"
+              id="panel3d-header"
+              expanded={expanded === "panel3"}
+            >
+              <Typography style={{ fontSize: "14px" }}>
+                Inventory Tag Management
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <>
+              <MDBCardBody>
+                    <MDBRow>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Inventory Tag" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Inventory Tag1" />
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Inventory Tag2" />
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCardBody>
+              </>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel4"}
+            onChange={handleChange("panel4")}
+          >
+            <AccordionSummary
+              aria-controls="panel4d-content"
+              id="panel4d-header"
+              expanded={expanded === "panel4"}
+            >
+              <Typography style={{ fontSize: "14px" }}>
+                Fixed Asset Tag Management
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <>
+              <MDBCardBody>
+                    <MDBRow>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Fixed Asset Tag" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Fixed Asset Tag1" />
+                      </MDBCol>
+
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Fixed Asset Tag2" />
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCardBody>
               </>
             </AccordionDetails>
           </Accordion>

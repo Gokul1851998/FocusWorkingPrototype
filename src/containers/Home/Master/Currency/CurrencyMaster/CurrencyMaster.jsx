@@ -66,6 +66,7 @@ import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2"
 import SearchBox from "../../../../../components/SearchBox/SearchBox";
 import { CustomScroll } from "react-custom-scroll";
 import MasterLanguage from "../../Account/AccountMaster/MasterLanguage";
+import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
 
 function handleClick(event) {
   event.preventDefault();
@@ -373,7 +374,7 @@ export default function CurrencyMaster(args) {
                     <AccountInput label="Coins Name" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Currency Name" />
+                  <AccountInput1 label="Currency Name"  value={accountName} onChange={handleAccountNameChange}/>
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                 <AutoComplete2 autoLabel="Numeric Seperator" />

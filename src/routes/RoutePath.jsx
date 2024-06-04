@@ -19,11 +19,12 @@ export default function RoutePath() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/Master" element={<MasterPage />} />
         <Route path="/security" element={<Security />} />
-        <Route path="/MainSettings" element={<MainSettingsPage />} />
+        <Route path="/GeneralSettings" element={<MainSettingsPage />} />
         <Route path="/VoucherSettings" element={<VoucherSettingsPage />} />
         <Route path="/MasterSettings" element={<MasterSettings />} />
         <Route path="/Company" element={<Company />} />
         <Route path="/companySettings" element={<AdminDashboard />} />
+        <Route path="/EntitySettings" element={<MainSettingsPage />} />
         </Routes>
     </div>
   )
