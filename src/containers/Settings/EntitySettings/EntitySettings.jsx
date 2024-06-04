@@ -193,18 +193,10 @@ export default function EntitySettings(args) {
       <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
       Settings
     </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      color="white"
-      sx={{ fontSize: "1rem" }}
-      onClick={handleClick}
-    >
-      Main Settings
-    </Link>,
+    
 
     <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
-      Account Tag Management
+      Entity Settings
     </Typography>,
   ];
 

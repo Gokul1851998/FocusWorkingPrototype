@@ -55,6 +55,9 @@ import {
   workingDays,
 } from "../../../config/securityConfig";
 import PersonIcon from "@mui/icons-material/Person";
+import BusinessIcon from '@mui/icons-material/Business';
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -169,7 +172,7 @@ function BasicBreadcrumbs({pageType,pageId}) {
             Create Company
           </Typography>
           :<Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
-          Update Company
+          Edit Company
         </Typography>}
           ,
         </Breadcrumbs>
@@ -419,7 +422,7 @@ export default function CompanyContainer({ pageType,pageId }) {
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <PersonIcon sx={{ color: primaryButtonColor }} />
+                <BusinessIcon sx={{ color: primaryButtonColor }} />
               </Stack>
             </IconButton>
             <Typography style={{ fontSize: "14px" }}>Company</Typography>
@@ -795,7 +798,7 @@ export default function CompanyContainer({ pageType,pageId }) {
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <PersonIcon sx={{ color: primaryButtonColor }} />
+                <RoomPreferencesIcon sx={{ color: primaryButtonColor }} />
               </Stack>
             </IconButton>
             <Typography style={{ fontSize: "14px" }}>Company Details</Typography>

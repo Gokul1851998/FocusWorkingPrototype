@@ -25,6 +25,8 @@ import {
 } from "@mui/icons-material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ProductClassificationTable from "./ProductClassificationTable";
+import MasterLanguage from "../../Account/AccountMaster/MasterLanguage";
+import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
 
 
 const Accordion = styled((props) => (
@@ -99,6 +101,12 @@ export default function ProductDetails() {
     FromDate: " ",
     accountingDate:" "
   });
+  const [accountName, setAccountName] = React.useState("");
+
+  const handleAccountNameChange = (event) => {
+   
+    setAccountName(event.target.value);
+  };
 
 
   const handleUploadClick = (field) => () => {
@@ -146,7 +154,7 @@ export default function ProductDetails() {
               <MDBCardBody>
                 <MDBRow>
                 <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Name" />
+                <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange}/>
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -517,6 +525,52 @@ export default function ProductDetails() {
               </MDBCardBody>
             </div>
           </>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel5"}
+        onChange={handleChange("panel5")}
+      >
+        <AccordionSummary
+          aria-controls="panel5d-content"
+          id="panel5d-header"
+          expanded={expanded === "panel5"}
+        >
+          <Typography style={{ fontSize: "14px" }}>Language</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol  xs="12">
+                {/* <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Language
+                    </Typography>
+                    <SearchBox
+                      initialItems={language }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div> */}
+                 <MasterLanguage accountName={accountName} />
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
         </AccordionDetails>
       </Accordion>
 

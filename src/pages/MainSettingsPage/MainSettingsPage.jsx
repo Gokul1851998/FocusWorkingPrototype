@@ -5,7 +5,10 @@ import Footer from "../../components/Footer/Footer";
 import { useLocation } from "react-router-dom";
 import TagSettings from "../../containers/Settings/MainSettings/TagSettings/TagSettings";
 import AccountSettings from "../../containers/Settings/MainSettings/AccountSettings/AccountSettings";
-import EntitySettings from "../../containers/Settings/EntitySettings/EntitySettings";
+import FinanceSettings from "../../containers/Settings/EntitySettings/FinanceSettings";
+import InventorySettings from "../../containers/Settings/EntitySettings/InventorySettings";
+import FixedAssetsSettings from "../../containers/Settings/EntitySettings/FixedAssetsSettings";
+import GeneralEntitySettings from "../../containers/Settings/EntitySettings/GeneralEntitySettings";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -26,12 +29,16 @@ export default function MainSettingsPage() {
         <SideBar />
         <Box component="main" sx={{ flexGrow: 1,marginBottom:2 }}>
           <DrawerHeader />
-           {id === 33? (
-            <TagSettings />
-           ):id === 34? (
+           {id === 30? (
             <AccountSettings />
            ):id === 40? (
-            <EntitySettings />
+            <FinanceSettings />
+           ):id === 41? (
+            <InventorySettings />
+           ):id === 42? (
+            <FixedAssetsSettings />
+           ):id === 43? (
+            <GeneralEntitySettings />
            ): null}
         </Box>
         <Footer />
