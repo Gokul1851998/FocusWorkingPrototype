@@ -203,9 +203,12 @@ export default function SideBar() {
   };
   const handleClose = () => {
     setAnchorEl(null);
-    navigate("/");
+    // navigate("/");
   };
-
+  const handleLogout = () => {
+    setAnchorEl(null);
+     navigate("/");
+  };
   useEffect(() => {
     fetchIconsFromApi().then((data) => {
       setSideBarIcons(data);
@@ -286,7 +289,9 @@ export default function SideBar() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              <MenuItem >Language</MenuItem>
+              <MenuItem >Theme</MenuItem>
             </Menu>
           </div>
         </Toolbar>

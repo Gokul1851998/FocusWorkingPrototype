@@ -20,6 +20,8 @@ import AutocompleteSecurity from "../../../../../components/AutoComplete/Autocom
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import SearchBox from "../../../../../components/SearchBox/SearchBox";
 import { CustomScroll } from "react-custom-scroll";
+import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
+import MasterLanguage from "../AccountMaster/MasterLanguage";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -62,6 +64,12 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 export default function CustomerVendorDetails() {
   const [expanded, setExpanded] = React.useState("panel1");
   const [select, setSelect] = React.useState([]);
+  const [accountName, setAccountName] = React.useState("");
+
+  const handleAccountNameChange = (event) => {
+   
+    setAccountName(event.target.value);
+  };
 
   const language = [
     { title: "English", iId: 1 },
@@ -102,7 +110,7 @@ export default function CustomerVendorDetails() {
               <MDBCardBody>
                 <MDBRow>
                 <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Name" />
+                <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange}/>
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -333,7 +341,7 @@ export default function CustomerVendorDetails() {
         <AccordionDetails>
           <MDBCardBody>
             <MDBRow>
-              <MDBCol lg="3" md="4" sm="6" xs="12">
+              {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                 <div
                   style={{
                     width: "auto",
@@ -359,7 +367,8 @@ export default function CustomerVendorDetails() {
                     />
                   </CustomScroll>
                 </div>
-              </MDBCol>
+              </MDBCol> */}
+              <MasterLanguage accountName={accountName} />
             </MDBRow>
           </MDBCardBody>
         </AccordionDetails>

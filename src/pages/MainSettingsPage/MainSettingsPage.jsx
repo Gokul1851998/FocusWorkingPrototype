@@ -5,6 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import { useLocation } from "react-router-dom";
 import TagSettings from "../../containers/Settings/MainSettings/TagSettings/TagSettings";
 import AccountSettings from "../../containers/Settings/MainSettings/AccountSettings/AccountSettings";
+import EntitySettings from "../../containers/Settings/EntitySettings/EntitySettings";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -29,6 +30,8 @@ export default function MainSettingsPage() {
             <TagSettings />
            ):id === 34? (
             <AccountSettings />
+           ):id === 40? (
+            <EntitySettings />
            ): null}
         </Box>
         <Footer />
