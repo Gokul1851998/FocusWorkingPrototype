@@ -24,6 +24,7 @@ function AdminHeader() {
       const handleClose = () => {
         setAnchorEl(null);
         setOpenup(false);
+        localStorage.removeItem("userName");
         navigate("/")
       };
     

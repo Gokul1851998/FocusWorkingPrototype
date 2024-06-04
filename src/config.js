@@ -1,10 +1,8 @@
-export const userName = "test"
-export const loginPassword = 'test'
-export const userId = 617
+
 export const imageIcon = "/images/sangsolution.png";
-export const primaryColor= "#2460A7"
+export const primaryColor= "#00405E"
 export const secondryColor= "#1E8FD8"
-export const thirdColor= "#85B3D1"
+export const thirdColor= "0073AA"
 export const primaryButtonColor = "#ffff"
 export const activePrimaryColor = "#1D4D86"
 
