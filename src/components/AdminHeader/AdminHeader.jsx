@@ -27,6 +27,11 @@ function AdminHeader() {
         localStorage.removeItem("userName");
         navigate("/")
       };
+
+      const handleCloseOpen = () => {
+        setAnchorEl(null);
+        setOpenup(false);
+      };
     
   return (
     <AppBar
@@ -72,7 +77,7 @@ function AdminHeader() {
               id="basic-menu"
               anchorEl={anchorEl}
               open={openup}
-              onClose={handleClose}
+              onClose={handleCloseOpen}
               MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}
