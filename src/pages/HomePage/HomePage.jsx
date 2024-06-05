@@ -16,9 +16,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function HomePage() {
+  const user = localStorage.getItem("userName");
+
   return (
     <>
       <Box sx={{ display: "flex" }}>
+      
         <Layout />
         <Box
           component="main"

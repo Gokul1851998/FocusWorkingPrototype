@@ -1,4 +1,6 @@
 import React from 'react'
+import SideBar from '../../components/SideBar/SideBar';
+import AdminBar from '../../components/AdminBar/AdminBar';
 
 export default function Layout() {
     const user = localStorage.getItem("userName");

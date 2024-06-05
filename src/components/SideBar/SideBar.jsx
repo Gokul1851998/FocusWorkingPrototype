@@ -225,13 +225,23 @@ export default function SideBar() {
     // Resolve the dynamic imports
     const resolvedIconsData = await Promise.all(
       SideBarIcons.map(async (item) => {
-        const iconModule = await item.icon;
-        return { ...item, icon: iconModule.default }; // Extract the default export
+        if (!item.icon) {
+          // Handle case where icon is null or undefined
+          return { ...item, icon: null };
+        }
+        try {
+          const iconModule = await item.icon;
+          return { ...item, icon: iconModule.default || iconModule }; // Extract the default export or use the module directly
+        } catch (error) {
+          console.error(`Error loading icon for ${item.iconName}:`, error);
+          return { ...item, icon: null }; // Handle error during dynamic import
+        }
       })
     );
-
+  
     return resolvedIconsData;
   };
+  
 
   const handleDrawerOpen = () => {
     setOpen(!open);

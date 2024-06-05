@@ -5,7 +5,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import AdminHeader from '../AdminHeader/AdminHeader';
 import { SideBarIcons, primaryButtonColor, thirdColor } from '../../config';
-import { ListItemIcon, Typography } from '@mui/material';
+import { Breadcrumbs, Link, ListItemIcon, Stack, Typography } from '@mui/material';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : thirdColor,
@@ -19,10 +20,33 @@ const Item = styled(Paper)(({ theme }) => ({
   justifyContent: 'center',
 }));
 
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+
 export default function AdminGridMenu() {
   const [sideBarIcons, setSideBarIcons] = useState([]);
   const [listMenu, setListMenu] = useState([])
   const [value, setValue] = useState(0)
+
+  const breadcrumbs = [
+    <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+      MUI
+    </Link>,
+    <Link
+      underline="hover"
+      key="2"
+      color="inherit"
+      href="/material-ui/getting-started/installation/"
+      onClick={handleClick}
+    >
+      Core
+    </Link>,
+    <Typography key="3" color="text.primary">
+      Breadcrumb
+    </Typography>,
+  ];
 
   useEffect(() => {
     fetchIconsFromApi().then((data) => {
@@ -59,6 +83,22 @@ export default function AdminGridMenu() {
   return (
     <>
       <AdminHeader />
+      
+      <Stack spacing={2}>
+      <Breadcrumbs separator="›" aria-label="breadcrumb">
+        {breadcrumbs}
+      </Breadcrumbs>
+      <Breadcrumbs separator="-" aria-label="breadcrumb">
+        {breadcrumbs}
+      </Breadcrumbs>
+      <Breadcrumbs
+        separator={<NavigateNextIcon fontSize="small" />}
+        aria-label="breadcrumb"
+      >
+        {breadcrumbs}
+      </Breadcrumbs>
+    </Stack>
+
       <Box sx={{ flexGrow: 1, mt: 8, display: 'flex', justifyContent: 'center' }}>
         <Grid container spacing={1} padding={2}>
           {sideBarIcons.filter((menuList) => menuList.parent === value).map((menuList) => (
