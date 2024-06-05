@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -25,6 +25,9 @@ import {
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ThemeSelector from "../ThemeSelector/ThemeSelector";
+import { useTheme } from "../../config/themeContext";
 
 const drawerWidth = 200;
 
@@ -99,15 +102,12 @@ const itemsTextStyle = {
     fontSize: "14px",
   },
 };
-const itemsIconStyle = {
-  fontSize: "16px", // Assuming you meant to adjust the size of the icon here
-  color: primaryButtonColor, // Assuming you want to dynamically change the color
-  transform: "rotate(0deg)",
-  transition: "transform 0.3s",
-};
+
+
+
 
 export default function SideBar() {
-  const theme = useTheme();
+  
   const [open, setOpen] = useState(false);
   const [sideBarIcons, setSideBarIcons] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -118,9 +118,15 @@ export default function SideBar() {
   const [parentId, setparentId] = useState(null);
   const [key, setKey] = useState(Date.now());
 
-
+  const { currentTheme,switchTheme } = useTheme();
   
 
+  const itemsIconStyle = {
+    fontSize: "16px", // Assuming you meant to adjust the size of the icon here
+    color: currentTheme.primaryButtonColor, // Assuming you want to dynamically change the color
+    transform: "rotate(0deg)",
+    transition: "transform 0.3s",
+  };
 
   const navigate = useNavigate();
 
@@ -242,12 +248,12 @@ export default function SideBar() {
       <AppBar
         ref={appBarRef}
         position="fixed"
-        style={{ backgroundColor: primaryColor,boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)", }}
+        style={{ background: currentTheme.sideBarhorizontal,boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)", }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <IconButton
-              color="inherit"
+              color={currentTheme.primaryButtonColor}
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
@@ -263,7 +269,7 @@ export default function SideBar() {
               />
             </IconButton>
 
-            <Typography variant="h6" noWrap component="div">
+            <Typography variant="h6" sx={{color:currentTheme.sideBarTextColor1}} noWrap component="div">
               Sang Solution
             </Typography>
           </div>
@@ -288,10 +294,42 @@ export default function SideBar() {
               MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}
+              
             >
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              <MenuItem >Language</MenuItem>
-              <MenuItem >Theme</MenuItem>
+              <MenuItem onClick={handleLogout} sx={{borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between' }}>
+    
+    Logout
+    <LogoutIcon style={{ marginLeft: 8 }} />
+  </MenuItem>
+  <MenuItem sx={{ borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between' }}>
+    Language
+    <Box sx={{ marginLeft: 2 }}>
+      {/* Add language selection dropdown or list here */}
+      <select>
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+      </select>
+    </Box>
+  </MenuItem>
+  <MenuItem
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    gap: 1,
+    width:"240px",
+    paddingBottom: '40px', // Ensure enough space for the ThemeSelector to be displayed
+    overflow: 'visible', // Ensure the ThemeSelector is not cut off
+  }}
+>
+  <Typography variant="body1">Choose Theme</Typography>
+  <Box sx={{ marginLeft: 2 ,width:"fit-Content"}}>
+    <ThemeSelector />
+  </Box>
+</MenuItem>
+
             </Menu>
           </div>
         </Toolbar>
@@ -301,7 +339,7 @@ export default function SideBar() {
         <Divider />
         <List
           sx={{
-            backgroundColor: primaryColor,
+            background: currentTheme.sideBarVertical,
             height: sideBarheight,
             overflow: "auto", // only show scrollbar if needed
             // Make sure the combined padding, margin, and borders do not exceed the container's height
@@ -328,10 +366,10 @@ export default function SideBar() {
                   sx={{
                     display: "block",
                     backgroundColor: isActive
-                      ? `${activePrimaryColor}`
+                      ? `${currentTheme.activePrimaryColor}`
                       : "none", // Appending 'DD' sets the opacity to approximately 87%
                     "&:hover": {
-                      backgroundColor: `${activePrimaryColor}`, // Appending '99' sets the opacity to approximately 60%
+                      backgroundColor: `${currentTheme.activePrimaryColor}`, // Appending '99' sets the opacity to approximately 60%
                     },
                   }}
                 >
@@ -349,7 +387,7 @@ export default function SideBar() {
                           minWidth: 0,
                           mr: open ? 3 : "auto",
                           justifyContent: "center",
-                          color: primaryButtonColor,
+                          color: currentTheme.primaryButtonColor,
                         }}
                       >
                         {React.createElement(item.icon)}{" "}
@@ -388,10 +426,10 @@ export default function SideBar() {
                 key={subItem.id}
                 onClick={(e) => handleSubMenuOpen(e, subItem)}
                 sx={{
-                  backgroundColor: primaryColor, // Set the background color for each item
-                  color: primaryButtonColor, // Set the text color for each item
+                  backgroundColor: currentTheme.primaryColor, // Set the background color for each item
+                  color: currentTheme.primaryButtonColor, // Set the text color for each item
                   "&:hover": {
-                    backgroundColor: "#073f82", // Adjust hover color as needed
+                    backgroundColor: currentTheme.primaryColor, // Adjust hover color as needed
                   },
                   borderBottom: "1px solid rgba(255, 255, 255, 0.12)", // Border between items
                 }}

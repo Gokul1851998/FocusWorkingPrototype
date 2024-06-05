@@ -82,6 +82,7 @@ import {
   countryList,
   languagesList1,
 } from "../../../config/companyConfig";
+import { useTheme } from "../../../config/themeContext";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -256,6 +257,8 @@ export default function CompanyContainer({ pageType,pageId }) {
   const [defaultLanguage, setdefaultLanguage] = useState([])
   const [selectedLevel, setSelectedLevel] = useState(null);
 
+  const { currentTheme } = useTheme();
+
   const handleLevelClick = (level) => {
     setSelectedLevel(level);
   };
@@ -354,7 +357,7 @@ export default function CompanyContainer({ pageType,pageId }) {
           width: "100%",
           flexDirection: "row",
           justifyContent: "space-between",
-          backgroundColor: secondryColor,
+          backgroundColor: currentTheme.secondaryColor,
           paddingLeft: 1.5,
           paddingRight: 1.5,
           alignItems:"center"
