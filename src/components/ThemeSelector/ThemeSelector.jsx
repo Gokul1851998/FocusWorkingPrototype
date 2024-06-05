@@ -9,10 +9,13 @@ export default function ThemeSelector() {
   const { currentTheme, switchTheme } = useTheme();
 
   const themes = {
-    default: '#2460A7',
+    default: '#0132BF',
+    theme1:"#00405E",
+    theme2:"#3995C1",
     dark: '#333',
     light: '#ddd',
-    monochrome: '#000000',
+    // monochrome: '#000000',
+
   };
 
   return (
