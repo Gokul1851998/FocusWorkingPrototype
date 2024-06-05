@@ -103,9 +103,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  // color: primaryButtonColor,
+  // backgroundColor: thirdColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -115,7 +115,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
     marginRight: theme.spacing(1),
   },
 }));
@@ -125,7 +125,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-function BasicBreadcrumbs({pageType,pageId}) {
+function BasicBreadcrumbs({pageType,pageId,currentTheme}) {
   return (
     <div
       role="presentation"
@@ -145,34 +145,34 @@ function BasicBreadcrumbs({pageType,pageId}) {
           separator={
             <NavigateNextIcon
               fontSize="small"
-              sx={{ color: primaryButtonColor }}
+              
             />
           }
           aria-label="breadcrumb"
         >
           <Link
             underline="hover"
-            sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+            sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: "#000",opacity:"50%",  }} // Reduce font size
             key="1"
-            color="white"
+            
           >
-            <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+            <HomeIcon sx={{ mr: 0.5, }} fontSize="inherit" />
             Home
           </Link>
           <Link
             underline="hover"
             key="2"
-            color="white"
-            sx={{ fontSize: "1rem" }}
+           
+            sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}
           >
             Company
           </Link>
           ,
           {pageType ==1?
-          <Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
+          <Typography key="3"  sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}>
             Create Company
           </Typography>
-          :<Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
+          :<Typography key="3"  sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}>
           Edit Company
         </Typography>}
           ,
@@ -181,7 +181,7 @@ function BasicBreadcrumbs({pageType,pageId}) {
     </div>
   );
 }
-const DefaultIcons = ({ iconsClick, pageType }) => {
+const DefaultIcons = ({ iconsClick, pageType,currentTheme }) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
       <IconButton
@@ -190,11 +190,11 @@ const DefaultIcons = ({ iconsClick, pageType }) => {
         //onClick={()=>iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <SaveIcon sx={{ color: primaryButtonColor }} />
+          <SaveIcon sx={{ color: "#000",opacity:"50%", }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color: "#000",opacity:"50%", fontSize: "0.6rem" }}
           >
             Save
           </Typography>
@@ -207,11 +207,11 @@ const DefaultIcons = ({ iconsClick, pageType }) => {
         onClick={() => iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <CloseIcon sx={{ color: primaryButtonColor }} />
+          <CloseIcon sx={{ color: "#000",opacity:"50%", }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color:"#000",opacity:"50%", fontSize: "0.6rem" }}
           >
             Close
           </Typography>
@@ -234,7 +234,7 @@ const buttonStyle = {
 };
 
 const uploadIconstyle = {
-  color: thirdColor, // Set the icon color
+
   backgroundColor: "#fff", // Set a background color
   borderRadius: "50%", // Make the button round
   padding: "5px", // Padding to make the icon look bigger and floating
@@ -357,25 +357,25 @@ export default function CompanyContainer({ pageType,pageId }) {
           width: "100%",
           flexDirection: "row",
           justifyContent: "space-between",
-          backgroundColor: currentTheme.secondaryColor,
+          // backgroundColor: currentTheme.secondaryColor,
           paddingLeft: 1.5,
           paddingRight: 1.5,
           alignItems:"center"
         }}
       >
         {pageId === 0 ? (
-    <BasicBreadcrumbs pageType={pageType} pageId={pageId} />
+    <BasicBreadcrumbs pageType={pageType} pageId={pageId} currentTheme={currentTheme}/>
 ) : pageId === 1 ? (
-    <Typography sx={{ color: primaryButtonColor }}>
+    <Typography >
         Create Company
     </Typography>
 ) : (
-    <Typography sx={{ color: primaryButtonColor }}>
+    <Typography >
         Edit Company
     </Typography>
 )}
 
-        <DefaultIcons pageType={pageType} iconsClick={handleIconsClick} />
+        <DefaultIcons currentTheme= {currentTheme} pageType={pageType} iconsClick={handleIconsClick} />
       </Box>
       <Box
         sx={{
@@ -412,23 +412,25 @@ export default function CompanyContainer({ pageType,pageId }) {
         <Accordion
           expanded={expanded === "panel1"}
           onChange={handleChange("panel1")}
+          
         >
           <AccordionSummary
             aria-controls="panel1d-content"
             id="panel1d-header"
             className
             expanded={expanded === "panel1"}
-            sx={{ alignItems: "center" }}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.thirdColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
+            currentTheme={currentTheme}
           >
             <IconButton
-              sx={{ fontSize: "0.8rem", padding: "0rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0rem",color: currentTheme.sideBarTextColor1 }}
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <BusinessIcon sx={{ color: primaryButtonColor }} />
+                <BusinessIcon sx={{ color: currentTheme.sideBarTextColor1 }} />
               </Stack>
             </IconButton>
-            <Typography style={{ fontSize: "14px" }}>Company</Typography>
+            <Typography style={{ fontSize: "14px",color: currentTheme.sideBarTextColor1 }}>Company</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <>
@@ -646,8 +648,10 @@ export default function CompanyContainer({ pageType,pageId }) {
                           <IconButton
                             onClick={handleUploadClick("photo")}
                             style={uploadIconstyle}
+                           
+                            
                           >
-                            <AddCircleIcon style={{ fontSize: "3rem" }} />
+                            <AddCircleIcon style={{ fontSize: "3rem",color:currentTheme.thirdColor }} />
                           </IconButton>
                         )}
                         <Typography
@@ -700,7 +704,7 @@ export default function CompanyContainer({ pageType,pageId }) {
               width: selectedLevel === level.label ? '40px' : '30px',
               height: selectedLevel === level.label ? '40px' : '30px',
               borderRadius: '50%',
-              backgroundColor: '#007bff',
+              backgroundColor: currentTheme.thirdColor,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -715,7 +719,7 @@ export default function CompanyContainer({ pageType,pageId }) {
               },
             }}
           >
-            <Typography sx={{ color: 'white', fontSize: '16px', fontWeight: 'bold' }}>{level.label}</Typography>
+            <Typography sx={{ color: currentTheme.sideBarTextColor1, fontSize: '16px', fontWeight: 'bold' }}>{level.label}</Typography>
           </Box>
         </Tooltip>
       ))}
@@ -794,17 +798,18 @@ export default function CompanyContainer({ pageType,pageId }) {
             id="panel2d-header"
             className
             expanded={expanded === "panel2"}
-            sx={{ alignItems: "center" }}
+            currentTheme={currentTheme}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.thirdColor,border:`1px solid ${currentTheme.sideBarTextColor1}` }}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <RoomPreferencesIcon sx={{ color: primaryButtonColor }} />
+                <RoomPreferencesIcon sx={{ color: currentTheme.sideBarTextColor1 }} />
               </Stack>
             </IconButton>
-            <Typography style={{ fontSize: "14px" }}>Company Details</Typography>
+            <Typography style={{ fontSize: "14px",color: currentTheme.sideBarTextColor1 }}>Company Details</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <>
