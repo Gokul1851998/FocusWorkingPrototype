@@ -10,6 +10,7 @@ import InventorySettings from "../../containers/Settings/EntitySettings/Inventor
 import FixedAssetsSettings from "../../containers/Settings/EntitySettings/FixedAssetsSettings";
 import GeneralEntitySettings from "../../containers/Settings/EntitySettings/GeneralEntitySettings";
 import AdminBar from "../../components/AdminBar/AdminBar";
+import Layout from "../Layout/Layout";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -27,13 +28,7 @@ export default function MainSettingsPage() {
   return (
     <>
       <Box sx={{ display: "flex" }}>
-      {user === "test1" ? (
-     <SideBar />
-        ) : (
-          <div style={{minHeight:"50vh"}}>
-          <AdminBar />
-          </div>
-        )}
+      <Layout />
         <Box component="main" sx={{ flexGrow: 1,marginBottom:2, marginTop:user === "test2" ?  "35px" : 0 }}>
           <DrawerHeader />
            {id === 30? (

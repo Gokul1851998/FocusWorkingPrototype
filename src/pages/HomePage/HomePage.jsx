@@ -4,6 +4,7 @@ import { Box, styled } from "@mui/material";
 import Footer from "../../components/Footer/Footer";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import AdminGridMenu from "../../components/AdminGridMenu/AdminGridMenu";
+import Layout from "../Layout/Layout";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -15,35 +16,18 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function HomePage() {
-  const user = localStorage.getItem("userName");
-
   return (
     <>
-      {user === "test3" ? (
-     
-          <div style={{ minHeight: "50vh" }}>
-            <AdminGridMenu />
-          </div>
-    
-      ) : (
-        <Box sx={{ display: "flex" }}>
-          {user === "test1" ? (
-            <SideBar />
-          ) : user === "test2" ? (
-            <div style={{ minHeight: "50vh" }}>
-              <AdminBar />
-            </div>
-          ) : null}
-
-          <Box
-            component="main"
-            sx={{ flexGrow: 1, p: 3, marginTop: user === "test2" ? "35px" : 0 }}
-          >
-            <DrawerHeader />
-          </Box>
-          <Footer />
+      <Box sx={{ display: "flex" }}>
+        <Layout />
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, p: 3, marginTop: user === "test2" ? "35px" : 0 }}
+        >
+          <DrawerHeader />
         </Box>
-      )}
+        <Footer />
+      </Box>
     </>
   );
 }

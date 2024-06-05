@@ -9,6 +9,7 @@ import VoucherSettingsPage from '../pages/VoucherSettings/VoucherSettings'
 import MasterSettings from '../pages/MasterSettings/MasterSettings'
 import Company from '../pages/Company/Company'
 import AdminDashboard from '../containers/AdminDashboard/AdminDashboard'
+import GrideMenuPage from '../pages/GrideMenuPage/GrideMenuPage'
 
 
 export default function RoutePath() {
@@ -18,6 +19,7 @@ export default function RoutePath() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/Master" element={<MasterPage />} />
+        <Route path="/GridMenu" element={<GrideMenuPage />} />
         <Route path="/security" element={<Security />} />
         <Route path="/GeneralSettings" element={<MainSettingsPage />} />
         <Route path="/VoucherSettings" element={<VoucherSettingsPage />} />

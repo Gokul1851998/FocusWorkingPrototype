@@ -16,6 +16,7 @@ import SellerPriceBook from "../../containers/Home/Master/Product/SellerPriceBoo
 import BuyerPriceBook from "../../containers/Home/Master/Product/BuyerPriceBook/BuyerPriceBook";
 import Warehouse from "../../containers/Home/Master/Warehouse/WareHouse";
 import AdminBar from "../../components/AdminBar/AdminBar";
+import Layout from "../Layout/Layout";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -32,13 +33,7 @@ export default function MasterPage() {
   return (
     <>
       <Box sx={{ display: "flex" }}>
-      {user === "test1" ? (
-     <SideBar />
-        ) : (
-          <div style={{minHeight:"50vh"}}>
-          <AdminBar />
-          </div>
-        )}
+      <Layout />
         <Box component="main" sx={{ flexGrow: 1, marginTop:user === "test2" ?  "35px" : 0, marginBottom: 2  }}>
           <DrawerHeader />
           {id === 19 ? (

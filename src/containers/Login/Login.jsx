@@ -111,7 +111,7 @@ export default function Login() {
         const currentTime = new Date().getTime();
         const expirationTime = currentTime + idleTime;
         localStorage.setItem("timeStamp", expirationTime);
-        navigate("/home");
+        navigate("/GridMenu");
       } else {
         setEmailError(true);
         setPasswordError(true);

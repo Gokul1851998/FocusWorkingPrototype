@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import CreateUser from "../../containers/Home/Security/CreateUser/CreateUser";
 import AdminBar from "../../components/AdminBar/AdminBar";
+import Layout from "../Layout/Layout";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -58,13 +59,7 @@ export default function Security() {
     <>
       <Box sx={{ display: "flex" }}>
       <div ref={sidebarRef}>
-      {user === "test1" ? (
-     <SideBar />
-        ) : (
-          <div style={{minHeight:"50vh"}}>
-          <AdminBar />
-          </div>
-        )}
+      <Layout />
         </div>
         <Box component="main" sx={{ flexGrow: 1, maxWidth: `${mainMaxWidth}px`, marginTop:user === "test2" ?  "35px" : 0 }}>
           <DrawerHeader />

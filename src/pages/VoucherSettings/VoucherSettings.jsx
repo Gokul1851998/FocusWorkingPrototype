@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import TagSettings from "../../containers/Settings/MainSettings/TagSettings/TagSettings";
 import AccountSettings from "../../containers/Settings/MainSettings/AccountSettings/AccountSettings";
 import AdminBar from "../../components/AdminBar/AdminBar";
+import Layout from "../Layout/Layout";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -23,13 +24,7 @@ export default function VoucherSettingsPage() {
   return (
     <>
       <Box sx={{ display: "flex" }}>
-      {user === "test1" ? (
-     <SideBar />
-        ) : (
-          <div style={{minHeight:"50vh"}}>
-          <AdminBar />
-          </div>
-        )}
+      <Layout />
         <Box component="main" sx={{ flexGrow: 1,marginBottom:2, marginTop:user === "test2" ?  "35px" : 0 }}>
           <DrawerHeader />
          

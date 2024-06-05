@@ -6,6 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import CompanyContainer from "../../containers/Home/Company/CompanyContainer";
 import AdminHeader from "../../components/AdminHeader/AdminHeader";
 import AdminBar from "../../components/AdminBar/AdminBar";
+import Layout from "../Layout/Layout";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -62,13 +63,7 @@ export default function Company() {
       {item && (
         (item.id === 36 || item.id === 37)?
       <div ref={sidebarRef}>
-          {user === "test1" ? (
-     <SideBar />
-        ) : (
-          <div style={{minHeight:"50vh"}}>
-          <AdminBar />
-          </div>
-        )}
+         <Layout />
         </div>:null)}
         <Box component="main" sx={{ flexGrow: 1, maxWidth: `${mainMaxWidth}px`, marginTop:user === "test2" ?  "35px" : 0 }}>
         {item && (
