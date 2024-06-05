@@ -3,6 +3,7 @@ import SideBar from "../../components/SideBar/SideBar";
 import { Box, styled } from "@mui/material";
 import Footer from "../../components/Footer/Footer";
 import AdminBar from "../../components/AdminBar/AdminBar";
+import AdminGridMenu from "../../components/AdminGridMenu/AdminGridMenu";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -13,26 +14,36 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-
 export default function HomePage() {
-  const user = localStorage.getItem("userName")
- 
- console.log(user);
- 
+  const user = localStorage.getItem("userName");
+
   return (
     <>
-      <Box sx={{ display: "flex" }}>
-        {user === "test1" ? (
-     <SideBar />
-        ) : (
-          <AdminBar />
-        )}
-   
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
+      {user === "test3" ? (
+     
+          <div style={{ minHeight: "50vh" }}>
+            <AdminGridMenu />
+          </div>
+    
+      ) : (
+        <Box sx={{ display: "flex" }}>
+          {user === "test1" ? (
+            <SideBar />
+          ) : user === "test2" ? (
+            <div style={{ minHeight: "50vh" }}>
+              <AdminBar />
+            </div>
+          ) : null}
+
+          <Box
+            component="main"
+            sx={{ flexGrow: 1, p: 3, marginTop: user === "test2" ? "35px" : 0 }}
+          >
+            <DrawerHeader />
+          </Box>
+          <Footer />
         </Box>
-        <Footer />
-      </Box>
+      )}
     </>
   );
 }

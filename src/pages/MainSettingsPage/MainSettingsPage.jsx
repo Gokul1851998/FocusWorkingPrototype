@@ -9,6 +9,7 @@ import FinanceSettings from "../../containers/Settings/EntitySettings/FinanceSet
 import InventorySettings from "../../containers/Settings/EntitySettings/InventorySettings";
 import FixedAssetsSettings from "../../containers/Settings/EntitySettings/FixedAssetsSettings";
 import GeneralEntitySettings from "../../containers/Settings/EntitySettings/GeneralEntitySettings";
+import AdminBar from "../../components/AdminBar/AdminBar";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -20,14 +21,20 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function MainSettingsPage() {
+  const user = localStorage.getItem("userName")
   const location = useLocation();
   const id = location.state.id;
-  console.log(id);
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        <SideBar />
-        <Box component="main" sx={{ flexGrow: 1,marginBottom:2 }}>
+      {user === "test1" ? (
+     <SideBar />
+        ) : (
+          <div style={{minHeight:"50vh"}}>
+          <AdminBar />
+          </div>
+        )}
+        <Box component="main" sx={{ flexGrow: 1,marginBottom:2, marginTop:user === "test2" ?  "35px" : 0 }}>
           <DrawerHeader />
            {id === 30? (
             <AccountSettings />

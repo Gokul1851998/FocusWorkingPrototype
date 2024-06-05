@@ -2,7 +2,7 @@
 export const imageIcon = "/images/sangsolution.png";
 export const primaryColor= "#00405E"
 export const secondryColor= "#1E8FD8"
-export const thirdColor= "0073AA"
+export const thirdColor= "#0073AA"
 export const primaryButtonColor = "#ffff"
 export const activePrimaryColor = "#1D4D86"
 

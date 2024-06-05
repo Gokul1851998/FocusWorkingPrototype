@@ -15,6 +15,7 @@ import UnitConversion from "../../containers/Home/Master/Product/UnitConversion/
 import SellerPriceBook from "../../containers/Home/Master/Product/SellerPriceBook/SellerPriceBook";
 import BuyerPriceBook from "../../containers/Home/Master/Product/BuyerPriceBook/BuyerPriceBook";
 import Warehouse from "../../containers/Home/Master/Warehouse/WareHouse";
+import AdminBar from "../../components/AdminBar/AdminBar";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -27,12 +28,18 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function MasterPage() {
   const location = useLocation();
   const id = location.state.id;
-  console.log(id);
+  const user = localStorage.getItem("userName")
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        <SideBar />
-        <Box component="main" sx={{ flexGrow: 1,marginBottom:2 }}>
+      {user === "test1" ? (
+     <SideBar />
+        ) : (
+          <div style={{minHeight:"50vh"}}>
+          <AdminBar />
+          </div>
+        )}
+        <Box component="main" sx={{ flexGrow: 1, marginTop:user === "test2" ?  "35px" : 0, marginBottom: 2  }}>
           <DrawerHeader />
           {id === 19 ? (
             <AccountMaster />

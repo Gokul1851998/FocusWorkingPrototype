@@ -5,6 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import { useLocation } from "react-router-dom";
 import TagSettings from "../../containers/Settings/MainSettings/TagSettings/TagSettings";
 import AccountSettings from "../../containers/Settings/MainSettings/AccountSettings/AccountSettings";
+import AdminBar from "../../components/AdminBar/AdminBar";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -18,12 +19,18 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function VoucherSettingsPage() {
   const location = useLocation();
   const id = location.state.id;
-
+  const user = localStorage.getItem("userName")
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        <SideBar />
-        <Box component="main" sx={{ flexGrow: 1,marginBottom:2 }}>
+      {user === "test1" ? (
+     <SideBar />
+        ) : (
+          <div style={{minHeight:"50vh"}}>
+          <AdminBar />
+          </div>
+        )}
+        <Box component="main" sx={{ flexGrow: 1,marginBottom:2, marginTop:user === "test2" ?  "35px" : 0 }}>
           <DrawerHeader />
          
         </Box>
