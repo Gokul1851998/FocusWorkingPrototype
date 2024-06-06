@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material/styles'
+import { CssBaseline } from '@mui/material';
 
 // Define your themes
 const themes = {
@@ -76,11 +78,25 @@ const themes = {
   // }
 };
 
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
+  const theme = localStorage.getItem('color')
   const [themeName, setThemeName] = useState(localStorage.getItem('theme') || 'default');
+  const [isDarkMode, setIsDarkMode] = useState(theme? darkTheme : lightTheme);
   const currentTheme = themes[themeName];
 
   const switchTheme = (newThemeName) => {
@@ -88,9 +104,17 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem('theme', newThemeName); // Save new theme name to localStorage
   };
 
+  const switchColor = (color) => {
+    setIsDarkMode(color? darkTheme : lightTheme)
+    localStorage.setItem('color', color);
+  };
+
   return (
-    <ThemeContext.Provider value={{ currentTheme, switchTheme }}>
+    <ThemeContext.Provider value={{ currentTheme, switchTheme, switchColor }}>
+        <MUIThemeProvider theme={isDarkMode}>
+        <CssBaseline />
       {children}
+      </MUIThemeProvider>
     </ThemeContext.Provider>
   );
 };

@@ -22,7 +22,7 @@ import {
   primaryButtonColor,
   primaryColor,
 } from "../../config";
-import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
+import { Avatar, Menu, MenuItem, Switch, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -107,7 +107,7 @@ const itemsTextStyle = {
 
 
 export default function SideBar() {
-  
+  const { currentTheme,switchTheme, switchColor } = useTheme();
   const [open, setOpen] = useState(false);
   const [sideBarIcons, setSideBarIcons] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -118,7 +118,15 @@ export default function SideBar() {
   const [parentId, setparentId] = useState(null);
   const [key, setKey] = useState(Date.now());
 
-  const { currentTheme,switchTheme } = useTheme();
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event) => {
+    console.log(event.target.checked);
+    setChecked(event.target.checked);
+    switchColor(event.target.checked)
+  };
+
+  
   
 
   const itemsIconStyle = {
@@ -323,6 +331,16 @@ export default function SideBar() {
       </select>
     </Box>
   </MenuItem>
+  <MenuItem sx={{ borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between' }}>
+    Dark Mode
+    <Box sx={{ marginLeft: 2 }}>
+    <Switch
+      checked={checked}
+      onChange={handleChange}
+      inputProps={{ 'aria-label': 'controlled' }}
+    />
+    </Box>
+  </MenuItem>
   <MenuItem
   sx={{
     display: 'flex',
@@ -338,7 +356,9 @@ export default function SideBar() {
   <Box sx={{ marginLeft: 2 ,width:"fit-Content"}}>
     <ThemeSelector />
   </Box>
+  
 </MenuItem>
+
 
             </Menu>
           </div>
