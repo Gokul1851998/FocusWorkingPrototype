@@ -45,7 +45,7 @@ const themes = {
   light: {
     primaryColor: "#ddd",
     secondaryColor: "#F0F0F0",
-    thirdColor: "#E0E0E0",
+    thirdColor: "#d0d0d0",
     primaryButtonColor: "#000",
     activePrimaryColor: "#d0d0d0",
     sideBarhorizontal: "#ddd",

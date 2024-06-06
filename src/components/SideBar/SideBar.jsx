@@ -397,7 +397,7 @@ export default function SideBar() {
                           minWidth: 0,
                           mr: open ? 3 : "auto",
                           justifyContent: "center",
-                          color: currentTheme.primaryButtonColor,
+                          color: currentTheme.sideBarTextColor1,
                         }}
                       >
                         {React.createElement(item.icon)}{" "}
@@ -437,7 +437,7 @@ export default function SideBar() {
                 onClick={(e) => handleSubMenuOpen(e, subItem)}
                 sx={{
                   backgroundColor: currentTheme.primaryColor, // Set the background color for each item
-                  color: currentTheme.primaryButtonColor, // Set the text color for each item
+                  color: currentTheme.sideBarTextColor1, // Set the text color for each item
                   "&:hover": {
                     backgroundColor: currentTheme.primaryColor, // Adjust hover color as needed
                   },
