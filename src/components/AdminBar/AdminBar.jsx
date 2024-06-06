@@ -10,6 +10,7 @@ import {
   Container,
   Tooltip,
   ListItemText,
+  IconButton,
 } from "@mui/material";
 import {
   primaryColor,
@@ -23,6 +24,9 @@ import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { useTheme } from "../../config/themeContext";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ThemeSelector from "../ThemeSelector/ThemeSelector";
 
 const itemsTextStyle = {
   "& .MuiListItemText-primary": {
@@ -52,12 +56,16 @@ const RecursiveMenu = ({ items, parentId, handleMenuItemClick }) => {
 
   return (
     <>
-      {items.filter(item => item.parent === parentId).map(menu => (
-        <MenuItem key={menu.id} onClick={(e) => handleSubMenu(e, menu)}>
-          <Typography textAlign="center">{menu.iconName}</Typography>
-          {menu.child ? <PlayArrowIcon sx={{ ...itemsIconStyle, marginLeft: "auto" }} /> : null}
-        </MenuItem>
-      ))}
+      {items
+        .filter((item) => item.parent === parentId)
+        .map((menu) => (
+          <MenuItem key={menu.id} onClick={(e) => handleSubMenu(e, menu)}>
+            <Typography textAlign="center">{menu.iconName}</Typography>
+            {menu.child ? (
+              <PlayArrowIcon sx={{ ...itemsIconStyle, marginLeft: "auto" }} />
+            ) : null}
+          </MenuItem>
+        ))}
     </>
   );
 };
@@ -69,7 +77,9 @@ function AdminBar() {
   const [submenuStack, setSubmenuStack] = useState([]);
   const [sideBarIcons, setSideBarIcons] = useState([]);
   const [key, setKey] = useState(Date.now());
+  const [openup, setOpenup] = useState(false);
   const navigate = useNavigate();
+  const { currentTheme, switchTheme } = useTheme();
 
   useEffect(() => {
     fetchIconsFromApi().then((data) => {
@@ -79,9 +89,8 @@ function AdminBar() {
 
   useEffect(() => {
     //Used where pages/containers have multiple/sub containers
-    setKey(Date.now())
-  }, [submenuStack])
-
+    setKey(Date.now());
+  }, [submenuStack]);
 
   const fetchIconsFromApi = async () => {
     // Resolve the dynamic imports
@@ -100,7 +109,7 @@ function AdminBar() {
         }
       })
     );
-  
+
     return resolvedIconsData;
   };
 
@@ -114,19 +123,25 @@ function AdminBar() {
 
   const handleMenuItemClick = (event, menu) => {
     const currentTarget = event.currentTarget;
-    const children = sideBarIcons.filter((subItem) => subItem.parent === menu.id);
-    
+    const children = sideBarIcons.filter(
+      (subItem) => subItem.parent === menu.id
+    );
+
     if (children.length > 0) {
-        setSubmenuStack((prev) => [
-            ...prev,
-            { index: prev.length + 1, anchorEl: currentTarget, submenuItems: children },
-          ]);
+      setSubmenuStack((prev) => [
+        ...prev,
+        {
+          index: prev.length + 1,
+          anchorEl: currentTarget,
+          submenuItems: children,
+        },
+      ]);
     } else {
-        const simpleItem = {
-            id: menu.id,
-            name: menu.iconName,
-            key1:key
-          };
+      const simpleItem = {
+        id: menu.id,
+        name: menu.iconName,
+        key1: key,
+      };
       navigate(menu?.url ?? "/url", { state: simpleItem });
       setSubmenuStack([]);
     }
@@ -136,20 +151,23 @@ function AdminBar() {
     setSubmenuStack([]);
   };
 
-  const handleAvatarClick = (event) => {
+  const handleClick = (event) => {
     setAnchor(event.currentTarget);
+    setOpenup(true);
   };
 
   const handleClose = () => {
     setAnchor(null);
+    setOpenup(false);
+  };
+
+  const handleLogout = () => {
+    setAnchor(null);
+    setOpenup(false);
     localStorage.removeItem("userName");
     navigate("/");
   };
 
-  const handleDrawerOpen = () => {
-    console.log("Drawer open");
-  };
- 
   return (
     <>
       <AppBar
@@ -165,8 +183,12 @@ function AdminBar() {
             <Box
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              sx={{ display: "flex", alignItems: "center", marginRight: 1, cursor: "pointer" }}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: 1,
+                cursor: "pointer",
+              }}
             >
               <img
                 src={imageIcon}
@@ -186,38 +208,81 @@ function AdminBar() {
           </div>
 
           <div>
-            <Box
+            <IconButton
               id="basic-button"
-              aria-controls={Boolean(anchor) ? "basic-menu" : undefined}
+              aria-controls={openup ? "basic-menu" : undefined}
               aria-haspopup="true"
-              aria-expanded={Boolean(anchor) ? "true" : undefined}
-              onClick={handleAvatarClick}
-              sx={{ cursor: "pointer" }}
+              aria-expanded={openup ? "true" : undefined}
+              onClick={handleClick}
             >
               <Avatar>
                 <PersonIcon />
               </Avatar>
-            </Box>
+            </IconButton>
             <Menu
               id="basic-menu"
               anchorEl={anchor}
-              open={Boolean(anchor)}
+              open={openup}
               onClose={handleClose}
               MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem
+                onClick={handleLogout}
+                sx={{
+                  borderBottom: "1px solid #e0e0e0",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                Logout
+                <LogoutIcon style={{ marginLeft: 8 }} />
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  borderBottom: "1px solid #e0e0e0",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                Language
+                <Box sx={{ marginLeft: 2 }}>
+                  {/* Add language selection dropdown or list here */}
+                  <select>
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                  </select>
+                </Box>
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "start",
+                  gap: 1,
+                  width: "240px",
+                  paddingBottom: "40px", // Ensure enough space for the ThemeSelector to be displayed
+                  overflow: "visible", // Ensure the ThemeSelector is not cut off
+                }}
+              >
+                <Typography variant="body1">Choose Theme</Typography>
+                <Box sx={{ marginLeft: 2, width: "fit-Content" }}>
+                  <ThemeSelector />
+                </Box>
+              </MenuItem>
             </Menu>
           </div>
         </Toolbar>
       </AppBar>
-     
+
       <AppBar
         style={{
           marginTop: 64,
-          
-          backgroundColor: primaryColor,
+
+          backgroundColor: currentTheme.sideBarVertical,
           boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
           height: 40,
         }}
@@ -231,7 +296,11 @@ function AdminBar() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                sx={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+                sx={{
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
                 <MenuIcon />
               </Box>
@@ -252,7 +321,11 @@ function AdminBar() {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs: "block", md: "none" } }}
               >
-                <RecursiveMenu items={sideBarIcons} parentId={0} handleMenuItemClick={handleMenuItemClick} />
+                <RecursiveMenu
+                  items={sideBarIcons}
+                  parentId={0}
+                  handleMenuItemClick={handleMenuItemClick}
+                />
               </Menu>
             </Box>
 
@@ -265,44 +338,45 @@ function AdminBar() {
                 paddingBottom: 3,
               }}
             >
-              {sideBarIcons.filter((menuList) => menuList.parent === 0).map((menuList) => (
-                <Box
-                  key={menuList.id}
-                  aria-controls="master-menu"
-                  aria-haspopup="true"
-                  onClick={(e) => handleMenuItemClick(e, menuList)}
-                  sx={{
-                    cursor: "pointer",
-                    color: "white",
-                    margin: 0,
-                    fontSize: 14,
-                    paddingX: 2,
-                  }}
-                >
-                  <Typography>{menuList.iconName}</Typography>
-                </Box>
-              ))}
+              {sideBarIcons
+                .filter((menuList) => menuList.parent === 0)
+                .map((menuList) => (
+                  <Box
+                    key={menuList.id}
+                    aria-controls="master-menu"
+                    aria-haspopup="true"
+                    onClick={(e) => handleMenuItemClick(e, menuList)}
+                    sx={{
+                      cursor: "pointer",
+                      color: "white",
+                      margin: 0,
+                      fontSize: 14,
+                      paddingX: 2,
+                    }}
+                  >
+                    <Typography>{menuList.iconName}</Typography>
+                  </Box>
+                ))}
 
               {submenuStack.map((submenu, index) => (
-               <Menu
-               key={index}
-               anchorEl={submenu.anchorEl}
-               open={Boolean(submenu.anchorEl)}
-               onClose={handleSubMenuClose}
-               anchorOrigin={{
-                 vertical: submenu.index === 1 ? "bottom" : "top",
-                 horizontal: submenu.index === 1 ? null : "right",
-               }}
-               transformOrigin={{
-                 vertical: "top",
-                 horizontal: "left",
-               }}
-               MenuListProps={{
-                 "aria-labelledby": "nested-menu-button",
-                 disablePadding: true,
-               }}
-             >
-             
+                <Menu
+                  key={index}
+                  anchorEl={submenu.anchorEl}
+                  open={Boolean(submenu.anchorEl)}
+                  onClose={handleSubMenuClose}
+                  anchorOrigin={{
+                    vertical: submenu.index === 1 ? "bottom" : "top",
+                    horizontal: submenu.index === 1 ? null : "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  MenuListProps={{
+                    "aria-labelledby": "nested-menu-button",
+                    disablePadding: true,
+                  }}
+                >
                   {submenu.submenuItems.map((subItem) => (
                     <MenuItem
                       key={subItem.id}
@@ -316,12 +390,17 @@ function AdminBar() {
                         borderBottom: "1px solid rgba(255, 255, 255, 0.12)",
                       }}
                     >
-                      <ListItemText sx={itemsTextStyle} primary={subItem.iconName} />
+                      <ListItemText
+                        sx={itemsTextStyle}
+                        primary={subItem.iconName}
+                      />
                       {subItem.child && (
                         <PlayArrowIcon
                           sx={{
                             ...itemsIconStyle,
-                            transform: submenuStack.includes(subItem.id) ? "rotate(90deg)" : "none",
+                            transform: submenuStack.includes(subItem.id)
+                              ? "rotate(90deg)"
+                              : "none",
                           }}
                         />
                       )}
