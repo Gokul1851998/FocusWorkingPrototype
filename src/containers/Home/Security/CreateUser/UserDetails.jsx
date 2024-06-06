@@ -316,16 +316,7 @@ const DefaultIcons = ({ iconsClick, detailPageId,currentTheme }) => {
   );
 };
 
-const buttonStyle = {
-  backgroundColor: secondryColor,
-  color: primaryButtonColor,
-  textTransform: "none",
-  padding: "1px",
-  "&:hover": {
-    backgroundColor: secondryColor, // Change as needed
-    color: primaryButtonColor, // Example hover color change
-  },
-};
+
 
 const uploadIconstyle = {
   color: thirdColor, // Set the icon color
@@ -353,6 +344,17 @@ export default function UserDetails({ detailPageId, setPage }) {
   const [selectedRow, setSelectedRow] = useState(null);
 
   const { currentTheme } = useTheme();
+
+  const buttonStyle = {
+    backgroundColor: currentTheme.secondaryColor,
+    color: currentTheme.sideBarTextColor1,
+    textTransform: "none",
+    padding: "1px",
+    "&:hover": {
+      backgroundColor: currentTheme.secondaryColor, // Change as needed
+      color: currentTheme.sideBarTextColor1, // Example hover color change
+    },
+  };
   
     const handleRowClick = (row) => {
 
@@ -672,7 +674,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         ) : (
                           <IconButton
                             onClick={handleUploadClick("photo")}
-                            style={uploadIconstyle}
+                            style={{...uploadIconstyle,color:currentTheme.thirdColor}}
                           >
                             <AddCircleIcon style={{ fontSize: "3rem" }} />
                           </IconButton>
@@ -1348,7 +1350,7 @@ export default function UserDetails({ detailPageId, setPage }) {
           variant="h6"
           gutterBottom
           component="div"
-          sx={{ backgroundColor: thirdColor, textAlign: "center" }}
+          sx={{ backgroundColor: currentTheme.thirdColor, textAlign: "center",color:currentTheme.sideBarTextColor1 }}
         >
           Users
         </Typography>
@@ -1395,7 +1397,7 @@ sx={{
     height:"90vh"
   },
 }}>
-  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center",color:primaryButtonColor}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:currentTheme.thirdColor,textAlign:"center",color:currentTheme.sideBarTextColor1}}>
        History
         </Typography>
         <Box sx={{minHeight:"200px",padding:"30px",maxHeight:"80vh",overflowY:"scroll",scrollbarWidth:"thin"}}>

@@ -2,34 +2,39 @@ import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { historyProfile, historyRole, historyUser } from '../../../../config/securityConfig';
 import { thirdColor } from '../../../../config';
+import { useTheme } from '../../../../config/themeContext';
 
-const cellStyle = {
-  padding: "0px",
-                        paddingLeft: "4px",
-                        border: " 1px solid #ddd",
-                        fontWeight: "600",
-                        font: "14px",
-                        
-                        color: "white",
-                        paddingTop: "3px",
-                        paddingBottom: "3px",
-}
-const headerCellStyle = {
-  ...cellStyle,
-  backgroundColor: thirdColor,
-  color: "#fff",
-};
-const bodyCell={
-  padding: "0px",
-  paddingLeft: "4px",
-  border: " 1px solid #ddd",
-  minWidth: "100px",
-  whiteSpace: "nowrap",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-}
+
 const UserHistoryTable = ({onRowClick}) => {
   // Sample data
+
+  const { currentTheme } = useTheme();
+
+  const cellStyle = {
+    padding: "0px",
+                          paddingLeft: "4px",
+                          border: " 1px solid #ddd",
+                          fontWeight: "600",
+                          font: "14px",
+                          
+                          color: currentTheme.tableHeaderColor,
+                          paddingTop: "3px",
+                          paddingBottom: "3px",
+  }
+  const headerCellStyle = {
+    ...cellStyle,
+    backgroundColor: currentTheme.thirdColor,
+    color: currentTheme.tableHeaderColor,
+  };
+  const bodyCell={
+    padding: "0px",
+    paddingLeft: "4px",
+    border: " 1px solid #ddd",
+    minWidth: "100px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  }
 
   const [selectedRow, setSelectedRow] = useState(null);
 
@@ -43,7 +48,7 @@ const UserHistoryTable = ({onRowClick}) => {
     <TableContainer component={Paper} sx={{maxHeight:"40vh",width: 'fit-content'}}>
       <Table stickyHeader>
         <TableHead>
-          <TableRow style={{ backgroundColor: "#0076A3", color: "#fff" }}>
+          <TableRow >
             <TableCell sx={headerCellStyle }></TableCell>
             <TableCell sx={headerCellStyle }>User Name</TableCell>
             <TableCell sx={headerCellStyle }>Date</TableCell>
