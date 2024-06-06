@@ -2,35 +2,41 @@ import React from 'react';
 import { Box, Tabs, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 import { thirdColor } from '../../../../config';
 import ImageIcon from '@mui/icons-material/Image';
+import { useTheme } from '../../../../config/themeContext';
 
 
-const cellStyle = {
-  padding: "0px",
-                        paddingLeft: "4px",
-                        border: " 1px solid #ddd",
-                        fontWeight: "600",
-                        font: "14px",
-                        
-                        color: "white",
-                        paddingTop: "3px",
-                        paddingBottom: "3px",
-}
-const headerCellStyle = {
-  ...cellStyle,
-  backgroundColor: thirdColor,
-  color: "#fff",
-};
-const bodyCell={
-  padding: "0px",
-  paddingLeft: "4px",
-  border: " 1px solid #ddd",
-  minWidth: "100px",
-  whiteSpace: "nowrap",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-}
+
 
 const UserTabDetails = ({ data }) => {
+
+  const { currentTheme } = useTheme();
+  const cellStyle = {
+    padding: "0px",
+                          paddingLeft: "4px",
+                          border: " 1px solid #ddd",
+                          fontWeight: "600",
+                          font: "14px",
+                          
+                          color: currentTheme.sideBarTextColor1,
+                          paddingTop: "3px",
+                          paddingBottom: "3px",
+  }
+  const headerCellStyle = {
+    ...cellStyle,
+    backgroundColor: currentTheme.thirdColor,
+    color: currentTheme.sideBarTextColor1,
+  };
+  const bodyCell={
+    padding: "0px",
+    paddingLeft: "4px",
+    border: " 1px solid #ddd",
+    minWidth: "100px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  }
+
+
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -61,10 +67,10 @@ const UserTabDetails = ({ data }) => {
           textTransform: 'none',
           minWidth: 120,
           backgroundColor: '#fff',
-          color: thirdColor,
+          color:  currentTheme.actionIcons,
           '&.Mui-selected': {
-            backgroundColor: thirdColor,
-            color: '#fff',
+            backgroundColor:  currentTheme.thirdColor,
+            color:currentTheme.sideBarTextColor1,
           },
         },
       }}>
@@ -103,7 +109,7 @@ const UserTabDetails = ({ data }) => {
               </TableContainer>
             ) : (
               <Box display="flex" alignItems="center" justifyContent="center" height="100%">
-                <ImageIcon sx={{ fontSize: 100, color: thirdColor }} />
+                <ImageIcon sx={{ fontSize: 100, color: currentTheme.thirdColor }} />
               </Box>
             )
           )}
