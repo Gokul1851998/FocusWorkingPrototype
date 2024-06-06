@@ -31,6 +31,7 @@ import AutocompleteSecurity from "../AutoComplete/AutocompleteSecurity";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import AdvancedSearchDialog from "../../containers/Home/Master/Account/AccountMaster/AdvancedSearch";
 import { useState } from "react";
+import { useTheme } from "../../config/themeContext";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -69,6 +70,7 @@ function EnhancedTableHead(props) {
     rowCount,
     onRequestSort,
     rows,
+    thirdColor
   } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -149,7 +151,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { name, values, changes,handleOpenDialog,isSearch  } = props;
+  const { name, values, changes,handleOpenDialog,isSearch, thirdColor  } = props;
 
   return (
     <Toolbar
@@ -282,7 +284,7 @@ export default function TableProduct({masterData,items}) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState([]);
   const [openDialog, setOpenDialog] = useState(false);
-  console.log(items);
+  const { currentTheme,switchTheme } = useTheme();
 
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
@@ -381,7 +383,7 @@ export default function TableProduct({masterData,items}) {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <AutocompleteSecurity label="" />
             <IconButton aria-label="tree">
-              <WidgetsIcon sx={{ color: thirdColor }} />
+              <WidgetsIcon sx={{ color: currentTheme.thirdColor }} />
             </IconButton>
           </Box>
         </Box>
@@ -402,6 +404,7 @@ export default function TableProduct({masterData,items}) {
               handleOpenDialog={handleOpenDialog}
               handleCloseDialog={handleCloseDialog}
               isSearch={items?.length>0?true:false}
+              thirdColor={currentTheme.thirdColor}
             />
 
             {data.length > 0 && (
@@ -428,6 +431,7 @@ export default function TableProduct({masterData,items}) {
                     onRequestSort={handleRequestSort}
                     rowCount={data.length}
                     rows={Object.keys(data[0])}
+                    thirdColor={currentTheme.thirdColor}
                   />
 
                   <TableBody>

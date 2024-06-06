@@ -22,6 +22,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AdvancedSearchSelect from '../../../../../components/Select/AdvanceSearchSelect';
 import AdvanceSearchInput from '../../../../../components/Inputs/AdvanceSearchInput';
 import { searchAdvanceSelect } from '../../../../../config/masterConfig';
+import { useTheme } from '../../../../../config/themeContext';
 
 
 const cellStyle = {
@@ -52,7 +53,7 @@ const cellStyle = {
   }
 
 const AdvancedSearchDialog = ({ open, onClose,items }) => {
-  
+  const { currentTheme,switchTheme } = useTheme();
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const [selectedNodes, setSelectedNodes] = useState([]);
   const [formData, setformData] = useState({searchSelect:"Default"})
@@ -193,7 +194,7 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
             variant="contained"
             onClick={onClose}
             startIcon={<LoadIcon />}
-            sx={{ mr: 2,backgroundColor:primaryColor,textTransform:"none" }}
+            sx={{ mr: 2,backgroundColor:currentTheme.primaryColor,textTransform:"none" }}
           >
             Load
           </Button>
@@ -202,7 +203,7 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
             
             endIcon={<CloseIcon />}
             onClick={onClose}
-            sx={{ backgroundColor:primaryColor ,textTransform:"none"}}
+            sx={{ backgroundColor:currentTheme.primaryColor ,textTransform:"none"}}
           >
             Close
           </Button>
@@ -301,12 +302,12 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
           <Tooltip title="Add">
             <IconButton onClick={handleAddRow}>
-              <AddCircleIcon sx={{color:primaryColor}} />
+              <AddCircleIcon sx={{color:currentTheme.primaryColor}} />
             </IconButton>
             </Tooltip>
             <Tooltip title="Remove">
             <IconButton onClick={handleRemoveSelectedRows}>
-              <RemoveCircleIcon sx={{color:primaryColor}} />
+              <RemoveCircleIcon sx={{color:currentTheme.primaryColor}} />
             </IconButton>
             </Tooltip>
           </Box>
@@ -416,14 +417,14 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
     <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
       <Button
         variant="contained"
-        sx={{ backgroundColor: primaryColor, textTransform: "none" }}
+        sx={{ backgroundColor: currentTheme.primaryColor, textTransform: "none" }}
         onClick={handleSaveSelect}
       >
         Save
       </Button>
       <Button
         variant="contained"
-        sx={{ backgroundColor: primaryColor, textTransform: "none" }}
+        sx={{ backgroundColor: currentTheme.primaryColor, textTransform: "none" }}
         onClick={handleSaveDialogClose}
       >
         Close
@@ -437,8 +438,8 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
           <Typography variant="h6">Confirm Update</Typography>
           <Typography variant="body1" sx={{ mt: 2 }}>The item already exists. Do you want to update it?</Typography>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-            <Button variant="contained" sx={{ backgroundColor: primaryColor, textTransform: "none" }} onClick={handleConfirmUpdate}>Yes</Button>
-            <Button variant="contained" sx={{ backgroundColor: primaryColor, textTransform: "none" }} onClick={handleConfirmUpdateDialogClose}>No</Button>
+            <Button variant="contained" sx={{ backgroundColor: currentTheme.primaryColor, textTransform: "none" }} onClick={handleConfirmUpdate}>Yes</Button>
+            <Button variant="contained" sx={{ backgroundColor: currentTheme.primaryColor, textTransform: "none" }} onClick={handleConfirmUpdateDialogClose}>No</Button>
           </Box>
         </DialogContent>
       </Dialog>

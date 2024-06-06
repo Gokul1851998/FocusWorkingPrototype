@@ -854,7 +854,7 @@ export default function CompanyContainer({ pageType,pageId }) {
           variant="h6"
           gutterBottom
           component="div"
-          sx={{ backgroundColor: thirdColor, textAlign: "center" }}
+          sx={{ backgroundColor: currentTheme.thirdColor, textAlign: "center" }}
         >
           Users
         </Typography>

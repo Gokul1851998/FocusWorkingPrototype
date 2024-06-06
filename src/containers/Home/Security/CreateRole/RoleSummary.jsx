@@ -248,7 +248,9 @@ const AdditionalIcons = () => {
 // }
 
 function Example() {
+  const { currentTheme,switchTheme } = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

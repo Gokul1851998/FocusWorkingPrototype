@@ -249,7 +249,7 @@ const AdditionalIcons = () => {
 
 function Example() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const { currentTheme,switchTheme } = useTheme();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -294,7 +294,7 @@ function Example() {
         slotProps={{
           paper: {
             style: {
-              border:`1px solid ${primaryColor}`,
+              border:`1px solid ${currentTheme.primaryColor}`,
               backgroundColor: secondryColor, // Customize the background color here
               padding: '0px', // You can also add other styles like padding, etc.
             },

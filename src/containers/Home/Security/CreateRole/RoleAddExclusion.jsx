@@ -131,11 +131,11 @@ const ProfileManagementPanel = ({
             onClick={handleSelectAll}
           >
             <Stack direction="column" alignItems="center">
-              <SelectAllIcon sx={{ color: primaryColor }} />
+              <SelectAllIcon sx={{ color: currentTheme.primaryColor }} />
               <Typography
                 variant="caption"
                 align="center"
-                style={{ color: primaryColor, fontSize: '0.8rem' }}
+                style={{ color: currentTheme.primaryColor, fontSize: '0.8rem' }}
               >
                 Select All
               </Typography>
@@ -147,11 +147,11 @@ const ProfileManagementPanel = ({
             onClick={handleUnselectAll}
           >
             <Stack direction="column" alignItems="center">
-              <DeselectIcon sx={{ color: primaryColor }} />
+              <DeselectIcon sx={{ color: currentTheme.primaryColor }} />
               <Typography
                 variant="caption"
                 align="center"
-                style={{ color: primaryColor, fontSize: '0.8rem' }}
+                style={{ color: currentTheme.primaryColor, fontSize: '0.8rem' }}
               >
                 Unselect All
               </Typography>

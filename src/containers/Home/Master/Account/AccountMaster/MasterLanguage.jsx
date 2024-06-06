@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { primaryButtonColor, thirdColor } from '../../../../../config';
+import { useTheme } from '../../../../../config/themeContext';
 
 const transcribe = (text, language) => {
     // Define simple mappings for a few languages
@@ -132,7 +133,7 @@ const bodyCell = {
 
 const MasterLanguage = ({ accountName }) => {
   const initialRows = [{ id: 1, language: 'English', master: accountName }];
-
+  const { currentTheme,switchTheme } = useTheme();
   const [rows, setRows] = useState(initialRows);
   const [selectedLanguage, setSelectedLanguage] = useState('');
 
@@ -187,9 +188,9 @@ const MasterLanguage = ({ accountName }) => {
             marginLeft: '16px',
             height: 30,
             fontSize: '0.75rem',
-            backgroundColor: thirdColor,
+            backgroundColor: currentTheme.thirdColor,
             '&:hover': {
-              backgroundColor: thirdColor,
+              backgroundColor: currentTheme.thirdColor,
             }
           }}
         >

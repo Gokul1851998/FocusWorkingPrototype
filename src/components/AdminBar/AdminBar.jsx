@@ -34,15 +34,17 @@ const itemsTextStyle = {
   },
 };
 
-const itemsIconStyle = {
-  fontSize: "16px",
-  color: thirdColor,
-  transform: "rotate(0deg)",
-  transition: "transform 0.3s",
-};
 
-const RecursiveMenu = ({ items, parentId, handleMenuItemClick }) => {
+
+const RecursiveMenu = ({ items, parentId, handleMenuItemClick, thirdColor }) => {
   const navigate = useNavigate();
+
+  const itemsIconStyle = {
+    fontSize: "16px",
+    color: thirdColor,
+    transform: "rotate(0deg)",
+    transition: "transform 0.3s",
+  };
 
   const handleSubMenu = (event, menu) => {
     if (menu.child) {
@@ -80,6 +82,13 @@ function AdminBar() {
   const [openup, setOpenup] = useState(false);
   const navigate = useNavigate();
   const { currentTheme, switchTheme } = useTheme();
+
+  const itemsIconStyle = {
+    fontSize: "16px",
+    color: currentTheme.thirdColor,
+    transform: "rotate(0deg)",
+    transition: "transform 0.3s",
+  };
 
   useEffect(() => {
     fetchIconsFromApi().then((data) => {
@@ -199,7 +208,7 @@ function AdminBar() {
 
             <Typography
               variant="h6"
-              color={primaryColor}
+              color={currentTheme.primaryColor}
               noWrap
               component="div"
             >
@@ -325,6 +334,7 @@ function AdminBar() {
                   items={sideBarIcons}
                   parentId={0}
                   handleMenuItemClick={handleMenuItemClick}
+                  thirdColor={currentTheme.thirdColor}
                 />
               </Menu>
             </Box>
@@ -382,7 +392,7 @@ function AdminBar() {
                       key={subItem.id}
                       onClick={(e) => handleMenuItemClick(e, subItem)}
                       sx={{
-                        backgroundColor: primaryColor,
+                        backgroundColor: currentTheme.primaryColor,
                         color: primaryButtonColor,
                         "&:hover": {
                           backgroundColor: "#073f82",

@@ -48,6 +48,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import StopIcon from '@mui/icons-material/Stop';
 import BlockIcon from '@mui/icons-material/Block';
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
+import { useTheme } from "../../../../../config/themeContext";
 
 
 function handleClick(event) {
@@ -77,6 +78,7 @@ export default function CustomerVendor(args) {
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
+  const { currentTheme,switchTheme } = useTheme();
 
   const toggleOpen = () => {
     setIsOpen(true);
@@ -455,7 +457,7 @@ export default function CustomerVendor(args) {
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <AutocompleteSecurity label="" />
                       <IconButton aria-label="tree">
-                        <WidgetsIcon sx={{ color: thirdColor }} />
+                        <WidgetsIcon sx={{ color: currentTheme.thirdColor }} />
                       </IconButton>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center" }}>

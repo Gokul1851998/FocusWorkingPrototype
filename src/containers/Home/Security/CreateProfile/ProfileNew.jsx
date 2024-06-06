@@ -235,7 +235,7 @@ const AdditionalIcons = () => {
 
 function Example() {//AdditionalIcons
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const { currentTheme,switchTheme } = useTheme();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -280,7 +280,7 @@ function Example() {//AdditionalIcons
         slotProps={{
           paper: {
             style: {
-              border:`1px solid ${primaryColor}`,
+              border:`1px solid ${currentTheme.primaryColor}`,
               backgroundColor: secondryColor, // Customize the background color here
               padding: '0px', // You can also add other styles like padding, etc.
             },
@@ -529,11 +529,11 @@ const ProfileNew = ({setPage,detailPageId}) => {
               onClick={handleSelectAll}
             >
               <Stack direction="column" alignItems="center">
-        <SelectAllIcon sx={{ color:primaryColor }} />
+        <SelectAllIcon sx={{ color:currentTheme.primaryColor }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryColor, fontSize: "0.8rem" }}
+                  style={{ color: currentTheme.primaryColor, fontSize: "0.8rem" }}
                 >
                   Select All
                 </Typography>
@@ -545,11 +545,11 @@ const ProfileNew = ({setPage,detailPageId}) => {
               onClick={handleUnselectAll}
             >
               <Stack direction="column" alignItems="center">
-        <DeselectIcon sx={{ color:primaryColor }} />
+        <DeselectIcon sx={{ color:currentTheme.primaryColor }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryColor, fontSize: "0.8rem" }}
+                  style={{ color: currentTheme.primaryColor, fontSize: "0.8rem" }}
                 >
                   Unselect All
                 </Typography>
