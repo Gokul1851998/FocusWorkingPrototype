@@ -59,9 +59,9 @@ import {
 } from "mdb-react-ui-kit";
 import AccountInput from "../../../../../components/Inputs/AccountInput";
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
-import GetAppIcon from '@mui/icons-material/GetApp';
-import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
+import GetAppIcon from "@mui/icons-material/GetApp";
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
+import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import SearchBox from "../../../../../components/SearchBox/SearchBox";
 import { CustomScroll } from "react-custom-scroll";
@@ -87,42 +87,42 @@ const actions = [
 ];
 
 const Accordion = styled((props) => (
-    <MuiAccordion disableGutters elevation={0} square {...props} />
-  ))(({ theme }) => ({
-    border: `1px solid ${theme.palette.divider}`,
-    "&:not(:last-child)": {
-      borderBottom: 0,
-    },
-    "&::before": {
-      display: "none",
-    },
-  }));
-  
-  const AccordionSummary = styled((props) => (
-    <MuiAccordionSummary
-      expandIcon={
-        props.expanded ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />
-      }
-      {...props}
-    />
-  ))(({ theme }) => ({
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&::before": {
+    display: "none",
+  },
+}));
+
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={
+      props.expanded ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />
+    }
+    {...props}
+  />
+))(({ theme }) => ({
+  color: primaryButtonColor,
+  backgroundColor: thirdColor,
+  flexDirection: "row",
+  justifyContent: "space-between",
+  "& .MuiAccordionSummary-content": {
+    flexGrow: 1,
+  },
+  "& .MuiSvgIcon-root": {
+    fontSize: "1.5rem",
     color: primaryButtonColor,
-    backgroundColor: thirdColor,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    "& .MuiAccordionSummary-content": {
-      flexGrow: 1,
-    },
-    "& .MuiSvgIcon-root": {
-      fontSize: "1.5rem",
-      color: primaryButtonColor,
-    },
-  }));
-  
-  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-    paddingLeft: theme.spacing(3),
-    borderTop: "1px solid rgba(0, 0, 0, .125)",
-  }));
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  paddingLeft: theme.spacing(3),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+}));
 
 export default function CurrencyMaster(args) {
   const [isOpen, setIsOpen] = useState(false);
@@ -138,7 +138,6 @@ export default function CurrencyMaster(args) {
   const [accountName, setAccountName] = React.useState("");
 
   const handleAccountNameChange = (event) => {
-   
     setAccountName(event.target.value);
   };
 
@@ -192,11 +191,9 @@ export default function CurrencyMaster(args) {
     setDetailPage(false);
   };
 
-  
-
-  const handleClose = ()=>{
-    window.history.back()
-  }
+  const handleClose = () => {
+    window.history.back();
+  };
 
   const breadcrumbs = [
     <Link
@@ -228,7 +225,7 @@ export default function CurrencyMaster(args) {
       Account
     </Link>,
     <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
-     Currency Master
+      Currency Master
     </Typography>,
   ];
 
@@ -259,170 +256,173 @@ export default function CurrencyMaster(args) {
             </Breadcrumbs>
           </Stack>
 
-      
-            <Stack
-              direction="row"
-              alignItems="center"
-              spacing={1}
-              sx={{ flex: "0 0 auto" }}
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            sx={{ flex: "0 0 auto" }}
+          >
+            <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
-              <IconButton
-             
-                aria-label="New"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <GetAppIcon style={{ color: "white" }} />
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Import
-                  </Typography>
-                </Stack>
-              </IconButton>
-              <IconButton
-                aria-label="Add group"
-                sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <SwapHorizIcon style={{ color: "white" }} />
+              <Stack direction="column" alignItems="center">
+                <GetAppIcon style={{ color: "white" }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Import
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="Add group"
+              sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <SwapHorizIcon style={{ color: "white" }} />
 
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Exchange Rate
-                  </Typography>
-                </Stack>
-              </IconButton>
-              <IconButton
-                aria-label="Edit"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <ClearAllIcon style={{ color: "white" }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Exchange Rate
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="Edit"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <ClearAllIcon style={{ color: "white" }} />
 
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Clear
-                  </Typography>
-                </Stack>
-              </IconButton>
-              <IconButton 
-                aria-label="Clone"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <SaveIcon style={{ color: "white" }} />
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Save
-                  </Typography>
-                </Stack>
-              </IconButton>
-             
-              <IconButton onClick={handleClose}
-                aria-label="Close"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <CloseIcon style={{ color: "white" }} />
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
-                  >
-                    Close
-                  </Typography>
-                </Stack>
-              </IconButton>
-            </Stack>
-    
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Clear
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="Clone"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <SaveIcon style={{ color: "white" }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Save
+                </Typography>
+              </Stack>
+            </IconButton>
+
+            <IconButton
+              onClick={handleClose}
+              aria-label="Close"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <CloseIcon style={{ color: "white" }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Close
+                </Typography>
+              </Stack>
+            </IconButton>
+          </Stack>
         </Box>
         <div>
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary
-          aria-controls="panel1d-content"
-          id="panel1d-header"
-          className
-          expanded={expanded === "panel1"}
-        >
-          <Typography style={{ fontSize: "14px" }}>Currency Details</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <>
-            <div>
-              <MDBCardBody>
-                <MDBRow>
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
+          >
+            <AccordionSummary
+              aria-controls="panel1d-content"
+              id="panel1d-header"
+              className
+              expanded={expanded === "panel1"}
+            >
+              <Typography style={{ fontSize: "14px" }}>
+                Currency Details
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <>
+                <div>
+                  <MDBCardBody>
+                    <MDBRow>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="ISO Currency Code" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Coins Name" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput1
+                          label="Currency Name"
+                          value={accountName}
+                          onChange={handleAccountNameChange}
+                        />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Numeric Seperator" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Symbol" />
+                      </MDBCol>
 
-                <MDBCol lg="3" md="4" sm="6" xs="12">
-                <AutoComplete2 autoLabel="ISO Currency Code" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Coins Name" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AccountInput1 label="Currency Name"  value={accountName} onChange={handleAccountNameChange}/>
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                <AutoComplete2 autoLabel="Numeric Seperator" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                <AutoComplete2 autoLabel="Symbol" />
-                  </MDBCol>
-
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Number of Decimal" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="General Round Off" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                <AutoComplete2 autoLabel="Rounding Type" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Currency Unit" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Currency Unit Alias" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Currency Sub Unit" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Currency Sub Unit Alias" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Connector" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Connector Alias" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Denomination Code" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Denomination Value" />
-                  </MDBCol>
-                </MDBRow>
-              </MDBCardBody>
-            </div>
-          </>
-        </AccordionDetails>
-      </Accordion>
-      {/* <Accordion
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Number of Decimal" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="General Round Off" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AutoComplete2 autoLabel="Rounding Type" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Currency Unit" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Currency Unit Alias" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Currency Sub Unit" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Currency Sub Unit Alias" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Connector" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Connector Alias" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Denomination Code" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <AccountInput label="Denomination Value" />
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCardBody>
+                </div>
+              </>
+            </AccordionDetails>
+          </Accordion>
+          {/* <Accordion
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
       >
@@ -450,7 +450,7 @@ export default function CurrencyMaster(args) {
           </>
         </AccordionDetails>
       </Accordion> */}
-      {/* <Accordion
+          {/* <Accordion
         expanded={expanded === "panel3"}
         onChange={handleChange("panel3")}
       >
@@ -491,7 +491,7 @@ export default function CurrencyMaster(args) {
           </>
         </AccordionDetails>
       </Accordion> */}
-      {/* <Accordion
+          {/* <Accordion
         expanded={expanded === "panel4"}
         onChange={handleChange("panel4")}
       >
@@ -521,20 +521,20 @@ export default function CurrencyMaster(args) {
           </>
         </AccordionDetails>
       </Accordion> */}
-      <Accordion
-        expanded={expanded === "panel5"}
-        onChange={handleChange("panel5")}
-      >
-        <AccordionSummary
-          aria-controls="panel5d-content"
-          id="panel5d-header"
-          expanded={expanded === "panel5"}
-        >
-          <Typography style={{ fontSize: "14px" }}>Language</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <MDBCardBody>
-            {/* <MDBRow>
+          <Accordion
+            expanded={expanded === "panel5"}
+            onChange={handleChange("panel5")}
+          >
+            <AccordionSummary
+              aria-controls="panel5d-content"
+              id="panel5d-header"
+              expanded={expanded === "panel5"}
+            >
+              <Typography style={{ fontSize: "14px" }}>Language</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <MDBCardBody>
+                {/* <MDBRow>
               <MDBCol lg="3" md="4" sm="6" xs="12">
                 <div
                   style={{
@@ -563,60 +563,58 @@ export default function CurrencyMaster(args) {
                 </div>
               </MDBCol>
             </MDBRow> */}
-            <MasterLanguage accountName={accountName} />
-          </MDBCardBody>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel6"}
-        onChange={handleChange("panel6")}
-      >
-        <AccordionSummary
-          aria-controls="panel6d-content"
-          id="panel6d-header"
-          expanded={expanded === "panel6"}
-        >
-          <Typography style={{ fontSize: "14px" }}>Business Unit</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <MDBCardBody>
-            <MDBRow>
-              <MDBCol lg="3" md="4" sm="6" xs="12">
-                <div
-                  style={{
-                    width: "auto",
-                    flexDirection: "column",
-                    height: "200px",
-                    overflowY: "auto",
-                    margin: "16px 0",
-                    border: "1px solid #969999",
-                    padding: "0 10px",
-                    boxSizing: "border-box",
-                    borderRadius: 5,
-                  }}
-                >
-                  <CustomScroll heightRelativeToParent="100%">
-                    <Typography style={{ fontSize: "14px", color: "gray" }}>
-                      Business Unit
-                    </Typography>
-                    <SearchBox
-                      initialItems={BusinessUnit }
-                      selected={select}
-                      params={"projects"}
-                      handleChild={handleChild}
-                    />
-                  </CustomScroll>
-                </div>
-              </MDBCol>
-            </MDBRow>
-          </MDBCardBody>
-        </AccordionDetails>
-      </Accordion>
- 
-    </div>
-     
-        
-     
+                <MasterLanguage accountName={accountName} />
+              </MDBCardBody>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel6"}
+            onChange={handleChange("panel6")}
+          >
+            <AccordionSummary
+              aria-controls="panel6d-content"
+              id="panel6d-header"
+              expanded={expanded === "panel6"}
+            >
+              <Typography style={{ fontSize: "14px" }}>
+                Business Unit
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <MDBCardBody>
+                <MDBRow>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <div
+                      style={{
+                        width: "auto",
+                        flexDirection: "column",
+                        height: "200px",
+                        overflowY: "auto",
+                        margin: "16px 0",
+                        border: "1px solid #969999",
+                        padding: "0 10px",
+                        boxSizing: "border-box",
+                        borderRadius: 5,
+                      }}
+                    >
+                      <CustomScroll heightRelativeToParent="100%">
+                        <Typography style={{ fontSize: "14px", color: "gray" }}>
+                          Business Unit
+                        </Typography>
+                        <SearchBox
+                          initialItems={BusinessUnit}
+                          selected={select}
+                          params={"projects"}
+                          handleChild={handleChild}
+                        />
+                      </CustomScroll>
+                    </div>
+                  </MDBCol>
+                </MDBRow>
+              </MDBCardBody>
+            </AccordionDetails>
+          </Accordion>
+        </div>
       </React.StrictMode>
     </>
   );
