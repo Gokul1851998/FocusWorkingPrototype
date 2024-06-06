@@ -227,19 +227,26 @@ const Accordion = styled((props) => (
     );
   };
 
-  const buttonStyle ={
-    backgroundColor: secondryColor,
-    color: primaryButtonColor,
-    textTransform: 'none',
-    padding: "1px",
-    '&:hover': {
-      backgroundColor: secondryColor, // Change as needed
-      color: primaryButtonColor // Example hover color change
-    },
-    
-  }
+  
 
   export default function RoleDetails({detailPageId,setPage}) {
+
+    
+    const { currentTheme } = useTheme();
+
+    const buttonStyle ={
+      backgroundColor: currentTheme.secondaryColor,
+      color: currentTheme.sideBarTextColor1,
+      textTransform: 'none',
+      padding: "1px",
+      '&:hover': {
+        backgroundColor: currentTheme.secondaryColor, // Change as needed
+        color: currentTheme.sideBarTextColor1 // Example hover color change
+      },
+      
+    }
+
+
     const [expanded, setExpanded] = React.useState("panel1");
     const [formData, setFormData] = React.useState({sName:null,iId:null})
     const [selectedOption, setSelectedOption] = React.useState('');
@@ -247,7 +254,6 @@ const Accordion = styled((props) => (
     const [openHistory, setOpenHistory] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
 
-    const { currentTheme } = useTheme();
   
     const handleRowClick = (row) => {
 
@@ -554,7 +560,7 @@ const handleCloseUsersOnRole = ()=>{
 
         </Box>
         <Dialog open={openUsersOnRole} onClose={handleCloseUsersOnRole} aria-labelledby="form-dialog-title">
-  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:currentTheme.thirdColor,textAlign:"center",color:currentTheme.sideBarTextColor1}}>
        Users in role
         </Typography>
         <Box sx={{minHeight:"200px",ml:2}}>
@@ -609,7 +615,7 @@ sx={{
     height:"90vh"
   },
 }}>
-  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center",color:primaryButtonColor}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:currentTheme.thirdColor,textAlign:"center",color:currentTheme.sideBarTextColor1}}>
        History
         </Typography>
         <Box sx={{minHeight:"200px",padding:"30px",maxHeight:"80vh",overflowY:"scroll",scrollbarWidth:"thin"}}>

@@ -1,8 +1,16 @@
 import React from 'react';
 import { Box, Tabs, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 import { thirdColor } from '../../../../config';
+import { useTheme } from '../../../../config/themeContext';
 
 
+
+const TabDetails = ({ data }) => {
+  const [selectedTab, setSelectedTab] = React.useState(0);
+
+  const { currentTheme } = useTheme();
+
+  
 const cellStyle = {
   padding: "0px",
                         paddingLeft: "4px",
@@ -10,14 +18,14 @@ const cellStyle = {
                         fontWeight: "600",
                         font: "14px",
                         
-                        color: "white",
+                        color: currentTheme.sideBarTextColor1,
                         paddingTop: "3px",
                         paddingBottom: "3px",
 }
 const headerCellStyle = {
   ...cellStyle,
-  backgroundColor: thirdColor,
-  color: "#fff",
+  backgroundColor: currentTheme.thirdColor,
+  color: currentTheme.sideBarTextColor1,
 };
 const bodyCell={
   padding: "0px",
@@ -28,9 +36,6 @@ const bodyCell={
   overflow: "hidden",
   textOverflow: "ellipsis",
 }
-
-const TabDetails = ({ data }) => {
-  const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -54,7 +59,7 @@ const TabDetails = ({ data }) => {
       allowScrollButtonsMobile
       TabIndicatorProps={{
         sx: {
-          backgroundColor: thirdColor,
+          backgroundColor:  currentTheme.thirdColor,
         },
       }}
       sx={{
@@ -62,10 +67,10 @@ const TabDetails = ({ data }) => {
           textTransform: 'none',
           minWidth: 120,
           backgroundColor: '#fff',
-          color: thirdColor,
+          color:  currentTheme.actionIcons,
           '&.Mui-selected': {
-            backgroundColor: thirdColor,
-            color: '#fff',
+            backgroundColor:  currentTheme.thirdColor,
+            color:currentTheme.sideBarTextColor1,
           },
         },
       }}>

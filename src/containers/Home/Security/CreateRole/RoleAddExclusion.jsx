@@ -12,6 +12,7 @@ import SelectAllIcon from '@mui/icons-material/SelectAll';
 import Tree1 from '../../../../components/Tree/Tree1';
 import { primaryButtonColor, primaryColor, thirdColor } from '../../../../config';
 import DeselectIcon from '@mui/icons-material/Deselect';
+import { useTheme } from '../../../../config/themeContext';
 
 
 
@@ -38,6 +39,8 @@ const ProfileManagementPanel = ({
     const [checkedState, setCheckedState] = useState(
         new Array(restrictionItems.length).fill(false)
       );
+
+      const { currentTheme } = useTheme();
 
       const handleSelectAll = () => {
         setCheckedState(new Array(restrictionItems.length).fill(true));
@@ -69,7 +72,7 @@ const ProfileManagementPanel = ({
           variant="h6"
           gutterBottom
           component="div"
-          sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1   }}
+          sx={{ backgroundColor: currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,pl:1   }}
         >
           Menu
         </Typography>
@@ -87,7 +90,7 @@ const ProfileManagementPanel = ({
           variant="h6"
           gutterBottom
           component="div"
-          sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1 }}
+          sx={{ backgroundColor: currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,pl:1   }}
         >
           Restrictions
         </Typography>

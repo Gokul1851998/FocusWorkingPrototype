@@ -19,6 +19,7 @@ import Autocomplete1 from "../../../../components/AutoComplete/AutoComplete1";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 import WarningMessage from "../../../../components/Warning/Warnings";
+import { useTheme } from '../../../../config/themeContext';
 
 const cellStyle = {
   padding: "0px",
@@ -31,11 +32,7 @@ const cellStyle = {
   paddingTop: "3px",
   paddingBottom: "3px",
 };
-const headerCellStyle = {
-  ...cellStyle,
-  backgroundColor: thirdColor,
-  color: "#fff",
-};
+
 const bodyCell = {
   padding: "0px",
   paddingLeft: "4px",
@@ -60,6 +57,17 @@ const initialRows = Array.from({ length: 10 }, () =>
 );
 
 const RestrictionsTable = () => {
+
+
+  const { currentTheme } = useTheme();
+
+  const headerCellStyle = {
+    ...cellStyle,
+    backgroundColor: currentTheme.thirdColor,
+    color: "#fff",
+  };
+
+
   const [selectedRowIndex, setSelectedRowIndex] = useState(-1);
   const [rows, setRows] = useState(initialRows);
   const [exclusionCheck, setExclusionChecked] = useState(false);
@@ -71,6 +79,8 @@ const RestrictionsTable = () => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [alertType, setAlertType] = useState("");
+
+  
 
   const wrapperRef = useRef(null);
 
@@ -180,7 +190,7 @@ const RestrictionsTable = () => {
                 onClick={handleAddRow}
               >
                 
-          <AddCircleOutlineIcon sx={{ color:primaryColor }} />
+          <AddCircleOutlineIcon sx={{ color:currentTheme.primaryColor }} />
           
               
               </IconButton>
@@ -190,7 +200,7 @@ const RestrictionsTable = () => {
                 onClick={handleDeleteRow}
               >
                 
-          <DeleteIcon sx={{ color:primaryColor }} />
+          <DeleteIcon sx={{ color:currentTheme.primaryColor }} />
           
               
               </IconButton>

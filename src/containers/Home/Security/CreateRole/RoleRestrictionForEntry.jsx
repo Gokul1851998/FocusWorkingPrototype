@@ -13,6 +13,7 @@ import { primaryButtonColor, primaryColor, thirdColor } from '../../../../config
 import DeselectIcon from '@mui/icons-material/Deselect';
 import { List, ListItem, ListItemText, Box, ListItemButton } from '@mui/material';
 import RoleRestrictionsTable from './RoleRestrictionTable';
+import { useTheme } from '../../../../config/themeContext';
 
 
 
@@ -41,6 +42,8 @@ const RoleRestriction = ({
    
       const [selectedItem, setSelectedItem] = useState('');
 
+      const { currentTheme } = useTheme();
+
       const handleClick = (item) => {
         setSelectedItem(item);
         
@@ -64,7 +67,7 @@ const RoleRestriction = ({
           variant="h6"
           gutterBottom
           component="div"
-          sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1    }}
+          sx={{ backgroundColor: currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,pl:1   }}
         >
           Masters
         </Typography>
@@ -88,7 +91,7 @@ const RoleRestriction = ({
           variant="h6"
           gutterBottom
           component="div"
-          sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1   }}
+          sx={{ backgroundColor: currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,pl:1   }}
         >
           Restrictions
         </Typography>

@@ -9,6 +9,7 @@ import { MDBCard,
 import { roleRightSelectItem } from '../../../../config/securityConfig';
 import RoleSelect1 from '../../../../components/Select/RoleSelect1';
 import RoleSelect2 from '../../../../components/Select/RoleSelect2';
+import { useTheme } from '../../../../config/themeContext';
 
 const textFieldStyle= {
   width: 100,
@@ -31,6 +32,8 @@ function RoleTransactionRights() {
   const [selectedOption, setSelectedOption] = React.useState('');
   const [checkedBillwise, setCheckedBillwise] = React.useState(false);
   const [formData, setformData] = useState({})
+
+  const { currentTheme } = useTheme();
 
   const timeOptions = [
     { value: 'hours', label: 'Hours' },
@@ -119,7 +122,7 @@ function RoleTransactionRights() {
         pb:5
       }}>
         {/* <Box sx={{ backgroundColor: 'white', boxShadow: 1 }}> */}
-          <Typography gutterBottom component="div" variant="h6" sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1   }}>Edit Options</Typography>
+          <Typography gutterBottom component="div" variant="h6" sx={{ backgroundColor: currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,pl:1   }}>Edit Options</Typography>
           <Box sx={{ pl: 3,gap:"5px",display:"flex",flexDirection:"column" }}>
         <Box sx={{ display: 'flex', alignItems: 'center',  }}>
         <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
