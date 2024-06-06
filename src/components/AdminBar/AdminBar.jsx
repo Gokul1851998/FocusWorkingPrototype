@@ -291,7 +291,7 @@ function AdminBar() {
         style={{
           marginTop: 64,
 
-          backgroundColor: currentTheme.sideBarVertical,
+          background: currentTheme.sideBarhorizontal,
           boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
           height: 40,
         }}
