@@ -14,23 +14,12 @@ import DeselectIcon from '@mui/icons-material/Deselect';
 import { List, ListItem, ListItemText, Box, ListItemButton } from '@mui/material';
 import RoleRestrictionsTable from './RoleRestrictionTable';
 import { masterTrees } from '../../../../config/securityConfig';
+import { useTheme } from '../../../../config/themeContext';
 
 
 
 
-const SelectAllIconStyle ={//style for selectAll and unselectAll
-    fontSize: "0.8rem",
-    padding: "0.5rem",
-    "&:hover": {
-      backgroundColor: 'transparent',  // Removes hover background color
-      "& .MuiTouchRipple-root": {
-        color: 'transparent' // Removes ripple effect color change if needed
-      }
-    },
-    "&:active": {
-      backgroundColor: 'transparent', // Removes active background color
-    }
-  }
+
 const RoleTreeRestriction = ({
   
   masterItems,
@@ -44,6 +33,8 @@ const RoleTreeRestriction = ({
       const [checkedState, setCheckedState] = useState(
         new Array(masterTrees.length).fill(false)
       );
+
+      const { currentTheme } = useTheme();
 
 
       const handleClick = (item) => {
@@ -76,7 +67,7 @@ const RoleTreeRestriction = ({
           variant="h6"
           gutterBottom
           component="div"
-          sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1    }}
+          sx={{ backgroundColor: currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,pl:1   }}
         >
           Masters
         </Typography>
@@ -92,7 +83,7 @@ const RoleTreeRestriction = ({
       <Divider
         orientation="vertical"
         flexItem
-        sx={{ borderWidth: 1, borderColor: thirdColor }}
+        sx={{ borderWidth: 1, borderColor: currentTheme.thirdColor }}
       />
       {/* Right Panel: Restrictions */}
       <Box sx={{ width: '50%', height:" 40vh "}}>
@@ -100,7 +91,7 @@ const RoleTreeRestriction = ({
           variant="h6"
           gutterBottom
           component="div"
-          sx={{ backgroundColor: thirdColor,color:primaryButtonColor,pl:1   }}
+          sx={{ backgroundColor: currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,pl:1   }}
         >
           Master Trees
         </Typography>

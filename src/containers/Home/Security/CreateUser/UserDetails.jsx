@@ -84,6 +84,7 @@ import BasicDateTimePicker from "../../../../components/DateAndTimePicker/DateAn
 import UserHistoryTable from "./UserHistoryTable";
 import UserTabDetails from "./UserHistoryTab";
 import HistoryIcon from '@mui/icons-material/History';
+import { useTheme } from "../../../../config/themeContext";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -104,9 +105,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -116,7 +117,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
     marginRight: theme.spacing(1),
   },
 }));
@@ -126,59 +127,48 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-function BasicBreadcrumbs() {
+function BasicBreadcrumbs({currentTheme}) {
   return (
-    <div
-      role="presentation"
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        maxWidth: "fit-content",
-        alignItems: "center",
-      }}
-    >
+    <div role="presentation" style={{display:"flex",flexDirection:"row",maxWidth:"fit-content",alignItems:"center"}} >
+      
       <Stack spacing={2} sx={{ flex: 1 }}>
-        <Breadcrumbs
-          // sx={{
-          //       "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
-          //       "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
-          //     }}
-          separator={
-            <NavigateNextIcon
-              fontSize="small"
-              sx={{ color: primaryButtonColor }}
-            />
-          }
-          aria-label="breadcrumb"
-        >
-          <Link
-            underline="hover"
-            sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
-            key="1"
-            color="white"
-          >
-            <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-            Home
-          </Link>
-          <Link
-            underline="hover"
-            key="2"
-            color="white"
-            sx={{ fontSize: "1rem" }}
-          >
-            Security
-          </Link>
-          ,
-          <Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
-            Create User
-          </Typography>
-          ,
-        </Breadcrumbs>
+      <Breadcrumbs  
+      // sx={{
+      //       "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
+      //       "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
+      //     }} 
+          separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}} />}
+        aria-label="breadcrumb">
+      
+      <Link
+      underline="hover"
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
+      key="1"
+      
+      
+    >
+      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      Home
+    </Link>
+    <Link
+      underline="hover"
+      key="2"
+      
+      sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}
+      
+    >
+      Security
+    </Link>,
+   
+    <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
+    Create User
+    </Typography>,
+      </Breadcrumbs>
       </Stack>
     </div>
   );
 }
-const DefaultIcons = ({ iconsClick, detailPageId }) => {
+const DefaultIcons = ({ iconsClick, detailPageId,currentTheme }) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
       {detailPageId !=0 ?
@@ -188,11 +178,11 @@ const DefaultIcons = ({ iconsClick, detailPageId }) => {
               onClick={()=>iconsClick("GetHistory")}
             >
               <Stack direction="column" alignItems="center">
-        <HistoryIcon sx={{ color:primaryButtonColor }} />
+        <HistoryIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   History
                 </Typography>
@@ -207,11 +197,11 @@ const DefaultIcons = ({ iconsClick, detailPageId }) => {
         //onClick={()=>iconsClick("unlock")}
       >
         <Stack direction="column" alignItems="center">
-          <LockOpenIcon sx={{ color: primaryButtonColor }} />
+          <LockOpenIcon sx={{ color: currentTheme.actionIcons, }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Unlock User
           </Typography>
@@ -225,11 +215,11 @@ const DefaultIcons = ({ iconsClick, detailPageId }) => {
         //onClick={()=>iconsClick("unlock")}
       >
         <Stack direction="column" alignItems="center">
-          <PersonIcon sx={{ color: primaryButtonColor }} />
+          <PersonIcon sx={{ color: currentTheme.actionIcons, }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Move User
           </Typography>
@@ -242,11 +232,11 @@ const DefaultIcons = ({ iconsClick, detailPageId }) => {
         //onClick={()=>iconsClick("unlock")}
       >
         <Stack direction="column" alignItems="center">
-          <RefreshIcon sx={{ color: primaryButtonColor }} />
+          <RefreshIcon sx={{ color: currentTheme.actionIcons, }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Reset
           </Typography>
@@ -258,11 +248,11 @@ const DefaultIcons = ({ iconsClick, detailPageId }) => {
         //onClick={()=>iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <SaveIcon sx={{ color: primaryButtonColor }} />
+          <SaveIcon sx={{color: currentTheme.actionIcons, }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Save
           </Typography>
@@ -275,11 +265,11 @@ const DefaultIcons = ({ iconsClick, detailPageId }) => {
           //onClick={()=>iconsClick("close")}
         >
           <Stack direction="column" alignItems="center">
-            <DeleteIcon sx={{ color: primaryButtonColor }} />
+            <DeleteIcon sx={{ color: currentTheme.actionIcons, }} />
             <Typography
               variant="caption"
               align="center"
-              style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+              style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
             >
               Delete
             </Typography>
@@ -293,11 +283,11 @@ const DefaultIcons = ({ iconsClick, detailPageId }) => {
           onClick={() => iconsClick("Loadfrom")}
         >
           <Stack direction="column" alignItems="center">
-            <FileCopyIcon sx={{ color: primaryButtonColor }} />
+            <FileCopyIcon sx={{ color: currentTheme.actionIcons, }} />
             <Typography
               variant="caption"
               align="center"
-              style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+              style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
             >
               Load From
             </Typography>
@@ -311,11 +301,11 @@ const DefaultIcons = ({ iconsClick, detailPageId }) => {
         onClick={() => iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <CloseIcon sx={{ color: primaryButtonColor }} />
+          <CloseIcon sx={{ color: currentTheme.actionIcons, }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Close
           </Typography>
@@ -361,6 +351,8 @@ export default function UserDetails({ detailPageId, setPage }) {
   const [checkedDays, setCheckedDays] = useState([])
   const [openHistory, setOpenHistory] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+
+  const { currentTheme } = useTheme();
   
     const handleRowClick = (row) => {
 
@@ -461,15 +453,15 @@ export default function UserDetails({ detailPageId, setPage }) {
           width: "100%",
           flexDirection: "row",
           justifyContent: "space-between",
-          backgroundColor: secondryColor,
           paddingLeft: 1.5,
           paddingRight: 1.5,
         }}
       >
-        <BasicBreadcrumbs />
+        <BasicBreadcrumbs currentTheme={currentTheme}/>
         <DefaultIcons
           detailPageId={detailPageId}
           iconsClick={handleIconsClick}
+          currentTheme={currentTheme}
         />
       </Box>
       <Box
@@ -528,6 +520,7 @@ export default function UserDetails({ detailPageId, setPage }) {
             className
             expanded={expanded === "panel1"}
             sx={{ alignItems: "center" }}
+            currentTheme={currentTheme}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}
@@ -750,6 +743,7 @@ export default function UserDetails({ detailPageId, setPage }) {
             id="panel2d-header"
             className
             expanded={expanded === "panel2"}
+            currentTheme={currentTheme}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}
@@ -1117,6 +1111,7 @@ export default function UserDetails({ detailPageId, setPage }) {
             id="panel3d-header"
             className
             expanded={expanded === "panel3"}
+            currentTheme={currentTheme}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}
@@ -1316,6 +1311,7 @@ export default function UserDetails({ detailPageId, setPage }) {
             id="panel5d-header"
             className
             expanded={expanded === "panel5"}
+            currentTheme={currentTheme}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}

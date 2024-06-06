@@ -24,7 +24,7 @@ function handleClick(event) {
 }
 
 
-function BasicBreadcrumbs() {
+function BasicBreadcrumbs({currentTheme}) {
   return (
     <div role="presentation" style={{display:"flex",flexDirection:"row",maxWidth:"fit-content",alignItems:"center"}} onClick={handleClick}>
       
@@ -34,14 +34,14 @@ function BasicBreadcrumbs() {
       //       "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
       //       "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
       //     }} 
-          separator={<NavigateNextIcon fontSize="small" sx={{color:primaryButtonColor}} />}
+          separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}} />}
         aria-label="breadcrumb">
       
       <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem"}} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
-      color="white"
+      
       onClick={handleClick}
     >
       <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
@@ -50,14 +50,14 @@ function BasicBreadcrumbs() {
     <Link
       underline="hover"
       key="2"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+      
+      sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
       Security
     </Link>,
    
-    <Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
     Create User
     </Typography>,
       </Breadcrumbs>
@@ -65,7 +65,7 @@ function BasicBreadcrumbs() {
     </div>
   );
 }
-const DefaultIcons = ({iconsClick}) => {
+const DefaultIcons = ({iconsClick,currentTheme}) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px",alignItems:"center" }}>
       
@@ -75,11 +75,11 @@ const DefaultIcons = ({iconsClick}) => {
               onClick={()=>iconsClick("new")}
             >
               <Stack direction="column" alignItems="center">
-                <AddIcon style={{ color: primaryButtonColor }} />
+                <AddIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   New
                 </Typography>
@@ -91,11 +91,11 @@ const DefaultIcons = ({iconsClick}) => {
               onClick={()=>iconsClick("edit")}
             >
               <Stack direction="column" alignItems="center">
-        <EditIcon sx={{ color:primaryButtonColor }} />
+        <EditIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Edit
                 </Typography>
@@ -107,11 +107,11 @@ const DefaultIcons = ({iconsClick}) => {
               onClick={()=>iconsClick("delete")}
             >
               <Stack direction="column" alignItems="center">
-        <DeleteIcon sx={{ color:primaryButtonColor }} />
+        <DeleteIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Delete
                 </Typography>
@@ -123,11 +123,11 @@ const DefaultIcons = ({iconsClick}) => {
               onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-        <CloseIcon sx={{ color:primaryButtonColor }} />
+        <CloseIcon sx={{color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
@@ -414,10 +414,10 @@ const UserSummary = ({setPage,setdetailPageId}) => {
  
 
   return (<Box sx={{ display: "flex",flexDirection:"column",width:"100%" }}>
-    <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
+    <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",paddingLeft: 1.5,
             paddingRight: 1.5,}}>   
-       <BasicBreadcrumbs/>
-       <DefaultIcons iconsClick={handleIconsClick}/>
+       <BasicBreadcrumbs currentTheme={currentTheme}/>
+       <DefaultIcons iconsClick={handleIconsClick} currentTheme={currentTheme}/>
        
     </Box>
     <Box sx={{ width:"100%",overflowX: 'auto'}}>
