@@ -42,7 +42,7 @@ function AdminHeader() {
     <AppBar
         ref={appBarRef}
         position="fixed"
-        style={{ backgroundColor: currentTheme.sideBarhorizontal, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)" }}
+        style={{ background: currentTheme.sideBarhorizontal, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)" }}
        
       >
         <Toolbar sx={{ justifyContent: "space-between"}}>
