@@ -1,18 +1,23 @@
-import React from 'react'
-import SideBar from '../../components/SideBar/SideBar';
-import AdminBar from '../../components/AdminBar/AdminBar';
+import React from "react";
+import SideBar from "../../components/SideBar/SideBar";
+import AdminBar from "../../components/AdminBar/AdminBar";
+import AdminHeader from "../../components/AdminHeader/AdminHeader";
 
 export default function Layout() {
-    const user = localStorage.getItem("userName");
+  const user = localStorage.getItem("userName");
   return (
     <>
-    {user === "test1" ? (
+      {user === "test1" ? (
         <SideBar />
       ) : user === "test2" ? (
-        <div style={{minHeight:"50vh"}}>
-        <AdminBar />
+        <div style={{ minHeight: "50vh" }}>
+          <AdminBar />
         </div>
-      ): null}
-      </>
-  )
+      ) : user === "test3" ? (
+        <div style={{ minHeight: "50vh" }}>
+          <AdminHeader />
+        </div>
+      ) : null}
+    </>
+  );
 }
