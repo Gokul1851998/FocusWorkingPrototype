@@ -13,9 +13,20 @@ import { SideBarIcons, primaryButtonColor, thirdColor } from "../../config";
 import { Link } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../config/themeContext";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : thirdColor,
+
+
+export default function AdminGridMenu() {
+  const navigate = useNavigate()
+  const [sideBarIcons, setSideBarIcons] = useState([]);
+  const [list, setList] = useState([{ icon: <HomeIcon />, id: 0 }]);
+  const [value, setValue] = useState(0); // Example state for filtering icons
+  const [key, setKey] = useState(Date.now());
+ const { currentTheme,switchTheme } = useTheme();
+
+ const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : currentTheme.thirdColor,
   ...theme.typography.body1, // Increase font size
   padding: theme.spacing(4), // Increase padding
   textAlign: "center",
@@ -25,13 +36,6 @@ const Item = styled(Paper)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
-
-export default function AdminGridMenu() {
-  const navigate = useNavigate()
-  const [sideBarIcons, setSideBarIcons] = useState([]);
-  const [list, setList] = useState([{ icon: <HomeIcon />, id: 0 }]);
-  const [value, setValue] = useState(0); // Example state for filtering icons
-  const [key, setKey] = useState(Date.now());
   
 
   const handleBreadcrumbClick = (id) => {
@@ -137,7 +141,7 @@ export default function AdminGridMenu() {
                             minWidth: 0,
                             mb: 1,
                             justifyContent: "center",
-                            color: primaryButtonColor,
+                            color: currentTheme.primaryButtonColor,
                             fontSize: 40,
                           }}
                         >

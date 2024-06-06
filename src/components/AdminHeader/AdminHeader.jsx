@@ -3,9 +3,12 @@ import { AppBar, Toolbar, IconButton, Typography, Avatar, Menu, MenuItem, Box, G
 import { primaryColor,imageIcon } from '../../config';
 import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from 'react-router-dom';
+import LogoutIcon from "@mui/icons-material/Logout";
+import ThemeSelector from '../ThemeSelector/ThemeSelector';
+import { useTheme } from '../../config/themeContext';
 
 function AdminHeader() {
-
+  const { currentTheme,switchTheme } = useTheme();
     const appBarRef = useRef(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [openup, setOpenup] = useState(false);
@@ -24,20 +27,22 @@ function AdminHeader() {
       const handleClose = () => {
         setAnchorEl(null);
         setOpenup(false);
-        localStorage.removeItem("userName");
-        navigate("/")
       };
 
-      const handleCloseOpen = () => {
+    
+
+      const handleLogout = () => {
         setAnchorEl(null);
         setOpenup(false);
+        localStorage.removeItem("userName");
+         navigate("/");
       };
     
   return (
     <AppBar
         ref={appBarRef}
         position="fixed"
-        style={{ backgroundColor: primaryColor, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)" }}
+        style={{ backgroundColor: currentTheme.sideBarhorizontal, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)" }}
        
       >
         <Toolbar sx={{ justifyContent: "space-between"}}>
@@ -77,12 +82,46 @@ function AdminHeader() {
               id="basic-menu"
               anchorEl={anchorEl}
               open={openup}
-              onClose={handleCloseOpen}
+              onClose={handleClose}
               MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}
+              
             >
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleLogout} sx={{borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between' }}>
+    
+    Logout
+    <LogoutIcon style={{ marginLeft: 8 }} />
+  </MenuItem>
+  <MenuItem sx={{ borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between' }}>
+    Language
+    <Box sx={{ marginLeft: 2 }}>
+      {/* Add language selection dropdown or list here */}
+      <select>
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+      </select>
+    </Box>
+  </MenuItem>
+  <MenuItem
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    gap: 1,
+    width:"240px",
+    paddingBottom: '40px', // Ensure enough space for the ThemeSelector to be displayed
+    overflow: 'visible', // Ensure the ThemeSelector is not cut off
+  }}
+>
+  <Typography variant="body1">Choose Theme</Typography>
+  <Box sx={{ marginLeft: 2 ,width:"fit-Content"}}>
+    <ThemeSelector />
+  </Box>
+</MenuItem>
+
             </Menu>
           </div>
         </Toolbar>
