@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { Tooltip, Typography } from '@mui/material';
 import { primaryButtonColor, thirdColor } from '../../../../config';
+import { useTheme } from '../../../../config/themeContext';
 
 // Utility functions to handle list operations
 function not(a, b) {
@@ -24,6 +25,8 @@ export default function TransferList() {
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState([0, 1, 2, 3]);
   const [right, setRight] = React.useState([4, 5, 6, 7]);
+
+  const { currentTheme } = useTheme();
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -72,8 +75,8 @@ export default function TransferList() {
       gutterBottom
       component="div"
       sx={{
-        backgroundColor: thirdColor,
-        color: primaryButtonColor,
+        backgroundColor: currentTheme.thirdColor,
+        color: currentTheme.sideBarTextColor1,
         textAlign: "center",
         padding: "0px", // Adjust padding as necessary
         fontWeight: "bold", // Optional, makes header text bold
@@ -95,9 +98,9 @@ export default function TransferList() {
               role="listitem"
               onClick={handleToggle(value)}
               sx={{
-                backgroundColor: checked.indexOf(value) !== -1 ? "#E6E6FA" : "transparent", // Change color if selected
+                backgroundColor: checked.indexOf(value) !== -1 ? currentTheme.thirdColorLighter : "transparent", // Change color if selected
                 '&:hover': {
-                  backgroundColor: "#E6E6FA" // Lighter pink for hover
+                  backgroundColor: currentTheme.thirdColorLighter // Lighter pink for hover
                 }
               }}
               

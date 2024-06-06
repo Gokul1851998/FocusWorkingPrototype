@@ -43,6 +43,7 @@ import { useState } from "react";
 import ProfileHistoryTable from "../CreateProfile/ProfileHistoryTable";
 import RoleHistoryTable from "./RoleHistoryTable";
 import TabDetails from "./RoleHistoryTab";
+import { useTheme } from "../../../../config/themeContext";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -63,9 +64,9 @@ const Accordion = styled((props) => (
       }
       {...props}
     />
-  ))(({ theme }) => ({
-    color: primaryButtonColor,
-    backgroundColor: thirdColor,
+  ))(({ theme,currentTheme  }) => ({
+    // color: primaryButtonColor,
+    // backgroundColor: thirdColor,
     flexDirection: "row",
     justifyContent: "space-between",
     "& .MuiAccordionSummary-content": {
@@ -75,7 +76,7 @@ const Accordion = styled((props) => (
     },
     "& .MuiSvgIcon-root": {
       fontSize: "1.5rem",
-      color: primaryButtonColor,
+      color: currentTheme.sideBarTextColor1,
       marginRight: theme.spacing(1),
     },
   }));
@@ -85,7 +86,7 @@ const Accordion = styled((props) => (
     borderTop: "1px solid rgba(0, 0, 0, .125)",
   }));
 
-  function BasicBreadcrumbs() {
+  function BasicBreadcrumbs({currentTheme}) {
     return (
       <div role="presentation" style={{display:"flex",flexDirection:"row",maxWidth:"fit-content",alignItems:"center"}} >
         
@@ -95,14 +96,14 @@ const Accordion = styled((props) => (
         //       "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
         //       "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
         //     }} 
-            separator={<NavigateNextIcon fontSize="small" sx={{color:primaryButtonColor}} />}
+            separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}} />}
           aria-label="breadcrumb">
         
         <Link
         underline="hover"
-        sx={{ display: "flex", alignItems: "center", fontSize: "1rem"  }} // Reduce font size
+        sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
         key="1"
-        color="white"
+        
         
       >
         <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
@@ -111,14 +112,14 @@ const Accordion = styled((props) => (
       <Link
         underline="hover"
         key="2"
-        color="white"
-        sx={{ fontSize: "1rem"  }}
+        
+        sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}
         
       >
         Security
       </Link>,
      
-      <Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
+      <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
       Create Role
       </Typography>,
         </Breadcrumbs>
@@ -126,7 +127,7 @@ const Accordion = styled((props) => (
       </div>
     );
   }
-  const DefaultIcons = ({iconsClick,detailPageId}) => {
+  const DefaultIcons = ({iconsClick,detailPageId,currentTheme}) => {
     
     return (
       <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
@@ -137,11 +138,11 @@ const Accordion = styled((props) => (
               onClick={()=>iconsClick("GetHistory")}
             >
               <Stack direction="column" alignItems="center">
-        <HistoryIcon sx={{ color:primaryButtonColor }} />
+        <HistoryIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   History
                 </Typography>
@@ -156,11 +157,11 @@ const Accordion = styled((props) => (
                 //onClick={()=>iconsClick("close")}
               >
                 <Stack direction="column" alignItems="center">
-          <SaveIcon sx={{ color:primaryButtonColor }} />
+          <SaveIcon sx={{ color: currentTheme.actionIcons, }} />
           <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Save
                   </Typography>
@@ -173,11 +174,11 @@ const Accordion = styled((props) => (
                 //onClick={()=>iconsClick("close")}
               >
                 <Stack direction="column" alignItems="center">
-          <DeleteIcon sx={{ color:primaryButtonColor }} />
+          <DeleteIcon sx={{ color: currentTheme.actionIcons, }} />
           <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                    style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Delete
                   </Typography>
@@ -192,11 +193,11 @@ const Accordion = styled((props) => (
               onClick={()=>iconsClick("GetUsersOnRole")}
             >
               <Stack direction="column" alignItems="center">
-        <PersonIcon sx={{ color:primaryButtonColor }} />
+        <PersonIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Get Users On Role
                 </Typography>
@@ -211,11 +212,11 @@ const Accordion = styled((props) => (
                 onClick={()=>iconsClick("close")}
               >
                 <Stack direction="column" alignItems="center">
-          <CloseIcon sx={{ color:primaryButtonColor }} />
+          <CloseIcon sx={{ color: currentTheme.actionIcons, }} />
           <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Close
                   </Typography>
@@ -245,6 +246,8 @@ const Accordion = styled((props) => (
     const [openUsersOnRole, setOpenUsersOnRole] = React.useState(false)
     const [openHistory, setOpenHistory] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
+
+    const { currentTheme } = useTheme();
   
     const handleRowClick = (row) => {
 
@@ -300,15 +303,15 @@ const handleCloseUsersOnRole = ()=>{
     
     return (
       <Box sx={{ display: "flex",flexDirection:"column",width:"100%"}}>
-    <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
+    <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",paddingLeft: 1.5,
             paddingRight: 1.5,}}>   
-       <BasicBreadcrumbs/>
-       <DefaultIcons detailPageId={detailPageId} iconsClick={handleIconsClick}/>
+       <BasicBreadcrumbs currentTheme={currentTheme}/>
+       <DefaultIcons detailPageId={detailPageId} iconsClick={handleIconsClick} currentTheme={currentTheme}/>
        
     </Box>
     <Box sx={{ width:"100%",overflowX: 'hidden',display:"flex",flexDirection:"column",maxHeight:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
     <Box sx={{pl:3,display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-        <Typography sx={{fontSize:"20px",color:secondryColor}}>
+        <Typography sx={{fontSize:"20px"}}>
           Create Role
         </Typography>
         
@@ -342,7 +345,8 @@ const handleCloseUsersOnRole = ()=>{
             id="panel1d-header"
             className
             expanded={expanded === "panel1"}
-            sx={{alignItems:"center"}}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.secondaryColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
+            currentTheme={currentTheme}
           >
             <IconButton
          
@@ -375,6 +379,8 @@ const handleCloseUsersOnRole = ()=>{
             id="panel2d-header"
             className
             expanded={expanded === "panel2"}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.secondaryColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
+            currentTheme={currentTheme}
           >
             <IconButton
          
@@ -412,6 +418,8 @@ const handleCloseUsersOnRole = ()=>{
             id="panel3d-header"
             className
             expanded={expanded === "panel3"}
+            currentTheme={currentTheme}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.secondaryColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
           >
             <IconButton
          
@@ -449,6 +457,8 @@ const handleCloseUsersOnRole = ()=>{
             id="panel4d-header"
             className
             expanded={expanded === "panel4"}
+            currentTheme={currentTheme}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.secondaryColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
           >
             <IconButton
          
@@ -481,6 +491,8 @@ const handleCloseUsersOnRole = ()=>{
             id="panel5d-header"
             className
             expanded={expanded === "panel5"}
+            currentTheme={currentTheme}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.secondaryColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
           >
             <IconButton
          
@@ -513,6 +525,8 @@ const handleCloseUsersOnRole = ()=>{
             id="panel6d-header"
             className
             expanded={expanded === "panel6"}
+            currentTheme={currentTheme}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.secondaryColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
           >
             <IconButton
          

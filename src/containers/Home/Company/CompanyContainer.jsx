@@ -419,7 +419,7 @@ export default function CompanyContainer({ pageType,pageId }) {
             id="panel1d-header"
             className
             expanded={expanded === "panel1"}
-            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.thirdColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.secondaryColor, border: `1px solid ${currentTheme.sideBarTextColor1}` }}
             currentTheme={currentTheme}
           >
             <IconButton
@@ -799,7 +799,7 @@ export default function CompanyContainer({ pageType,pageId }) {
             className
             expanded={expanded === "panel2"}
             currentTheme={currentTheme}
-            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.thirdColor,border:`1px solid ${currentTheme.sideBarTextColor1}` }}
+            sx={{ alignItems: "center", color: currentTheme.sideBarTextColor1, backgroundColor: currentTheme.secondaryColor,border:`1px solid ${currentTheme.sideBarTextColor1}` }}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}

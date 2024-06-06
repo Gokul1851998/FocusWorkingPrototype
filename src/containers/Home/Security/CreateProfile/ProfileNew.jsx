@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack, TextField, FormControlLabel, Checkbox, Divider, FormGroup, Button as ButtonM } from '@mui/material';
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
-import TableSecurity from '../../../../components/Tables/TableSecurity';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -38,6 +37,7 @@ import { CustomScroll } from 'react-custom-scroll';
 import SearchBox from '../../../../components/SearchBox/SearchBox';
 import RoleSelect1 from '../../../../components/Select/RoleSelect1';
 import SecurityInput from '../../../../components/Inputs/SecurityInput';
+import { useTheme } from '../../../../config/themeContext';
 
 const SelectAllIconStyle ={//style for selectAll and unselectAll
   fontSize: "0.8rem",
@@ -58,7 +58,7 @@ function handleClick(event) {
   console.info('You clicked a breadcrumb.');
 }
 
-function BasicBreadcrumbs() {
+function BasicBreadcrumbs({currentTheme}) {
   return (
     <div role="presentation" style={{display:"flex",flexDirection:"row",maxWidth:"fit-content",alignItems:"center"}} onClick={handleClick}>
       
@@ -68,14 +68,14 @@ function BasicBreadcrumbs() {
       //       "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
       //       "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
       //     }} 
-          separator={<NavigateNextIcon fontSize="small" sx={{color:primaryButtonColor}} />}
+          separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}} />}
         aria-label="breadcrumb">
       
       <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
-      color="white"
+      
       onClick={handleClick}
     >
       <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
@@ -84,14 +84,14 @@ function BasicBreadcrumbs() {
     <Link
       underline="hover"
       key="2"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+      
+      sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
       Security
     </Link>,
    
-    <Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
     Create Profile
     </Typography>,
       </Breadcrumbs>
@@ -99,7 +99,7 @@ function BasicBreadcrumbs() {
     </div>
   );
 }
-const DefaultIcons = ({iconsClick,detailPageId}) => {
+const DefaultIcons = ({iconsClick,detailPageId,currentTheme}) => {
   
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
@@ -107,15 +107,15 @@ const DefaultIcons = ({iconsClick,detailPageId}) => {
       {detailPageId !=0 ?
       <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
               onClick={()=>iconsClick("GetHistory")}
             >
               <Stack direction="column" alignItems="center">
-        <HistoryIcon sx={{ color:primaryButtonColor }} />
+        <HistoryIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   History
                 </Typography>
@@ -125,15 +125,15 @@ const DefaultIcons = ({iconsClick,detailPageId}) => {
       }      
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-        <SaveIcon sx={{ color:primaryButtonColor }} />
+        <SaveIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Save
                 </Typography>
@@ -142,15 +142,15 @@ const DefaultIcons = ({iconsClick,detailPageId}) => {
             {detailPageId !=0 ?
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-        <DeleteIcon sx={{ color:primaryButtonColor }} />
+        <DeleteIcon sx={{color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Delete
                 </Typography>
@@ -161,15 +161,15 @@ const DefaultIcons = ({iconsClick,detailPageId}) => {
             {detailPageId !=0 ?
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
               onClick={()=>iconsClick("GetRolesInProfile ")}
             >
               <Stack direction="column" alignItems="center">
-        <AssignmentIndIcon sx={{ color:primaryButtonColor }} />
+        <AssignmentIndIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Get Roles In Profile 
                 </Typography>
@@ -179,15 +179,15 @@ const DefaultIcons = ({iconsClick,detailPageId}) => {
             }
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
               onClick={()=>iconsClick("GetLoadFrom")}
             >
               <Stack direction="column" alignItems="center">
-        <FileCopyIcon sx={{ color:primaryButtonColor }} />
+        <FileCopyIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Load From
                 </Typography>
@@ -195,15 +195,15 @@ const DefaultIcons = ({iconsClick,detailPageId}) => {
             </IconButton>
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
               onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-        <CloseIcon sx={{ color:primaryButtonColor }} />
+        <CloseIcon sx={{ color: currentTheme.actionIcons, }} />
         <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
@@ -294,17 +294,7 @@ function Example() {//AdditionalIcons
   );
 }
 
-const buttonStyle ={
-  backgroundColor: secondryColor,
-  color: primaryButtonColor,
-  textTransform: 'none',
-  padding: "1px",
-  '&:hover': {
-    backgroundColor: secondryColor, // Change as needed
-    color: primaryButtonColor // Example hover color change
-  },
-  
-}
+
 
 
 const BusinessUnit = [
@@ -328,6 +318,18 @@ const ProfileNew = ({setPage,detailPageId}) => {
   const [select, setSelect] = React.useState([]);
   const [selectedOption, setSelectedOption] = React.useState('');
 
+  const { currentTheme } = useTheme();
+  const buttonStyle ={
+    backgroundColor: currentTheme.secondaryColor,
+    color: currentTheme.sideBarTextColor1,
+    textTransform: 'none',
+    padding: "1px",
+    '&:hover': {
+      backgroundColor: currentTheme.secondaryColor, // Change as needed
+      color: currentTheme.sideBarTextColor1 // Example hover color change
+    },
+    
+  }
 
   const handleChild = (data) => {
     console.log(data);
@@ -423,19 +425,19 @@ const ProfileNew = ({setPage,detailPageId}) => {
     setSelectedOption(event.target.value);
   };
 
-
+ 
  
 
   return (<Box sx={{ display: "flex",flexDirection:"column",width:"100%" }}>
-    <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",backgroundColor:secondryColor,paddingLeft: 1.5,
+    <Box sx={{display:"flex",width:"100%",flexDirection:"row",justifyContent:"space-between",paddingLeft: 1.5,
             paddingRight: 1.5,}}>   
-       <BasicBreadcrumbs/>
-       <DefaultIcons detailPageId={detailPageId} iconsClick={handleIconsClick}/>
+       <BasicBreadcrumbs currentTheme={currentTheme}/>
+       <DefaultIcons detailPageId={detailPageId} iconsClick={handleIconsClick} currentTheme={currentTheme}/>
        
     </Box>
     <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",height:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
       <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-      <Typography sx={{fontSize:"20px",color:secondryColor}}>
+      <Typography sx={{fontSize:"20px",color:"#000"}}>
           Create Profile
           </Typography>    
       <MDBCardBody>
@@ -491,14 +493,14 @@ const ProfileNew = ({setPage,detailPageId}) => {
         <Box sx={{ display: 'flex',border: '1px solid #c4c4c4', borderRadius: 1, overflow: 'hidden',mt:1 }}>
          
       <Box sx={{ width: '50%'}}>
-      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,color:primaryButtonColor,pl:1 }}>
+      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:currentTheme.thirdColor,color:primaryButtonColor,pl:1 }}>
           Menu
         </Typography>
       <Tree1 items={createProfileTree} />
       </Box>
       <Divider orientation="vertical" flexItem sx={{ borderWidth: 1 ,borderColor:thirdColor}} />
       <Box sx={{ width: '50%',  height: 550}} >
-      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,color:primaryButtonColor,pl:1 }}>
+      <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:currentTheme.thirdColor,color:primaryButtonColor,pl:1 }}>
       Restrictions
         </Typography>
         <Box sx={{height: 410,overflowY:"auto", scrollbarWidth:"thin"}}>
@@ -562,7 +564,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
     
   </Box>
   <Dialog open={openRoleInProfile} onClose={handleCloseGetRolesInProfile} aria-labelledby="form-dialog-title">
-  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,textAlign:"center"}}>
        Roles in Profile
         </Typography>
         <Box sx={{minHeight:"200px",ml:2}}>
@@ -602,7 +604,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
   </DialogActions>
 </Dialog>
 <Dialog open={openLoadFrom} onClose={handleCloseLoadFrom} aria-labelledby="form-dialog-title">
-  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center"}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,textAlign:"center"}}>
        Load From
         </Typography>
         <Box sx={{minHeight:"200px",ml:2}}>
@@ -650,7 +652,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
   </DialogActions>
 </Dialog>
 <Dialog open={openHistory} onClose={handleCloseLoadHistory}>
-  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:thirdColor,textAlign:"center",color:primaryButtonColor}}>
+  <Typography variant="h6" gutterBottom component="div" sx={{backgroundColor:currentTheme.thirdColor,textAlign:"center",color:currentTheme.sideBarTextColor1}}>
        History
         </Typography>
         <Box sx={{minHeight:"200px",padding:"30px",maxHeight:"80vh",overflowY:"scroll",scrollbarWidth:"thin"}}>

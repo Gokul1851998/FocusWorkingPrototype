@@ -14,6 +14,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
 import { UserTable, initialRows } from '../../../../config/securityConfig';
+import { useTheme } from '../../../../config/themeContext';
 
 
 
@@ -321,6 +322,8 @@ const UserSummary = ({setPage,setdetailPageId}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
 
+  const { currentTheme } = useTheme();
+
   useEffect(() => {
     setRows(UserTable)
   }, [UserTable])
@@ -431,6 +434,7 @@ const UserSummary = ({setPage,setdetailPageId}) => {
     onSelectedRowsChange={handleSelectedRowsChange}
     onRowDoubleClick={handleRowDoubleClick}
     totalRows={rows.length}
+    currentTheme={currentTheme}
     
     
   />
