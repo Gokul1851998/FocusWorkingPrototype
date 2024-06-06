@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { thirdColor } from "../../config";
+
 
 
 
@@ -99,8 +99,8 @@ function EnhancedTableHead(props) {
               border: " 1px solid #ddd",
               fontWeight: "600",
               font: "14px",
-              backgroundColor: thirdColor,
-              color: "white",paddingTop:"3px",paddingBottom:"3px"
+              backgroundColor: currentTheme.thirdColor,
+              color: currentTheme.tableHeaderColor,paddingTop:"3px",paddingBottom:"3px"
             }}
           >
             {/* <TableSortLabel
@@ -129,6 +129,7 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
+  
 };
 
 // const initialColumns = [
@@ -139,7 +140,7 @@ EnhancedTableHead.propTypes = {
 //   { id: 'test2', label: 'test2', minWidth: 150 }
 // ];
 export default function TableSecurity(props) {
-  const { rows,totalRows} = props;
+  const { rows,totalRows,currentTheme} = props;
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
@@ -475,8 +476,8 @@ export default function TableSecurity(props) {
                         border: " 1px solid #ddd",
                         fontWeight: "600",
                         font: "14px",
-                        backgroundColor: thirdColor,
-                        color: "white",
+                        backgroundColor: currentTheme.thirdColor,
+                        color: currentTheme.tableHeaderColor,
                         paddingTop: "3px",
                         paddingBottom: "3px",
                       }}
