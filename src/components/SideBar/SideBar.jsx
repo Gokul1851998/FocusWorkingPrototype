@@ -120,7 +120,7 @@ export default function SideBar() {
     switchColorMode(!checked);
     setChecked(!checked);
   };
-  console.log(isDarkMode);
+ 
   useEffect(() => {
     setChecked(isDarkMode); 
   }, [isDarkMode]);

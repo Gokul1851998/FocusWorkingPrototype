@@ -11,6 +11,8 @@ import {
   Tooltip,
   ListItemText,
   IconButton,
+  ListItemIcon,
+  Switch,
 } from "@mui/material";
 import {
   primaryColor,
@@ -74,6 +76,7 @@ const RecursiveMenu = ({ items, parentId, handleMenuItemClick, thirdColor }) => 
 
 function AdminBar() {
   const appBarRef = useRef(null);
+  const { currentTheme, switchColorMode, isDarkMode } = useTheme();
   const [anchor, setAnchor] = useState(null);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [submenuStack, setSubmenuStack] = useState([]);
@@ -81,7 +84,16 @@ function AdminBar() {
   const [key, setKey] = useState(Date.now());
   const [openup, setOpenup] = useState(false);
   const navigate = useNavigate();
-  const { currentTheme, switchTheme } = useTheme();
+  const [checked, setChecked] = React.useState(false);
+
+  const handleColorSwitch = (event) => {
+    switchColorMode(!checked);
+    setChecked(!checked);
+  };
+ 
+  useEffect(() => {
+    setChecked(isDarkMode); 
+  }, [isDarkMode]);
 
   const itemsIconStyle = {
     fontSize: "16px",
@@ -265,6 +277,23 @@ function AdminBar() {
                     <option value="de">German</option>
                   </select>
                 </Box>
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  borderBottom: "1px solid #e0e0e0",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <ListItemText>Dark Mode</ListItemText>
+                <ListItemIcon>
+                  <Switch
+                    checked={checked}
+                    onChange={handleColorSwitch}
+                    color="primary"
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                </ListItemIcon>
               </MenuItem>
               <MenuItem
                 sx={{
