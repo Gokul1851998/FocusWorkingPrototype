@@ -78,46 +78,66 @@ const themes = {
   // }
 };
 
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
+// const lightTheme = createTheme({
+//   palette: {
+//     mode: 'light',
+//   },
+// });
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: 'dark',
+//   },
+// });
 
 
 const ThemeContext = createContext();
 
+const getStoredTheme = () => {
+  const themeName = localStorage.getItem('theme') || 'default';
+  const colorMode = localStorage.getItem('color') === 'true';
+  return { themeName, colorMode };
+};
+
 export const ThemeProvider = ({ children }) => {
-  const theme = localStorage.getItem('color')
-  const [themeName, setThemeName] = useState(localStorage.getItem('theme') || 'default');
-  const [isDarkMode, setIsDarkMode] = useState(theme? darkTheme : lightTheme);
+  const { themeName: storedThemeName, colorMode: storedColorMode } = getStoredTheme();
+  const [themeName, setThemeName] = useState(storedThemeName);
+  const [isDarkMode, setIsDarkMode] = useState(storedColorMode);
+
   const currentTheme = themes[themeName];
+
+  useEffect(() => {
+    localStorage.setItem('theme', themeName);
+  }, [themeName]);
+
+  useEffect(() => {
+    localStorage.setItem('color', isDarkMode);
+  }, [isDarkMode]);
 
   const switchTheme = (newThemeName) => {
     setThemeName(newThemeName);
-    localStorage.setItem('theme', newThemeName); // Save new theme name to localStorage
   };
 
-  const switchColor = (color) => {
-    setIsDarkMode(color? darkTheme : lightTheme)
-    localStorage.setItem('color', color);
+  const switchColorMode = (color) => {
+    setIsDarkMode(color);
   };
+
+  const appliedTheme = createTheme({
+    ...currentTheme,
+    palette: {
+      mode: isDarkMode ? 'dark' : 'light',
+      ...currentTheme.palette,
+    },
+  });
 
   return (
-    <ThemeContext.Provider value={{ currentTheme, switchTheme, switchColor }}>
-        <MUIThemeProvider theme={isDarkMode}>
+    <ThemeContext.Provider value={{ currentTheme, switchTheme, switchColorMode,isDarkMode }}>
+      <MUIThemeProvider theme={appliedTheme}>
         <CssBaseline />
-      {children}
+        {children}
       </MUIThemeProvider>
     </ThemeContext.Provider>
   );
 };
 
-// Custom hook to use theme
 export const useTheme = () => useContext(ThemeContext);

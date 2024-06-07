@@ -103,11 +103,8 @@ const itemsTextStyle = {
   },
 };
 
-
-
-
 export default function SideBar() {
-  const { currentTheme,switchTheme, switchColor } = useTheme();
+  const { currentTheme, switchColorMode, isDarkMode } = useTheme();
   const [open, setOpen] = useState(false);
   const [sideBarIcons, setSideBarIcons] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -117,17 +114,16 @@ export default function SideBar() {
   const [openSubMenuId, setOpenSubMenuId] = useState(null);
   const [parentId, setparentId] = useState(null);
   const [key, setKey] = useState(Date.now());
+  const [checked, setChecked] = React.useState(false);
 
-  const [checked, setChecked] = React.useState(true);
-
-  const handleChange = (event) => {
-    console.log(event.target.checked);
-    setChecked(event.target.checked);
-    switchColor(event.target.checked)
+  const handleColorSwitch = (event) => {
+    switchColorMode(!checked);
+    setChecked(!checked);
   };
-
-  
-  
+  console.log(isDarkMode);
+  useEffect(() => {
+    setChecked(isDarkMode); 
+  }, [isDarkMode]);
 
   const itemsIconStyle = {
     fontSize: "16px", // Assuming you meant to adjust the size of the icon here
@@ -143,8 +139,8 @@ export default function SideBar() {
 
   useEffect(() => {
     //Used where pages/containers have multiple/sub containers
-    setKey(Date.now())
-  }, [submenuStack])
+    setKey(Date.now());
+  }, [submenuStack]);
 
   useEffect(() => {
     // Function to update the height state
@@ -193,7 +189,7 @@ export default function SideBar() {
       const simpleItem = {
         id: item.id,
         name: item.iconName,
-        key1:key
+        key1: key,
       };
       navigate(item?.url ?? "/url", { state: simpleItem });
       setSubmenuStack([]); //to close entire submenu
@@ -221,7 +217,7 @@ export default function SideBar() {
   };
   const handleLogout = () => {
     setAnchorEl(null);
-     navigate("/");
+    navigate("/");
   };
   useEffect(() => {
     fetchIconsFromApi().then((data) => {
@@ -246,10 +242,9 @@ export default function SideBar() {
         }
       })
     );
-  
+
     return resolvedIconsData;
   };
-  
 
   const handleDrawerOpen = () => {
     setOpen(!open);
@@ -266,7 +261,10 @@ export default function SideBar() {
       <AppBar
         ref={appBarRef}
         position="fixed"
-        style={{ background: currentTheme.sideBarhorizontal,boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)", }}
+        style={{
+          background: currentTheme.sideBarhorizontal,
+          boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
+        }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -287,7 +285,12 @@ export default function SideBar() {
               />
             </IconButton>
 
-            <Typography variant="h6" sx={{color:currentTheme.sideBarTextColor1}} noWrap component="div">
+            <Typography
+              variant="h6"
+              sx={{ color: currentTheme.sideBarTextColor1 }}
+              noWrap
+              component="div"
+            >
               Sang Solution
             </Typography>
           </div>
@@ -312,54 +315,69 @@ export default function SideBar() {
               MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}
-              
             >
-              <MenuItem onClick={handleLogout} sx={{borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between' }}>
-    
-    Logout
-    <LogoutIcon style={{ marginLeft: 8 }} />
-  </MenuItem>
-  <MenuItem sx={{ borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between' }}>
-    Language
-    <Box sx={{ marginLeft: 2 }}>
-      {/* Add language selection dropdown or list here */}
-      <select>
-        <option value="en">English</option>
-        <option value="es">Spanish</option>
-        <option value="fr">French</option>
-        <option value="de">German</option>
-      </select>
-    </Box>
-  </MenuItem>
-  <MenuItem sx={{ borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between' }}>
-    Dark Mode
-    <Box sx={{ marginLeft: 2 }}>
-    <Switch
-      checked={checked}
-      onChange={handleChange}
-      inputProps={{ 'aria-label': 'controlled' }}
-    />
-    </Box>
-  </MenuItem>
-  <MenuItem
-  sx={{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'start',
-    gap: 1,
-    width:"240px",
-    paddingBottom: '40px', // Ensure enough space for the ThemeSelector to be displayed
-    overflow: 'visible', // Ensure the ThemeSelector is not cut off
-  }}
->
-  <Typography variant="body1">Choose Theme</Typography>
-  <Box sx={{ marginLeft: 2 ,width:"fit-Content"}}>
-    <ThemeSelector />
-  </Box>
-  
-</MenuItem>
-
-
+              <MenuItem
+                onClick={handleLogout}
+                sx={{
+                  borderBottom: "1px solid #e0e0e0",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                Logout
+                <LogoutIcon style={{ marginLeft: 8 }} />
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  borderBottom: "1px solid #e0e0e0",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                Language
+                <Box sx={{ marginLeft: 2 }}>
+                  {/* Add language selection dropdown or list here */}
+                  <select>
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                  </select>
+                </Box>
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  borderBottom: "1px solid #e0e0e0",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <ListItemText>Dark Mode</ListItemText>
+                <ListItemIcon>
+                  <Switch
+                    checked={checked}
+                    onChange={handleColorSwitch}
+                    color="primary"
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                </ListItemIcon>
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "start",
+                  gap: 1,
+                  width: "240px",
+                  paddingBottom: "40px", // Ensure enough space for the ThemeSelector to be displayed
+                  overflow: "visible", // Ensure the ThemeSelector is not cut off
+                }}
+              >
+                <Typography variant="body1">Choose Theme</Typography>
+                <Box sx={{ marginLeft: 2, width: "fit-Content" }}>
+                  <ThemeSelector />
+                </Box>
+              </MenuItem>
             </Menu>
           </div>
         </Toolbar>
