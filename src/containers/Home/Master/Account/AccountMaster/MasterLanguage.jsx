@@ -103,39 +103,41 @@ const languagesList1 = [
 
 const MAX_ROWS = 20;
 
-const cellStyle = {
-  padding: '0px',
-  paddingLeft: '4px',
-  paddingRight: '4px',
-  border: '1px solid #ddd',
-  fontWeight: '600',
-  fontSize: '14px',
-  color: 'white',
-  paddingTop: '3px',
-  paddingBottom: '3px',
-};
 
-const headerCellStyle = {
-  ...cellStyle,
-  backgroundColor: thirdColor,
-  color: primaryButtonColor,
-};
-
-const bodyCell = {
-  padding: '0px',
-  border: '1px solid #ddd',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  minHeight: '30px',
-  lineHeight: '30px',
-};
 
 const MasterLanguage = ({ accountName }) => {
   const initialRows = [{ id: 1, language: 'English', master: accountName }];
   const { currentTheme,switchTheme } = useTheme();
   const [rows, setRows] = useState(initialRows);
   const [selectedLanguage, setSelectedLanguage] = useState('');
+
+  const cellStyle = {
+    padding: '0px',
+    paddingLeft: '4px',
+    paddingRight: '4px',
+    border: '1px solid #ddd',
+    fontWeight: '600',
+    fontSize: '14px',
+    color: currentTheme.sideBarTextColor1,
+    paddingTop: '3px',
+    paddingBottom: '3px',
+  };
+  
+  const headerCellStyle = {
+    ...cellStyle,
+    backgroundColor: currentTheme.thirdColor,
+    color: currentTheme.sideBarTextColor1,
+  };
+  
+  const bodyCell = {
+    padding: '0px',
+    border: '1px solid #ddd',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    minHeight: '30px',
+    lineHeight: '30px',
+  };
 
   useEffect(() => {
     // Assume you have a list of languages you want to show the name in

@@ -70,6 +70,7 @@ import AutoComplete2 from "../../../components/AutoComplete/AutoComplete2";
 import CheckBox1 from "../../../components/CheckBox/CheckBox1";
 import { entityList } from "../../../config/securityConfig";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 function handleClick(event) {
   event.preventDefault();
@@ -190,7 +191,7 @@ export default function FixedAssetsSettings(args) {
       color="white"
       onClick={handleClick}
     >
-      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      <SettingsIcon sx={{ mr: 0.5 }} fontSize="inherit" />
       Settings
     </Link>,
      <Link

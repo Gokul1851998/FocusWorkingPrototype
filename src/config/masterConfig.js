@@ -191,8 +191,8 @@ export const exchangeRateData = [
 export const exchangeRateHistoryData = [
   {
     MasterId: 1,
-    "Currency Name": "gtgt",
-    Description: "gg",
+    "Select Currency": "",
+    "Defined as": "",
   },
 
 ];

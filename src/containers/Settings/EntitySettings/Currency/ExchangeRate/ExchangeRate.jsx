@@ -64,6 +64,10 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import ExchangeRateTable from "./ExchangeRateTable";
+import { useTheme } from "../../../../../config/themeContext";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { entityList } from "../../../../../config/securityConfig";
+import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
 
 function handleClick(event) {
   event.preventDefault();
@@ -132,6 +136,14 @@ export default function ExchangeRate(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [selectedOption, setSelectedOption] = React.useState('');
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const { currentTheme } = useTheme();
+
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -175,33 +187,33 @@ export default function ExchangeRate(args) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
-      color="white"
+      
       onClick={handleClick}
     >
-      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-      Home
+      <SettingsIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      Settings
     </Link>,
     <Link
       underline="hover"
       key="2"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+     
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Master
+      Entity Settings
     </Link>,
     <Link
       underline="hover"
       key="3"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+      
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Account
+      Currency
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
       Exchange Rate
     </Typography>,
   ];
@@ -220,12 +232,12 @@ export default function ExchangeRate(args) {
             paddingLeft: 1.5,
             paddingRight: 1.5,
             zIndex: 1,
-            backgroundColor: secondryColor,
+            // backgroundColor: secondryColor,
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" />}
+             separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -244,11 +256,11 @@ export default function ExchangeRate(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <GetAppIcon style={{ color: "white" }} />
+                <GetAppIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Import
                 </Typography>
@@ -259,12 +271,12 @@ export default function ExchangeRate(args) {
               sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SwapHorizIcon style={{ color: "white" }} />
+                <SwapHorizIcon style={{ color: currentTheme.actionIcons, }} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Exchange Rate
                 </Typography>
@@ -275,12 +287,12 @@ export default function ExchangeRate(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <ClearAllIcon style={{ color: "white" }} />
+                <ClearAllIcon style={{ color: currentTheme.actionIcons, }} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Clear
                 </Typography>
@@ -291,11 +303,11 @@ export default function ExchangeRate(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: "white" }} />
+                <SaveIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Save
                 </Typography>
@@ -308,11 +320,11 @@ export default function ExchangeRate(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: "white" }} />
+                <CloseIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
@@ -329,6 +341,12 @@ export default function ExchangeRate(args) {
             padding: 2,
           }}
         >
+           <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={entityList}
+                  />
           <AutoComplete2 autoLabel="Base Currency" />
           <AccountInput label="With Effective Date" type="date" />
         </Box>

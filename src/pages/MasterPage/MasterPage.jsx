@@ -6,9 +6,6 @@ import AccountMaster from "../../containers/Home/Master/Account/AccountMaster/Ac
 import Footer from "../../components/Footer/Footer";
 import { useLocation } from "react-router-dom";
 import CustomerVendor from "../../containers/Home/Master/Account/CustomerVendor/CustomerVendor";
-import CurrencyMaster from "../../containers/Home/Master/Currency/CurrencyMaster/CurrencyMaster";
-import ExchangeRate from "../../containers/Home/Master/Currency/ExchangeRate/ExchangeRate";
-import ExchangeRateHistory from "../../containers/Home/Master/Currency/ExchangeCurrencyHistory/ExchangeRateHistoy";
 import Product from "../../containers/Home/Master/Product/Product/Product";
 import Unit from "../../containers/Home/Master/Product/Unit/Unit";
 import UnitConversion from "../../containers/Home/Master/Product/UnitConversion/UnitConversion";
@@ -40,12 +37,6 @@ export default function MasterPage() {
             <AccountMaster />
           ) : id === 20 ? (
             <CustomerVendor />
-          ) : id === 21 ? (
-            <CurrencyMaster />
-          ) : id === 22 ?(
-            <ExchangeRate />
-          ) : id === 23 ?(
-            <ExchangeRateHistory />
           ) : id === 24 ?(
             <Product />
           ) : id === 25 ?(

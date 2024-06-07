@@ -65,16 +65,12 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import ExchangeRateHistoryTable from "./ExchangeRateHistoryTable";
 import ExchangeRateHistTab from "./ExchangeRateHistTab";
+import { useTheme } from "../../../../../config/themeContext";
+import SettingsIcon from "@mui/icons-material/Settings";
+import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
+import { entityList } from "../../../../../config/securityConfig";
 
-const buttonStyle = {
-  textTransform: "none", // Set text transform to none for normal case
-  color: `${primaryButtonColor}`, // Set text color
-  backgroundColor: `${thirdColor}`, // Set background color
-  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
-  margin: 3,
-  fontSize: "12px",
-  padding: "6px 10px",
-};
+
 
 function handleClick(event) {
   event.preventDefault();
@@ -143,6 +139,53 @@ export default function ExchangeRateHistory(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [selectedOption, setSelectedOption] = React.useState('');
+  const [selectedBaseCurrency, setSelectedBaseCurrency] = useState('');
+  const [selectedCurrencies, setSelectedCurrencies] = useState([
+    { id: 1, selectCurrency: '', definedAs: '' }
+  ]);
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+    
+  };
+  const handleSelectChange1 = (event) => {
+    setSelectedBaseCurrency(event.target.value);
+    const data =[{ id: 1, selectCurrency: 'USD', definedAs: event.target.value ,rate:2.346},
+      { id: 2, selectCurrency: 'CNY', definedAs: event.target.value,rate:1.146 },
+    ]
+    setSelectedCurrencies(data);
+
+  };
+
+  const handleCurrencyChange = (index, key, value) => {
+    const updatedCurrencies = [...selectedCurrencies];
+    updatedCurrencies[index][key] = value;
+    setSelectedCurrencies(updatedCurrencies);
+
+  };
+
+  const handleAddCurrency = () => {
+    setSelectedCurrencies([...selectedCurrencies, { id: selectedCurrencies.length + 1, selectCurrency: '', definedAs: '' }]);
+  };
+
+  const handleRemoveCurrency = (index) => {
+    const updatedCurrencies = selectedCurrencies.filter((_, i) => i !== index);
+    setSelectedCurrencies(updatedCurrencies);
+  };
+
+  const { currentTheme } = useTheme();
+
+  const buttonStyle = {
+    textTransform: "none", // Set text transform to none for normal case
+    color: `${currentTheme.sideBarTextColor1}`, // Set text color
+    backgroundColor: `${currentTheme.thirdColor}`, // Set background color
+    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
+    margin: 3,
+    fontSize: "12px",
+    padding: "6px 10px",
+  };
+
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -186,33 +229,33 @@ export default function ExchangeRateHistory(args) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
-      color="white"
+      
       onClick={handleClick}
     >
-      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-      Home
+      <SettingsIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      Settings
     </Link>,
     <Link
       underline="hover"
       key="2"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+     
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Master
+      Entity Settings
     </Link>,
     <Link
       underline="hover"
       key="3"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+      
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Account
+      Currency
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
       Exchange Rate History
     </Typography>,
   ];
@@ -231,12 +274,12 @@ export default function ExchangeRateHistory(args) {
             paddingLeft: 1.5,
             paddingRight: 1.5,
             zIndex: 1,
-            backgroundColor: secondryColor,
+            // backgroundColor: secondryColor,
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" />}
+              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -255,11 +298,11 @@ export default function ExchangeRateHistory(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <GetAppIcon style={{ color: "white" }} />
+                <GetAppIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Import
                 </Typography>
@@ -270,12 +313,12 @@ export default function ExchangeRateHistory(args) {
               sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SwapHorizIcon style={{ color: "white" }} />
+                <SwapHorizIcon style={{ color: currentTheme.actionIcons }} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Exchange Rate
                 </Typography>
@@ -286,12 +329,12 @@ export default function ExchangeRateHistory(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <ClearAllIcon style={{ color: "white" }} />
+                <ClearAllIcon style={{ color: currentTheme.actionIcons }} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Clear
                 </Typography>
@@ -302,11 +345,11 @@ export default function ExchangeRateHistory(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: "white" }} />
+                <SaveIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Save
                 </Typography>
@@ -319,11 +362,11 @@ export default function ExchangeRateHistory(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: "white" }} />
+                <CloseIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
@@ -348,7 +391,22 @@ export default function ExchangeRateHistory(args) {
               padding: 2,
             }}
           >
-            <AutoComplete2 autoLabel="Base Currency" />
+            <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={entityList}
+                  />
+            <RoleSelect1
+              label="Base Currency"
+              value={selectedBaseCurrency}
+              onChange={handleSelectChange1}
+              options={[
+                { value: 'AED', label: 'AED' },
+                { value: 'USD', label: 'USD' },
+                { value: 'CNY', label: 'CNY' },
+              ]}
+            />
             <AccountInput label="Date Range" type="date" />
             <AccountInput label="From Date" type="date" />
             <AccountInput label="To Date" type="date" />
@@ -367,7 +425,12 @@ export default function ExchangeRateHistory(args) {
                 Clear
               </Button>
             </Stack>
-            <ExchangeRateHistoryTable />
+            <ExchangeRateHistoryTable
+            baseCurrency={selectedBaseCurrency}
+            currencies={selectedCurrencies}
+            onCurrencyChange={handleCurrencyChange}
+            onAddCurrency={handleAddCurrency}
+            onRemoveCurrency={handleRemoveCurrency} />
         </MDBCard>
         
         <MDBCard
@@ -378,7 +441,7 @@ export default function ExchangeRateHistory(args) {
             margin: 10,
           }}
         >
-             <ExchangeRateHistTab />
+             <ExchangeRateHistTab  selectedCurrencies={selectedCurrencies}/>
         </MDBCard>
       </React.StrictMode>
     </>
