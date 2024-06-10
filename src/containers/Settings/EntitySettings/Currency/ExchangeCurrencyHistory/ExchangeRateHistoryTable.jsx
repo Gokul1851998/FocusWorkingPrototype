@@ -42,6 +42,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { useTheme } from "../../../../../config/themeContext";
 import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
+import AdvancedSearchSelect from "../../../../../components/Select/AdvanceSearchSelect";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -153,7 +154,7 @@ export default function ExchangeRateHistoryTable({
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState([]);
 
-  console.log(currencies);
+ 
 
   const { currentTheme } = useTheme();
 
@@ -260,7 +261,7 @@ export default function ExchangeRateHistoryTable({
           boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
         }}
       >
-        {currencies.length > 0 && (
+        {currencies && (
           <TableContainer
             style={{
               display: "block",
@@ -284,10 +285,12 @@ export default function ExchangeRateHistoryTable({
                 <TableRow>
                   <TableCell
                     sx={{
-                      padding: "4px",
+                      padding: "0px",
                       border: "1px solid #ddd",
                       whiteSpace: "nowrap",
                       cursor: "pointer",
+                      minWidth:"50px",
+                      textAlign:"center"
                     }}
                   ></TableCell>
                   <TableCell
@@ -295,6 +298,7 @@ export default function ExchangeRateHistoryTable({
                       border: "1px solid #ddd",
                       cursor: "pointer",
                       color: currentTheme.sideBarTextColor1,
+                      minWidth:"250px",
                     }}
                     align="left"
                     padding="normal"
@@ -306,6 +310,7 @@ export default function ExchangeRateHistoryTable({
                       border: "1px solid #ddd",
                       cursor: "pointer",
                       color: currentTheme.sideBarTextColor1,
+                      minWidth:"250px",
                     }}
                     align="left"
                     padding="normal"
@@ -317,7 +322,9 @@ export default function ExchangeRateHistoryTable({
               <TableBody>
                 {currencies.map((currency, index) => (
                   <TableRow key={currency.id} sx={{ cursor: "pointer" }}>
-                    <TableCell padding="checkbox">
+                    <TableCell sx={{
+                      textAlign:"center",
+                      padding:"0px"}}>
                       <PopupState
                         variant="popover"
                         popupId="demo-popup-popover"
@@ -356,7 +363,7 @@ export default function ExchangeRateHistoryTable({
                                 >
                                   <AddCircleIcon sx={{ fontSize: "1.2rem" }} />
                                 </IconButton>
-                                {currencies.length > 1 && (
+                                {currencies && (
                                   <IconButton
                                     onClick={() => {
                                       onRemoveCurrency(index);
@@ -387,11 +394,12 @@ export default function ExchangeRateHistoryTable({
                         textOverflow: "ellipsis",
                         padding: "0px",
                         fontSize: "0.75rem",
+                        width:"250px"
                       }}
                       align="left"
                     >
-                      <RoleSelect1
-                        value={currency.selectCurrency}
+                      <AdvancedSearchSelect
+                        value={currency?.selectCurrency}
                         onChange={(e) =>
                           onCurrencyChange(
                             index,
@@ -403,6 +411,8 @@ export default function ExchangeRateHistoryTable({
                           { value: "USD", label: "USD" },
                           { value: "CNY", label: "CNY" },
                         ]}
+                         width="250px"
+                       
                       />
                     </TableCell>
                     <TableCell
@@ -413,20 +423,23 @@ export default function ExchangeRateHistoryTable({
                         textOverflow: "ellipsis",
                         padding: "0px",
                         fontSize: "0.75rem",
+                        width:"250px"
                       }}
                       align="left"
                     >
-                      <RoleSelect1
-                        value={currency.definedAs}
+                      <AdvancedSearchSelect
+                        value={currency?.definedAs}
                         onChange={(e) =>
                           onCurrencyChange(index, "definedAs", e.target.value)
                         }
                         options={[
                           { value: "AED", label: "AED" },
-                          { value: baseCurrency, label: baseCurrency },
+                          // { value: baseCurrency, label: baseCurrency },
                           { value: "USD", label: "USD" },
                           { value: "CNY", label: "CNY" },
                         ]}
+                        width="250px"
+                        
                       />
                     </TableCell>
                   </TableRow>

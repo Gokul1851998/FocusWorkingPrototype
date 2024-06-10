@@ -166,7 +166,7 @@ export default function ExchangeRateHistory(args) {
   };
 
   const handleAddCurrency = () => {
-    setSelectedCurrencies([...selectedCurrencies, { id: selectedCurrencies.length + 1, selectCurrency: '', definedAs: '' }]);
+    setSelectedCurrencies([...selectedCurrencies, { id: selectedCurrencies.length + 1, selectCurrency: '', definedAs: '', rate: 0  }]);
   };
 
   const handleRemoveCurrency = (index) => {

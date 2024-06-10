@@ -171,7 +171,7 @@ function BasicBreadcrumbs({currentTheme}) {
 const DefaultIcons = ({ iconsClick, detailPageId,currentTheme }) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-      {detailPageId !=0 ?
+      {/* {detailPageId !=0 ?
       <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -189,7 +189,7 @@ const DefaultIcons = ({ iconsClick, detailPageId,currentTheme }) => {
               </Stack>
             </IconButton>
             :null
-      }
+      } */}
       {detailPageId != 0 ? (
       <IconButton
         aria-label="New"
@@ -820,7 +820,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         disabled={formData.userType === "Group"}
                       />
                     </MDBCol>
-                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                    {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                       <Autocomplete2
                         autoLabel={formData.PUserType?`${formData.PUserType} Name`:""}
                         formData={{
@@ -832,7 +832,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         }}
                         disabled={!formData.PUserType}
                       />
-                    </MDBCol>
+                    </MDBCol> */}
                     {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                       <RoleSelect1
                         label="CRM Roles"

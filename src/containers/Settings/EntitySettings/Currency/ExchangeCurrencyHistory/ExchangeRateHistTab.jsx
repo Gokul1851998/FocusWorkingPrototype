@@ -63,7 +63,7 @@ export default function ExchangeRateHistTab({ selectedCurrencies }) {
         {/* <Tab icon={<EqualizerIcon/>} sx={{ textTransform: "none" }} label="Graph" {...a11yProps(1)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
-        {selectedCurrencies.length>1 &&
+        {selectedCurrencies.length>0 &&
       <ExchangeRateHistoryResultTable currencies={selectedCurrencies}/>
       }
       </TabPanel>

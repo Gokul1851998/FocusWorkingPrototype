@@ -104,7 +104,7 @@ const DefaultIcons = ({iconsClick,detailPageId,currentTheme}) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
       
-      {detailPageId !=0 ?
+      {/* {detailPageId !=0 ?
       <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
@@ -122,7 +122,7 @@ const DefaultIcons = ({iconsClick,detailPageId,currentTheme}) => {
               </Stack>
             </IconButton>
             :null
-      }      
+      }       */}
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}

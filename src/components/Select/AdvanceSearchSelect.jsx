@@ -1,7 +1,15 @@
 import React from 'react';
-import { Select, MenuItem, FormControl } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel, InputAdornment, IconButton, OutlinedInput } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-export default function AdvancedSearchSelect({ value, onChange, options, disabled, width }) {
+export default function AdvancedSearchSelect({ label, value, onChange, options, disabled, width }) {
+  const handleClear = (event) => {
+    event.stopPropagation(); // Prevent the dropdown from opening
+    onChange({ target: { value: '' } });
+  };
+
+
   return (
     <FormControl
       margin="normal"
@@ -24,17 +32,35 @@ export default function AdvancedSearchSelect({ value, onChange, options, disable
         },
       }}
     >
+      <InputLabel>{label}</InputLabel>
       <Select
         value={value}
         onChange={onChange}
         size="small"
         disabled={disabled}
         autoWidth={false}
-        sx={{
-          height: 30,
-          fontSize: "0.75rem",
-          padding: 0,
-        }}
+      
+        IconComponent={(props) => (
+          value ? null : <ArrowDropDownIcon {...props} />
+        )}
+        input={
+          <OutlinedInput
+            endAdornment={
+              value && (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="clear"
+                    onClick={handleClear}
+                    size="small"
+                    sx={{ ml: 1 }}
+                  >
+                    <ClearIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              )
+            }
+          />
+        }
         MenuProps={{
           PaperProps: {
             style: {
@@ -43,7 +69,13 @@ export default function AdvancedSearchSelect({ value, onChange, options, disable
             },
           },
         }}
+        sx={{
+          height: 30,
+          fontSize: "0.75rem",
+          padding: 0,
+        }}
       >
+        
         {options.map((option, index) => (
           <MenuItem key={index} value={option.value}>
             {option.label}
