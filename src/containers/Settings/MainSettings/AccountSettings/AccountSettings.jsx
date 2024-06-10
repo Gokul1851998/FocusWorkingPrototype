@@ -77,6 +77,7 @@ import AccountSettingsTable from "./AccountSettingsTable";
 import { entityList } from "../../../../config/securityConfig";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
 import TagTable from "../TagSettings/TagTable";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 function handleClick(event) {
   event.preventDefault();

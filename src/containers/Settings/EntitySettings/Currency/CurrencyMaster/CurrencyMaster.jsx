@@ -10,8 +10,7 @@ import {
   secondryColor,
   thirdColor,
 } from "../../../../../config";
-import { accountTree } from "../../../../../config/masterConfig";
-import TableAccounts from "../../../../../components/Tables/TableAccounts";
+
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
@@ -65,8 +64,13 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import SearchBox from "../../../../../components/SearchBox/SearchBox";
 import { CustomScroll } from "react-custom-scroll";
-import MasterLanguage from "../../Account/AccountMaster/MasterLanguage";
+
 import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
+import MasterLanguage from "../../../../Home/Master/Account/AccountMaster/MasterLanguage";
+import { useTheme } from "../../../../../config/themeContext";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { entityList } from "../../../../../config/securityConfig";
+import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
 
 function handleClick(event) {
   event.preventDefault();
@@ -105,9 +109,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -115,7 +119,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
   },
 }));
 
@@ -136,6 +140,13 @@ export default function CurrencyMaster(args) {
   const [expanded, setExpanded] = React.useState("panel1");
   const [select, setSelect] = React.useState([]);
   const [accountName, setAccountName] = React.useState("");
+  const [selectedOption, setSelectedOption] = React.useState('');
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const { currentTheme } = useTheme();
 
   const handleAccountNameChange = (event) => {
     setAccountName(event.target.value);
@@ -198,33 +209,33 @@ export default function CurrencyMaster(args) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
-      color="white"
+      
       onClick={handleClick}
     >
-      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-      Home
+      <SettingsIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      Settings
     </Link>,
     <Link
       underline="hover"
       key="2"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+     
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Master
+      Entity Settings
     </Link>,
     <Link
       underline="hover"
       key="3"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+      
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Account
+      Currency
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
       Currency Master
     </Typography>,
   ];
@@ -243,14 +254,14 @@ export default function CurrencyMaster(args) {
             paddingLeft: 1.5,
             paddingRight: 1.5,
             zIndex: 1,
-            backgroundColor: secondryColor,
+            // backgroundColor: secondryColor,
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" />}
+              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
               aria-label="breadcrumb"
-              style={{ color: primaryButtonColor }}
+             
             >
               {breadcrumbs}
             </Breadcrumbs>
@@ -267,11 +278,11 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <GetAppIcon style={{ color: "white" }} />
+                <GetAppIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Import
                 </Typography>
@@ -282,12 +293,12 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SwapHorizIcon style={{ color: "white" }} />
+                <SwapHorizIcon style={{ color: currentTheme.actionIcons, }} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Exchange Rate
                 </Typography>
@@ -298,12 +309,12 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <ClearAllIcon style={{ color: "white" }} />
+                <ClearAllIcon style={{ color: currentTheme.actionIcons,}} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Clear
                 </Typography>
@@ -314,11 +325,11 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: "white" }} />
+                <SaveIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Save
                 </Typography>
@@ -331,11 +342,11 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: "white" }} />
+                <CloseIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
@@ -343,6 +354,22 @@ export default function CurrencyMaster(args) {
             </IconButton>
           </Stack>
         </Box>
+        <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
+        <MDBCardBody>
+                <MDBRow>
+                  
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <RoleSelect1
+                    label="Business Entity"
+                    value={selectedOption}
+                    onChange={handleSelectChange}
+                    options={entityList}
+                  />
+                  </MDBCol>
+                  </MDBRow>
+              </MDBCardBody>
+        </Box>
+        
         <div>
           <Accordion
             expanded={expanded === "panel1"}
@@ -353,6 +380,7 @@ export default function CurrencyMaster(args) {
               id="panel1d-header"
               className
               expanded={expanded === "panel1"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
                 Currency Details
@@ -392,22 +420,22 @@ export default function CurrencyMaster(args) {
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AutoComplete2 autoLabel="Rounding Type" />
                       </MDBCol>
-                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                      {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Currency Unit" />
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Currency Unit Alias" />
-                      </MDBCol>
+                      </MDBCol> */}
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Currency Sub Unit" />
                       </MDBCol>
-                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                      {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Currency Sub Unit Alias" />
-                      </MDBCol>
+                      </MDBCol> */}
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Connector" />
                       </MDBCol>
-                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                      {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Connector Alias" />
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -415,7 +443,7 @@ export default function CurrencyMaster(args) {
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Denomination Value" />
-                      </MDBCol>
+                      </MDBCol> */}
                     </MDBRow>
                   </MDBCardBody>
                 </div>
@@ -529,6 +557,7 @@ export default function CurrencyMaster(args) {
               aria-controls="panel5d-content"
               id="panel5d-header"
               expanded={expanded === "panel5"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>Language</Typography>
             </AccordionSummary>
@@ -567,7 +596,7 @@ export default function CurrencyMaster(args) {
               </MDBCardBody>
             </AccordionDetails>
           </Accordion>
-          <Accordion
+          {/* <Accordion
             expanded={expanded === "panel6"}
             onChange={handleChange("panel6")}
           >
@@ -575,6 +604,7 @@ export default function CurrencyMaster(args) {
               aria-controls="panel6d-content"
               id="panel6d-header"
               expanded={expanded === "panel6"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
                 Business Unit
@@ -613,7 +643,7 @@ export default function CurrencyMaster(args) {
                 </MDBRow>
               </MDBCardBody>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
         </div>
       </React.StrictMode>
     </>

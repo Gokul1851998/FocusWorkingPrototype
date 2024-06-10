@@ -11,9 +11,9 @@ import FixedAssetsSettings from "../../containers/Settings/EntitySettings/FixedA
 import GeneralEntitySettings from "../../containers/Settings/EntitySettings/GeneralEntitySettings";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import Layout from "../Layout/Layout";
-import CurrencyMaster from "../../containers/Home/Master/Currency/CurrencyMaster/CurrencyMaster";
-import ExchangeRate from "../../containers/Home/Master/Currency/ExchangeRate/ExchangeRate";
-import ExchangeRateHistory from "../../containers/Home/Master/Currency/ExchangeCurrencyHistory/ExchangeRateHistoy";
+import CurrencyMaster from "../../containers/Settings/EntitySettings/Currency/CurrencyMaster/CurrencyMaster";
+import ExchangeRate from "../../containers/Settings/EntitySettings/Currency/ExchangeRate/ExchangeRate";
+import ExchangeRateHistory from "../../containers/Settings/EntitySettings/Currency/ExchangeCurrencyHistory/ExchangeRateHistoy";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({

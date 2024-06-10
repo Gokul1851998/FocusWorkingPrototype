@@ -55,6 +55,7 @@ import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
 import TagTable from "./TagTable";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
 import { entityList } from "../../../../config/securityConfig";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 function handleClick(event) {
   event.preventDefault();
