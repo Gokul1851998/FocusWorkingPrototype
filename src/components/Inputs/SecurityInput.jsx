@@ -20,7 +20,7 @@ const CustomTextField = styled(TextField)({
   },
 });
 
-export default function SecurityInput({label,type,disabled,value,setValue,width,multiline}) {
+export default function SecurityInput({label,type,disabled,value,setValue,width,multiline,mandatory}) {
   
   const handleChange = (event) => {
     const value = event.target.value
@@ -42,6 +42,7 @@ export default function SecurityInput({label,type,disabled,value,setValue,width,
             value={value}
             type={type}
             label={label}
+            required={mandatory}
             multiline={multiline}
             rows={multiline?3:null}
             autoComplete="nope"

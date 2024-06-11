@@ -73,6 +73,33 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
   ]);
 
 
+  const cellStyle = {
+    padding: "0px",
+                          paddingLeft: "4px",
+                          border: " 1px solid #ddd",
+                          fontWeight: "600",
+                          font: "14px",
+                          
+                          color: currentTheme.sideBarTextColor1,
+                          paddingTop: "3px",
+                          paddingBottom: "3px",
+  }
+  const headerCellStyle = {
+    ...cellStyle,
+    backgroundColor: currentTheme.thirdColor,
+    color: currentTheme.sideBarTextColor1,
+  };
+  const bodyCell={
+    padding: "0px",
+    paddingLeft: "4px",
+    border: " 1px solid #ddd",
+    minWidth: "100px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    
+  }
+
   useEffect(() => {
     const selected = searchSelectMappings[formData.searchSelect] || [];
     setSelectedNodes(selected);
@@ -225,15 +252,15 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
                     <IconButton
                 
                 aria-label="Close"
-                sx={{ fontSize: "0.8rem", padding: "0.5rem",color:thirdColor, }}
+                sx={{ fontSize: "0.8rem", padding: "0.5rem",color:currentTheme.thirdColor, }}
                 onClick={handleSearchClick}
               >
               
-                  <SearchIcon style={{ color: thirdColor }} />
+                  <SearchIcon style={{ color: currentTheme.thirdColor }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color:thirdColor, fontSize: "0.8rem" }}
+                    style={{ color:currentTheme.thirdColor, fontSize: "0.8rem" }}
                   >
                     Search
                   </Typography>

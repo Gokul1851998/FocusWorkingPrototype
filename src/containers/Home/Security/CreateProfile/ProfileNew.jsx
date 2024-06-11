@@ -157,7 +157,25 @@ const DefaultIcons = ({iconsClick,detailPageId,currentTheme}) => {
               </Stack>
             </IconButton>
              :null
-            }      
+            }     
+            {detailPageId !=0 ?
+            <IconButton
+                aria-label="Clone"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <FileCopyIcon sx={{ color: currentTheme.actionIcons, }}  />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    Clone
+                  </Typography>
+                </Stack>
+              </IconButton> 
+              :null
+            }  
             {detailPageId !=0 ?
             <IconButton
               aria-label="New"

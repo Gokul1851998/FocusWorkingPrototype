@@ -22,6 +22,7 @@ import { CustomScroll } from "react-custom-scroll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import MasterLanguage from "./MasterLanguage";
 import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
+import { useTheme } from "../../../../../config/themeContext";
 
 const weeks = [
   { title: "ABC", iId: 1 },
@@ -62,9 +63,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -72,7 +73,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
   },
 }));
 
@@ -113,6 +114,7 @@ export default function AccountDetails() {
           id="panel1d-header"
           className
           expanded={expanded === "panel1"}
+          currentTheme={currentTheme}
         >
           <Typography style={{ fontSize: "14px" }}>General</Typography>
         </AccordionSummary>
@@ -209,6 +211,7 @@ export default function AccountDetails() {
           aria-controls="panel2d-content"
           id="panel2d-header"
           expanded={expanded === "panel2"}
+          currentTheme={currentTheme}
         >
           <Typography style={{ fontSize: "14px" }}>Settings</Typography>
         </AccordionSummary>
@@ -366,6 +369,7 @@ export default function AccountDetails() {
           aria-controls="panel4d-content"
           id="panel4d-header"
           expanded={expanded === "panel"}
+          currentTheme={currentTheme}
         >
           <Typography style={{ fontSize: "14px" }}>VAT Settings</Typography>
         </AccordionSummary>
@@ -400,6 +404,7 @@ export default function AccountDetails() {
           aria-controls="panel5d-content"
           id="panel5d-header"
           expanded={expanded === "panel5"}
+          currentTheme={currentTheme}
         >
           <Typography style={{ fontSize: "14px" }}>Language</Typography>
         </AccordionSummary>
@@ -446,6 +451,7 @@ export default function AccountDetails() {
           aria-controls="panel6d-content"
           id="panel6d-header"
           expanded={expanded === "panel6"}
+          currentTheme={currentTheme}
         >
           <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
         </AccordionSummary>

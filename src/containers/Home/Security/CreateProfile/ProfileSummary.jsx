@@ -103,7 +103,7 @@ const DefaultIcons = ({iconsClick,currentTheme}) => {
                 </Typography>
               </Stack>
             </IconButton>
-            <IconButton
+            {/* <IconButton
                 aria-label="Clone"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -117,7 +117,7 @@ const DefaultIcons = ({iconsClick,currentTheme}) => {
                     Clone
                   </Typography>
                 </Stack>
-              </IconButton>
+              </IconButton> */}
               <IconButton
                 aria-label="Clone"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}

@@ -86,7 +86,7 @@ import UserHistoryTable from "./UserHistoryTable";
 import UserTabDetails from "./UserHistoryTab";
 import HistoryIcon from '@mui/icons-material/History';
 import { useTheme } from "../../../../config/themeContext";
-
+import { differenceInDays } from "date-fns"; // Import the differenceInDays function
 
 const textFieldStyle= {
   width: 60,
@@ -354,7 +354,9 @@ export default function UserDetails({ detailPageId, setPage }) {
     userType: "User",
     PUserType:"",
     PUserType1:"",
-    FromDate:" "
+    FromDate:" ",
+    LockedTill: " ",
+    Days: "", // Add Days to formData
   });
   const [image, setImage] = useState(null);
   const [checkedDays, setCheckedDays] = useState([])
@@ -389,6 +391,13 @@ export default function UserDetails({ detailPageId, setPage }) {
     setSelectedRow(null)
     setOpenHistory(false)
   }
+  const handleDateChange = (date) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    const daysDifference = differenceInDays(selectedDate, currentDate);
+
+    setformData({ ...formData, LockedTill: date, Days: daysDifference });
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -561,11 +570,11 @@ export default function UserDetails({ detailPageId, setPage }) {
                   <MDBRow>
                     {formData.userType === "User" ? (
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <SecurityInput label="Login Name" />
+                        <SecurityInput label="Login Name" mandatory={1}/>
                       </MDBCol>
                     ) : (
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <SecurityInput label="Group Name" />
+                        <SecurityInput label="Group Name" mandatory={1} />
                       </MDBCol>
                     )}
 
@@ -575,6 +584,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         value={formData?.ERPRoles ?? ""}
                         onChange={(e) => handleSelectChange(e, "ERPRoles")}
                         options={erpRoles}
+                        mandatory={1}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -593,6 +603,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         disabled={formData.userType === "Group"}
                         label="Password"
                         type={"password"}
+                        mandatory={1}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -600,6 +611,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         disabled={formData.userType === "Group"}
                         label="Confirm Password"
                         type={"password"}
+                        mandatory={1}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -805,6 +817,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         label="Email"
                         type={"email"}
                         disabled={formData.userType === "Group"}
+                        mandatory={1}
                       />
                     </MDBCol>
 
@@ -1305,21 +1318,22 @@ export default function UserDetails({ detailPageId, setPage }) {
 
                     <MDBCol lg="3" md="4" sm="6" xs="12">
                       <SecurityInput
-                        value={" "}
+                       value={formData.LockedTill ?? " "}
                         label="Locked Till"
                         type={"date"}
+                        setValue={(data) => handleDateChange(data)}
                         
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <SecurityInput label="Days" />
+                        <SecurityInput label="Days"  value={formData.Days}  type="number"  readOnly  />
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <SecurityInput label="Location" />
                       </MDBCol>
-                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                      {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <SecurityInput label="Signature" />
-                      </MDBCol>
+                      </MDBCol> */}
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <SecurityInput label="MAC Address" />
                       </MDBCol>
@@ -1391,6 +1405,56 @@ export default function UserDetails({ detailPageId, setPage }) {
                       }}
                     />
                   </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <div
+                        style={{
+                          marginLeft: "60px",
+                          width: "120px",
+                          alignItems: "center",
+                          textAlign: "center",
+                        }}
+                      >
+                        {/* <IconButton
+                    onClick={handleUploadClick}
+                    style={uploadIconstyle}
+                    sx={{ml:1,mb:1}}
+                  >
+                    <AddCircleIcon style={{ fontSize: '3rem'}} /> 
+                  </IconButton> */}
+                        {formData.signature ? (
+                          <div style={{ position: "relative" }}>
+                            <img
+                              src={formData.signature}
+                              alt="Uploaded"
+                              style={{ width: "60px", height: "60px" }}
+                            />
+                            <IconButton
+                              onClick={handleDeleteClick("signature")}
+                              style={{
+                                position: "absolute",
+                                right: -5,
+                                top: -10,
+                              }}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </div>
+                        ) : (
+                          <IconButton
+                            onClick={handleUploadClick("signature")}
+                            style={{...uploadIconstyle,color:currentTheme.thirdColor}}
+                          >
+                            <AddCircleIcon style={{ fontSize: "3rem" }} />
+                          </IconButton>
+                        )}
+                        <Typography
+                          sx={{ fontSize: "12px" }}
+                          variant="subtitle1"
+                        >
+                         Signature
+                        </Typography>
+                      </div>
+                    </MDBCol>
 
                     </MDBRow>
                   <UserDomainComponent/>
