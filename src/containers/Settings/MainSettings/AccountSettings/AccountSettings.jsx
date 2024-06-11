@@ -296,11 +296,11 @@ export default function AccountSettings(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem", }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: "white" ,color: currentTheme.actionIcons,}} />
+                <SaveIcon style={{ color: currentTheme.actionIcons,}} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem",color: currentTheme.actionIcons, }}
+                  style={{fontSize: "0.6rem",color: currentTheme.actionIcons, }}
                 >
                   Save
                 </Typography>
