@@ -443,7 +443,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
       <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Create Profile" />
+                    <AccountInput label="Profile Name" mandatory="1" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <RoleSelect1
@@ -451,6 +451,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
                     value={selectedOption}
                     onChange={handleSelectChange}
                     options={entityList}
+                    mandatory={1}
                   />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">

@@ -1,11 +1,12 @@
 import { Select, MenuItem, FormControl, InputLabel, FormHelperText } from '@mui/material';
 import React from 'react';
 
-export default function RoleSelect1({ label, value, onChange, options,disabled,helperText  }) {
+export default function RoleSelect1({ label, value, onChange, options,disabled,helperText ,mandatory }) {
   return (
     <FormControl
       margin="normal"
       size="small"
+      required={mandatory}
       sx={{
         width: 250, // Same width as the TextField
         "& .MuiInputBase-root": {

@@ -326,7 +326,7 @@ const handleCloseUsersOnRole = ()=>{
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AccountInput label="Role Name" />
+                  <AccountInput label="Role Name"  mandatory={1}/>
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -335,6 +335,7 @@ const handleCloseUsersOnRole = ()=>{
                     value={selectedOption}
                     onChange={handleSelectChange}
                     options={passwordPolicy}
+                    mandatory={1}
                   />
                   </MDBCol>
                   </MDBRow>

@@ -1,24 +1,32 @@
 export const initialRows = [{
     iId: 1,
-    profileName: 'Abc',
-    createdOn: '2020-01-01',
-    modifiedOn: '2020-01-01',
+    EntityName:"Max",
+    ProfileName: 'Profile1',
+    CreatedOn: '2020-01-01',
+    CreatedBy: 'user1',
+    ModifiedOn: '2020-01-01',
+    CheckerName: 'Sijina',
    
     
     
   },{
     iId: 2,
-    profileName: 'ghi1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc',
-    createdOn: '2020-01-01',
-    modifiedOn: '2020-01-01',
+    EntityName:"Oriel",
+    ProfileName: 'Profile2',
+    CreatedOn: '2020-01-01',
+    CreatedBy: 'user2',
+    ModifiedOn: '2020-01-01',
+    CheckerName: 'Sijina',
   
     
   },{
     iId: 3,
-    profileName: 'xyz',
-    createdOn: '2020-01-01',
-    modifiedOn: '2020-01-01',
-  
+    EntityName:"Shipping",
+    ProfileName: 'Profile3',
+    CreatedOn: '2020-01-01',
+    CreatedBy: 'user3',
+    ModifiedOn: '2020-01-01',
+    CheckerName: 'Sijina',
     
   }];
 
@@ -198,24 +206,30 @@ export const historyRole  = [
 
 export const RoleTable = [{
   iId: 1,
-  RoleName: 'Abc',
+  RoleName: 'Role1',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
  
   
   
 },{
   iId: 2,
-  RoleName: 'def',
+  RoleName: 'Role2',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
 
   
 },{
   iId: 3,
-  RoleName: 'xyz',
+  RoleName: 'Role3',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
 
   
 }];
@@ -253,24 +267,29 @@ export const roleRightSelectItem = [
 
 export const UserTable = [{
   iId: 1,
-  User_Group: 'Abc',
+  User_Group: 'Group1',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
  
   
   
 },{
   iId: 2,
-  User_Group: 'def',
+  User_Group: 'Group2',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
-
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
   
 },{
   iId: 3,
-  User_Group: 'xyz',
+  User_Group: 'Group3',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
 
   
 }];

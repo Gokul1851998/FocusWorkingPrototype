@@ -86,6 +86,9 @@ export default function AccountDetails() {
   const [select, setSelect] = React.useState([]);
   const [accountName, setAccountName] = React.useState("");
 
+
+  const { currentTheme } = useTheme();
+
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };

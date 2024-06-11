@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
 import React from 'react'
 
-export default function AccountInput({label,type}) {
+export default function AccountInput({label,type,mandatory}) {
   return (
     <TextField
             margin="normal"
@@ -12,6 +12,7 @@ export default function AccountInput({label,type}) {
             label={label}
             autoComplete="off"
             autoFocus
+            required={mandatory}
             sx={{
               width: 250, // Adjust the width as needed
               "& .MuiInputBase-root": {

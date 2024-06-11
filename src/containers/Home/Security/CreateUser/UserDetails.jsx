@@ -29,6 +29,7 @@ import {
   DialogContent,
   IconButton,
   Stack,
+  TextField,
 } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
@@ -85,6 +86,23 @@ import UserHistoryTable from "./UserHistoryTable";
 import UserTabDetails from "./UserHistoryTab";
 import HistoryIcon from '@mui/icons-material/History';
 import { useTheme } from "../../../../config/themeContext";
+
+
+const textFieldStyle= {
+  width: 60,
+  mx: 1,
+  height: 30, // Reducing the height
+  '& .MuiInputBase-root': {
+    height: '30px',
+    padding: '0 0px', // Reduces padding inside the input area
+  },
+  '& .MuiOutlinedInput-input': {
+    padding: '4px', // Adjust top and bottom padding
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: '1px solid', // Adjust border if needed
+  }
+}
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -1267,6 +1285,114 @@ export default function UserDetails({ detailPageId, setPage }) {
                     ))}
                     
                   </MDBRow>
+                  <MDBRow>
+                    
+                      {/* <MDBCol
+                     
+                      style={{ marginBottom: "20px" }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center',  }}>
+          <Typography sx={{ fontSize:"14px" }}>LockedTill</Typography>
+          <TextField
+            size="small"
+            type="number"
+            variant="outlined"
+           sx={textFieldStyle}
+          />
+           <Typography  sx={{fontSize:"14px" }}>days</Typography>
+        </Box>
+                    </MDBCol> */}
+
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput
+                        value={" "}
+                        label="Locked Till"
+                        type={"date"}
+                        
+                      />
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <SecurityInput label="Days" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <SecurityInput label="Location" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <SecurityInput label="Signature" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <SecurityInput label="MAC Address" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Password change next log"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Password never expired"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Password can't change"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Password expiry"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+
+                    </MDBRow>
                   <UserDomainComponent/>
 
                 </MDBCardBody>
