@@ -142,7 +142,7 @@ export default function ExchangeRateHistory(args) {
   const [selectedOption, setSelectedOption] = React.useState('');
   const [selectedBaseCurrency, setSelectedBaseCurrency] = useState('');
   const [selectedCurrencies, setSelectedCurrencies] = useState([
-    { id: 1, selectCurrency: '', definedAs: '' }
+    
   ]);
 
   const handleSelectChange = (event) => {
