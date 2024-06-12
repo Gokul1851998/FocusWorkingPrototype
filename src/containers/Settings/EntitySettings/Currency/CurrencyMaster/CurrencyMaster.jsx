@@ -72,6 +72,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { entityList } from "../../../../../config/securityConfig";
 import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
 import CurrencyEntityTable from "./CurrencyEntityTable";
+import CurrencyLanguage from "../CurrencyLanguage";
+import CurrencyLanguage1 from "../Currencylanguage1";
 
 function handleClick(event) {
   event.preventDefault();
@@ -153,12 +155,24 @@ export default function CurrencyMaster(args) {
       connector:""
     },
   ]);
+  const [coinsName, setCoinsName] = useState("");
+  const [currencySubUnit, setCurrencySubUnit] = useState("");
+  const [connector, setConnector] = useState("");
 
-  const handleConnectorChange = (index, value) => {
-    const newRows = [...rows];
-    newRows[index].connector = value;
-    setRows(newRows);
-  };
+  // Handle changes for new fields
+const handleCoinsNameChange = (event) => {
+  setCoinsName(event.target.value);
+};
+
+const handleCurrencySubUnitChange = (event) => {
+  setCurrencySubUnit(event.target.value);
+};
+
+const handleConnectorChange = (event) => {
+  setConnector(event.target.value);
+};
+
+ 
 
   const handleEntityChange = (index, value) => {
     const newRows = [...rows];
@@ -486,7 +500,7 @@ export default function CurrencyMaster(args) {
                         <AutoComplete2 autoLabel="ISO Currency Code" />
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <AccountInput label="Coins Name" />
+                        <AccountInput1 label="Coins Name" value={coinsName} onChange={handleCoinsNameChange} />
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput1
@@ -518,13 +532,13 @@ export default function CurrencyMaster(args) {
                         <AccountInput label="Currency Unit Alias" />
                       </MDBCol> */}
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <AccountInput label="Currency Sub Unit" />
+                        <AccountInput1 label="Currency Sub Unit" value={currencySubUnit} onChange={handleCurrencySubUnitChange} />
                       </MDBCol>
                       {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Currency Sub Unit Alias" />
                       </MDBCol> */}
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <AccountInput label="Connector" />
+                        <AccountInput1 label="Connector" value={connector} onChange={handleConnectorChange} />
                       </MDBCol>
                       {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Connector Alias" />
@@ -545,7 +559,7 @@ export default function CurrencyMaster(args) {
                         onRoundingTypeChange={handleRoundingTypeChange}
                         onAddRow={handleAddRow}
                         onRemoveRow={handleRemoveRow}
-                        onConnectorChange={handleConnectorChange}
+                        
                       />
                     </MDBRow>
                   </MDBCardBody>
@@ -695,7 +709,12 @@ export default function CurrencyMaster(args) {
                 </div>
               </MDBCol>
             </MDBRow> */}
-                <MasterLanguage accountName={accountName} />
+                {/* <CurrencyLanguage accountName={accountName}   coinsName={coinsName}
+                currencySubUnit={currencySubUnit}
+                connector={connector} /> */}
+                <CurrencyLanguage1  currencyName1={accountName}   coinsName1={coinsName}
+                currencySubUnit1={currencySubUnit}
+                connector1={connector} />
               </MDBCardBody>
             </AccordionDetails>
           </Accordion>

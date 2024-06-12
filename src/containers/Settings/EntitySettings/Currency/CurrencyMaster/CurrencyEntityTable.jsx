@@ -34,7 +34,7 @@ export default function CurrencyEntityTable({
   onRoundingTypeChange,
   onAddRow,
   onRemoveRow,
-  onConnectorChange
+ 
 }) {
   const { currentTheme } = useTheme();
 
