@@ -528,13 +528,13 @@ export default function ProductDetails() {
         </AccordionDetails>
       </Accordion>
       <Accordion
-        expanded={expanded === "panel5"}
-        onChange={handleChange("panel5")}
+        expanded={expanded === "panel7"}
+        onChange={handleChange("panel7")}
       >
         <AccordionSummary
-          aria-controls="panel5d-content"
-          id="panel5d-header"
-          expanded={expanded === "panel5"}
+          aria-controls="panel7d-content"
+          id="panel7d-header"
+          expanded={expanded === "panel7"}
         >
           <Typography style={{ fontSize: "14px" }}>Language</Typography>
         </AccordionSummary>

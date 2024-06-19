@@ -80,7 +80,7 @@ export default function CustomerVendorDetails() {
 
   const BusinessUnit = [
     { title: "Unit1", iId: 1 },
-    { title: "Unit3", iId: 2 },
+    { title: "Unit2", iId: 2 },
     { title: "Unit3", iId: 3 },
   ];
   const handleChild = (data) => {

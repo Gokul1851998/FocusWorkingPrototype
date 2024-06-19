@@ -504,3 +504,32 @@ export const entityList = [
  
 ];
 
+export const EntityMasterTable = [{
+  iId: 1,
+  EntityName: 'Entity1',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
+ 
+  
+  
+},{
+  iId: 2,
+  EntityName: 'Entity2',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
+  
+},{
+  iId: 3,
+  EntityName: 'Entity3',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
+
+  
+}];
+

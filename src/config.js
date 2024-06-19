@@ -56,5 +56,6 @@ export const SideBarIcons = [
   { id: 47, parent: 44, iconName: "Views Configuration", icon: null, url: "/Configuration" },
   { id: 48, parent: 44, iconName: "Work Flow", icon: null, url: "/Configuration" },
   { id: 49, parent: 44, iconName: "VAT Configuration", icon: null, url: "/Configuration" },
+  { id: 50, parent: 8, iconName: "EntityMaster", icon: null, url: "/EntityMaster" },
 
 ];
