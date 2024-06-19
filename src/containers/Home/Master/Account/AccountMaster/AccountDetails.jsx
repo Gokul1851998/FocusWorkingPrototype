@@ -17,12 +17,13 @@ import {
 } from "mdb-react-ui-kit";
 import AccountInput from "../../../../../components/Inputs/AccountInput";
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
-import SearchBox from "../../../../../components/SearchBox/SearchBox";
+import SearchBox2 from "../../../../../components/SearchBox/SearchBox2";
 import { CustomScroll } from "react-custom-scroll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import MasterLanguage from "./MasterLanguage";
 import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
 import { useTheme } from "../../../../../config/themeContext";
+import MasterOtherNames from "./MasterOtherNames";
 
 const weeks = [
   { title: "ABC", iId: 1 },
@@ -38,7 +39,7 @@ const language = [
 
 const BusinessUnit = [
   { title: "Unit1", iId: 1 },
-  { title: "Unit3", iId: 2 },
+  { title: "Unit2", iId: 2 },
   { title: "Unit3", iId: 3 },
 ];
 
@@ -84,7 +85,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function AccountDetails() {
   const [expanded, setExpanded] = React.useState("panel1");
-  const [select, setSelect] = React.useState([]);
+  const [selectedEntity, setSelectedEntity] = React.useState([]);
   const [accountName, setAccountName] = React.useState("");
 
 
@@ -96,6 +97,7 @@ export default function AccountDetails() {
 
   const handleChild = (data) => {
     
+    setSelectedEntity(data)
   };
 
   const handleAccountNameChange = (event) => {
@@ -124,11 +126,17 @@ export default function AccountDetails() {
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange}/>
+                    <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange} mandatory={1}/>
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Code" />
+                    <AccountInput label="Code"   mandatory={1}/>
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Account Type"  isMandatory={1}/>
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Default Currency" />
                   </MDBCol>
 
                   {/* <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -139,12 +147,10 @@ export default function AccountDetails() {
                     <AccountInput label="Credit Limit" />
                   </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Account Type" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                 
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Group" />
-                  </MDBCol>
+                  </MDBCol> */}
 
                   {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Credit Days" />
@@ -154,7 +160,7 @@ export default function AccountDetails() {
                     <AccountInput label="Revision Date" type="date" />
                   </MDBCol> */}
 
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Cheque Discount Limit" />
                   </MDBCol>
 
@@ -168,7 +174,7 @@ export default function AccountDetails() {
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Back A/C" />
-                  </MDBCol>
+                  </MDBCol> */}
 
                   {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <div
@@ -203,7 +209,7 @@ export default function AccountDetails() {
           </>
         </AccordionDetails>
       </Accordion>
-      <Accordion
+      {/* <Accordion
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
       >
@@ -220,51 +226,51 @@ export default function AccountDetails() {
             <div>
               <MDBCardBody>
                 <MDBRow>
-                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Debit/Credit Proposal" />
-                  </MDBCol> */}
+                  </MDBCol>
 
-                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Debit/Credit Required" />
-                  </MDBCol> */}
+                  </MDBCol>
 
-                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Exchange Adjustment Gain A/C" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Exchange Adjustment Loss A/C" />
-                  </MDBCol> */}
+                  </MDBCol>
 
-                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Primary Account" />
-                  </MDBCol> */}
+                  </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Default Currency" />
                   </MDBCol>
 
-                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Consolidation Method" />
-                  </MDBCol> */}
+                  </MDBCol>
 
-                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Payment Terms" />
-                  </MDBCol> */}
+                  </MDBCol>
 
-                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Reminder Terms" />
-                  </MDBCol> */}
+                  </MDBCol>
 
-                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Finance Charge Terms" />
-                  </MDBCol> */}
+                  </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </div>
           </>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
       {/* <Accordion
         expanded={expanded === "panel3"}
         onChange={handleChange("panel3")}
@@ -383,7 +389,7 @@ export default function AccountDetails() {
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="TRP" />
+                    <AccountInput label="TRN" />
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -476,10 +482,9 @@ export default function AccountDetails() {
                     <Typography style={{ fontSize: "14px", color: "gray" }}>
                       Business Entity
                     </Typography>
-                    <SearchBox
+                    <SearchBox2
                       initialItems={BusinessUnit }
-                      selected={select}
-                      params={"projects"}
+                      selected={selectedEntity}
                       handleChild={handleChild}
                     />
                   </CustomScroll>
@@ -489,6 +494,30 @@ export default function AccountDetails() {
           </MDBCardBody>
         </AccordionDetails>
       </Accordion>
+      <Accordion
+        expanded={expanded === "panel7"}
+        onChange={handleChange("panel7")}
+      >
+        <AccordionSummary
+          aria-controls="panel7d-content"
+          id="panel7d-header"
+          expanded={expanded === "panel7"}
+          currentTheme={currentTheme}
+        >
+          <Typography style={{ fontSize: "14px" }}>OTHER NAMES</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol  xs="12">
+               
+                 <MasterOtherNames accountName={accountName} entitiesList={selectedEntity} />
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </AccordionDetails>
+      </Accordion>
+
     </div>
   );
 }

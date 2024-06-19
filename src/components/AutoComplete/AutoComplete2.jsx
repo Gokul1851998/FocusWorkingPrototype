@@ -225,6 +225,7 @@ const AutoComplete2 = ({
       )}
       renderInput={(params) => (
         <TextField
+        required={isMandatory}
           {...params}
           label={autoLabel}
           // variant="standard"
