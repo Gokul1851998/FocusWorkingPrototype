@@ -604,11 +604,11 @@ export default function CompanyContainer({ pageType,pageId }) {
                       <SecurityInput label="Customer/Vendor Portal Link" width={"50%"} />
                     </MDBCol>
                   </MDBRow> */}
-                  <MDBRow style={{marginTop:"10px",marginBottom:"10px"}}>
+                  {/* <MDBRow style={{marginTop:"10px",marginBottom:"10px"}}>
                   <MDBCol >
                       <SecurityInput label="Database Path" width={"50%"} />
                     </MDBCol>
-                  </MDBRow>
+                  </MDBRow> */}
                   <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                       <div
@@ -617,6 +617,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                           width: "120px",
                           alignItems: "center",
                           textAlign: "center",
+                          marginTop:"10px"
                         }}
                       >
                         {/* <IconButton

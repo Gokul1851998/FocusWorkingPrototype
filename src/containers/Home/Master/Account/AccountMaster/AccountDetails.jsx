@@ -504,7 +504,7 @@ export default function AccountDetails() {
           expanded={expanded === "panel7"}
           currentTheme={currentTheme}
         >
-          <Typography style={{ fontSize: "14px" }}>OTHER NAMES</Typography>
+          <Typography style={{ fontSize: "14px" }}>Other Names</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <MDBCardBody>
