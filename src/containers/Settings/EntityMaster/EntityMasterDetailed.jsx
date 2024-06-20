@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack, TextField, FormControlLabel, Checkbox, Divider, FormGroup, Button as ButtonM, Tabs, Tab, List, ListItem, ListItemText } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Box, Typography, Stack, TextField, FormControlLabel, Checkbox, Divider, FormGroup, Button as ButtonM, Tabs, Tab, List, ListItem, ListItemText, ListItemButton } from '@mui/material';
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon  } from '@mui/icons-material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
@@ -451,12 +451,14 @@ const EntityMasterDetailed = ({setPage,detailPageId}) => {
             display: "flex",
             flexDirection: "column",
             paddingTop: "10px",
+            
           }}
         >
           <Tabs
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
+            sx={{paddingBottom:"10px"}}
           >
             <Tab sx={{ textTransform: "none" }} label="Entity Details" />
             <Tab sx={{ textTransform: "none" }} label="Entity Settings" />
@@ -468,21 +470,24 @@ const EntityMasterDetailed = ({setPage,detailPageId}) => {
             <Box sx={{ display: "flex", height: "100%" }}>
               <List
                 component="nav"
-                sx={{ width: "20%", borderRight: "1px solid #ccc" }}
+                sx={{ width: "140px", borderRight: "1px solid #ccc",padding:0 }}
               >
                 {options.map((option, index) => (
-                  <ListItem
-                    button
+                  <ListItemButton
                     key={option.label}
                     selected={selectedOption === index}
                     onClick={() => setSelectedOption(index)}
+                    sx={{
+                      "& .MuiTypography-root": { fontSize: "12px" }, // Adjust font size here
+                       // Adding padding to make the clickable area larger
+                    }}
                   >
                     <ListItemText primary={option.label} />
-                  </ListItem>
+                  </ListItemButton>
                 ))}
               </List>
               {options[selectedOption] && (
-                <Box sx={{ flex: 1, padding: 2 }}>
+                <Box sx={{ flex: 1 }}>
                   {options[selectedOption].component}
                 </Box>
               )}

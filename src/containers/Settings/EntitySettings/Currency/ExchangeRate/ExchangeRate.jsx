@@ -333,23 +333,24 @@ export default function ExchangeRate(args) {
           </Stack>
         </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-            padding: 2,
-          }}
-        >
+        <MDBCardBody>
+                <MDBRow>
+                <MDBCol lg="3" md="4" sm="6" xs="12">
            <RoleSelect1
                     label="Business Entity"
                     value={selectedOption}
                     onChange={handleSelectChange}
                     options={entityList}
-                  />
-          <AutoComplete2 autoLabel="Base Currency" />
-          <AccountInput label="With Effective Date" type="date" />
-        </Box>
+                  /> 
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+          <AutoComplete2 autoLabel="Base Currency" /> 
+          </MDBCol>
+          <MDBCol lg="3" md="4" sm="6" xs="12">
+          <AccountInput label="With Effective Date" type="date" /> 
+          </MDBCol>
+          </MDBRow>
+          </MDBCardBody>
 
         <ExchangeRateTable />
        

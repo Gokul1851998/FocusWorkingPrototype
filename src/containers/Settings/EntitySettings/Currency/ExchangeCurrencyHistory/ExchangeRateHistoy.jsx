@@ -375,28 +375,17 @@ export default function ExchangeRateHistory(args) {
           </Stack>
         </Box>
 
-        <MDBCard
-          className="text-center"
-          style={{
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-            zIndex: 1,
-            margin: 10,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
-              padding: 2,
-            }}
-          >
+        <MDBCardBody>
+                <MDBRow>
+                <MDBCol lg="3" md="4" sm="6" xs="12">
             <RoleSelect1
                     label="Business Entity"
                     value={selectedOption}
                     onChange={handleSelectChange}
                     options={entityList}
                   />
+                  </MDBCol>
+             <MDBCol lg="3" md="4" sm="6" xs="12">   
             <RoleSelect1
               label="Base Currency"
               value={selectedBaseCurrency}
@@ -407,11 +396,17 @@ export default function ExchangeRateHistory(args) {
                 { value: 'CNY', label: 'CNY' },
               ]}
             />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
             <AccountInput label="Date Range" type="date" />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
             <AccountInput label="From Date" type="date" />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
             <AccountInput label="To Date" type="date" />
-            
-          </Box>
+            </MDBCol>
+          </MDBRow>
           <Stack
               direction="row"
               spacing={1}
@@ -431,7 +426,7 @@ export default function ExchangeRateHistory(args) {
             onCurrencyChange={handleCurrencyChange}
             onAddCurrency={handleAddCurrency}
             onRemoveCurrency={handleRemoveCurrency} />
-        </MDBCard>
+        </MDBCardBody>
         
         <MDBCard
           className="text-center"
