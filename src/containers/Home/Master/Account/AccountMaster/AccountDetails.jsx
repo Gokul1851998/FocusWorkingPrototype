@@ -7,7 +7,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import { primaryButtonColor, thirdColor } from "../../../../../config";
-import { Checkbox, FormControlLabel, TextField } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import {
   MDBCard,
   MDBCardBody,
@@ -203,6 +203,33 @@ export default function AccountDetails() {
                       </CustomScroll>
                     </div>
                   </MDBCol> */}
+                </MDBRow>
+                <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "auto 1fr",
+                      alignItems: "center",
+                      width: "100%",
+                      mt: 3,
+                      mb: 3,
+                    }}
+                  >
+                    <Typography variant="body1">Account Mapping</Typography>
+                    <Box
+                      sx={{
+                        borderBottom: "1px dotted #000",
+                        marginLeft: "8px", // Adjust spacing to your preference
+                      }}
+                    />
+                  </Box>
+                <MDBRow>
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Exchange Adjustment Gain A/C" />
+                  </MDBCol>
+
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Exchange Adjustment Loss A/C" />
+                  </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </div>
