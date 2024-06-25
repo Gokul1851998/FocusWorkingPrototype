@@ -191,7 +191,7 @@ export default function AutocompleteSecurity({
             InputLabelProps={{
               style: {
                 zIndex:1,
-                backgroundColor: '#fff', // Set the background color you want here
+                // backgroundColor: '#fff', // Set the background color you want here
                 padding: '0 7px', // Optional: Padding to prevent background clipping text
                 borderRadius: '0px', // Optional: To make the background look nicer with rounded corners
                 fontSize:"12px",

@@ -22,7 +22,7 @@ export default function MasterEntitySelect({ label, value, onChange, options, di
           transform: "translate(10px, 5px) scale(0.9)",
         },
         "& .MuiInputLabel-shrink": {
-          backgroundColor: "#fff",
+          // backgroundColor: "#fff",
           paddingRight: "5px",
           transform: "translate(14px, -9px) scale(0.75)",
         },

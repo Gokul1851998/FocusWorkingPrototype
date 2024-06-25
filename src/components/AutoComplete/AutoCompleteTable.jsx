@@ -274,7 +274,7 @@ const AutoCompleteTable = ({
               fontSize: "16px",
               padding: '0 0px',
               zIndex:1,
-              backgroundColor: '#fff',
+              // backgroundColor: '#fff',
             },
           }}
           sx={{

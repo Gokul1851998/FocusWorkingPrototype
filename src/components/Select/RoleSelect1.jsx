@@ -16,7 +16,7 @@ export default function RoleSelect1({ label, value, onChange, options,disabled,h
           transform: "translate(10px, 5px) scale(0.9)", // Adjust label position when not focused
         },
         "& .MuiInputLabel-shrink": {
-          backgroundColor:"#fff",
+          // backgroundColor:"#fff",
           paddingRight:"5px",
           transform: "translate(14px, -9px) scale(0.75)", // Adjust label position when focused
         },
