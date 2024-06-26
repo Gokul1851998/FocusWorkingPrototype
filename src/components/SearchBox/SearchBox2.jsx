@@ -8,7 +8,7 @@ import { styled } from "@mui/material/styles";
 import "./SearchBox.css";
 
 const Root = styled("div")`
-  color: rgba(0, 0, 0, 0.85);
+  
   font-size: 14px;
 `;
 
@@ -76,7 +76,7 @@ const SearchBox = React.memo(({ initialItems, selected, handleChild }) => {
 
   return (
     <Root>
-      <InputWrapper id="inputwrapperSB">
+      <InputWrapper >
         {filteredItems && filteredItems.length > 0 && (
           <FormControlLabel
             control={
