@@ -1315,7 +1315,7 @@ const getBorderColor = () => {
                    
                 </MDBRow> */}
                 
-                <Box sx={{ display: "flex", height: "100%",pb:4,pt:2,mt:2,boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)", }}>
+                <Box sx={{ display: "flex", height: "100%",pb:4,pt:2,mt:2,boxShadow:'0px 2px 4px 4px rgba(128, 128, 128, 0.3)', }}>
               <List
                 component="nav"
                 sx={{ width: "140px", borderRight: "1px solid #ccc",padding:0 }}

@@ -6,7 +6,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { primaryButtonColor, thirdColor } from "../../../../../config";
+import { primaryButtonColor, thirdColor } from "../../../../config";
 import { Checkbox, FormControlLabel, TextField,IconButton, Box, List, ListItemButton, ListItemText } from "@mui/material";
 import {
   MDBCard,
@@ -15,20 +15,19 @@ import {
   MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
-import AccountInput from "../../../../../components/Inputs/AccountInput";
-import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
-import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
-import SecurityInput from "../../../../../components/Inputs/SecurityInput";
+import AccountInput from "../../../../components/Inputs/AccountInput";
+import AutocompleteSecurity from "../../../../components/AutoComplete/AutocompleteSecurity";
+import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
+import SecurityInput from "../../../../components/Inputs/SecurityInput";
 import { useState } from "react";
 import {
  Delete as DeleteIcon,
 } from "@mui/icons-material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ProductClassificationTable from "./ProductClassificationTable";
-import MasterLanguage from "../../Account/AccountMaster/MasterLanguage";
-import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
-import { useTheme } from "../../../../../config/themeContext";
-import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
+import MasterLanguage from "../Account/AccountMaster/MasterLanguage";
+import AccountInput1 from "../../../../components/Inputs/AccountInput1";
+import { useTheme } from "../../../../config/themeContext";
+import RoleSelect1 from "../../../../components/Select/RoleSelect1";
 
 
 const Accordion = styled((props) => (
@@ -301,49 +300,27 @@ const textFieldStyle= {
 //   },
 //   // Add more entities as needed
 // };
-const valuationOptions = [
-  { label: "Entity 1 Valuation", value: "Entity 1 Valuation" },
-  { label: "Entity 2 Valuation", value: "Entity 2 Valuation" },
-  // Add more options as needed based on your entities
-];
 const vendorOptions = [
-  { label: "Entity 1 vendor", value: "Entity 1 vendor" },
-  { label: "Entity 2 vendor", value: "Entity 2 vendor" },
-  // Add more options as needed based on your entities
+  { label: "Vendor 1", value: "Vendor 1" },
+  { label: "Vendor 2", value: "Vendor 2" },
+  // Add more options as needed
 ];
-const warehouseOptions = [
-  { label: "Entity 1 Warehouse", value: "Entity 1 Warehouse" },
-  { label: "Entity 2 Warehouse", value: "Entity 2 Warehouse" },
-  // Add more options as needed based on your entities
+
+const locationOptions = [
+  { label: "Location 1", value: "Location 1" },
+  { label: "Location 2", value: "Location 2" },
+  // Add more options as needed
 ];
-const baseUnitOptions = [
-  { label: "Unit 1", value: "Unit 1" },
-  { label: "Unit 2", value: "Unit 2" },
-  // Add more options as needed based on your entities
-];
-const salesUnitOptions = [
-  { label: "Unit 1", value: "Unit 1" },
-  { label: "Unit 2", value: "Unit 2" },
-  // Add more options as needed based on your entities
-];
-const purchaseUnitOptions = [
-  { label: "Unit 1", value: "Unit 1" },
-  { label: "Unit 2", value: "Unit 2" },
-  // Add more options as needed based on your entities
-];
-const countryOfOriginOptions = [
-  { label: "Country 1", value: "Country 1" },
-  { label: "Country 2", value: "Country 2" },
-  // Add more options as needed based on your entities
-];
-const taxableOptions = [
-  { label: "Yes", value: "Yes" },
-  { label: "No", value: "No" },
-  // Add more options as needed based on your entities
+
+const allottedToOptions = [
+  { label: "Person 1", value: "Person 1" },
+  { label: "Person 2", value: "Person 2" },
+  // Add more options as needed
 ];
 
 
-export default function ProductDetails() {
+
+export default function FixedAssetDetails() {
   const [expanded, setExpanded] = React.useState("panel1");
   const [formData, setformData] = useState({
     photo: null,
@@ -359,66 +336,52 @@ export default function ProductDetails() {
   const [entitiesData, setEntitiesData] = useState({
     entity1: {
       General: {
-        Description: "Entity 1 Description",
-        Valuation: "Entity 1 Valuation",
-        Warehouse: "Entity 1 Warehouse",
-        StandardCost: "100",
-        Vendor:""
+        Vendor: "",
+        PurchaseDate: " ",
+        Price: "",
+        Quantity: "",
+        CumulativeDepreciation: "",
+        InsuredValue: "",
+        ScrapValue: "",
+        Location: "",
+        AllottedTo: "",
       },
-      Units: {
-        BaseUnit: "Unit 1",
-        SalesUnit: "Unit 1",
-        PurchaseUnit: "Unit 1",
-      },
-      Reorder: {
-        EntityWiseQuantity: "50",
-        WarehouseQuantity: "20",
-        LeadTimeInDays: "5",
-      },
-      Specification: {
-        Hscode: "123456",
-        CountryOfOrigin: "Country 1",
-        Height: "10",
-        Width: "5",
-        CBM: "0.5",
-        Weight: "1",
-      },
-      Settings: {
-        Taxable: "Yes",
+      DepreciationDetails: {
+        DepreciationMethod: "",
+        UnitOfUsage: "",
+        RateOfDepreciation: "",
+        DepreciationInYears: "",
+        DepreciationInMonths: "",
+        DateOfCommencement: " ",
+        StartingUnit: "",
+        MaximumUsageLimit: "",
       },
     },
     entity2: {
       General: {
-        Description: "Entity 2 Description",
-        Valuation: "Entity 2 Valuation",
-        Warehouse: "Entity 2 Warehouse",
-        StandardCost: "200",
-        Vendor:""
+        Vendor: "",
+        PurchaseDate: " ",
+        Price: "",
+        Quantity: "",
+        CumulativeDepreciation: "",
+        InsuredValue: "",
+        ScrapValue: "",
+        Location: "",
+        AllottedTo: "",
       },
-      Units: {
-        BaseUnit: "Unit 2",
-        SalesUnit: "Unit 2",
-        PurchaseUnit: "Unit 2",
-      },
-      Reorder: {
-        EntityWiseQuantity: "100",
-        WarehouseQuantity: "50",
-        LeadTimeInDays: "10",
-      },
-      Specification: {
-        Hscode: "654321",
-        CountryOfOrigin: "Country 2",
-        Height: "20",
-        Width: "10",
-        CBM: "1",
-        Weight: "2",
-      },
-      Settings: {
-        Taxable: "No",
+      DepreciationDetails: {
+        DepreciationMethod: "",
+        UnitOfUsage: "",
+        RateOfDepreciation: "",
+        DepreciationInYears: "",
+        DepreciationInMonths: "",
+        DateOfCommencement: " ",
+        StartingUnit: "",
+        MaximumUsageLimit: "",
       },
     },
-  }
-  )
+  });
+  
   const [selectedEntity, setSelectedEntity] = React.useState("entity1");
   const [entityDetails, setEntityDetails] = React.useState(
     entitiesData[selectedEntity]
@@ -512,13 +475,6 @@ export default function ProductDetails() {
         <MDBCardBody>
           <MDBRow>
             <MDBCol lg="3" md="4" sm="6" xs="12">
-              <AccountInput1
-                label="Description"
-                value={entityDetails.General.Description}
-                onChange={(e) => handleDetailChange("General", "Description", e.target.value)}
-              />
-            </MDBCol>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
               <RoleSelect1
                 label="Vendor"
                 value={entityDetails.General.Vendor}
@@ -527,26 +483,62 @@ export default function ProductDetails() {
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
-              <RoleSelect1
-                label="Valuation"
-                value={entityDetails.General.Valuation}
-                onChange={(value) => handleDetailChangeSelect("General", "Valuation", value)}
-                options={valuationOptions}
-              />
-            </MDBCol>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-              <RoleSelect1
-                label="Warehouse"
-                value={entityDetails.General.Warehouse}
-                onChange={(value) => handleDetailChangeSelect("General", "Warehouse", value)}
-                options={warehouseOptions}
+              <AccountInput1
+                label="Purchase Date"
+                value={entityDetails.General.PurchaseDate}
+                onChange={(e) => handleDetailChange("General", "PurchaseDate", e.target.value)}
+                type={"date"}
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <AccountInput1
-                label="Standard Cost"
-                value={entityDetails.General.StandardCost}
-                onChange={(e) => handleDetailChange("General", "StandardCost", e.target.value)}
+                label="Price"
+                value={entityDetails.General.Price}
+                onChange={(e) => handleDetailChange("General", "Price", e.target.value)}
+              />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
+              <AccountInput1
+                label="Quantity"
+                value={entityDetails.General.Quantity}
+                onChange={(e) => handleDetailChange("General", "Quantity", e.target.value)}
+              />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
+              <AccountInput1
+                label="Cumulative Depreciation"
+                value={entityDetails.General.CumulativeDepreciation}
+                onChange={(e) => handleDetailChange("General", "CumulativeDepreciation", e.target.value)}
+              />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
+              <AccountInput1
+                label="Insured Value"
+                value={entityDetails.General.InsuredValue}
+                onChange={(e) => handleDetailChange("General", "InsuredValue", e.target.value)}
+              />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
+              <AccountInput1
+                label="Scrap Value"
+                value={entityDetails.General.ScrapValue}
+                onChange={(e) => handleDetailChange("General", "ScrapValue", e.target.value)}
+              />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
+              <RoleSelect1
+                label="Location"
+                value={entityDetails.General.Location}
+                onChange={(value) => handleDetailChangeSelect("General", "Location", value)}
+                options={locationOptions}
+              />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
+              <RoleSelect1
+                label="Allotted To"
+                value={entityDetails.General.AllottedTo}
+                onChange={(value) => handleDetailChangeSelect("General", "AllottedTo", value)}
+                options={allottedToOptions}
               />
             </MDBCol>
           </MDBRow>
@@ -554,131 +546,65 @@ export default function ProductDetails() {
       )
     },
     {
-      label: 'Units',
-      component: (
-        <MDBCardBody>
-          <MDBRow>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-              <RoleSelect1
-                label="Base Unit"
-                value={entityDetails.Units.BaseUnit}
-                onChange={(value) => handleDetailChangeSelect("Units", "BaseUnit", value)}
-                options={baseUnitOptions}
-              />
-            </MDBCol>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-              <RoleSelect1
-                label="Sales Unit"
-                value={entityDetails.Units.SalesUnit}
-                onChange={(value) => handleDetailChangeSelect("Units", "SalesUnit", value)}
-                options={salesUnitOptions}
-              />
-            </MDBCol>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-              <RoleSelect1
-                label="Purchase Unit"
-                value={entityDetails.Units.PurchaseUnit}
-                onChange={(value) => handleDetailChangeSelect("Units", "PurchaseUnit", value)}
-                options={purchaseUnitOptions}
-              />
-            </MDBCol>
-          </MDBRow>
-        </MDBCardBody>
-      )
-    },
-    {
-      label: 'Reorder',
+      label: "Depreciation Details",
       component: (
         <MDBCardBody>
           <MDBRow>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <AccountInput1
-                label="Entity wise Quantity"
-                value={entityDetails.Reorder.EntityWiseQuantity}
-                onChange={(e) => handleDetailChange("Reorder", "EntityWiseQuantity", e.target.value)}
+                label="Depreciation Method"
+                value={entityDetails.DepreciationDetails.DepreciationMethod}
+                onChange={(e) => handleDetailChange("DepreciationDetails", "DepreciationMethod", e.target.value)}
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <AccountInput1
-                label="Warehouse Quantity"
-                value={entityDetails.Reorder.WarehouseQuantity}
-                onChange={(e) => handleDetailChange("Reorder", "WarehouseQuantity", e.target.value)}
+                label="Unit Of Usage"
+                value={entityDetails.DepreciationDetails.UnitOfUsage}
+                onChange={(e) => handleDetailChange("DepreciationDetails", "UnitOfUsage", e.target.value)}
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <AccountInput1
-                label="Lead time in Days"
-                value={entityDetails.Reorder.LeadTimeInDays}
-                onChange={(e) => handleDetailChange("Reorder", "LeadTimeInDays", e.target.value)}
-              />
-            </MDBCol>
-          </MDBRow>
-        </MDBCardBody>
-      )
-    },
-    {
-      label: 'Specification',
-      component: (
-        <MDBCardBody>
-          <MDBRow>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-              <AccountInput1
-                label="Hscode"
-                value={entityDetails.Specification.Hscode}
-                onChange={(e) => handleDetailChange("Specification", "Hscode", e.target.value)}
-              />
-            </MDBCol>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-              <RoleSelect1
-                label="Country of origin"
-                value={entityDetails.Specification.CountryOfOrigin}
-                onChange={(value) => handleDetailChangeSelect("Specification", "CountryOfOrigin", value)}
-                options={countryOfOriginOptions}
+                label="Rate Of Depreciation %"
+                value={entityDetails.DepreciationDetails.RateOfDepreciation}
+                onChange={(e) => handleDetailChange("DepreciationDetails", "RateOfDepreciation", e.target.value)}
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <AccountInput1
-                label="Height"
-                value={entityDetails.Specification.Height}
-                onChange={(e) => handleDetailChange("Specification", "Height", e.target.value)}
+                label="Depreciation In Years"
+                value={entityDetails.DepreciationDetails.DepreciationInYears}
+                onChange={(e) => handleDetailChange("DepreciationDetails", "DepreciationInYears", e.target.value)}
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <AccountInput1
-                label="Width"
-                value={entityDetails.Specification.Width}
-                onChange={(e) => handleDetailChange("Specification", "Width", e.target.value)}
+                label="Depreciation In Months"
+                value={entityDetails.DepreciationDetails.DepreciationInMonths}
+                onChange={(e) => handleDetailChange("DepreciationDetails", "DepreciationInMonths", e.target.value)}
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <AccountInput1
-                label="CBM"
-                value={entityDetails.Specification.CBM}
-                onChange={(e) => handleDetailChange("Specification", "CBM", e.target.value)}
+                label="Date Of Commencement"
+                value={entityDetails.DepreciationDetails.DateOfCommencement}
+                onChange={(e) => handleDetailChange("DepreciationDetails", "DateOfCommencement", e.target.value)}
+                type={"date"}
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <AccountInput1
-                label="Weight"
-                value={entityDetails.Specification.Weight}
-                onChange={(e) => handleDetailChange("Specification", "Weight", e.target.value)}
+                label="Starting Unit"
+                value={entityDetails.DepreciationDetails.StartingUnit}
+                onChange={(e) => handleDetailChange("DepreciationDetails", "StartingUnit", e.target.value)}
               />
             </MDBCol>
-          </MDBRow>
-        </MDBCardBody>
-      )
-    },
-    {
-      label: 'Settings',
-      component: (
-        <MDBCardBody>
-          <MDBRow>
             <MDBCol lg="3" md="4" sm="6" xs="12">
-              <RoleSelect1
-                label="Taxable"
-                value={entityDetails.Settings.Taxable}
-                onChange={(value) => handleDetailChangeSelect("Settings", "Taxable", value)}
-                options={taxableOptions}
+              <AccountInput1
+                label="Maximum usage Limit"
+                value={entityDetails.DepreciationDetails.MaximumUsageLimit}
+                onChange={(e) => handleDetailChange("DepreciationDetails", "MaximumUsageLimit", e.target.value)}
               />
             </MDBCol>
           </MDBRow>
@@ -686,6 +612,7 @@ export default function ProductDetails() {
       )
     },
   ];
+  
   const getBorderColor = () => {
     return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
   };
@@ -719,7 +646,7 @@ export default function ProductDetails() {
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Type" />
                   </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12" style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12" style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                     <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                   <Checkbox
                     
@@ -728,7 +655,7 @@ export default function ProductDetails() {
                   />
                   <Typography sx={{fontSize:"14px",padding:0}} variant="body1">Perishable Item</Typography>
                 </label>
-                  </MDBCol>
+                  </MDBCol> */}
 
                   
                   {/* <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -865,32 +792,24 @@ export default function ProductDetails() {
                   <MDBRow>
                 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Inventory A/C" />
+                  <AutoComplete2 autoLabel="Asset A/C" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Cost of Goods A/c" />
+                  <AutoComplete2 autoLabel="Accumulate Depreciation A/c" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Sales A/C" />
+                  <AutoComplete2 autoLabel="Depreciation P/L  A/c" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="UnBilled Supplier A/C" />
+                  <AutoComplete2 autoLabel="Sales A/c" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="UnBilled Customer A/C" />
+                  <AutoComplete2 autoLabel="Disposal Gain A/c" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="WIP A/C" />
+                  <AutoComplete2 autoLabel="Diposal Loss A/c" />
                   </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Shortage Stock A/C" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Excess  Stock A/C" />
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Purchase Varience A/c" />
-                  </MDBCol>
+                  
 
                 </MDBRow>
               </MDBCardBody>

@@ -455,7 +455,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
     </Box>
     <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",height:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
       <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-      <Typography sx={{fontSize:"20px",color:"#000"}}>
+      <Typography sx={{fontSize:"20px"}}>
           Create Profile
           </Typography>    
       <MDBCardBody>

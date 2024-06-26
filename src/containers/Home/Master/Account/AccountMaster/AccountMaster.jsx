@@ -149,7 +149,9 @@ export default function AccountMaster(args) {
   const handleClose = () => {
     window.history.back();
   };
-
+  const getBackgroundColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#000' : '#fff';
+  };
   return (
     <>
       <CssBaseline />
@@ -460,7 +462,7 @@ export default function AccountMaster(args) {
                   style={{
                     width: 350,
                     boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-                    backgroundColor: primaryButtonColor,
+                    backgroundColor: getBackgroundColor(),
                     display: "flex",
                     alignItems: "center",
                   }}

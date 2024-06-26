@@ -14,6 +14,7 @@ import BuyerPriceBook from "../../containers/Home/Master/Product/BuyerPriceBook/
 import Warehouse from "../../containers/Home/Master/Warehouse/WareHouse";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import Layout from "../Layout/Layout";
+import FixedAsset from "../../containers/Home/Master/FixedAsset/FixedAsset";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -49,7 +50,9 @@ export default function MasterPage() {
             <BuyerPriceBook />
           ): id === 18 ?(
             <Warehouse />
-          ) : null}
+          ) : id === 51 ?(
+            <FixedAsset />
+          ): null}
         </Box>
         <Footer />
       </Box>

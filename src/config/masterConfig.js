@@ -665,6 +665,101 @@ export const searchAdvanceSelect = [
  
 ];
 
+export const fixedAssetData = [
+  {
+    MasterId: 1,
+    Name: "Example Name 1",
+    Code: "ABC123",
+    Type:"Type A",
+    CreatedBy: "User123"
+  },
+  {
+    MasterId: 2,
+    Name: "Example Name 2",
+    Code: "DEF456",
+    Type:"Type B",
+    CreatedBy: "User456"
+  },
+  {
+    MasterId: 3,
+    Name: "Example Name 3",
+    Code: "GHI789",
+    Type:"Type A",
+    CreatedBy: "User789"
+  },
+  {
+    MasterId: 4,
+    Name: "Example Name 4",
+    Code: "JKL012",
+    Type:"Type E",
+    CreatedBy: "User012"
+  },
+  {
+    MasterId: 5,
+    Name: "Example Name 5",
+    Code: "MNO345",
+    Type:"Type X",
+    CreatedBy: "User345"
+  },
+  {
+    MasterId: 6,
+    Name: "Example Name 6",
+    Code: "PQR678",
+    Type:"Type A",
+    CreatedBy: "User678"
+  },
+  {
+    MasterId: 7,
+    Name: "Example Name 7",
+    Code: "STU901",
+    Type:"Type Y",
+    CreatedBy: "User901"
+  },
+  {
+    MasterId: 8,
+    Name: "Example Name 8",
+    Code: "VWX234",
+    Type:"Type D",
+    CreatedBy: "User234"
+  },
+  {
+    MasterId: 9,
+    Name: "Example Name 9",
+    Code: "YZA567",
+    Type:"Type T",
+    CreatedBy: "User567"
+  },
+  {
+    MasterId: 10,
+    Name: "Example Name 10",
+    Code: "BCD890",
+    Type:"Type Z",
+    CreatedBy: "User890"
+  },
+  {
+    MasterId: 11,
+    Name: "Example Name 11",
+    Code: "EFG123",
+    Type:"Type A",
+    CreatedBy: "User123"
+  },
+  {
+    MasterId: 12,
+    Name: "Example Name 12",
+    Code: "HIJ456",
+    Type:"Type A",
+    CreatedBy: "User456"
+  },
+];
+
+export const fixedAssetTree = [
+  {
+    id: "1",
+    label: "FixedAsset",
+
+  },
+]
+
 
 
 

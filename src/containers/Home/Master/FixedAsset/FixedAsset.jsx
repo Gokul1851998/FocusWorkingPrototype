@@ -3,15 +3,15 @@ import { Box, CssBaseline, IconButton, TextField, styled } from "@mui/material";
 import { Collapse, Button, CardBody, Card, Alert } from "reactstrap";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import Tree1 from "../../../../../components/Tree/Tree1";
+import Tree1 from "../../../../components/Tree/Tree1";
 import {
   primaryButtonColor,
   primaryColor,
   secondryColor,
   thirdColor,
-} from "../../../../../config";
-import { accountTree, searchadvanceTreeItemsAccount, searchadvanceTreeItemsCustomer } from "../../../../../config/masterConfig";
-import TableAccounts from "../../../../../components/Tables/TableAccounts";
+} from "../../../../config";
+import { accountTree, fixedAssetData, fixedAssetTree, searchadvanceTreeItemsProduct } from "../../../../config/masterConfig";
+import TableAccounts from "../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
@@ -42,14 +42,14 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
-import CustomerVendorDetails from "./CustomerVendorDetails";
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import StopIcon from '@mui/icons-material/Stop';
 import BlockIcon from '@mui/icons-material/Block';
-import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
-import { useTheme } from "../../../../../config/themeContext";
-
+import TableProduct from "../../../../components/Tables/TableProduct";
+import FixedAssetDetails from "./FixedAssetDetails";
+import AutocompleteSecurity from "../../../../components/AutoComplete/AutocompleteSecurity";
+import { useTheme } from "../../../../config/themeContext";
 
 function handleClick(event) {
   event.preventDefault();
@@ -69,7 +69,7 @@ const actions = [
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
 ];
 
-export default function CustomerVendor(args) {
+export default function FixedAsset(args) {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
@@ -78,7 +78,6 @@ export default function CustomerVendor(args) {
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
- 
 
   const { currentTheme } = useTheme();
 
@@ -116,9 +115,9 @@ export default function CustomerVendor(args) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" ,color: currentTheme.actionIcons}} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons }} // Reduce font size
       key="1"
-    
+     
       onClick={handleClick}
     >
       <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
@@ -133,17 +132,9 @@ export default function CustomerVendor(args) {
     >
       Master
     </Link>,
-    <Link
-      underline="hover"
-      key="3"
-      
-      sx={{ fontSize: "1rem",color: currentTheme.actionIcons }}
-      onClick={handleClick}
-    >
-      Account
-    </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons }}>
-      Customer/Vendor Master
+    
+    <Typography key="4" color="white" sx={{ fontSize: "1rem" ,color: currentTheme.actionIcons}}>
+     Fixed Asset
     </Typography>,
   ];
 
@@ -153,6 +144,7 @@ export default function CustomerVendor(args) {
   const getBackgroundColor = () => {
     return localStorage.getItem('color') === 'true' ? '#000' : '#fff';
   };
+
   return (
     <>
       <CssBaseline />
@@ -172,7 +164,7 @@ export default function CustomerVendor(args) {
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}} />}
+              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -187,7 +179,8 @@ export default function CustomerVendor(args) {
               spacing={1}
               sx={{ flex: "0 0 auto" }}
             >
-              <IconButton onClick={handleDetailPageOpen}
+              <IconButton
+                onClick={handleDetailPageOpen}
                 aria-label="New"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -328,7 +321,7 @@ export default function CustomerVendor(args) {
                 </Stack>
               </IconButton>
               <IconButton
-              onClick={handleClose}
+                onClick={handleClose}
                 aria-label="Close"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -383,7 +376,8 @@ export default function CustomerVendor(args) {
                 </Stack>
               </IconButton>
 
-              <IconButton onClick={handleDetailPageClose}
+              <IconButton
+                onClick={handleDetailPageClose}
                 aria-label="Close"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -400,15 +394,12 @@ export default function CustomerVendor(args) {
               </IconButton>
             </Stack>
           )}
-
         </Box>
-  {detailPage? (
-   <CustomerVendorDetails />
-  ): (
-
- 
-        <>
-        <SpeedDial
+        {detailPage ? (
+  <FixedAssetDetails  />
+        ) : (
+          <>
+            <SpeedDial
               ariaLabel="SpeedDial basic example"
               sx={{
                 position: "absolute",
@@ -430,32 +421,34 @@ export default function CustomerVendor(args) {
                 />
               ))}
             </SpeedDial>
-        <div style={{ display: "flex" }}>
-          {!hide ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                height: isOpen ? null : 590,
-              }}
-            >
-              <Button
-                
-                onClick={toggleOpen}
-                style={{
-                  marginBottom: "1rem",
-                  padding: "0.3rem",
-                  fontSize: "0.6rem",
-                  height: "5rem",
-                  borderRadius: "0 0.5rem 0.5rem 0",
-                  backgroundColor:currentTheme.secondaryColor,
+            <div style={{ display: "flex" }}>
+              {!hide ? (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: isOpen ? null : 590,
+                  }}
+                >
+                  <Button
+                   sx={{backgroundColor:currentTheme.primaryColor}}
+                    onClick={toggleOpen}
+                    style={{
+                      marginBottom: "1rem",
+                      padding: "0.3rem",
+                      fontSize: "0.6rem",
+                      height: "5rem",
+                      borderRadius: "0 0.5rem 0.5rem 0",
+                      backgroundColor:currentTheme.secondaryColor,
                       color:currentTheme.sideBarTextColor1
-                }}
-              >
-                <KeyboardDoubleArrowRightIcon style={{ fontSize: "1rem" }} />
-              </Button>
-            </div>
-          ) : null}
+                    }}
+                  >
+                    <KeyboardDoubleArrowRightIcon
+                      style={{ fontSize: "1rem" }}
+                    />
+                  </Button>
+                </div>
+              ) : null}
 
 <Collapse horizontal isOpen={isOpen} {...args}>
                 <Alert
@@ -467,18 +460,18 @@ export default function CustomerVendor(args) {
                     alignItems: "center",
                   }}
                 >
-                  <div>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <div >
+                    <Box sx={{ display: "flex", alignItems: "center"}}>
                       <AutocompleteSecurity label="" />
                       <IconButton aria-label="tree">
-                        <WidgetsIcon sx={{ color: currentTheme.thirdColor }} />
+                        <WidgetsIcon sx={{  color: currentTheme.thirdColor }} />
                       </IconButton>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Tree1 items={accountTree} />
+                      <Tree1 items={fixedAssetTree} />
 
                       <Button
-                      
+                        
                         onClick={toggleClose}
                         style={{
                         
@@ -498,96 +491,96 @@ export default function CustomerVendor(args) {
                   </div>
                 </Alert>
               </Collapse>
-       
-      
-      
-          <TableAccounts  items={searchadvanceTreeItemsCustomer}/>
-        </div>
-        <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}>
-          <Collapse
-            style={{ marginBottom: "0.3rem" }}
-            isOpen={isInfo}
-            {...args}
-          >
-            <Alert
-              style={{
-                width: 350,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-                backgroundColor: primaryButtonColor,
-                flexDirection: "column", // Arrange children vertically
-                alignItems: "center",
-                marginBottom: "0.3rem",
-                position: "relative", // Add position relative to the Alert
-              }}
-            >
-              <Button
-               
-                variant="contained"
-                onClick={infoPanelClose}
-                style={{
-                  borderRadius: "0 0 0.5rem 0.5rem",
-                  height: "1.2rem",
-                  width: "8rem",
-                  marginBottom: "0.3rem",
-                  marginLeft: "5rem",
-                  top: 0, // Align to the top
-                  right: 0, // Align to the end
-                  transform: "translateY(-100%)", // Move the button to the top of the container
-                  display: "flex",
-                  justifyContent: "center", // Center horizontally
-                  alignItems: "center", // Center vertically
-                  backgroundColor:currentTheme.secondaryColor,
-                  color:currentTheme.sideBarTextColor1
-                }}
-              >
-                <KeyboardDoubleArrowDownIcon style={{ fontSize: "1rem" }} />
-              </Button>
-              <Box
-                sx={{
-                  overflowX: "hidden",
-                  height: 550,
-                  flexGrow: 1,
-                  minWidth: 300,
-                  scrollbarWidth: "thin",
-                  zIndex: 100,
-                }}
-              >
-                <Typography
-                  sx={{ flex: "1 1 100%" }}
-                  variant="h6"
-                  id="tableTitle"
-                  component="div"
-                >
-                  Info Panel
-                </Typography>
-              </Box>
-            </Alert>
-          </Collapse>
 
-          {!infoHide ? (
-            <Button
-             
-              variant="contained"
-              onClick={infoPanelOpen}
-              style={{
-                borderRadius: "0.5rem 0.5rem 0 0",
-                height: "1.2rem",
-                width: "8rem",
-                marginBottom: "0.3rem",
-                marginRight: "5rem",
-                display: "flex",
-                justifyContent: "center", // Center horizontally
-                alignItems: "center", // Center vertically
-                backgroundColor:currentTheme.secondaryColor,
-                    color:currentTheme.sideBarTextColor1
-              }}
+              <TableProduct masterData={fixedAssetData} items={searchadvanceTreeItemsProduct} />
+            </div>
+            <div
+              style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}
             >
-              <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
-            </Button>
-          ) : null}
-        </div>
-        </>
-         )}
+              <Collapse
+                style={{ marginBottom: "0.3rem" }}
+                isOpen={isInfo}
+                {...args}
+              >
+                <Alert
+                  style={{
+                    width: 350,
+                    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                    backgroundColor: primaryButtonColor,
+                    flexDirection: "column", // Arrange children vertically
+                    alignItems: "center",
+                    marginBottom: "0.3rem",
+                    position: "relative", // Add position relative to the Alert
+                  }}
+                >
+                  <Button
+                   
+                    variant="contained"
+                    onClick={infoPanelClose}
+                    style={{
+                      borderRadius: "0 0 0.5rem 0.5rem",
+                      height: "1.2rem",
+                      width: "8rem",
+                      marginBottom: "0.3rem",
+                      marginLeft: "5rem",
+                      top: 0, // Align to the top
+                      right: 0, // Align to the end
+                      transform: "translateY(-100%)", // Move the button to the top of the container
+                      display: "flex",
+                      justifyContent: "center", // Center horizontally
+                      alignItems: "center", // Center vertically
+                      backgroundColor:currentTheme.secondaryColor,
+                      color:currentTheme.sideBarTextColor1
+                    }}
+                  >
+                    <KeyboardDoubleArrowDownIcon style={{ fontSize: "1rem" }} />
+                  </Button>
+                  <Box
+                    sx={{
+                      overflowX: "hidden",
+                      height: 550,
+                      flexGrow: 1,
+                      minWidth: 300,
+                      scrollbarWidth: "thin",
+                      zIndex: 100,
+                    }}
+                  >
+                    <Typography
+                      sx={{ flex: "1 1 100%" }}
+                      variant="h6"
+                      id="tableTitle"
+                      component="div"
+                    >
+                      Info Panel
+                    </Typography>
+                  </Box>
+                </Alert>
+              </Collapse>
+
+              {!infoHide ? (
+                <Button
+                 
+                  variant="contained"
+                  onClick={infoPanelOpen}
+                  style={{
+                    borderRadius: "0.5rem 0.5rem 0 0",
+                    height: "1.2rem",
+                    width: "8rem",
+                    marginBottom: "0.3rem",
+                    marginRight: "5rem",
+                    display: "flex",
+                    justifyContent: "center", // Center horizontally
+                    alignItems: "center", // Center vertically
+                    backgroundColor:currentTheme.secondaryColor,
+                    color:currentTheme.sideBarTextColor1
+                  }}
+                >
+                  <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
+                </Button>
+              ) : null}
+            </div>
+          </>
+        )}
       </React.StrictMode>
     </>
   );
