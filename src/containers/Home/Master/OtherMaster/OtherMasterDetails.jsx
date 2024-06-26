@@ -126,7 +126,7 @@ const BusinessUnit = [
   { title: "Unit3", iId: 3 },
 ];
 
-export default function TaxCodeDetails() {
+export default function OtherMasterDetails({fields}) {
   const [expanded, setExpanded] = React.useState("panel1");
   const [formData, setformData] = useState({
     photo: null,
@@ -187,9 +187,22 @@ export default function TaxCodeDetails() {
 
   
  
-  
+
   const getBorderColor = () => {
     return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
+
+  const renderFields = (fields) => {
+    return fields.map((field, index) => {
+      if (field.type === 'input') {
+        return (
+          <MDBCol lg="3" md="4" sm="6" xs="12" key={index}>
+            <AccountInput1 label={field.name} />
+          </MDBCol>
+        );
+      }
+      return null; // Handle other types if necessary
+    });
   };
   return (
     <div>
@@ -212,7 +225,7 @@ export default function TaxCodeDetails() {
               <MDBCardBody>
                 <MDBRow>
 
-                <MDBCol lg="3" md="4" sm="6" xs="12">
+                {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Code" />
                   </MDBCol>
                 <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -222,7 +235,10 @@ export default function TaxCodeDetails() {
                     <AccountInput label="Value" />
                   </MDBCol>
                   
-                   
+                    */}
+                    
+                  {renderFields(fields)}
+
                 </MDBRow>
                 
          

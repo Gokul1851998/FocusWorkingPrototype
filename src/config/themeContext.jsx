@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material';
+import WarningMessage from '../components/Warning/Warnings';
 
 // Define your themes
 const themes = {
@@ -103,6 +104,7 @@ export const ThemeProvider = ({ children }) => {
   const { themeName: storedThemeName, colorMode: storedColorMode } = getStoredTheme();
   const [themeName, setThemeName] = useState(storedThemeName);
   const [isDarkMode, setIsDarkMode] = useState(storedColorMode);
+  const [openWarning, setOpenWarning] = useState(false); 
 
   const currentTheme = themes[themeName];
 
@@ -124,7 +126,10 @@ export const ThemeProvider = ({ children }) => {
   //   setThemeName(newThemeName);
   // };
   const switchTheme = (newThemeName) => {
-    if (!isDarkMode) {
+    if (isDarkMode) {
+      // Show warning if trying to switch theme while in dark mode
+      setOpenWarning(true);
+    } else {
       setThemeName(newThemeName);
     }
   };
@@ -140,12 +145,20 @@ export const ThemeProvider = ({ children }) => {
       ...currentTheme.palette,
     },
   });
-
+  const handleWarningClose = () => {
+    setOpenWarning(false);
+  }
   return (
     <ThemeContext.Provider value={{ currentTheme, switchTheme, switchColorMode,isDarkMode }}>
       <MUIThemeProvider theme={appliedTheme}>
         <CssBaseline />
         {children}
+        <WarningMessage
+          open={openWarning}
+          handleClose={handleWarningClose}
+          message="Switching themes is disabled in dark mode."
+          type="warning"
+        />
       </MUIThemeProvider>
     </ThemeContext.Provider>
   );

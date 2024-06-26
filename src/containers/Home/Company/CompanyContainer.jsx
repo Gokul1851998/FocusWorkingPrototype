@@ -152,7 +152,7 @@ function BasicBreadcrumbs({pageType,pageId,currentTheme}) {
         >
           <Link
             underline="hover"
-            sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: "#000",opacity:"50%",  }} // Reduce font size
+            sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons,  }} // Reduce font size
             key="1"
             
           >
@@ -163,16 +163,16 @@ function BasicBreadcrumbs({pageType,pageId,currentTheme}) {
             underline="hover"
             key="2"
            
-            sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}
+            sx={{ fontSize: "1rem",color: currentTheme.actionIcons,  }}
           >
             Company
           </Link>
           ,
           {pageType ==1?
-          <Typography key="3"  sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}>
+          <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
             Create Company
           </Typography>
-          :<Typography key="3"  sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}>
+          :<Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons,  }}>
           Edit Company
         </Typography>}
           ,
@@ -190,11 +190,11 @@ const DefaultIcons = ({ iconsClick, pageType,currentTheme }) => {
         //onClick={()=>iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <SaveIcon sx={{ color: "#000",opacity:"50%", }} />
+          <SaveIcon style={{ color: currentTheme.actionIcons, }}/>
           <Typography
             variant="caption"
             align="center"
-            style={{ color: "#000",opacity:"50%", fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Save
           </Typography>
@@ -207,11 +207,11 @@ const DefaultIcons = ({ iconsClick, pageType,currentTheme }) => {
         onClick={() => iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <CloseIcon sx={{ color: "#000",opacity:"50%", }} />
+          <CloseIcon style={{ color: currentTheme.actionIcons, }}/>
           <Typography
             variant="caption"
             align="center"
-            style={{ color:"#000",opacity:"50%", fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Close
           </Typography>
@@ -368,11 +368,11 @@ export default function CompanyContainer({ pageType,pageId }) {
         {pageId === 0 ? (
     <BasicBreadcrumbs pageType={pageType} pageId={pageId} currentTheme={currentTheme}/>
 ) : pageId === 1 ? (
-    <Typography >
+    <Typography sx={{ fontSize: "1rem",color: currentTheme.actionIcons,  }}>
         Create Company
     </Typography>
 ) : (
-    <Typography >
+    <Typography sx={{ fontSize: "1rem",color: currentTheme.actionIcons,  }}>
         Edit Company
     </Typography>
 )}

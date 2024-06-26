@@ -15,9 +15,7 @@ import Warehouse from "../../containers/Home/Master/Warehouse/WareHouse";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import Layout from "../Layout/Layout";
 import FixedAsset from "../../containers/Home/Master/FixedAsset/FixedAsset";
-import TaxCode from "../../containers/Home/Master/TaxCode/TaxCode";
-import PlaceOfSupply from "../../containers/Home/Master/PlaceOfSupply/PlaceOfSupply";
-import Jurisdiction from "../../containers/Home/Master/Jurisdiction/Jurisdiction";
+import OtherMaster from "../../containers/Home/Master/OtherMaster/OtherMaster";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -55,12 +53,8 @@ export default function MasterPage() {
             <Warehouse />
           ) : id === 51 ?(
             <FixedAsset />
-          ): id === 52 ?(
-            <TaxCode />
-          ): id === 53 ?(
-            <PlaceOfSupply />
-          ): id === 54 ?(
-            <Jurisdiction />
+          ): id >= 52 ?(
+            <OtherMaster id={id} />
           ): null}
         </Box>
         <Footer />

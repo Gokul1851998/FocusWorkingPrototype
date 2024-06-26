@@ -16,7 +16,7 @@ import RestoreIcon from "@mui/icons-material/Restore";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { IconButton, Popover, Tooltip } from "@mui/material";
+import { IconButton, Popover, Switch, Tooltip } from "@mui/material";
 import WarningMessage from "../../components/Warning/Warnings";
 import SettingsLogin from "./SettingsLogin";
 import { useTheme } from "../../config/themeContext";
@@ -25,6 +25,7 @@ import AutofillStyle from "../../components/AutoFillStyle/AutofillStyle";
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import Draggable from 'react-draggable';
+
 
 const idleTime = 10 * 60 * 1000;
 
@@ -47,11 +48,23 @@ export default function Login() {
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [inputFocused, setInputFocused] = useState("");
   const [keyboardLayout, setKeyboardLayout] = useState("default");
+  const [checked, setChecked] = React.useState(false);
+
+  
 
 
-  const { currentTheme,switchTheme } = useTheme();
+  const { currentTheme, switchColorMode, isDarkMode } = useTheme();
 
   const keyboard = useRef();
+
+  const handleColorSwitch = (event) => {
+    switchColorMode(!checked);
+    setChecked(!checked);
+  };
+ 
+  useEffect(() => {
+    setChecked(isDarkMode); 
+  }, [isDarkMode]);
 
 
   
@@ -233,7 +246,7 @@ export default function Login() {
         {/* Draggable Keyboard */}
         {keyboardOpen && (
           <Draggable>
-            <div style={{ position: "absolute", bottom: 20, right: 20, zIndex: 1000 }}>
+            <div className={`${isDarkMode ? 'dark-mode' : ''}`} style={{ position: "absolute", bottom: 20, right: 20, zIndex: 1000 }}>
             <Keyboard
     keyboardRef={(r) => (keyboard.current = r)}
     onChange={(input) => handleInputChange(input)}
@@ -383,6 +396,16 @@ export default function Login() {
           </Box>
         </Grid>
         <ThemeSelector />
+        <Box sx={{ position: 'absolute', left: 200, bottom: -0, margin: '10px', display: 'flex', gap: 1,alignItems:"center" }}>
+
+          <Typography sx={{color:currentTheme.primaryButtonColor}}>Dark Mode</Typography>
+        <Switch
+                    checked={checked}
+                    onChange={handleColorSwitch}
+                    color="primary"
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+        </Box>          
         
       </Grid>
       

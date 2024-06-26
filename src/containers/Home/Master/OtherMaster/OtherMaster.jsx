@@ -47,9 +47,10 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import StopIcon from '@mui/icons-material/Stop';
 import BlockIcon from '@mui/icons-material/Block';
 import TableProduct from "../../../../components/Tables/TableProduct";
-import TaxCodeDetails from "./TaxCodeDetails";
 import AutocompleteSecurity from "../../../../components/AutoComplete/AutocompleteSecurity";
 import { useTheme } from "../../../../config/themeContext";
+import OtherMasterDetails from "./OtherMasterDetails";
+import { useEffect } from "react";
 
 function handleClick(event) {
   event.preventDefault();
@@ -69,7 +70,7 @@ const actions = [
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
 ];
 
-export default function TaxCode(args) {
+export default function OtherMaster(args) {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
@@ -78,6 +79,182 @@ export default function TaxCode(args) {
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
+
+  let pagename = "";
+  let fields = [];
+  let treeFields = [];
+
+  useEffect(() => {
+    setDetailPage(false)
+    setIsOpen(false)
+    setHide(false)
+    setIsInfo(false)
+    setInfoHide(false)
+
+
+
+  }, [args])
+  
+
+  switch (args.id) {
+    case 52:
+      pagename = "Tax Code";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" },{ name: "Value", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "TaxCode",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 53:
+      pagename = "Place of Supply";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "PlaceOfSupply",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 54:
+      pagename = "Jurisdiction";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Jurisdiction",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 55:
+      pagename = "Bank";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Bank",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 56:
+      pagename = "Bank Charges";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Bank Charges",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 57:
+      pagename = "Outlets";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Outlets",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 58:
+      pagename = "Nationality";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Nationality",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 59:
+      pagename = "Country";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Country",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 60:
+      pagename = "Province";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Province",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 61:
+      pagename = "Territory";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Territory",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 62:
+      pagename = "Township";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Township",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 63:
+      pagename = "Zone";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Zone",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 64:
+      pagename = "City";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "City",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+      case 65:
+      pagename = "Employee";
+      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      treeFields = [
+        {
+          id: "1",
+          label: "Employee",
+          children: [{ id: "7", label: "General" }],
+        },
+      ];
+      break;
+
+    default:
+      break;
+  }
 
   const { currentTheme } = useTheme();
 
@@ -134,7 +311,7 @@ export default function TaxCode(args) {
     </Link>,
     
     <Typography key="4" color="white" sx={{ fontSize: "1rem" ,color: currentTheme.actionIcons}}>
-     Tax Code
+     {pagename}
     </Typography>,
   ];
 
@@ -396,7 +573,7 @@ export default function TaxCode(args) {
           )}
         </Box>
         {detailPage ? (
-  <TaxCodeDetails  />
+  <OtherMasterDetails fields={fields}  />
         ) : (
           <>
             <SpeedDial
@@ -468,7 +645,7 @@ export default function TaxCode(args) {
                       </IconButton>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Tree1 items={taxCodeTree} />
+                      <Tree1 items={treeFields} />
 
                       <Button
                         

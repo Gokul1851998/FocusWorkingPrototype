@@ -61,5 +61,17 @@ export const SideBarIcons = [
   { id: 52, parent: 11, iconName: "Tax Code", icon: null, url: "/Master" },
   { id: 53, parent: 11, iconName: "Place of Supply", icon: null, url: "/Master" },
   { id: 54, parent: 11, iconName: "Jurisdiction", icon: null, url: "/Master" },
+  { id: 55, parent: 11, iconName: "Bank", icon: null, url: "/Master" },
+  { id: 56, parent: 11, iconName: "Bank Charges", icon: null, url: "/Master" },
+  { id: 57, parent: 11, iconName: "Outlet", icon: null, url: "/Master" },
+  { id: 58, parent: 11, iconName: "Nationality", icon: null, url: "/Master" },
+  { id: 59, parent: 11, iconName: "Country", icon: null, url: "/Master" },
+  { id: 60, parent: 11, iconName: "Province", icon: null, url: "/Master" },
+  { id: 61, parent: 11, iconName: "Territory", icon: null, url: "/Master" },
+  { id: 62, parent: 11, iconName: "Township", icon: null, url: "/Master" },
+  { id: 63, parent: 11, iconName: "Zone", icon: null, url: "/Master" },
+  { id: 64, parent: 11, iconName: "City", icon: null, url: "/Master" },
+  { id: 65, parent: 11, iconName: "Employee", icon: null, url: "/Master" },
+  
 
 ];
