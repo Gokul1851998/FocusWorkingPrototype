@@ -210,7 +210,9 @@ export default function AccountSettings(args) {
       General Settings
     </Typography>,
   ];
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
   return (
     <>
       <CssBaseline />
@@ -420,10 +422,11 @@ export default function AccountSettings(args) {
                   >
                     <Typography variant="body1">Account Mapping</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBCardBody>

@@ -105,6 +105,10 @@ export default function AccountDetails() {
     setAccountName(event.target.value);
   };
 
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
+
   return (
     <div>
       <Accordion
@@ -125,19 +129,20 @@ export default function AccountDetails() {
             <div>
               <MDBCardBody>
                 <MDBRow>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange} mandatory={1}/>
-                  </MDBCol>
+                 
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Code"   mandatory={1}/>
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Account Type"  isMandatory={1}/>
+                    <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange} mandatory={1}/>
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Default Currency" />
+                  <AutoComplete2 autoLabel="Type"  isMandatory={1}/>
                   </MDBCol>
+                  {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Default Currency" />
+                  </MDBCol> */}
 
                   {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AutoComplete2 autoLabel="Select Tree" />
@@ -217,7 +222,8 @@ export default function AccountDetails() {
                     <Typography variant="body1">Account Mapping</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -394,7 +400,7 @@ export default function AccountDetails() {
         </AccordionDetails>
       </Accordion> */}
 
-      <Accordion
+      {/* <Accordion
         expanded={expanded === "panel4"}
         onChange={handleChange("panel4")}
       >
@@ -427,7 +433,7 @@ export default function AccountDetails() {
             </div>
           </>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       <Accordion
         expanded={expanded === "panel5"}

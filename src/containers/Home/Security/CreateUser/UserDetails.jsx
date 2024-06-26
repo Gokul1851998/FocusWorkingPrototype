@@ -473,7 +473,9 @@ export default function UserDetails({ detailPageId, setPage }) {
   //     workingDays: daysString
   //   });
   // }, [checkedDays]);
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <Box
@@ -806,7 +808,8 @@ export default function UserDetails({ detailPageId, setPage }) {
                     </Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -910,10 +913,11 @@ export default function UserDetails({ detailPageId, setPage }) {
                   >
                     <Typography variant="body1">User Type</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBRow>
@@ -979,7 +983,8 @@ export default function UserDetails({ detailPageId, setPage }) {
                     <Typography variant="body1">Credentials</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -1173,7 +1178,8 @@ export default function UserDetails({ detailPageId, setPage }) {
                     <Typography variant="body1">Block User</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -1212,10 +1218,11 @@ export default function UserDetails({ detailPageId, setPage }) {
                   >
                     <Typography variant="body1">Working Hours</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBRow>
@@ -1258,10 +1265,11 @@ export default function UserDetails({ detailPageId, setPage }) {
                   >
                     <Typography variant="body1">Working Days</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBRow>

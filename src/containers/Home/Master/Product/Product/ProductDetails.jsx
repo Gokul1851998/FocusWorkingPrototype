@@ -306,6 +306,11 @@ const valuationOptions = [
   { label: "Entity 2 Valuation", value: "Entity 2 Valuation" },
   // Add more options as needed based on your entities
 ];
+const vendorOptions = [
+  { label: "Entity 1 vendor", value: "Entity 1 vendor" },
+  { label: "Entity 2 vendor", value: "Entity 2 vendor" },
+  // Add more options as needed based on your entities
+];
 const warehouseOptions = [
   { label: "Entity 1 Warehouse", value: "Entity 1 Warehouse" },
   { label: "Entity 2 Warehouse", value: "Entity 2 Warehouse" },
@@ -358,6 +363,7 @@ export default function ProductDetails() {
         Valuation: "Entity 1 Valuation",
         Warehouse: "Entity 1 Warehouse",
         StandardCost: "100",
+        Vendor:""
       },
       Units: {
         BaseUnit: "Unit 1",
@@ -387,6 +393,7 @@ export default function ProductDetails() {
         Valuation: "Entity 2 Valuation",
         Warehouse: "Entity 2 Warehouse",
         StandardCost: "200",
+        Vendor:""
       },
       Units: {
         BaseUnit: "Unit 2",
@@ -419,6 +426,7 @@ export default function ProductDetails() {
 
   const { currentTheme } = useTheme();
 
+  
 
   const handleAccountNameChange = (event) => {
    
@@ -455,7 +463,7 @@ export default function ProductDetails() {
     setSelectedEntity(value);
     setEntityDetails(entitiesData[value]);
   };
-  console.log(entityDetails,"entityDetails");
+  
   const handleDetailChange = (category, field, value) => {
    
     setEntityDetails((prevDetails) => ({
@@ -477,7 +485,7 @@ export default function ProductDetails() {
     }));
   };
   const handleDetailChangeSelect = (category, field, value) => {
-    console.log(category, field, value,"category, field, value");
+    
     setEntityDetails((prevDetails) => ({
       ...prevDetails,
       [category]: {
@@ -496,7 +504,7 @@ export default function ProductDetails() {
       },
     }));
   };
-  console.log(entityDetails,"category, field, value");
+  
   const options = [
     {
       label: "General",
@@ -508,6 +516,14 @@ export default function ProductDetails() {
                 label="Description"
                 value={entityDetails.General.Description}
                 onChange={(e) => handleDetailChange("General", "Description", e.target.value)}
+              />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
+              <RoleSelect1
+                label="Vendor"
+                value={entityDetails.General.Vendor}
+                onChange={(value) => handleDetailChangeSelect("General", "Vendor", value)}
+                options={vendorOptions}
               />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -670,7 +686,9 @@ export default function ProductDetails() {
       )
     },
   ];
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
   return (
     <div>
       <Accordion
@@ -838,7 +856,8 @@ export default function ProductDetails() {
                     <Typography variant="body1">Account Mapping</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />

@@ -347,7 +347,9 @@ export default function CompanyContainer({ pageType,pageId }) {
       userType: event.target.value,
     });
   };
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
@@ -677,7 +679,8 @@ export default function CompanyContainer({ pageType,pageId }) {
                     <Typography variant="body1">Security Level</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -741,7 +744,8 @@ export default function CompanyContainer({ pageType,pageId }) {
                     <Typography variant="body1">Languages</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />

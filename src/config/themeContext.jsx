@@ -110,12 +110,23 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem('theme', themeName);
   }, [themeName]);
 
+  // useEffect(() => {
+  //   localStorage.setItem('color', isDarkMode);
+  // }, [isDarkMode]);
   useEffect(() => {
     localStorage.setItem('color', isDarkMode);
+    if (isDarkMode) {
+      setThemeName('dark'); // Set the theme to dark if isDarkMode is true
+    }
   }, [isDarkMode]);
 
+  // const switchTheme = (newThemeName) => {
+  //   setThemeName(newThemeName);
+  // };
   const switchTheme = (newThemeName) => {
-    setThemeName(newThemeName);
+    if (!isDarkMode) {
+      setThemeName(newThemeName);
+    }
   };
 
   const switchColorMode = (color) => {

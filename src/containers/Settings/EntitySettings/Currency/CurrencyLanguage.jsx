@@ -107,7 +107,7 @@ const MAX_ROWS = 20;
 
 
 const CurrencyLanguage = ({ accountName,coinsName, currencySubUnit, connector  }) => {
-    console.log( accountName,coinsName, currencySubUnit, connector);
+   
     const initialRows = [{ id: 1, language: 'English', Name: accountName, coinsName, currencySubUnit, connector }];
   const { currentTheme,switchTheme } = useTheme();
   const [rows, setRows] = useState(initialRows);

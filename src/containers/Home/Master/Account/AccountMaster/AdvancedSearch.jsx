@@ -118,7 +118,7 @@ const AdvancedSearchDialog = ({ open, onClose,items }) => {
   };
 
   const handleNodeSelect = (selectedNodes) => {
-    console.log(selectedNodes);
+    
     setSelectedNodes(selectedNodes);
   };
   const handleSearchClick = (event) => {

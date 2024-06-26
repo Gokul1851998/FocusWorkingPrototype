@@ -210,7 +210,9 @@ export default function InventorySettings(args) {
       Inventory
     </Typography>,
   ];
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
   return (
     <>
       <CssBaseline />
@@ -391,7 +393,8 @@ export default function InventorySettings(args) {
                     <Typography variant="body1">Batch</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />

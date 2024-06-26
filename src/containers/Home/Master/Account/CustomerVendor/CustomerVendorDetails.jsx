@@ -680,7 +680,9 @@ const { currentTheme } = useTheme();
     )
   },
 ];
-
+const getBorderColor = () => {
+  return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+};
   return (
     <div>
       <Accordion
@@ -747,7 +749,8 @@ const { currentTheme } = useTheme();
                     <Typography variant="body1">Info</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -796,7 +799,8 @@ const { currentTheme } = useTheme();
                     <Typography variant="body1">Account Mapping</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -880,7 +884,8 @@ const { currentTheme } = useTheme();
                     <Typography variant="body1">Address</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -948,8 +953,9 @@ const { currentTheme } = useTheme();
                   >
                     <Typography variant="body1">Shipping Details</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
+                     sx={{
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -1035,8 +1041,9 @@ const { currentTheme } = useTheme();
                   >
                     <Typography variant="body1">Bank Details</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
+                     sx={{
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />

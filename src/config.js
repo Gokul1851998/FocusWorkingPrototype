@@ -57,5 +57,9 @@ export const SideBarIcons = [
   { id: 48, parent: 44, iconName: "Work Flow", icon: null, url: "/Configuration" },
   { id: 49, parent: 44, iconName: "VAT Configuration", icon: null, url: "/Configuration" },
   { id: 50, parent: 8, iconName: "EntityMaster", icon: null, url: "/EntityMaster" },
+  { id: 51, parent: 11, iconName: "Fixed Asset", icon: null, url: "/Master" },
+  { id: 52, parent: 11, iconName: "Tax Code", icon: null, url: "/Master" },
+  { id: 53, parent: 11, iconName: "Place of Supply", icon: null, url: "/Master" },
+  { id: 54, parent: 11, iconName: "Jurisdiction", icon: null, url: "/Master" },
 
 ];

@@ -147,7 +147,9 @@ const EntityMasterDetailTab = () => {
       userType: event.target.value,
     });
   };
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
 
   return (
     <div >
@@ -306,10 +308,11 @@ const EntityMasterDetailTab = () => {
                   >
                     <Typography variant="body1">Trade Licence</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBRow>
