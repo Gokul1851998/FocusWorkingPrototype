@@ -173,7 +173,7 @@ const DefaultIcons = ({ iconsClick,currentTheme }) => {
       
       
       
-      <IconButton
+      {/* <IconButton
         aria-label="New"
         sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
         //onClick={()=>iconsClick("close")}
@@ -188,7 +188,7 @@ const DefaultIcons = ({ iconsClick,currentTheme }) => {
             Save
           </Typography>
         </Stack>
-      </IconButton>
+      </IconButton> */}
   
       <IconButton
               aria-label="New"
