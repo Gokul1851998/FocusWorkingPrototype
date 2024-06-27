@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Tab } from '@mui/material';
 import { TablecellStyle, dependentData, usedData,TablebodyCell } from '../../../config/masterSettings';
 import { thirdColor } from '../../../config';
+import { useTheme } from '../../../config/themeContext';
 
 function Definitiontable1() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -11,6 +12,7 @@ function Definitiontable1() {
 
   // Dummy data arrays for each tab
  
+  const {currentTheme} = useTheme()
 
   // Determine which data to display based on selected tab
   const data = selectedTab === 0 ? dependentData : usedData;
@@ -27,7 +29,7 @@ function Definitiontable1() {
             <TableRow>
               
               {Object.keys(data[0] || {}).map((key, index) => (
-                <TableCell sx={{...TablecellStyle,backgroundColor: thirdColor, color: "#fff"}} key={index}>{key.replace(/([A-Z])/g, ' $1').trim()}</TableCell> // Capitalize and format the key
+                <TableCell sx={{...TablecellStyle,backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor}} key={index}>{key.replace(/([A-Z])/g, ' $1').trim()}</TableCell> // Capitalize and format the key
               ))}
             </TableRow>
           </TableHead>

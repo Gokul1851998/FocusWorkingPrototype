@@ -116,7 +116,7 @@ function a11yProps(index) {
   };
 }
 
-export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
+export default function ViewEditModal({ isOpen, handleCloseModal }) {
   const [expanded, setExpanded] = React.useState("panel1");
   const [value, setValue] = React.useState(0);
   const [hide, setHide] = useState(false);
@@ -243,22 +243,22 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                             <MDBCol lg={3}>
                               <AccountInput label="Caption" />
                             </MDBCol>
-                            <MDBCol lg={3}>
+                            {/* <MDBCol lg={3}>
                               <AccountInput label="Name" />
                             </MDBCol>
                             <MDBCol lg={3}>
                               <AutoComplete2 autoLabel="DataType" />
-                            </MDBCol>
+                            </MDBCol> */}
 
                             <MDBCol lg={3}>
                               <AccountInput label="Default Value" />
                             </MDBCol>
-                            <MDBCol lg={3}>
+                            {/* <MDBCol lg={3}>
                               <AccountInput label="Max Size" />
                             </MDBCol>
                             <MDBCol lg={3}>
                               <AutoComplete2 autoLabel="Control Type" />
-                            </MDBCol>
+                            </MDBCol> */}
                             {/* <MDBCol>
                               <AccountInput label="Banner Text" />
                             </MDBCol> */}
@@ -309,105 +309,34 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                       <div>
                         <MDBCardBody>
                         <MDBRow>
-                            <MDBCol>
-                              <CheckBox2 label="Spell Check" />
+                        <MDBCol lg={3}>
+                              <CheckBox2 label="Read only" />
                             </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Hidden" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Audit Trail" />
-                            </MDBCol>
-
-                            <MDBCol>
-                              <CheckBox2 label="Read Only" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Cannot export" />
-                            </MDBCol>
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <CheckBox2 label="Mandatory" />
                             </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Cannot import" />
+                            <MDBCol lg={3}>
+                              <CheckBox2 label="Removed" />
                             </MDBCol>
-                            <MDBCol>
+
+                            <MDBCol lg={3}>
+                              <CheckBox2 label="Hide left panel" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <CheckBox2 label="Hidden in group" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <CheckBox2 label="Mandatory in group" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <CheckBox2 label="Mandatory in revision" />
+                            </MDBCol>
+                            {/* <MDBCol>
                               <CheckBox2 label="Mass Update" />
-                            </MDBCol>
+                            </MDBCol> */}
                             
                           </MDBRow>
-                          {/* <MDBRow>
-                            <MDBCol>
-                              <CheckBox2 label="Part Of Delivery Address" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Part Of Billing Address" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Mandatory" />
-                            </MDBCol>
-
-                            <MDBCol>
-                              <CheckBox2 label="Allow As Parameter" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Hidden" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Hidden In Group" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Spell Check" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Mandatory In group" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Audit Trail" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Not available for reports" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Merge Field" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Mass Update" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Include in Quick Create" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Cannot Export" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Cannot Import" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Copy from Parent" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Read Only" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Information Field" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Mandatory in Revision" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Available in Customer Portal" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Editable in Customer Portal" />
-                            </MDBCol>
-                            <MDBCol>
-                              <CheckBox2 label="Do not Allow Search" />
-                            </MDBCol>
-                            <MDBCol>
-                              <AccountInput label="Behaviour" />
-                            </MDBCol>
-                          </MDBRow> */}
+                          
                         </MDBCardBody>
                       </div>
                     </>

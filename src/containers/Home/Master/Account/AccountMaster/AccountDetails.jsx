@@ -400,7 +400,7 @@ export default function AccountDetails() {
         </AccordionDetails>
       </Accordion> */}
 
-      {/* <Accordion
+      <Accordion
         expanded={expanded === "panel4"}
         onChange={handleChange("panel4")}
       >
@@ -414,7 +414,7 @@ export default function AccountDetails() {
         </AccordionSummary>
         <AccordionDetails>
           <>
-            <div>
+            {/* <div>
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -430,10 +430,10 @@ export default function AccountDetails() {
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
-            </div>
+            </div> */}
           </>
         </AccordionDetails>
-      </Accordion> */}
+      </Accordion>
 
       <Accordion
         expanded={expanded === "panel5"}

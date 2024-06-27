@@ -28,6 +28,8 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import CustomizationPreviewModal from "./CustomizationPreviewModal";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import CustomizationEditModal from "./CustomizationEditModal";
+import { useTheme } from "../../../config/themeContext";
+import ViewEditModal from "./ViewEditModal";
 
 export default function ViewTable() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -58,6 +60,8 @@ export default function ViewTable() {
     setEdit(false);
   };
 
+  const {currentTheme} = useTheme()
+
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", m: 2 }}>
       <Tabs
@@ -66,20 +70,20 @@ export default function ViewTable() {
         onChange={handleChange}
         aria-label="basic tabs example"
       >
-        <Tab sx={{ textTransform: "none" }}label="Main" />
+        <Tab sx={{ textTransform: "none", }} label="Main" />
         <Tab sx={{ textTransform: "none" }} label="Header Details" />
         <Box sx={{ marginLeft: "auto" }}>
         <IconButton
-      
+            onClick={handleEditModalOpen}
             aria-label="edit"
             sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
           >
             <Stack direction="column" alignItems="center">
-              <EditNoteIcon sx={{ color: thirdColor }} />
+              <EditNoteIcon sx={{ color: currentTheme.actionIcons }} />
               <Typography
                 variant="caption"
                 align="center"
-                style={{ color: thirdColor, fontSize: "0.6rem" }}
+                style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
               >
                 Edit
               </Typography>
@@ -91,11 +95,11 @@ export default function ViewTable() {
             sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
           >
             <Stack direction="column" alignItems="center">
-              <PreviewIcon sx={{ color: thirdColor }} />
+              <PreviewIcon sx={{ color: currentTheme.actionIcons }} />
               <Typography
                 variant="caption"
                 align="center"
-                style={{ color: thirdColor, fontSize: "0.6rem" }}
+                style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
               >
                 Preview
               </Typography>
@@ -114,16 +118,14 @@ export default function ViewTable() {
               <TableCell
                 sx={{
                   ...TablecellStyle,
-                  backgroundColor: thirdColor,
-                  color: "#fff",
+                  backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor
                 }}
               ></TableCell>
               {Object.keys(data[0] || {}).map((key, index) => (
                 <TableCell
                   sx={{
                     ...TablecellStyle,
-                    backgroundColor: thirdColor,
-                    color: "#fff",
+                    backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor
                   }}
                   key={index}
                 >
@@ -154,7 +156,7 @@ export default function ViewTable() {
                     sx={{ fontSize: "0.8rem", padding: 0 }}
                   >
                     <Stack direction="column" alignItems="center">
-                      <EditNoteIcon sx={{ color: thirdColor }} />
+                      <EditNoteIcon sx={{ color: currentTheme.actionIcons }} />
                     </Stack>
                   </IconButton>
                 </TableCell>
@@ -188,7 +190,7 @@ export default function ViewTable() {
         isOpen={open}
         handleCloseModal={handleModalClose}
       />
-      <CustomizationEditModal
+      <ViewEditModal
         isOpen={edit}
         handleCloseModal={handleEditModalClose}
       />

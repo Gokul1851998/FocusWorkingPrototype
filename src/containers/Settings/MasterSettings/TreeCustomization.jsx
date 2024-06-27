@@ -19,6 +19,7 @@ import {
 import { ArrowUpward, ArrowDownward } from '@mui/icons-material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { primaryButtonColor, thirdColor } from '../../../config';
+import { useTheme } from '../../../config/themeContext';
 
 const TreeCustomization = () => {
   const [columns, setColumns] = useState([
@@ -64,6 +65,7 @@ const TreeCustomization = () => {
     console.log('Selected Columns:', selectedColumns);
   };
 
+  const {currentTheme} = useTheme()
   return (
     <Box sx={{ width: '100%', margin: '0 auto' }}>
       
@@ -74,11 +76,11 @@ const TreeCustomization = () => {
           sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
         >
           <Stack direction="column" alignItems="center">
-            <CheckCircleOutlineIcon sx={{ color: thirdColor }} />
+            <CheckCircleOutlineIcon sx={{ color: currentTheme.actionIcons }} />
             <Typography
               variant="caption"
               align="center"
-              style={{ color: thirdColor, fontSize: "0.6rem" }}
+              style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
             >
               Ok
             </Typography>
@@ -87,7 +89,7 @@ const TreeCustomization = () => {
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '0px',paddingBottom:"20px" }}>
         <Box sx={{ width: '80%', marginRight: '16px',border: '1px solid #ccc', borderRadius: '4px' }}>
-          <Box sx={{padding: '0px', backgroundColor: thirdColor, color:primaryButtonColor }}>
+          <Box sx={{padding: '0px', backgroundColor: currentTheme.thirdColor, color:currentTheme.tableHeaderColor }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2px 8px',marginRight:"0.4rem" }}>
 
             

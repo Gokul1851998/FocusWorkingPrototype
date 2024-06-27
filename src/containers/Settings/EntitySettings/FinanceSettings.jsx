@@ -71,6 +71,7 @@ import CheckBox1 from "../../../components/CheckBox/CheckBox1";
 import { entityList } from "../../../config/securityConfig";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useTheme } from "../../../config/themeContext";
 
 function handleClick(event) {
   event.preventDefault();
@@ -109,9 +110,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -119,7 +120,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
   },
 }));
 
@@ -211,6 +212,8 @@ export default function FinanceSettings(args) {
     </Typography>,
   ];
 
+  const {currentTheme} = useTheme()
+
   return (
     <>
       <CssBaseline />
@@ -225,17 +228,17 @@ export default function FinanceSettings(args) {
             paddingLeft: 1.5,
             paddingRight: 1.5,
             zIndex: 1,
-            backgroundColor: secondryColor,
+            // backgroundColor: secondryColor,
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
-            <Breadcrumbs
+            {/* <Breadcrumbs
               separator={<NavigateNextIcon fontSize="small" />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
               {breadcrumbs}
-            </Breadcrumbs>
+            </Breadcrumbs> */}
           </Stack>
 
           <Stack
@@ -291,7 +294,7 @@ export default function FinanceSettings(args) {
                 </Typography>
               </Stack>
             </IconButton> */}
-            <IconButton
+            {/* <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -322,7 +325,7 @@ export default function FinanceSettings(args) {
                   Close
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
           </Stack>
         </Box>
         <div>
@@ -334,6 +337,7 @@ export default function FinanceSettings(args) {
               aria-controls="panel1d-content"
               id="panel1d-header"
               expanded={expanded === "panel1"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>Account Preference</Typography>
             </AccordionSummary>

@@ -16,6 +16,7 @@ import AdminBar from "../../components/AdminBar/AdminBar";
 import Layout from "../Layout/Layout";
 import FixedAsset from "../../containers/Home/Master/FixedAsset/FixedAsset";
 import OtherMaster from "../../containers/Home/Master/OtherMaster/OtherMaster";
+import CurrencyMaster from "../../containers/Home/Master/Currency/CurrencyMaster/CurrencyMaster";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -35,7 +36,9 @@ export default function MasterPage() {
       <Layout />
         <Box component="main" sx={{ flexGrow: 1, marginTop:user === "test2" ?  "35px" : 0, marginBottom: 2  }}>
           <DrawerHeader />
-          {id === 19 ? (
+          {id ===16 ? (
+            <CurrencyMaster />
+          ) :id === 19 ? (
             <AccountMaster />
           ) : id === 20 ? (
             <CustomerVendor />

@@ -236,13 +236,13 @@ export default function ExchangeRate(args) {
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
-            <Breadcrumbs
+            {/* <Breadcrumbs
              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
               {breadcrumbs}
-            </Breadcrumbs>
+            </Breadcrumbs> */}
           </Stack>
 
           <Stack
@@ -298,7 +298,7 @@ export default function ExchangeRate(args) {
                 </Typography>
               </Stack>
             </IconButton>
-            <IconButton
+            {/* <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -312,9 +312,9 @@ export default function ExchangeRate(args) {
                   Save
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
 
-            <IconButton
+            {/* <IconButton
               onClick={handleClose}
               aria-label="Close"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -329,7 +329,7 @@ export default function ExchangeRate(args) {
                   Close
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
           </Stack>
         </Box>
 

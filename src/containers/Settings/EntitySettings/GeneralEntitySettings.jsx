@@ -71,6 +71,7 @@ import CheckBox1 from "../../../components/CheckBox/CheckBox1";
 import { entityList } from "../../../config/securityConfig";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useTheme } from "../../../config/themeContext";
 
 function handleClick(event) {
   event.preventDefault();
@@ -109,9 +110,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -119,7 +120,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
   },
 }));
 
@@ -211,6 +212,7 @@ export default function GeneralEntitySettings(args) {
     </Typography>,
   ];
 
+  const {currentTheme} = useTheme()
   return (
     <>
       <CssBaseline />
@@ -228,7 +230,7 @@ export default function GeneralEntitySettings(args) {
             backgroundColor: secondryColor,
           }}
         >
-          <Stack spacing={2} sx={{ flex: 1 }}>
+          {/* <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
               separator={<NavigateNextIcon fontSize="small" />}
               aria-label="breadcrumb"
@@ -236,7 +238,7 @@ export default function GeneralEntitySettings(args) {
             >
               {breadcrumbs}
             </Breadcrumbs>
-          </Stack>
+          </Stack> */}
 
           <Stack
             direction="row"
@@ -291,7 +293,7 @@ export default function GeneralEntitySettings(args) {
                 </Typography>
               </Stack>
             </IconButton> */}
-            <IconButton
+            {/* <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -322,7 +324,7 @@ export default function GeneralEntitySettings(args) {
                   Close
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
           </Stack>
         </Box>
         <div>
@@ -334,6 +336,7 @@ export default function GeneralEntitySettings(args) {
               aria-controls="panel1d-content"
               id="panel1d-header"
               expanded={expanded === "panel1"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
               Report
@@ -371,6 +374,7 @@ export default function GeneralEntitySettings(args) {
               aria-controls="panel2d-content"
               id="panel2d-header"
               expanded={expanded === "panel2"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
               Mail Settings
@@ -408,6 +412,7 @@ export default function GeneralEntitySettings(args) {
               aria-controls="panel3d-content"
               id="panel3d-header"
               expanded={expanded === "panel3"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
               Print

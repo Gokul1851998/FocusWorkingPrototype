@@ -67,14 +67,14 @@ export default function UniqueConstrains() {
         }}
       />
       <MDBRow>
-        <MDBCol lg="3" md="4" sm="6" xs="12">
-          <AutoComplete2 autoLabel="Constraint Name" />
+        <MDBCol lg="4" >
+          <AutoComplete2 autoLabel="Constraint Name" isMandatory={"true"}/>
         </MDBCol>
-        <MDBCol lg="3" md="4" sm="6" xs="12">
+        {/* <MDBCol lg="4">
           <AutoComplete2 autoLabel="Tabs" />
-        </MDBCol>
+        </MDBCol> */}
       </MDBRow>
-      <MDBRow style={{ marginLeft: 2, marginTop: 10 }}>
+      {/* <MDBRow style={{ marginLeft: 2, marginTop: 10 }}>
         <Typography variant="p" color="gray" gutterBottom>
           Main
         </Typography>
@@ -112,9 +112,9 @@ export default function UniqueConstrains() {
         <MDBCol lg="2" md="3" sm="6" xs="12">
           <CheckBox2 label="Revised By" />
         </MDBCol>
-      </MDBRow>
+      </MDBRow> */}
 
-      <MDBRow style={{ marginLeft: 2, marginTop: 10 }}>
+      {/* <MDBRow style={{ marginLeft: 2, marginTop: 10 }}>
         <Typography variant="p" color="gray" gutterBottom>
           Header
         </Typography>
@@ -137,9 +137,9 @@ export default function UniqueConstrains() {
         <MDBCol lg="2" md="3" sm="6" xs="12">
           <CheckBox2 label="Bank A/c" />
         </MDBCol>
-      </MDBRow>
+      </MDBRow> */}
 
-      <MDBRow style={{ marginLeft: 2, marginTop: 10 }}>
+      {/* <MDBRow style={{ marginLeft: 2, marginTop: 10 }}>
         <Typography variant="p" color="gray" gutterBottom>
           Body
         </Typography>
@@ -149,7 +149,7 @@ export default function UniqueConstrains() {
             borderWidth: "1px",
           }}
         />
-      </MDBRow>
+      </MDBRow> */}
     </MDBCardBody>
   );
 }

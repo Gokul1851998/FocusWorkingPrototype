@@ -13,7 +13,9 @@ export const masterSettingsModule = [
 
 ];
 
-export const masterSettingsDefinitionCheck = ['Allow Revision', 'Default', 'Group Mandatory', 'Pick Code'];
+export const masterSettingsDefinitionCheck = ['Allow Revision', 'Default', 'Group Mandatory', 
+  // 'Pick Code'
+];
 
 export const dependentData = [
   { MasterName: 'Example Name 1', TabCaption: 'Example Tab 1', FieldCaption: 'Example Field 1', FieldType: 'Type 1' },

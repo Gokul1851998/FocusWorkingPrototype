@@ -35,6 +35,8 @@ import FinanceSettings from '../EntitySettings/FinanceSettings';
 import InventorySettings from '../EntitySettings/InventorySettings';
 import FixedAssetsSettings from '../EntitySettings/FixedAssetsSettings';
 import GeneralEntitySettings from '../EntitySettings/GeneralEntitySettings';
+import MasterSettings from '../../../pages/MasterSettings/MasterSettings';
+import MasterSettingsContainer from '../MasterSettings/MasterSettingsContainer';
 
 
 const SelectAllIconStyle ={//style for selectAll and unselectAll
@@ -273,7 +275,7 @@ const BusinessUnit = [
 
 // List of options
 const options = [
-  { label: 'Currency Master', component: <CurrencyMaster /> },
+  { label: 'Master Settings', component: <MasterSettingsContainer /> },
   { label: 'Exchange Rate', component: <ExchangeRate /> },
   { label: 'Exchange Rate History', component: <ExchangeRateHistory /> },
   { label: 'Finance', component: <FinanceSettings /> },

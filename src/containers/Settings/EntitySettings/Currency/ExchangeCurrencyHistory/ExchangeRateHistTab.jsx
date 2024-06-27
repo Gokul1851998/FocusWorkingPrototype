@@ -8,6 +8,7 @@ import { thirdColor } from "../../../../../config";
 import TableViewIcon from '@mui/icons-material/TableView';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import ExchangeRateHistoryResultTable from "./ExchangeRateHistoryResultTable";
+import { useTheme } from "../../../../../config/themeContext";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,6 +50,11 @@ export default function ExchangeRateHistTab({ selectedCurrencies }) {
     setValue(newValue);
   };
 
+  const {currentTheme} = useTheme()
+
+   const getBackgroundColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#000' : '#fff';
+  };
   return (
     <Box sx={{ flexGrow: 1, display: "flex", height: 224, borderRadius: 2 }}>
       <Tabs
@@ -57,9 +63,12 @@ export default function ExchangeRateHistTab({ selectedCurrencies }) {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider", textTransform: "none" }}
+        sx={{ borderRight: 1, borderColor: "divider", textTransform: "none"}}
       >
-        <Tab icon={<TableViewIcon />} sx={{ textTransform: "none" }} label="Table" {...a11yProps(0)} />
+        <Tab icon={<TableViewIcon sx={{color:currentTheme.actionIcons}} />} sx={{
+    textTransform: "none",
+    color: `${currentTheme.actionIcons} !important`   // This sets the color of the tab label
+  }} label="Table" {...a11yProps(0)} />
         {/* <Tab icon={<EqualizerIcon/>} sx={{ textTransform: "none" }} label="Graph" {...a11yProps(1)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
