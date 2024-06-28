@@ -142,12 +142,12 @@ export default function OtherMaster(args) {
       ];
       break;
       case 56:
-      pagename = "Bank Charges";
+      pagename = "Bank Branches";
       fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
       treeFields = [
         {
           id: "1",
-          label: "Bank Charges",
+          label: "Bank Branches",
           children: [{ id: "7", label: "General" }],
         },
       ];

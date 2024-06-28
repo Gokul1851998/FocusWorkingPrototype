@@ -63,7 +63,7 @@ export const SideBarIcons = [
   { id: 53, parent: 11, iconName: "Place of Supply", icon: null, url: "/Master" },
   { id: 54, parent: 11, iconName: "Jurisdiction", icon: null, url: "/Master" },
   { id: 55, parent: 11, iconName: "Bank", icon: null, url: "/Master" },
-  { id: 56, parent: 11, iconName: "Bank Charges", icon: null, url: "/Master" },
+  { id: 56, parent: 11, iconName: "Bank Branches", icon: null, url: "/Master" },
   { id: 57, parent: 11, iconName: "Outlet", icon: null, url: "/Master" },
   { id: 58, parent: 11, iconName: "Nationality", icon: null, url: "/Master" },
   { id: 59, parent: 11, iconName: "Country", icon: null, url: "/Master" },
