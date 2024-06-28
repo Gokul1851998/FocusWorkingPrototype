@@ -47,6 +47,7 @@ import {
 } from "@mui/icons-material";
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 import PersonIcon from "@mui/icons-material/Person";
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -224,7 +225,7 @@ const DefaultIcons = ({ iconsClick,currentTheme }) => {
   
         
     
-      <IconButton
+      {/* <IconButton
         aria-label="New"
         sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
         onClick={() => iconsClick("close")}
@@ -239,7 +240,7 @@ const DefaultIcons = ({ iconsClick,currentTheme }) => {
             Close
           </Typography>
         </Stack>
-      </IconButton>
+      </IconButton> */}
       {/* <Example/> */}
     </Box>
   );
@@ -283,16 +284,31 @@ function MasterSettingsContainer() {
 
       
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", width: "100%",height:"65vh"}}>
+        
+      <Box
+        sx={{
+          width: "100%",
+          overflowX: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          // maxHeight: "60vh",
+          overflowY: "auto",
+          scrollbarWidth: "thin",
+          paddingBottom: "30px",
+          
+        }}
+      >
         <Box
         sx={{
           display: "flex",
           width: "100%",
           flexDirection: "row",
           justifyContent: "space-between",
-         
+          boxShadow:'5px 2px 4px 4px rgba(128, 128, 128, 0.3)'  ,
           paddingLeft: 1.5,
           paddingRight: 1.5,
+          zIndex:10
         }}
       >
         <BasicBreadcrumbs  currentTheme={currentTheme}/>
@@ -301,18 +317,6 @@ function MasterSettingsContainer() {
           iconsClick={handleIconsClick} currentTheme={currentTheme}
         />
       </Box>
-      <Box
-        sx={{
-          width: "100%",
-          overflowX: "hidden",
-          display: "flex",
-          flexDirection: "column",
-          maxHeight: "83vh",
-          overflowY: "auto",
-          scrollbarWidth: "thin",
-          paddingBottom: "30px",
-        }}
-      >
        
           <Accordion
           expanded={expanded === "panel1"}
@@ -342,7 +346,7 @@ function MasterSettingsContainer() {
             <>
               <div>
                 <MDBCardBody>
-                <Box sx={{ display:"flex",justifyContent:"right" }}>
+                {/* <Box sx={{ display:"flex",justifyContent:"right" }}>
         
         <IconButton
         aria-label="Add group"
@@ -376,7 +380,7 @@ function MasterSettingsContainer() {
             </Typography>
           </Stack>
         </IconButton>
-</Box>
+</Box> */}
                   <MasterDefinition/>
                
                 </MDBCardBody>
@@ -412,41 +416,7 @@ function MasterSettingsContainer() {
             <>
               <div>
                 <MDBCardBody>
-                <Box sx={{ display:"flex",justifyContent:"right" }}>
-        
-                <IconButton
-                aria-label="Add group"
-                sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
-              >
-                <Stack direction="column" alignItems="center">
-                  <AddCircleOutlineIcon style={{ color: currentTheme.actionIcons,}} />
-
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
-                  >
-                   Create Tab
-                  </Typography>
-                </Stack>
-              </IconButton>
-                <IconButton
-                  aria-label="Add group"
-                  sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
-                >
-                  <Stack direction="column" alignItems="center">
-                    <RemoveCircleOutlineIcon style={{ color: currentTheme.actionIcons,}} />
-  
-                    <Typography
-                      variant="caption"
-                      align="center"
-                      style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
-                    >
-                      Delete Tab
-                    </Typography>
-                  </Stack>
-                </IconButton>
-        </Box>
+              
                   
                   <MasterCustomization />
                 </MDBCardBody>
@@ -471,7 +441,7 @@ function MasterSettingsContainer() {
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <PersonIcon sx={{ color: currentTheme.actionIcons }} />
+                <ViewModuleIcon sx={{ color: currentTheme.actionIcons }} />
               </Stack>
             </IconButton>
             <Typography style={{ fontSize: "14px" }}>
@@ -488,7 +458,7 @@ function MasterSettingsContainer() {
             </>
           </AccordionDetails>
         </Accordion>
-        <Accordion
+        {/* <Accordion
           expanded={expanded === "panel4"}
           onChange={handleChange("panel4")}
         >
@@ -521,7 +491,7 @@ function MasterSettingsContainer() {
               </div>
             </>
           </AccordionDetails>
-        </Accordion>
+        </Accordion> */}
         
       </Box>
     </Box>

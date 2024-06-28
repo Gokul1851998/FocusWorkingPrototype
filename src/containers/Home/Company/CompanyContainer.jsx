@@ -222,16 +222,7 @@ const DefaultIcons = ({ iconsClick, pageType,currentTheme }) => {
   );
 };
 
-const buttonStyle = {
-  backgroundColor: secondryColor,
-  color: primaryButtonColor,
-  textTransform: "none",
-  padding: "1px",
-  "&:hover": {
-    backgroundColor: secondryColor, // Change as needed
-    color: primaryButtonColor, // Example hover color change
-  },
-};
+
 
 const uploadIconstyle = {
 
@@ -257,7 +248,18 @@ export default function CompanyContainer({ pageType,pageId }) {
   const [defaultLanguage, setdefaultLanguage] = useState([])
   const [selectedLevel, setSelectedLevel] = useState(null);
 
-  const { currentTheme } = useTheme();
+  const {currentTheme} = useTheme()
+
+  const buttonStyle = {
+    backgroundColor: currentTheme.secondaryColor,
+    color: currentTheme.primaryButtonColor,
+    textTransform: "none",
+    padding: "1px",
+    "&:hover": {
+      backgroundColor: currentTheme.secondaryColor, // Change as needed
+      color: currentTheme.primaryButtonColor, // Example hover color change
+    },
+  };
 
   const handleLevelClick = (level) => {
     setSelectedLevel(level);

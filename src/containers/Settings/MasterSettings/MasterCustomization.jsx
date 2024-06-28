@@ -10,7 +10,11 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
+  IconButton,
+  Menu,
+  MenuItem,
   Radio,
+  Stack,
   Typography,
 } from "@mui/material";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
@@ -30,14 +34,36 @@ import UniqueConstrains from "./UniqueConstrains";
 import InfoPanel from "./InfoPanel";
 import CustomizationReports from "./CustomizationReports";
 import { useTheme } from "../../../config/themeContext";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CustomizationCreateTab from "./CustomizationCreateTab";
 
 function MasterCustomization() {
   const [isOpen, setIsOpen] = useState(true);
   const [hide, setHide] = useState(true);
   const [formData, setformData] = useState({});
   const [treeSelect, setTreeSelect] = useState(7);
-
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [activeTabType, setActiveTabType] = useState('');
+  const [anchorEl, setAnchorEl] = useState(null);
   const {currentTheme} = useTheme()
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleOpenDialog = (tabType) => {
+    setActiveTabType(tabType);
+    setIsDialogOpen(true);
+    handleClose();
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
 
   const handleRadioChange = (event) => {
     setformData({ ...formData, searchBy: event.target.value });
@@ -102,10 +128,46 @@ function MasterCustomization() {
             width: 350,
             boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
             display: "flex",
-            alignItems: "center",
+           flexDirection:"column",
             backgroundColor: getBackgroundColor(),
           }}
         >
+              <Box sx={{ display: "flex", justifyContent: "left" }}>
+
+<IconButton
+  aria-label="Add group"
+  sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+  onClick={handleClick}
+>
+  <Stack direction="column" alignItems="center">
+    <AddCircleOutlineIcon style={{ color: currentTheme.actionIcons, }} />
+
+    <Typography
+      variant="caption"
+      align="center"
+      style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+    >
+      Create Tab
+    </Typography>
+  </Stack>
+</IconButton>
+<IconButton
+  aria-label="Add group"
+  sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+>
+  <Stack direction="column" alignItems="center">
+    <RemoveCircleOutlineIcon style={{ color: currentTheme.actionIcons, }} />
+
+    <Typography
+      variant="caption"
+      align="center"
+      style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+    >
+      Delete Tab
+    </Typography>
+  </Stack>
+</IconButton>
+</Box>
           <div>
             <Box
               sx={{
@@ -151,6 +213,23 @@ function MasterCustomization() {
       )  :treeSelect == 11 ? (
         <CustomizationTable />
       ) : null }
+      <CustomizationCreateTab
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
+        tabType={activeTabType}
+      />
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('image')}>Image Tab</MenuItem>
+        <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('tree')}>Tree Tab</MenuItem>
+        <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('document')}>Document Tab</MenuItem>
+        <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('createTab')}>Create Tab</MenuItem>
+      </Menu>
     </div>
   );
 }

@@ -10,7 +10,9 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
+  IconButton,
   Radio,
+  Stack,
   Typography,
 } from "@mui/material";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
@@ -23,9 +25,11 @@ import SecurityInput from "../../../components/Inputs/SecurityInput";
 import { MDBCol } from "mdb-react-ui-kit";
 import Definitiontable1 from "./DefinitionTable1";
 import { useTheme } from "../../../config/themeContext";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 
 function MasterDefinition() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [hide, setHide] = useState(false);
   const [formData, setformData] = useState({});
   const [selectedOption, setSelectedOption] = React.useState('');
@@ -96,9 +100,45 @@ function MasterDefinition() {
             boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
             backgroundColor: getBackgroundColor(),
             display: "flex",
-            alignItems: "center",
+           
+            flexDirection:"column"
           }}
         >
+          <Box sx={{ display: "flex", justifyContent: "left" }}>
+
+<IconButton
+  aria-label="Add group"
+  sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+>
+  <Stack direction="column" alignItems="center">
+    <GroupAddIcon style={{ color: currentTheme.actionIcons, }} />
+
+    <Typography
+      variant="caption"
+      align="center"
+      style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+    >
+      Add Group
+    </Typography>
+  </Stack>
+</IconButton>
+<IconButton
+  aria-label="Add group"
+  sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+>
+  <Stack direction="column" alignItems="center">
+    <GroupRemoveIcon style={{ color: currentTheme.actionIcons, }} />
+
+    <Typography
+      variant="caption"
+      align="center"
+      style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+    >
+      Delete Group
+    </Typography>
+  </Stack>
+</IconButton>
+</Box>
           <div>
             <Box
               sx={{
@@ -106,6 +146,7 @@ function MasterDefinition() {
                 //  alignItems: "center"
               }}
             >
+              
               <Tree1 items={createProfileTree} />
 
               <Button

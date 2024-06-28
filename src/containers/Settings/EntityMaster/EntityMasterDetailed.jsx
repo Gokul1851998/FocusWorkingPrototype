@@ -416,7 +416,8 @@ const EntityMasterDetailed = ({setPage,detailPageId}) => {
  
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", width: "100%",height:"85vh", overflowY: "auto",
+      scrollbarWidth: "thin", }}>
       <Box
         sx={{
           display: "flex",
@@ -453,7 +454,7 @@ const EntityMasterDetailed = ({setPage,detailPageId}) => {
             display: "flex",
             flexDirection: "column",
             paddingTop: "10px",
-            
+            boxShadow:'5px 2px 4px 4px rgba(128, 128, 128, 0.3)'  ,
           }}
         >
           <Tabs
@@ -469,7 +470,7 @@ const EntityMasterDetailed = ({setPage,detailPageId}) => {
             <EntityMasterDetailTab />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Box sx={{ display: "flex", height: "100%" }}>
+            <Box sx={{ display: "flex", height: "100%",boxShadow:'5px 2px 4px 4px rgba(128, 128, 128, 0.3)'  , }}>
               <List
                 component="nav"
                 sx={{ width: "140px", borderRight: "1px solid #ccc",padding:0 }}

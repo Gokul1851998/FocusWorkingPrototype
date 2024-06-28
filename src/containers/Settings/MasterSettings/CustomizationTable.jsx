@@ -66,7 +66,7 @@ function CustomizationTable() {
   const {currentTheme} = useTheme()
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden", m: 2 }}>
+    <Paper sx={{ width: "100%", overflow: "hidden", m: 2 ,boxShadow:'5px 2px 4px 4px rgba(128, 128, 128, 0.3)'  ,}}>
       <Tabs
         value={selectedTab}
         sx={{ display: "flex", alignItems: "center" }} // Align items horizontally
