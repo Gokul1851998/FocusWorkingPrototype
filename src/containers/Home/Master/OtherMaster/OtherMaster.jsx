@@ -99,7 +99,7 @@ export default function OtherMaster(args) {
   switch (args.id) {
     case 52:
       pagename = "Tax Code";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" },{ name: "Value", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true },{ name: "Value", type: "input" }];
       treeFields = [
         {
           id: "1",
@@ -110,7 +110,7 @@ export default function OtherMaster(args) {
       break;
       case 53:
       pagename = "Place of Supply";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -121,7 +121,7 @@ export default function OtherMaster(args) {
       break;
       case 54:
       pagename = "Jurisdiction";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -132,7 +132,7 @@ export default function OtherMaster(args) {
       break;
       case 55:
       pagename = "Bank";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -143,7 +143,7 @@ export default function OtherMaster(args) {
       break;
       case 56:
       pagename = "Bank Branches";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -154,7 +154,7 @@ export default function OtherMaster(args) {
       break;
       case 57:
       pagename = "Outlets";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true },{ name: "Customer", type: "select",mandatory:true },{ name: "Location", type: "select",mandatory:true },{ name: "TRN No", type: "input" },{ name: "Lat-Lan", type: "input",mandatory:true},{ name: "Address1", type: "input"},{ name: "Address2", type: "input"},{ name: "Pin Number", type: "input"},{ name: "Mobile Number", type: "input",mandatory:true},{ name: "Phone Number", type: "input"},{ name: "Contact Person Number", type: "input"},{ name: "Parent", type: "select"}];
       treeFields = [
         {
           id: "1",
@@ -165,7 +165,7 @@ export default function OtherMaster(args) {
       break;
       case 58:
       pagename = "Nationality";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -176,7 +176,7 @@ export default function OtherMaster(args) {
       break;
       case 59:
       pagename = "Country";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -187,7 +187,7 @@ export default function OtherMaster(args) {
       break;
       case 60:
       pagename = "Province";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -198,7 +198,7 @@ export default function OtherMaster(args) {
       break;
       case 61:
       pagename = "Territory";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -209,7 +209,7 @@ export default function OtherMaster(args) {
       break;
       case 62:
       pagename = "Township";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -220,7 +220,7 @@ export default function OtherMaster(args) {
       break;
       case 63:
       pagename = "Zone";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -231,7 +231,7 @@ export default function OtherMaster(args) {
       break;
       case 64:
       pagename = "City";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",
@@ -242,7 +242,7 @@ export default function OtherMaster(args) {
       break;
       case 65:
       pagename = "Employee";
-      fields = [{ name: "Code", type: "input" },{ name: "Name", type: "input" }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
       treeFields = [
         {
           id: "1",

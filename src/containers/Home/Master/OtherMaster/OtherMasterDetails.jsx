@@ -197,7 +197,14 @@ export default function OtherMasterDetails({fields}) {
       if (field.type === 'input') {
         return (
           <MDBCol lg="3" md="4" sm="6" xs="12" key={index}>
-            <AccountInput1 label={field.name} />
+            <AccountInput1 label={field.name} mandatory={field.mandatory} />
+          </MDBCol>
+        );
+      }
+      else if (field.type === 'select') {
+        return (
+          <MDBCol lg="3" md="4" sm="6" xs="12" key={index}>
+            <AutoComplete2 autoLabel={field.name} isMandatory={field.mandatory} />
           </MDBCol>
         );
       }

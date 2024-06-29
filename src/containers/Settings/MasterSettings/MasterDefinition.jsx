@@ -30,7 +30,7 @@ import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 
 function MasterDefinition() {
   const [isOpen, setIsOpen] = useState(true);
-  const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(true);
   const [formData, setformData] = useState({});
   const [selectedOption, setSelectedOption] = React.useState('');
 
