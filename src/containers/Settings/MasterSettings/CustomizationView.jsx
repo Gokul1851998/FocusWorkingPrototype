@@ -35,6 +35,7 @@ import AccountInput from "../../../components/Inputs/AccountInput";
 import CheckBox2 from "../../../components/CheckBox/CheckBox2";
 import ViewTable from "./ViewTable";
 import { useTheme } from "../../../config/themeContext";
+import ViewUserSelection from "./ViewUserSelection";
 
 export default function CustomizationView() {
   const [isOpen, setIsOpen] = useState(true);
@@ -178,6 +179,7 @@ export default function CustomizationView() {
             ) : null}
           </>
         </Stack>
+        <ViewUserSelection/>
       </>
     </div>
   );

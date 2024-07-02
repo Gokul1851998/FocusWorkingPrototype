@@ -242,7 +242,7 @@ export default function OtherMaster(args) {
       break;
       case 65:
       pagename = "Employee";
-      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true }];
+      fields = [{ name: "Code", type: "input",mandatory:true },{ name: "Name", type: "input",mandatory:true },{ name: "Date of Joining", type: "input",datatype:"date", value:" " },{ name: "Department", type: "select"}];
       treeFields = [
         {
           id: "1",

@@ -528,7 +528,7 @@ export const viewTree = [
     label: "Master Fields",
     children: [
       { id: "7", label: "General" },
-      { id: "11", label: "Entity" },
+      { id: "11", label: "Entity" ,children: [{ id: "12", label: "" }]},
       { id: "8", label: "Settings" },
       { id: "9", label: "VAT Settings" },
       { id: "10", label: "Language" },

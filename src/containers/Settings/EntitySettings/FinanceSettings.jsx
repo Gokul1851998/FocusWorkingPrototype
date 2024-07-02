@@ -339,7 +339,7 @@ export default function FinanceSettings(args) {
               expanded={expanded === "panel1"}
               currentTheme={currentTheme}
             >
-              <Typography style={{ fontSize: "14px" }}>Account Preference</Typography>
+              <Typography style={{ fontSize: "14px" }}>AR/AP</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <>

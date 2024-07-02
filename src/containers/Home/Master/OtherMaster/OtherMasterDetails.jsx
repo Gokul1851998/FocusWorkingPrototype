@@ -197,7 +197,7 @@ export default function OtherMasterDetails({fields}) {
       if (field.type === 'input') {
         return (
           <MDBCol lg="3" md="4" sm="6" xs="12" key={index}>
-            <AccountInput1 label={field.name} mandatory={field.mandatory} />
+            <AccountInput1 label={field.name} mandatory={field.mandatory} type={field?.datatype} value={field?.value} />
           </MDBCol>
         );
       }
@@ -208,6 +208,7 @@ export default function OtherMasterDetails({fields}) {
           </MDBCol>
         );
       }
+      
       return null; // Handle other types if necessary
     });
   };
