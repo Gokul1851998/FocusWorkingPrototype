@@ -7,7 +7,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import { primaryButtonColor, thirdColor } from "../../../../../config";
-import { Checkbox, FormControlLabel, TextField,IconButton, Box, List, ListItemButton, ListItemText } from "@mui/material";
+import { Checkbox, FormControlLabel, TextField,IconButton, Box, List, ListItemButton, ListItemText, Stack } from "@mui/material";
 import {
   MDBCard,
   MDBCardBody,
@@ -24,11 +24,14 @@ import {
  Delete as DeleteIcon,
 } from "@mui/icons-material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ClearIcon from '@mui/icons-material/Clear';
+import ClearAllIcon from "@mui/icons-material/ClearAll";
 import ProductClassificationTable from "./ProductClassificationTable";
 import MasterLanguage from "../../Account/AccountMaster/MasterLanguage";
 import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
 import { useTheme } from "../../../../../config/themeContext";
 import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
+import EnteredEntityList from "./EnteredEntityList";
 
 
 const Accordion = styled((props) => (
@@ -1201,7 +1204,88 @@ export default function ProductDetails() {
           <>
             <div>
               <MDBCardBody>
+              <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            paddingLeft: 1.5,
+            paddingRight: 1.5,
+            zIndex: 1,
+            // backgroundColor: secondryColor,
+          }}
+        >
+          <Stack spacing={2} sx={{ flex: 1 }}>
+            {/* <Breadcrumbs
+              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
+              aria-label="breadcrumb"
+              style={{ color: primaryButtonColor }}
+            >
+              {breadcrumbs}
+            </Breadcrumbs> */}
+          </Stack>
+
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            sx={{ flex: "0 0 auto" }}
+          >
+          
+           
+            <IconButton
+              aria-label="Edit"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <ClearAllIcon style={{ color: currentTheme.actionIcons }} />
+
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                >
+                  Clear
+                </Typography>
+              </Stack>
+            </IconButton>
+            {/* <IconButton
+              aria-label="Clone"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <SaveIcon style={{ color: currentTheme.actionIcons }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                >
+                  Save
+                </Typography>
+              </Stack>
+            </IconButton>
+
+            <IconButton
+              onClick={handleClose}
+              aria-label="Close"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <CloseIcon style={{ color: currentTheme.actionIcons }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                >
+                  Close
+                </Typography>
+              </Stack>
+            </IconButton> */}
+          </Stack>
+        </Box>
               <MDBRow>
+             
               <MDBCol lg="3" md="4" sm="6" xs="12">
                 <Box sx={{mb:3}}>
                 <RoleSelect1
@@ -1210,8 +1294,13 @@ export default function ProductDetails() {
                         onChange={(e) => handleEntityChange(e.target.value)}
                         options={Object.keys(entitiesData).map(entity => ({ label: entity, value: entity }))}
                       />
+                      
                 </Box>
                  
+                  </MDBCol>
+                 
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <EnteredEntityList/>
                   </MDBCol>
                   </MDBRow>
                 {/* <MDBRow>

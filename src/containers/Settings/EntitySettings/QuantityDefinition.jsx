@@ -1,17 +1,25 @@
 import React, { useState } from "react";
-import { Box, CssBaseline, IconButton, TextField, styled } from "@mui/material";
+import {
+  Box,
+  CssBaseline,
+  Divider,
+  IconButton,
+  Radio,
+  RadioGroup,
+  TextField,
+  styled,
+} from "@mui/material";
 import { Collapse, Button, CardBody, Card, Alert } from "reactstrap";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import Tree1 from "../../../../../components/Tree/Tree1";
+import Tree1 from "../../../components/Tree/Tree1";
 import {
   primaryButtonColor,
   primaryColor,
   secondryColor,
   thirdColor,
-} from "../../../../../config";
-import { accountTree } from "../../../../../config/masterConfig";
-import TableAccounts from "../../../../../components/Tables/TableAccounts";
+} from "../../../config";
+
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
@@ -57,14 +65,14 @@ import {
   MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
-import AccountInput from "../../../../../components/Inputs/AccountInput";
-import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
-import GetAppIcon from "@mui/icons-material/GetApp";
-import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
-import ClearAllIcon from "@mui/icons-material/ClearAll";
-import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
-import UnitConversionTable from "./UnitConversionTable";
-import { useTheme } from "../../../../../config/themeContext";
+
+import AutoComplete2 from "../../../components/AutoComplete/AutoComplete2";
+import CheckBox1 from "../../../components/CheckBox/CheckBox1";
+import { entityList } from "../../../config/securityConfig";
+import RoleSelect1 from "../../../components/Select/RoleSelect1";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { useTheme } from "../../../config/themeContext";
+import AccountInput from "../../../components/Inputs/AccountInput";
 
 function handleClick(event) {
   event.preventDefault();
@@ -103,7 +111,7 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme,currentTheme  }) => ({
+))(({ theme,currentTheme }) => ({
   color: currentTheme.sideBarTextColor1,
   backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
@@ -120,10 +128,9 @@ const AccordionSummary = styled((props) => (
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   paddingLeft: theme.spacing(3),
   borderTop: "1px solid rgba(0, 0, 0, .125)",
-  gap: 100,
 }));
 
-export default function UnitConversion(args) {
+export default function QuantityDefinition(args) {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
@@ -133,8 +140,11 @@ export default function UnitConversion(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
+  const [selectedOption, setSelectedOption] = React.useState('');
 
-  const { currentTheme } = useTheme();
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -178,37 +188,32 @@ export default function UnitConversion(args) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
       key="1"
-     
+      color="white"
       onClick={handleClick}
     >
-      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-      Home
+      <SettingsIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      Settings
     </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      
-      sx={{ fontSize: "1rem" ,color: currentTheme.actionIcons}}
-      onClick={handleClick}
-    >
-      Master
-    </Link>,
-    <Link
-      underline="hover"
-      key="3"
+     <Link
+     underline="hover"
+     sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+     key="1"
+     color="white"
+     onClick={handleClick}
+   >
     
-      sx={{ fontSize: "1rem",color: currentTheme.actionIcons }}
-      onClick={handleClick}
-    >
-      Product
-    </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" ,color: currentTheme.actionIcons}}>
-      Unit Conversion
+     Entity Settings
+   </Link>,
+    
+
+    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
+      Fixed Asset
     </Typography>,
   ];
 
+  const {currentTheme} = useTheme()
   return (
     <>
       <CssBaseline />
@@ -223,18 +228,18 @@ export default function UnitConversion(args) {
             paddingLeft: 1.5,
             paddingRight: 1.5,
             zIndex: 1,
-            // backgroundColor: secondryColor,
+            backgroundColor: secondryColor,
           }}
         >
-          <Stack spacing={2} sx={{ flex: 1 }}>
+          {/* <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}} />}
+              separator={<NavigateNextIcon fontSize="small" />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
               {breadcrumbs}
             </Breadcrumbs>
-          </Stack>
+          </Stack> */}
 
           <Stack
             direction="row"
@@ -242,89 +247,121 @@ export default function UnitConversion(args) {
             spacing={1}
             sx={{ flex: "0 0 auto" }}
           >
-            <IconButton
+            {/* <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <GetAppIcon style={{ color: currentTheme.actionIcons }} />
+                <GetAppIcon style={{ color: "white" }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{ color: "white", fontSize: "0.6rem" }}
                 >
                   Import
                 </Typography>
               </Stack>
             </IconButton>
-           
-       
             <IconButton
+              aria-label="Add group"
+              sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <SwapHorizIcon style={{ color: "white" }} />
+
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Exchange Rate
+                </Typography>
+              </Stack>
+            </IconButton>
+            <IconButton
+              aria-label="Edit"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <ClearAllIcon style={{ color: "white" }} />
+
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: "white", fontSize: "0.6rem" }}
+                >
+                  Clear
+                </Typography>
+              </Stack>
+            </IconButton> */}
+            {/* <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: currentTheme.actionIcons }} />
+                <SaveIcon style={{ color: "white" }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{ color: "white", fontSize: "0.6rem" }}
                 >
                   Save
                 </Typography>
               </Stack>
             </IconButton>
-            <IconButton
-              aria-label="Delete"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-            >
-              <Stack direction="column" alignItems="center">
-                <DeleteIcon style={{ color: currentTheme.actionIcons }} />
 
-                <Typography
-                  variant="caption"
-                  align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
-                >
-                  Delete
-                </Typography>
-              </Stack>
-            </IconButton>
             <IconButton
               onClick={handleClose}
               aria-label="Close"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: currentTheme.actionIcons }} />
+                <CloseIcon style={{ color: "white" }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{ color: "white", fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
           </Stack>
         </Box>
+        <div>
+      
+         
+              <>
+                <div style={{padding:"5px"}}>
+                  <MDBCardBody>
+                  <MDBRow>
+                 
+                   
+                     
+                        
+                 <MDBCol lg="6" md="6" sm="12" xs="12">
+                   <AccountInput label="Number of decimals" />
+                 </MDBCol>
+                 
+                 
+             
+             
+          
 
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-            padding: 2,
-          }}
-        >
-          <AutoComplete2 autoLabel="Base Unit" />
-          <AutoComplete2 autoLabel="Item" />
-          <AutoComplete2 autoLabel="Load Form" />
-          <AutoComplete2 autoLabel="Entity" />
-        </Box>
+           
+         </MDBRow>
+      
+                
+                  </MDBCardBody>
+                </div>
+              </>
+            
+         
 
-       <UnitConversionTable />
-       
+          
+
+         
+        </div>
       </React.StrictMode>
     </>
   );

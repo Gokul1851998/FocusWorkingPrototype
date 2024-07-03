@@ -37,6 +37,7 @@ import AccountInput from "../../../../../components/Inputs/AccountInput";
 import CurrencyTableInput from "../../../../../components/Inputs/CurrencyTableInput";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { useTheme } from "../../../../../config/themeContext";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -75,6 +76,7 @@ function EnhancedTableHead(props) {
     rowCount,
     onRequestSort,
     rows,
+    currentTheme
   } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -83,7 +85,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead
       style={{
-        background: `${thirdColor}`,
+        background: `${currentTheme.thirdColor}`,
         position: "sticky",
         top: 0,
         zIndex: "5",
@@ -106,7 +108,7 @@ function EnhancedTableHead(props) {
                 sx={{
                   border: "1px solid #ddd",
                   cursor: "pointer",
-                  color: "white",
+                  color: currentTheme.tableHeaderColor,
                 }}
                 key={`${index}-${header}`}
                 align="left" // Set the alignment to left
@@ -129,6 +131,7 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
+  
 };
 
 export default function UnitConversionTable() {
@@ -140,6 +143,8 @@ export default function UnitConversionTable() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState([]);
+
+  const {currentTheme} = useTheme()
 
   const fetchData = async () => {
     setSelected([]);
@@ -270,6 +275,7 @@ export default function UnitConversionTable() {
                     onRequestSort={handleRequestSort}
                     rowCount={data.length}
                     rows={Object.keys(data[0])}
+                    currentTheme={currentTheme}
                   />
 
                   <TableBody>

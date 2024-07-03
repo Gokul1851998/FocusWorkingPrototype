@@ -37,6 +37,7 @@ import FixedAssetsSettings from '../EntitySettings/FixedAssetsSettings';
 import GeneralEntitySettings from '../EntitySettings/GeneralEntitySettings';
 import MasterSettings from '../../../pages/MasterSettings/MasterSettings';
 import MasterSettingsContainer from '../MasterSettings/MasterSettingsContainer';
+import QuantityDefinition from '../EntitySettings/QuantityDefinition';
 
 
 const SelectAllIconStyle ={//style for selectAll and unselectAll
@@ -276,6 +277,7 @@ const BusinessUnit = [
 // List of options
 const options = [
   { label: 'Master Settings', component: <MasterSettingsContainer /> },
+  { label: 'Quantity Definition', component: <QuantityDefinition /> },
   { label: 'Exchange Rate', component: <ExchangeRate /> },
   { label: 'Exchange Rate History', component: <ExchangeRateHistory /> },
   { label: 'Finance', component: <FinanceSettings /> },
@@ -490,7 +492,7 @@ const EntityMasterDetailed = ({setPage,detailPageId}) => {
                 ))}
               </List>
               {options[selectedOption] && (
-                <Box sx={{ flex: 1 }}>
+                <Box sx={{ flex: 1, }}>
                   {options[selectedOption].component}
                 </Box>
               )}
