@@ -276,7 +276,7 @@ const BusinessUnit = [
 
 // List of options
 const options = [
-  { label: 'Master Settings', component: <MasterSettingsContainer /> },
+  // { label: 'Master Settings', component: <MasterSettingsContainer /> },
   { label: 'Quantity Definition', component: <QuantityDefinition /> },
   { label: 'Exchange Rate', component: <ExchangeRate /> },
   { label: 'Exchange Rate History', component: <ExchangeRateHistory /> },

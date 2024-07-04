@@ -134,7 +134,7 @@ function BasicBreadcrumbs({currentTheme}) {
       }}
     >
       <Stack spacing={2} sx={{ flex: 1 }}>
-        {/* <Breadcrumbs
+        <Breadcrumbs
           // sx={{
           //       "& .MuiBreadcrumbs-separator": { mx: -0.0 }, // Reducing space around the separator
           //       "& .MuiTypography-root": { mr: -0.0, ml: -0.0 } // Adjusting text margins
@@ -161,7 +161,7 @@ function BasicBreadcrumbs({currentTheme}) {
            Master Settings
           </Typography>
           ,
-        </Breadcrumbs> */}
+        </Breadcrumbs>
       </Stack>
     </div>
   );
@@ -174,7 +174,7 @@ const DefaultIcons = ({ iconsClick,currentTheme }) => {
       
       
       
-      {/* <IconButton
+      <IconButton
         aria-label="New"
         sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
         //onClick={()=>iconsClick("close")}
@@ -189,7 +189,7 @@ const DefaultIcons = ({ iconsClick,currentTheme }) => {
             Save
           </Typography>
         </Stack>
-      </IconButton> */}
+      </IconButton>
   
       <IconButton
               aria-label="New"
@@ -225,7 +225,7 @@ const DefaultIcons = ({ iconsClick,currentTheme }) => {
   
         
     
-      {/* <IconButton
+      <IconButton
         aria-label="New"
         sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
         onClick={() => iconsClick("close")}
@@ -240,7 +240,7 @@ const DefaultIcons = ({ iconsClick,currentTheme }) => {
             Close
           </Typography>
         </Stack>
-      </IconButton> */}
+      </IconButton>
       {/* <Example/> */}
     </Box>
   );
@@ -263,6 +263,9 @@ function MasterSettingsContainer() {
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
       };
+      const handleclose = () => {
+        window.history.back();
+      };
       const handleIconsClick = (value) => {
         switch (value.trim()) {
           case "new":
@@ -284,7 +287,7 @@ function MasterSettingsContainer() {
 
       
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", width: "100%",height:"65vh"}}>
+    <Box sx={{ display: "flex", flexDirection: "column", width: "100%"}}>
         
       <Box
         sx={{

@@ -38,8 +38,9 @@ export const SideBarIcons = [
   { id: 28, parent: 17, iconName: "Buyer Price Book", icon: null, url: "/Master" },
   // { id: 29, parent:17, iconName: "Barcode Definition", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
   { id: 30, parent: 8, iconName: "General Settings", icon: null, url: "/GeneralSettings" },
+  { id: 32, parent: 8, iconName: "Master Settings", icon: null, url: "/MasterSettings" },
   { id: 31, parent: 8, iconName: "Voucher Settings", icon: null, url: "/VoucherSettings" },
-  // { id: 32, parent: 8, iconName: "Master Settings", icon: null, url: "/MasterSettings" },
+
   // { id: 33,parent:30, iconName: "Tag Settings", icon:  import("@mui/icons-material/PointOfSale") ,url:"/MainSettings" },
   // { id: 34, parent:30, iconName: "Account tag Management", icon:  import("@mui/icons-material/Inventory"),url:"/MainSettings" },
   { id: 35, parent: 9, iconName: "Open Company", icon: null, url: "/" },
