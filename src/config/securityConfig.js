@@ -533,3 +533,45 @@ export const EntityMasterTable = [{
   
 }];
 
+export const TagCreationTable = [{
+  iId: 1,
+  Name: 'Tag1',
+  Caption: 'Caption1',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+ 
+ 
+  
+  
+},{
+  iId: 2,
+  Name: 'Tag2',
+  Caption: 'Caption2',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+  
+},{
+  iId: 3,
+  Name: 'Tag3',
+  Caption: 'Caption3',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+
+  
+},{
+  iId: 4,
+  Name: 'Tag4',
+  Caption: 'Caption4',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+
+  
+},{
+  iId: 5,
+  Name: 'Tag5',
+  Caption: 'Caption5',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+
+  
+}];

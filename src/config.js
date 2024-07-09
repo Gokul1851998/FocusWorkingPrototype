@@ -41,7 +41,7 @@ export const SideBarIcons = [
   { id: 32, parent: 8, iconName: "Master Settings", icon: null, url: "/MasterSettings" },
   { id: 31, parent: 8, iconName: "Voucher Settings", icon: null, url: "/VoucherSettings" },
 
-  // { id: 33,parent:30, iconName: "Tag Settings", icon:  import("@mui/icons-material/PointOfSale") ,url:"/MainSettings" },
+  { id: 33,parent:8, iconName: "Tag Creation", icon:  null ,url:"/TagCreation" },
   // { id: 34, parent:30, iconName: "Account tag Management", icon:  import("@mui/icons-material/Inventory"),url:"/MainSettings" },
   { id: 35, parent: 9, iconName: "Open Company", icon: null, url: "/" },
   // { id: 36, parent:9, iconName: "Create Company", icon:  import("@mui/icons-material/Home"),url:"/Company" },
