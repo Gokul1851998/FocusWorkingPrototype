@@ -65,7 +65,8 @@ import {
   MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
-
+import HandymanIcon from '@mui/icons-material/Handyman';
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import AutoComplete2 from "../../../components/AutoComplete/AutoComplete2";
 import CheckBox1 from "../../../components/CheckBox/CheckBox1";
 import { entityList } from "../../../config/securityConfig";
@@ -74,6 +75,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useTheme } from "../../../config/themeContext";
 import AccountInput from "../../../components/Inputs/AccountInput";
 import AccountInput1 from "../../../components/Inputs/AccountInput1";
+import MasterDefinition from "../MasterSettings/MasterDefinition";
+import MasterCustomization from "../MasterSettings/MasterCustomization";
+import CustomizationView from "../MasterSettings/CustomizationView";
 
 function handleClick(event) {
   event.preventDefault();
@@ -142,6 +146,8 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
   const [expanded, setExpanded] = React.useState("panel1");
   const [selectedOption, setSelectedOption] = React.useState('');
 
+  const {currentTheme} = useTheme()
+
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -182,13 +188,13 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
   };
 
   const handleClose = () => {
-    window.history.back();
+    setPage("summary")
   };
 
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
       color="white"
       onClick={handleClick}
@@ -199,12 +205,12 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
     
     
 
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
        Tag Creation
     </Typography>,
   ];
 
-  const {currentTheme} = useTheme()
+  
 
   return (
     <>
@@ -225,7 +231,7 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" />}
+              separator={<NavigateNextIcon fontSize="small"  sx={{color: currentTheme.actionIcons,}}/>}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -242,14 +248,14 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
            
             <IconButton
               aria-label="Clone"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: "white" }} />
+                <SaveIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{fontSize: "0.6rem",color: currentTheme.actionIcons, }}
                 >
                   Save
                 </Typography>
@@ -262,11 +268,11 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: "white" }} />
+                <CloseIcon style={{ color: currentTheme.actionIcons}} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
@@ -290,7 +296,7 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
             <AccordionDetails>
               <>
               <MDBCardBody>
-              <MDBRow>
+              {/* <MDBRow>
                       
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput1 label="Name"  mandatory={1}/>
@@ -366,19 +372,7 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
                                   }}
                                 />
 
-                                {/* <FormControlLabel
-                                  value="Stop"
-                                  control={<Radio />} // Adjust the size of the radio button itself
-                                  label="Payment Terms"
-                                  sx={{
-                                    "& .MuiFormControlLabel-label": {
-                                      fontSize: "0.8rem", // Adjust the label font size
-                                      color: "gray", // Change the label color to gray
-                                    },
-                                    margin: 0,
-                                    padding: 0,
-                                  }}
-                                /> */}
+                                
                                 
                               </RadioGroup>
                             </MDBCol>
@@ -391,13 +385,86 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
                    
 
                  
-                </MDBRow>
+                </MDBRow> */}
+                
+                <MasterDefinition/>
                 </MDBCardBody>
               </>
             </AccordionDetails>
           </Accordion> 
+          {detailPageId == 1 &&<>
+          <Accordion
+          expanded={expanded === "panel2"}
+          onChange={handleChange("panel2")}
+        >
+          <AccordionSummary
+            aria-controls="panel2d-content"
+            id="panel2d-header"
+            className
+            expanded={expanded === "panel2"}
+            sx={{ alignItems: "center" }}
+            currentTheme={currentTheme}
+          >
+            <IconButton
+              sx={{ fontSize: "0.8rem", padding: "0rem" }}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+                <HandymanIcon sx={{ color: currentTheme.actionIcons }} />
+              </Stack>
+            </IconButton>
+            <Typography style={{ fontSize: "14px" }}>
+              Customization
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody>
+              
+                  
+                  <MasterCustomization />
+                </MDBCardBody>
+              </div>
+            </>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === "panel3"}
+          onChange={handleChange("panel3")}
+        >
+          <AccordionSummary
+            aria-controls="panel3d-content"
+            id="panel3d-header"
+            className
+            expanded={expanded === "panel3"}
+            sx={{ alignItems: "center" }}
+            currentTheme={currentTheme}
+          >
+            <IconButton
+              sx={{ fontSize: "0.8rem", padding: "0rem" }}
+              //onClick={()=>iconsClick("close")}
+            >
+              <Stack direction="column" alignItems="center">
+                <ViewModuleIcon sx={{ color: currentTheme.actionIcons }} />
+              </Stack>
+            </IconButton>
+            <Typography style={{ fontSize: "14px" }}>
+              Views
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+              <div>
+                <MDBCardBody>
+                  <CustomizationView />
+                </MDBCardBody>
+              </div>
+            </>
+          </AccordionDetails>
+        </Accordion>
          
-         
+        </>}
         </div>
       </React.StrictMode>
     </>

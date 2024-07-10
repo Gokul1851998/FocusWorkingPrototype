@@ -343,7 +343,7 @@ export default function AccountSettings(args) {
                   </MDBRow>
               </MDBCardBody>
               </Box>     */}
-          <Accordion
+          {/* <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
           >
@@ -377,16 +377,16 @@ export default function AccountSettings(args) {
                 </div>
               </>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
           <Accordion
-            expanded={expanded === "panel2"}
-            onChange={handleChange("panel2")}
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
           >
             <AccordionSummary
-              aria-controls="panel2d-content"
-              id="panel2d-header"
+              aria-controls="panel1d-content"
+              id="panel1d-header"
               className
-              expanded={expanded === "panel2"}
+              expanded={expanded === "panel1"}
               currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>

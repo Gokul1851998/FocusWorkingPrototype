@@ -212,7 +212,7 @@ function MasterDefinition() {
             marginTop: "10px",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", width: "150px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", width: "200px" }}>
             <FormControlLabel
               value="name"
               control={
@@ -229,7 +229,7 @@ function MasterDefinition() {
               labelPlacement="end"
             />
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center", width: "150px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", width: "200px" }}>
             <FormControlLabel
               value="code"
               control={
@@ -249,7 +249,7 @@ function MasterDefinition() {
           {masterSettingsDefinitionCheck.map((item, index) => (
             <Box
               key={index}
-              sx={{ display: "flex", alignItems: "center", width: "150px" }}
+              sx={{ display: "flex", alignItems: "center", width: "200px" }}
             >
               <FormControlLabel
                 control={
