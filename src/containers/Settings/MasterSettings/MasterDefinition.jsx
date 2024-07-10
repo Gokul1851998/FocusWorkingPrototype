@@ -28,7 +28,7 @@ import { useTheme } from "../../../config/themeContext";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 
-function MasterDefinition() {
+function MasterDefinition({detailPageId}) {
   const [isOpen, setIsOpen] = useState(true);
   const [hide, setHide] = useState(true);
   const [formData, setformData] = useState({});
@@ -183,7 +183,7 @@ function MasterDefinition() {
             options={masterSettingsModule}
             mandatory={"true"}
           />
-          <AutoComplete2
+          {/* <AutoComplete2
             // autoLabel={"User"}
             formData={{
               sName: formData?.Name ?? "",
@@ -194,7 +194,8 @@ function MasterDefinition() {
             }}
             autoLabel={"Name"}
             isMandatory={"true"}
-          />
+          /> */}
+          <SecurityInput label={"Name"}  mandatory={"true"} />
           <SecurityInput label={"Caption"}  mandatory={"true"} />
           {/* <RoleSelect1
                     label="Business Entity"
@@ -274,7 +275,9 @@ function MasterDefinition() {
             </Box>
           ))}
         </div>
+        {detailPageId ==1 &&
         <Definitiontable1 />
+      }
       </Box>
     </div>
   );

@@ -387,7 +387,7 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
                  
                 </MDBRow> */}
                 
-                <MasterDefinition/>
+                <MasterDefinition detailPageId={detailPageId}/>
                 </MDBCardBody>
               </>
             </AccordionDetails>

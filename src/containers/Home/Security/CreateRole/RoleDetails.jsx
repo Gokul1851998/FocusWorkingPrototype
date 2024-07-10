@@ -489,7 +489,7 @@ const handleCloseUsersOnRole = ()=>{
             </>
           </AccordionDetails>
         </Accordion>  
-        <Accordion
+        {/* <Accordion
           expanded={expanded === "panel5"}
           onChange={handleChange("panel5")}
         >
@@ -522,7 +522,7 @@ const handleCloseUsersOnRole = ()=>{
               </div>
             </>
           </AccordionDetails>
-        </Accordion> 
+        </Accordion>  */}
         <Accordion
           expanded={expanded === "panel6"}
           onChange={handleChange("panel6")}
