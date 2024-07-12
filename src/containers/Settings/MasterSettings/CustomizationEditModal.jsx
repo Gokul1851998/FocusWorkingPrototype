@@ -309,9 +309,9 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                       <div>
                         <MDBCardBody>
                         <MDBRow>
-                            <MDBCol>
+                            {/* <MDBCol>
                               <CheckBox2 label="Spell Check" />
-                            </MDBCol>
+                            </MDBCol> */}
                             <MDBCol>
                               <CheckBox2 label="Hidden" />
                             </MDBCol>
@@ -333,6 +333,9 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                             </MDBCol>
                             <MDBCol>
                               <CheckBox2 label="Mass Update" />
+                            </MDBCol>
+                            <MDBCol>
+                              
                             </MDBCol>
                             
                           </MDBRow>
