@@ -507,10 +507,10 @@ export const CustomizationTree = [
       
     ],
   },
-  // {
-  //   id: "2",
-  //   label: "Unique Constraints",
-  // },
+  {
+    id: "2",
+    label: "Unique Constraints",
+  },
   // {
   //   id: "3",
   //   label: "Info Panel Customization",
