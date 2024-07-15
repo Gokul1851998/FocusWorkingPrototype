@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material';
+import WarningMessage from '../components/Warning/Warnings';
 
 // Define your themes
 const themes = {
@@ -103,6 +104,7 @@ export const ThemeProvider = ({ children }) => {
   const { themeName: storedThemeName, colorMode: storedColorMode } = getStoredTheme();
   const [themeName, setThemeName] = useState(storedThemeName);
   const [isDarkMode, setIsDarkMode] = useState(storedColorMode);
+  const [openWarning, setOpenWarning] = useState(false); 
 
   const currentTheme = themes[themeName];
 
@@ -110,12 +112,26 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem('theme', themeName);
   }, [themeName]);
 
+  // useEffect(() => {
+  //   localStorage.setItem('color', isDarkMode);
+  // }, [isDarkMode]);
   useEffect(() => {
     localStorage.setItem('color', isDarkMode);
+    if (isDarkMode) {
+      setThemeName('dark'); // Set the theme to dark if isDarkMode is true
+    }
   }, [isDarkMode]);
 
+  // const switchTheme = (newThemeName) => {
+  //   setThemeName(newThemeName);
+  // };
   const switchTheme = (newThemeName) => {
-    setThemeName(newThemeName);
+    if (isDarkMode) {
+      // Show warning if trying to switch theme while in dark mode
+      setOpenWarning(true);
+    } else {
+      setThemeName(newThemeName);
+    }
   };
 
   const switchColorMode = (color) => {
@@ -129,12 +145,20 @@ export const ThemeProvider = ({ children }) => {
       ...currentTheme.palette,
     },
   });
-
+  const handleWarningClose = () => {
+    setOpenWarning(false);
+  }
   return (
     <ThemeContext.Provider value={{ currentTheme, switchTheme, switchColorMode,isDarkMode }}>
       <MUIThemeProvider theme={appliedTheme}>
         <CssBaseline />
         {children}
+        <WarningMessage
+          open={openWarning}
+          handleClose={handleWarningClose}
+          message="Switching themes is disabled in dark mode."
+          type="warning"
+        />
       </MUIThemeProvider>
     </ThemeContext.Provider>
   );

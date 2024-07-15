@@ -152,7 +152,7 @@ function BasicBreadcrumbs({pageType,pageId,currentTheme}) {
         >
           <Link
             underline="hover"
-            sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: "#000",opacity:"50%",  }} // Reduce font size
+            sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons,  }} // Reduce font size
             key="1"
             
           >
@@ -163,16 +163,16 @@ function BasicBreadcrumbs({pageType,pageId,currentTheme}) {
             underline="hover"
             key="2"
            
-            sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}
+            sx={{ fontSize: "1rem",color: currentTheme.actionIcons,  }}
           >
             Company
           </Link>
           ,
           {pageType ==1?
-          <Typography key="3"  sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}>
+          <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
             Create Company
           </Typography>
-          :<Typography key="3"  sx={{ fontSize: "1rem",color: "#000",opacity:"50%",  }}>
+          :<Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons,  }}>
           Edit Company
         </Typography>}
           ,
@@ -190,11 +190,11 @@ const DefaultIcons = ({ iconsClick, pageType,currentTheme }) => {
         //onClick={()=>iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <SaveIcon sx={{ color: "#000",opacity:"50%", }} />
+          <SaveIcon style={{ color: currentTheme.actionIcons, }}/>
           <Typography
             variant="caption"
             align="center"
-            style={{ color: "#000",opacity:"50%", fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Save
           </Typography>
@@ -207,11 +207,11 @@ const DefaultIcons = ({ iconsClick, pageType,currentTheme }) => {
         onClick={() => iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <CloseIcon sx={{ color: "#000",opacity:"50%", }} />
+          <CloseIcon style={{ color: currentTheme.actionIcons, }}/>
           <Typography
             variant="caption"
             align="center"
-            style={{ color:"#000",opacity:"50%", fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Close
           </Typography>
@@ -222,16 +222,7 @@ const DefaultIcons = ({ iconsClick, pageType,currentTheme }) => {
   );
 };
 
-const buttonStyle = {
-  backgroundColor: secondryColor,
-  color: primaryButtonColor,
-  textTransform: "none",
-  padding: "1px",
-  "&:hover": {
-    backgroundColor: secondryColor, // Change as needed
-    color: primaryButtonColor, // Example hover color change
-  },
-};
+
 
 const uploadIconstyle = {
 
@@ -257,7 +248,18 @@ export default function CompanyContainer({ pageType,pageId }) {
   const [defaultLanguage, setdefaultLanguage] = useState([])
   const [selectedLevel, setSelectedLevel] = useState(null);
 
-  const { currentTheme } = useTheme();
+  const {currentTheme} = useTheme()
+
+  const buttonStyle = {
+    backgroundColor: currentTheme.secondaryColor,
+    color: currentTheme.primaryButtonColor,
+    textTransform: "none",
+    padding: "1px",
+    "&:hover": {
+      backgroundColor: currentTheme.secondaryColor, // Change as needed
+      color: currentTheme.primaryButtonColor, // Example hover color change
+    },
+  };
 
   const handleLevelClick = (level) => {
     setSelectedLevel(level);
@@ -347,7 +349,9 @@ export default function CompanyContainer({ pageType,pageId }) {
       userType: event.target.value,
     });
   };
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
@@ -366,11 +370,11 @@ export default function CompanyContainer({ pageType,pageId }) {
         {pageId === 0 ? (
     <BasicBreadcrumbs pageType={pageType} pageId={pageId} currentTheme={currentTheme}/>
 ) : pageId === 1 ? (
-    <Typography >
+    <Typography sx={{ fontSize: "1rem",color: currentTheme.actionIcons,  }}>
         Create Company
     </Typography>
 ) : (
-    <Typography >
+    <Typography sx={{ fontSize: "1rem",color: currentTheme.actionIcons,  }}>
         Edit Company
     </Typography>
 )}
@@ -604,11 +608,11 @@ export default function CompanyContainer({ pageType,pageId }) {
                       <SecurityInput label="Customer/Vendor Portal Link" width={"50%"} />
                     </MDBCol>
                   </MDBRow> */}
-                  <MDBRow style={{marginTop:"10px",marginBottom:"10px"}}>
+                  {/* <MDBRow style={{marginTop:"10px",marginBottom:"10px"}}>
                   <MDBCol >
                       <SecurityInput label="Database Path" width={"50%"} />
                     </MDBCol>
-                  </MDBRow>
+                  </MDBRow> */}
                   <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                       <div
@@ -617,6 +621,7 @@ export default function CompanyContainer({ pageType,pageId }) {
                           width: "120px",
                           alignItems: "center",
                           textAlign: "center",
+                          marginTop:"10px"
                         }}
                       >
                         {/* <IconButton
@@ -676,7 +681,8 @@ export default function CompanyContainer({ pageType,pageId }) {
                     <Typography variant="body1">Security Level</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -740,7 +746,8 @@ export default function CompanyContainer({ pageType,pageId }) {
                     <Typography variant="body1">Languages</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />

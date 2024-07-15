@@ -60,7 +60,7 @@ export default function ExchangeRateHistoryResultTable({ currencies }) {
                 >
                   Effective Date
                 </TableCell>
-                {currencies.map((currency, index) => (
+                {currencies.length>0 && currencies.map((currency, index) => (
                   <TableCell
                     key={index}
                     sx={{
@@ -97,7 +97,7 @@ export default function ExchangeRateHistoryResultTable({ currencies }) {
                 >
                   {effectiveDate}
                 </TableCell>
-                {currencies.map((currency, index) => (
+                {currencies.length>0 && currencies.map((currency, index) => (
                   <TableCell
                     key={index}
                     sx={{

@@ -78,6 +78,7 @@ import { entityList } from "../../../../config/securityConfig";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
 import TagTable from "../TagSettings/TagTable";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useTheme } from "../../../../config/themeContext";
 
 function handleClick(event) {
   event.preventDefault();
@@ -116,9 +117,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme  }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -126,7 +127,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
   },
 }));
 
@@ -146,6 +147,8 @@ export default function AccountSettings(args) {
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
   const [selectedOption, setSelectedOption] = React.useState('');
+
+  const { currentTheme } = useTheme();
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -193,21 +196,23 @@ export default function AccountSettings(args) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
-      color="white"
+      
       onClick={handleClick}
     >
-      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      <SettingsIcon sx={{ mr: 0.5,color: currentTheme.actionIcons,}} fontSize="inherit" />
       Settings
     </Link>,
    
 
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
       General Settings
     </Typography>,
   ];
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
   return (
     <>
       <CssBaseline />
@@ -222,12 +227,12 @@ export default function AccountSettings(args) {
             paddingLeft: 1.5,
             paddingRight: 1.5,
             zIndex: 1,
-            backgroundColor: secondryColor,
+            // backgroundColor: secondryColor,
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" />}
+              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}} />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -290,14 +295,14 @@ export default function AccountSettings(args) {
             </IconButton> */}
             <IconButton
               aria-label="Clone"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem", }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: "white" }} />
+                <SaveIcon style={{ color: currentTheme.actionIcons,}} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{fontSize: "0.6rem",color: currentTheme.actionIcons, }}
                 >
                   Save
                 </Typography>
@@ -310,11 +315,11 @@ export default function AccountSettings(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: "white" }} />
+                <CloseIcon style={{ color: currentTheme.actionIcons, }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
@@ -338,7 +343,7 @@ export default function AccountSettings(args) {
                   </MDBRow>
               </MDBCardBody>
               </Box>     */}
-          <Accordion
+          {/* <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
           >
@@ -347,6 +352,7 @@ export default function AccountSettings(args) {
               id="panel1d-header"
               className
               expanded={expanded === "panel1"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
                 Tag Management
@@ -371,16 +377,17 @@ export default function AccountSettings(args) {
                 </div>
               </>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
           <Accordion
-            expanded={expanded === "panel2"}
-            onChange={handleChange("panel2")}
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
           >
             <AccordionSummary
-              aria-controls="panel2d-content"
-              id="panel2d-header"
+              aria-controls="panel1d-content"
+              id="panel1d-header"
               className
-              expanded={expanded === "panel2"}
+              expanded={expanded === "panel1"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
               Account Tag Management
@@ -415,10 +422,11 @@ export default function AccountSettings(args) {
                   >
                     <Typography variant="body1">Account Mapping</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBCardBody>
@@ -1386,11 +1394,13 @@ export default function AccountSettings(args) {
            <Accordion
             expanded={expanded === "panel3"}
             onChange={handleChange("panel3")}
+
           >
             <AccordionSummary
               aria-controls="panel3d-content"
               id="panel3d-header"
               expanded={expanded === "panel3"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
                 Inventory Tag Management
@@ -1423,6 +1433,7 @@ export default function AccountSettings(args) {
               aria-controls="panel4d-content"
               id="panel4d-header"
               expanded={expanded === "panel4"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
                 Fixed Asset Tag Management

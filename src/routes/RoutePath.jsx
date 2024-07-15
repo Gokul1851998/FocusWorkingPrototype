@@ -10,6 +10,8 @@ import MasterSettings from '../pages/MasterSettings/MasterSettings'
 import Company from '../pages/Company/Company'
 import AdminDashboard from '../containers/AdminDashboard/AdminDashboard'
 import GrideMenuPage from '../pages/GrideMenuPage/GrideMenuPage'
+import EntityMaster from '../pages/EntityMaster/EntityMaster'
+import TagCreationPage from '../pages/TagCreation/TagCreationPage'
 
 
 export default function RoutePath() {
@@ -27,6 +29,8 @@ export default function RoutePath() {
         <Route path="/Company" element={<Company />} />
         <Route path="/companySettings" element={<AdminDashboard />} />
         <Route path="/EntitySettings" element={<MainSettingsPage />} />
+        <Route path="/EntityMaster" element={<EntityMaster />} />
+        <Route path="/TagCreation" element={<TagCreationPage />} />
         </Routes>
     </div>
   )

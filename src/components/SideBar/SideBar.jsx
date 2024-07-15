@@ -467,7 +467,9 @@ export default function SideBar() {
             MenuListProps={{
               "aria-labelledby": "nested-menu-button",
               disablePadding: true,
+              style: { maxHeight: "55vh", overflow: "auto",scrollbarWidth: "thin", }
             }}
+           
           >
             {submenu.submenuItems.map((subItem) => (
               <MenuItem

@@ -131,7 +131,7 @@ const Accordion = styled((props) => (
     
     return (
       <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-        {detailPageId !=0 ?
+        {/* {detailPageId !=0 ?
       <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -149,7 +149,7 @@ const Accordion = styled((props) => (
               </Stack>
             </IconButton>
             :null
-      }  
+      }   */}
            
               <IconButton
                 aria-label="New"
@@ -326,7 +326,7 @@ const handleCloseUsersOnRole = ()=>{
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AccountInput label="Role Name" />
+                  <AccountInput label="Role Name"  mandatory={1}/>
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -335,6 +335,7 @@ const handleCloseUsersOnRole = ()=>{
                     value={selectedOption}
                     onChange={handleSelectChange}
                     options={passwordPolicy}
+                    mandatory={1}
                   />
                   </MDBCol>
                   </MDBRow>
@@ -488,7 +489,7 @@ const handleCloseUsersOnRole = ()=>{
             </>
           </AccordionDetails>
         </Accordion>  
-        <Accordion
+        {/* <Accordion
           expanded={expanded === "panel5"}
           onChange={handleChange("panel5")}
         >
@@ -521,7 +522,7 @@ const handleCloseUsersOnRole = ()=>{
               </div>
             </>
           </AccordionDetails>
-        </Accordion> 
+        </Accordion>  */}
         <Accordion
           expanded={expanded === "panel6"}
           onChange={handleChange("panel6")}

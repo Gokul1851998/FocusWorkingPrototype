@@ -15,6 +15,7 @@ import {
 import { primaryButtonColor, thirdColor } from '../../../../config';
 import DeleteIcon from '@mui/icons-material/Delete';
 import WarningMessage from '../../../../components/Warning/Warnings';
+import { useTheme } from '../../../../config/themeContext';
 
 const tagSelectOptions = [
   { master:"product", value: 'Product1', label: 'Product1' },
@@ -88,6 +89,37 @@ const TagTable = () => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [alertType, setAlertType] = useState("");
+
+  const { currentTheme } = useTheme();
+
+  const cellStyle = {
+    padding: '0px',
+    paddingLeft: '4px',
+    border: '1px solid #ddd',
+    fontWeight: '600',
+    fontSize: '14px',
+    color:currentTheme.sideBarTextColor1,
+    paddingTop: '3px',
+    paddingBottom: '3px',
+   
+  };
+  
+  const headerCellStyle = {
+    ...cellStyle,
+    backgroundColor: currentTheme.thirdColor,
+    color:currentTheme.sideBarTextColor1,
+  };
+  
+  const bodyCell = {
+    padding: '0px',
+    border: '1px solid #ddd',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    minHeight: '30px',
+    lineHeight: '30px',
+   
+  }
 
   useEffect(() => {
     // Automatically add a new row if the last row has a name and the total number of rows is less than MAX_ROWS

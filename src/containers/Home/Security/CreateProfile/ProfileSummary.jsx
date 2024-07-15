@@ -15,6 +15,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
 import { initialRows } from '../../../../config/securityConfig';
 import { useTheme } from '../../../../config/themeContext';
+import FileCopyIcon from "@mui/icons-material/FileCopy";
+
 
 
 
@@ -101,6 +103,36 @@ const DefaultIcons = ({iconsClick,currentTheme}) => {
                 </Typography>
               </Stack>
             </IconButton>
+            {/* <IconButton
+                aria-label="Clone"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <FileCopyIcon sx={{ color: currentTheme.actionIcons, }}  />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    Clone
+                  </Typography>
+                </Stack>
+              </IconButton> */}
+              <IconButton
+                aria-label="Clone"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <PrintIcon sx={{ color: currentTheme.actionIcons, }}  />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    Excel
+                  </Typography>
+                </Stack>
+              </IconButton>
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}

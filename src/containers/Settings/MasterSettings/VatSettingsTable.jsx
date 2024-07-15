@@ -31,6 +31,7 @@ import CustomizationEditModal from "./CustomizationEditModal";
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTheme } from "../../../config/themeContext";
 
 function VatSettingsTable() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -60,6 +61,7 @@ function VatSettingsTable() {
   const handleEditModalClose = () => {
     setEdit(false);
   };
+  const {currentTheme} = useTheme()
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", m: 2 }}>
@@ -78,11 +80,11 @@ function VatSettingsTable() {
             sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
           >
             <Stack direction="column" alignItems="center">
-              <OpenWithIcon sx={{ color: thirdColor }} />
+              <OpenWithIcon sx={{ color: currentTheme.actionIcons }} />
               <Typography
                 variant="caption"
                 align="center"
-                style={{ color: thirdColor, fontSize: "0.6rem" }}
+                style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
               >
                 Move
               </Typography>
@@ -94,11 +96,11 @@ function VatSettingsTable() {
             sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
           >
             <Stack direction="column" alignItems="center">
-              <AddIcon sx={{ color: thirdColor }} />
+              <AddIcon sx={{ color: currentTheme.actionIcons }} />
               <Typography
                 variant="caption"
                 align="center"
-                style={{ color: thirdColor, fontSize: "0.6rem" }}
+                style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
               >
                 Add
               </Typography>
@@ -110,11 +112,11 @@ function VatSettingsTable() {
             sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
           >
             <Stack direction="column" alignItems="center">
-              <PreviewIcon sx={{ color: thirdColor }} />
+              <PreviewIcon sx={{ color: currentTheme.actionIcons }} />
               <Typography
                 variant="caption"
                 align="center"
-                style={{ color: thirdColor, fontSize: "0.6rem" }}
+                style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
               >
                 Preview
               </Typography>
@@ -133,16 +135,14 @@ function VatSettingsTable() {
               <TableCell
                 sx={{
                   ...TablecellStyle,
-                  backgroundColor: thirdColor,
-                  color: "#fff",
+                  backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor
                 }}
               ></TableCell>
               {Object.keys(data[0] || {}).map((key, index) => (
                 <TableCell
                   sx={{
                     ...TablecellStyle,
-                    backgroundColor: thirdColor,
-                    color: "#fff",
+                    backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor
                   }}
                   key={index}
                 >
@@ -173,7 +173,7 @@ function VatSettingsTable() {
                     sx={{ fontSize: "0.8rem", padding: 0 }}
                   >
                     <Stack direction="column" alignItems="center">
-                      <EditNoteIcon sx={{ color: thirdColor }} />
+                      <EditNoteIcon sx={{ color: currentTheme.actionIcons }} />
                     </Stack>
                   </IconButton>
                   <IconButton
@@ -182,7 +182,7 @@ function VatSettingsTable() {
                     sx={{ fontSize: "0.7rem", padding: 0 }}
                   >
                     <Stack direction="column" alignItems="center">
-                      <DeleteIcon sx={{ color: thirdColor }} />
+                      <DeleteIcon sx={{ color: currentTheme.actionIcons }} />
                     </Stack>
                   </IconButton>
                 </TableCell>

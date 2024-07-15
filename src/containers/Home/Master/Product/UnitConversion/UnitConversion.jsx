@@ -64,6 +64,7 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2";
 import UnitConversionTable from "./UnitConversionTable";
+import { useTheme } from "../../../../../config/themeContext";
 
 function handleClick(event) {
   event.preventDefault();
@@ -102,9 +103,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme  }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -112,7 +113,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
   },
 }));
 
@@ -132,6 +133,8 @@ export default function UnitConversion(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
+
+  const { currentTheme } = useTheme();
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -175,9 +178,9 @@ export default function UnitConversion(args) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons }} // Reduce font size
       key="1"
-      color="white"
+     
       onClick={handleClick}
     >
       <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
@@ -186,8 +189,8 @@ export default function UnitConversion(args) {
     <Link
       underline="hover"
       key="2"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+      
+      sx={{ fontSize: "1rem" ,color: currentTheme.actionIcons}}
       onClick={handleClick}
     >
       Master
@@ -195,13 +198,13 @@ export default function UnitConversion(args) {
     <Link
       underline="hover"
       key="3"
-      color="white"
-      sx={{ fontSize: "1rem" }}
+    
+      sx={{ fontSize: "1rem",color: currentTheme.actionIcons }}
       onClick={handleClick}
     >
       Product
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem" ,color: currentTheme.actionIcons}}>
       Unit Conversion
     </Typography>,
   ];
@@ -220,12 +223,12 @@ export default function UnitConversion(args) {
             paddingLeft: 1.5,
             paddingRight: 1.5,
             zIndex: 1,
-            backgroundColor: secondryColor,
+            // backgroundColor: secondryColor,
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" />}
+              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}} />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -241,14 +244,14 @@ export default function UnitConversion(args) {
           >
             <IconButton
               aria-label="New"
-              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons }}
             >
               <Stack direction="column" alignItems="center">
-                <GetAppIcon style={{ color: "white" }} />
+                <GetAppIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Import
                 </Typography>
@@ -261,11 +264,11 @@ export default function UnitConversion(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: "white" }} />
+                <SaveIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Save
                 </Typography>
@@ -276,12 +279,12 @@ export default function UnitConversion(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <DeleteIcon style={{ color: "white" }} />
+                <DeleteIcon style={{ color: currentTheme.actionIcons }} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Delete
                 </Typography>
@@ -293,11 +296,11 @@ export default function UnitConversion(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: "white" }} />
+                <CloseIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: "white", fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Close
                 </Typography>
@@ -317,6 +320,7 @@ export default function UnitConversion(args) {
           <AutoComplete2 autoLabel="Base Unit" />
           <AutoComplete2 autoLabel="Item" />
           <AutoComplete2 autoLabel="Load Form" />
+          <AutoComplete2 autoLabel="Entity" />
         </Box>
 
        <UnitConversionTable />

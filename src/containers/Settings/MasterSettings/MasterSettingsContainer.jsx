@@ -45,7 +45,9 @@ import {
   Language,
   FormatListBulleted,
 } from "@mui/icons-material";
+import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 import PersonIcon from "@mui/icons-material/Person";
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -58,7 +60,7 @@ import FormLabel from "@mui/material/FormLabel";
 import { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useEffect } from "react";
-
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -72,6 +74,11 @@ import MasterCustomization from './MasterCustomization';
 import CustomizationView from './CustomizationView';
 import TreeCustomization from './TreeCustomization';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import { useTheme } from '../../../config/themeContext';
+import PrintIcon from "@mui/icons-material/Print";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+
 
 
 const Accordion = styled((props) => (
@@ -93,9 +100,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -105,7 +112,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
     marginRight: theme.spacing(1),
   },
 }));
@@ -115,7 +122,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-function BasicBreadcrumbs() {
+function BasicBreadcrumbs({currentTheme}) {
   return (
     <div
       role="presentation"
@@ -135,14 +142,14 @@ function BasicBreadcrumbs() {
           separator={
             <NavigateNextIcon
               fontSize="small"
-              sx={{ color: primaryButtonColor }}
+              sx={{color: currentTheme.actionIcons,}}
             />
           }
           aria-label="breadcrumb"
         >
           <Link
             underline="hover"
-            sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+            sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
             key="1"
             color="white"
           >
@@ -150,7 +157,7 @@ function BasicBreadcrumbs() {
             Settings
           </Link>
           
-          <Typography key="3" color="white" sx={{ fontSize: "1rem" }}>
+          <Typography key="3" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons }}>
            Master Settings
           </Typography>
           ,
@@ -159,7 +166,7 @@ function BasicBreadcrumbs() {
     </div>
   );
 }
-const DefaultIcons = ({ iconsClick }) => {
+const DefaultIcons = ({ iconsClick,currentTheme }) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
       
@@ -173,33 +180,48 @@ const DefaultIcons = ({ iconsClick }) => {
         //onClick={()=>iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <SaveIcon sx={{ color: primaryButtonColor }} />
+          <SaveIcon sx={{ color: currentTheme.actionIcons, }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Save
           </Typography>
         </Stack>
       </IconButton>
   
-        {/* <IconButton
-          aria-label="New"
-          sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-          //onClick={()=>iconsClick("close")}
-        >
-          <Stack direction="column" alignItems="center">
-            <DeleteIcon sx={{ color: primaryButtonColor }} />
-            <Typography
-              variant="caption"
-              align="center"
-              style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+      <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
-              Delete
-            </Typography>
-          </Stack>
-        </IconButton> */}
+              <Stack direction="column" alignItems="center">
+                <FileUploadIcon style={{ color: currentTheme.actionIcons, }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                >
+                  Export
+                </Typography>
+              </Stack>
+            </IconButton>
+    
+              <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <GetAppIcon style={{ color: currentTheme.actionIcons, }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                >
+                  Import
+                </Typography>
+              </Stack>
+            </IconButton>
   
         
     
@@ -209,11 +231,11 @@ const DefaultIcons = ({ iconsClick }) => {
         onClick={() => iconsClick("close")}
       >
         <Stack direction="column" alignItems="center">
-          <CloseIcon sx={{ color: primaryButtonColor }} />
+          <CloseIcon sx={{ color: currentTheme.actionIcons }} />
           <Typography
             variant="caption"
             align="center"
-            style={{ color: primaryButtonColor, fontSize: "0.6rem" }}
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
           >
             Close
           </Typography>
@@ -224,16 +246,6 @@ const DefaultIcons = ({ iconsClick }) => {
   );
 };
 
-const buttonStyle = {
-  backgroundColor: secondryColor,
-  color: primaryButtonColor,
-  textTransform: "none",
-  padding: "1px",
-  "&:hover": {
-    backgroundColor: secondryColor, // Change as needed
-    color: primaryButtonColor, // Example hover color change
-  },
-};
 
 const uploadIconstyle = {
   color: thirdColor, // Set the icon color
@@ -251,6 +263,9 @@ function MasterSettingsContainer() {
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
       };
+      const handleclose = () => {
+        window.history.back();
+      };
       const handleIconsClick = (value) => {
         switch (value.trim()) {
           case "new":
@@ -267,38 +282,44 @@ function MasterSettingsContainer() {
         }
       };  
 
+
+      const { currentTheme } = useTheme();
+
       
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
-        <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          backgroundColor: secondryColor,
-          paddingLeft: 1.5,
-          paddingRight: 1.5,
-        }}
-      >
-        <BasicBreadcrumbs />
-        <DefaultIcons
+    <Box sx={{ display: "flex", flexDirection: "column", width: "100%"}}>
         
-          iconsClick={handleIconsClick}
-        />
-      </Box>
       <Box
         sx={{
           width: "100%",
           overflowX: "hidden",
           display: "flex",
           flexDirection: "column",
-          maxHeight: "83vh",
+          // maxHeight: "60vh",
           overflowY: "auto",
           scrollbarWidth: "thin",
           paddingBottom: "30px",
+          
         }}
       >
+        <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          boxShadow:'5px 2px 4px 4px rgba(128, 128, 128, 0.3)'  ,
+          paddingLeft: 1.5,
+          paddingRight: 1.5,
+          zIndex:10
+        }}
+      >
+        <BasicBreadcrumbs  currentTheme={currentTheme}/>
+        <DefaultIcons
+        
+          iconsClick={handleIconsClick} currentTheme={currentTheme}
+        />
+      </Box>
        
           <Accordion
           expanded={expanded === "panel1"}
@@ -310,13 +331,14 @@ function MasterSettingsContainer() {
             className
             expanded={expanded === "panel1"}
             sx={{ alignItems: "center" }}
+            currentTheme={currentTheme}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <PersonIcon sx={{ color: primaryButtonColor }} />
+                <PersonIcon sx={{ color: currentTheme.actionIcons }} />
               </Stack>
             </IconButton>
             <Typography style={{ fontSize: "14px" }}>
@@ -327,6 +349,41 @@ function MasterSettingsContainer() {
             <>
               <div>
                 <MDBCardBody>
+                {/* <Box sx={{ display:"flex",justifyContent:"right" }}>
+        
+        <IconButton
+        aria-label="Add group"
+        sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+      >
+        <Stack direction="column" alignItems="center">
+          <GroupAddIcon style={{ color: currentTheme.actionIcons,}} />
+
+          <Typography
+            variant="caption"
+            align="center"
+            style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+          >
+            Add Group
+          </Typography>
+        </Stack>
+      </IconButton>
+        <IconButton
+          aria-label="Add group"
+          sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+        >
+          <Stack direction="column" alignItems="center">
+            <GroupRemoveIcon style={{ color: currentTheme.actionIcons,}} />
+
+            <Typography
+              variant="caption"
+              align="center"
+              style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+            >
+              Delete Group
+            </Typography>
+          </Stack>
+        </IconButton>
+</Box> */}
                   <MasterDefinition/>
                
                 </MDBCardBody>
@@ -344,13 +401,14 @@ function MasterSettingsContainer() {
             className
             expanded={expanded === "panel2"}
             sx={{ alignItems: "center" }}
+            currentTheme={currentTheme}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <HandymanIcon sx={{ color: primaryButtonColor }} />
+                <HandymanIcon sx={{ color: currentTheme.actionIcons }} />
               </Stack>
             </IconButton>
             <Typography style={{ fontSize: "14px" }}>
@@ -361,6 +419,7 @@ function MasterSettingsContainer() {
             <>
               <div>
                 <MDBCardBody>
+              
                   
                   <MasterCustomization />
                 </MDBCardBody>
@@ -378,13 +437,14 @@ function MasterSettingsContainer() {
             className
             expanded={expanded === "panel3"}
             sx={{ alignItems: "center" }}
+            currentTheme={currentTheme}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <PersonIcon sx={{ color: primaryButtonColor }} />
+                <ViewModuleIcon sx={{ color: currentTheme.actionIcons }} />
               </Stack>
             </IconButton>
             <Typography style={{ fontSize: "14px" }}>
@@ -401,7 +461,7 @@ function MasterSettingsContainer() {
             </>
           </AccordionDetails>
         </Accordion>
-        <Accordion
+        {/* <Accordion
           expanded={expanded === "panel4"}
           onChange={handleChange("panel4")}
         >
@@ -411,13 +471,14 @@ function MasterSettingsContainer() {
             className
             expanded={expanded === "panel4"}
             sx={{ alignItems: "center" }}
+            currentTheme={currentTheme}
           >
             <IconButton
               sx={{ fontSize: "0.8rem", padding: "0rem" }}
               //onClick={()=>iconsClick("close")}
             >
               <Stack direction="column" alignItems="center">
-                <AccountTreeIcon sx={{ color: primaryButtonColor }} />
+                <AccountTreeIcon sx={{ color: currentTheme.actionIcons }} />
               </Stack>
             </IconButton>
             <Typography style={{ fontSize: "14px" }}>
@@ -433,7 +494,7 @@ function MasterSettingsContainer() {
               </div>
             </>
           </AccordionDetails>
-        </Accordion>
+        </Accordion> */}
         
       </Box>
     </Box>

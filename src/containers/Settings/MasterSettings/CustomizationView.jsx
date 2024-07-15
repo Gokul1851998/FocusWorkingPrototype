@@ -34,6 +34,8 @@ import CustomizationReports from "./CustomizationReports";
 import AccountInput from "../../../components/Inputs/AccountInput";
 import CheckBox2 from "../../../components/CheckBox/CheckBox2";
 import ViewTable from "./ViewTable";
+import { useTheme } from "../../../config/themeContext";
+import ViewUserSelection from "./ViewUserSelection";
 
 export default function CustomizationView() {
   const [isOpen, setIsOpen] = useState(true);
@@ -65,6 +67,12 @@ export default function CustomizationView() {
     setformData(updatedCheckState);
   };
 
+  const {currentTheme} = useTheme()
+
+  const getBackgroundColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#000' : '#fff';
+  };
+
   return (
     <div style={{ display: "flex" }}>
       {!hide ? (
@@ -76,7 +84,7 @@ export default function CustomizationView() {
           }}
         >
           <Button
-            color="primary"
+           
             onClick={toggleOpen}
             style={{
               marginBottom: "1rem",
@@ -84,6 +92,8 @@ export default function CustomizationView() {
               fontSize: "0.6rem",
               height: "2rem",
               borderRadius: "0 0.5rem 0.5rem 0",
+              backgroundColor:currentTheme.secondaryColor,
+              color:currentTheme.sideBarTextColor1
             }}
           >
             <KeyboardDoubleArrowRightIcon style={{ fontSize: "1rem" }} />
@@ -96,7 +106,7 @@ export default function CustomizationView() {
           style={{
             width: 350,
             boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-            backgroundColor: primaryButtonColor,
+            backgroundColor: getBackgroundColor(),
             display: "flex",
             alignItems: "center",
           }}
@@ -111,13 +121,15 @@ export default function CustomizationView() {
               <Tree1 items={viewTree} setSelect={setTreeSelect} />
 
               <Button
-                color="primary"
+               
                 onClick={toggleClose}
                 style={{
                   padding: "0.1rem",
                   fontSize: "0.6rem",
                   height: "2rem",
                   borderRadius: "0.5rem 0 0 0.5rem",
+                  backgroundColor:currentTheme.secondaryColor,
+                  color:currentTheme.sideBarTextColor1
                 }}
               >
                 <KeyboardDoubleArrowLeftIcon style={{ fontSize: "1rem" }} />
@@ -167,6 +179,7 @@ export default function CustomizationView() {
             ) : null}
           </>
         </Stack>
+        <ViewUserSelection/>
       </>
     </div>
   );

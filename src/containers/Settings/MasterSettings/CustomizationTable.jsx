@@ -28,6 +28,9 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import CustomizationPreviewModal from "./CustomizationPreviewModal";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import CustomizationEditModal from "./CustomizationEditModal";
+import { useTheme } from "../../../config/themeContext";
+import OpenWithIcon from '@mui/icons-material/OpenWith';
+import AddIcon from '@mui/icons-material/Add';
 
 function CustomizationTable() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -37,6 +40,8 @@ function CustomizationTable() {
     setSelectedTab(newValue);
   };
 
+
+  
   // Dummy data arrays for each tab
 
   // Determine which data to display based on selected tab
@@ -58,28 +63,62 @@ function CustomizationTable() {
     setEdit(false);
   };
 
+  const {currentTheme} = useTheme()
+
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden", m: 2 }}>
+    <Paper sx={{ width: "100%", overflow: "hidden", m: 2 ,boxShadow:'5px 2px 4px 4px rgba(128, 128, 128, 0.3)'  ,}}>
       <Tabs
         value={selectedTab}
         sx={{ display: "flex", alignItems: "center" }} // Align items horizontally
         onChange={handleChange}
         aria-label="basic tabs example"
       >
-        <Tab sx={{ textTransform: "none" }}label="Main" />
+        <Tab sx={{ textTransform: "none"}}  label="Main" />
         <Tab sx={{ textTransform: "none" }} label="Header Details" />
         <Box sx={{ marginLeft: "auto" }}>
+        <IconButton
+          
+          aria-label="Preview"
+          sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+        >
+          <Stack direction="column" alignItems="center">
+            <OpenWithIcon sx={{ color: currentTheme.actionIcons  }} />
+            <Typography
+              variant="caption"
+              align="center"
+              style={{ color: currentTheme.actionIcons , fontSize: "0.6rem" }}
+            >
+              Move field
+            </Typography>
+          </Stack>
+        </IconButton>
+        <IconButton
+            onClick={handleEditModalOpen}
+          aria-label="Preview"
+          sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+        >
+          <Stack direction="column" alignItems="center">
+            <AddIcon sx={{ color: currentTheme.actionIcons  }} />
+            <Typography
+              variant="caption"
+              align="center"
+              style={{ color: currentTheme.actionIcons , fontSize: "0.6rem" }}
+            >
+              Add
+            </Typography>
+          </Stack>
+        </IconButton>
           <IconButton
             onClick={handleModalOpen}
             aria-label="Preview"
             sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
           >
             <Stack direction="column" alignItems="center">
-              <PreviewIcon sx={{ color: thirdColor }} />
+              <PreviewIcon sx={{ color: currentTheme.actionIcons }} />
               <Typography
                 variant="caption"
                 align="center"
-                style={{ color: thirdColor, fontSize: "0.6rem" }}
+                style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
               >
                 Preview
               </Typography>
@@ -98,16 +137,15 @@ function CustomizationTable() {
               <TableCell
                 sx={{
                   ...TablecellStyle,
-                  backgroundColor: thirdColor,
-                  color: "#fff",
+                  backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor
                 }}
               ></TableCell>
               {Object.keys(data[0] || {}).map((key, index) => (
                 <TableCell
                   sx={{
                     ...TablecellStyle,
-                    backgroundColor: thirdColor,
-                    color: "#fff",
+                    backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor
+
                   }}
                   key={index}
                 >
@@ -138,7 +176,7 @@ function CustomizationTable() {
                     sx={{ fontSize: "0.8rem", padding: 0 }}
                   >
                     <Stack direction="column" alignItems="center">
-                      <EditNoteIcon sx={{ color: thirdColor }} />
+                      <EditNoteIcon sx={{ color: currentTheme.actionIcons }} />
                     </Stack>
                   </IconButton>
                 </TableCell>

@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 
-export default function AccountInput1({ label, type, value, onChange }) {
+export default function AccountInput1({ label, type, value, onChange,inputProps,mandatory  }) {
   return (
     <TextField
       margin="normal"
@@ -10,7 +10,9 @@ export default function AccountInput1({ label, type, value, onChange }) {
       value={type === 'date' ? value || '' : value || ''}
       type={type}
       label={label}
+      inputProps={inputProps}
       autoComplete="off"
+      required={mandatory}
       autoFocus
       onChange={onChange}
       sx={{

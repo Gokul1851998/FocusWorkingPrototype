@@ -3,9 +3,13 @@ import {
   Box,
   CssBaseline,
   Divider,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
   Radio,
   RadioGroup,
+  Select,
   TextField,
   styled,
 } from "@mui/material";
@@ -71,6 +75,7 @@ import CheckBox1 from "../../../components/CheckBox/CheckBox1";
 import { entityList } from "../../../config/securityConfig";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useTheme } from "../../../config/themeContext";
 
 function handleClick(event) {
   event.preventDefault();
@@ -109,9 +114,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -119,7 +124,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
   },
 }));
 
@@ -138,7 +143,11 @@ export default function InventorySettings(args) {
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
-  const [selectedOption, setSelectedOption] = React.useState('');
+  const [days, setDays] = React.useState('1');
+
+  const handleChangeday = (event) => {
+    setDays(event.target.value);
+  };
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -210,7 +219,11 @@ export default function InventorySettings(args) {
       Inventory
     </Typography>,
   ];
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
 
+  const {currentTheme} = useTheme()
   return (
     <>
       <CssBaseline />
@@ -228,7 +241,7 @@ export default function InventorySettings(args) {
             backgroundColor: secondryColor,
           }}
         >
-          <Stack spacing={2} sx={{ flex: 1 }}>
+          {/* <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
               separator={<NavigateNextIcon fontSize="small" />}
               aria-label="breadcrumb"
@@ -236,7 +249,7 @@ export default function InventorySettings(args) {
             >
               {breadcrumbs}
             </Breadcrumbs>
-          </Stack>
+          </Stack> */}
 
           <Stack
             direction="row"
@@ -291,7 +304,7 @@ export default function InventorySettings(args) {
                 </Typography>
               </Stack>
             </IconButton> */}
-            <IconButton
+            {/* <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -322,11 +335,11 @@ export default function InventorySettings(args) {
                   Close
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
           </Stack>
         </Box>
         <div>
-        <Accordion
+          <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
           >
@@ -334,112 +347,151 @@ export default function InventorySettings(args) {
               aria-controls="panel1d-content"
               id="panel1d-header"
               expanded={expanded === "panel1"}
+              currentTheme={currentTheme}
             >
               <Typography style={{ fontSize: "14px" }}>
-              Inventory Preference
+                Inventory Preference
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <>
                 <div>
                   <MDBCardBody>
-                  <MDBRow>
-                 
-                   
-                     
-                        
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Enable Negative Check" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Reorder Level Check" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Main Stock Qty and Value by Inv Tag" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Main Stock Qty by Inv Tag and Value by Entity" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Maintain quantity and value by Entity" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Maintain Alter native Qty" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Include Units in Transaction" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Update GRN Stock Value through Purchase" />
-                 </MDBCol>
-             
-             
-          
-
-           
-         </MDBRow>
-         <Box
-                    sx={{
-                      display: "grid",
-                      gridTemplateColumns: "auto 1fr",
-                      alignItems: "center",
-                      width: "100%",
-                      mt: 3,
-                      mb: 3,
-                    }}
-                  >
-                    <Typography variant="body1">Batch</Typography>
+                    <MDBRow>
+                    <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Do not refresh description with Account/Item in document" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Show exchange rate difference in ledger" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Create master in transaction entry" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Stay on same voucher number after deleting" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Enable Negative Check" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Reorder Level Check" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Main Stock Qty and Value by Inv Tag" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Main Stock Qty by Inv Tag and Value by Entity" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Maintain quantity and value by Entity" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Maintain Alter native Qty" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Include Units in Transaction" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Update GRN Stock Value through Purchase" />
+                      </MDBCol>
+                    </MDBRow>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
+                        display: "grid",
+                        gridTemplateColumns: "auto 1fr",
+                        alignItems: "center",
+                        width: "100%",
+                        mt: 3,
+                        mb: 3,
                       }}
-                    />
-                  </Box>
-                  <MDBRow>
-                 
-                   
-                     
-                        
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Enable Batch" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Do not accept duplicate batches in inwards documents" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Allow negative batch quantities" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Expiry dates for batches" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Expiry dates optional" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Cannot sell batches that would expire in next" />
-                 </MDBCol>
-                 <MDBCol lg="6" md="6" sm="12" xs="12">
-                   <CheckBox1 label="Manufacturing dates by Batches" />
-                 </MDBCol>
-                
+                    >
+                      <Typography variant="body1">Batch</Typography>
+                      <Box
+                        sx={{
+                          borderBottom: "1px dotted ",
+                          borderBottmColor: getBorderColor(),
+                          marginLeft: "8px", // Adjust spacing to your preference
+                        }}
+                      />
+                    </Box>
+                    <MDBRow>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Enable Batch" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Do not accept duplicate batches in inwards documents" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Allow negative batch quantities" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Expiry dates for batches" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Expiry dates optional" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12" style={{ display: 'flex', alignItems: 'center' }}>
+                        <CheckBox1 label="Cannot sell batches that would expire in next" />
+                        <TextField
+          size="small"
+          variant="outlined"
+          style={{ width: 60,padding:0, marginRight: 10 }}
+          InputProps={{
+            style: {
+              height: 25,
              
-             
+              fontSize: '12px'
+            }
+          }}
           
-
-           
-         </MDBRow>
+        />
+        <FormControl size="small" style={{ width: 90 }}>
+         
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={days}
+            onChange={handleChangeday}
+            displayEmpty
+            inputProps={{ 'aria-label': 'Without label' }}
+            style={{
+              height: 25,
+              width:85,
+              fontSize: '12px',
+              paddingTop: 0,
+              paddingBottom: 0
+            }}
+          >
+            <MenuItem value={1}>Day</MenuItem>
+            <MenuItem value={2}>Month</MenuItem>
+            <MenuItem value={3}>Year</MenuItem>
+          </Select>
+        </FormControl>
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Manufacturing dates by Batches" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Do not club batches with different MFd date/expiry" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Sort batches by expiry date" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Load all details related to the batch into issues" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Load screen field details related to batch into issues" />
+                      </MDBCol>
+                      <MDBCol lg="6" md="6" sm="12" xs="12">
+                        <CheckBox1 label="Load layout field details related to batch into issues" />
+                      </MDBCol>
+                    </MDBRow>
                   </MDBCardBody>
                 </div>
               </>
             </AccordionDetails>
           </Accordion>
-          
-         
-
-          
-
-         
         </div>
       </React.StrictMode>
     </>

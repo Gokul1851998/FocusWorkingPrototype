@@ -77,7 +77,9 @@ export default function AccountMaster(args) {
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
-  const { currentTheme,switchTheme } = useTheme();
+ 
+
+  const { currentTheme } = useTheme();
 
   const toggleOpen = () => {
     setIsOpen(true);
@@ -113,7 +115,7 @@ export default function AccountMaster(args) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem" }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
       color="white"
       onClick={handleClick}
@@ -125,7 +127,7 @@ export default function AccountMaster(args) {
       underline="hover"
       key="2"
       color="white"
-      sx={{ fontSize: "1rem" }}
+      sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
       Master
@@ -134,12 +136,12 @@ export default function AccountMaster(args) {
       underline="hover"
       key="3"
       color="white"
-      sx={{ fontSize: "1rem" }}
+      sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
       Account
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
       Account Master
     </Typography>,
   ];
@@ -147,7 +149,9 @@ export default function AccountMaster(args) {
   const handleClose = () => {
     window.history.back();
   };
-
+  const getBackgroundColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#000' : '#fff';
+  };
   return (
     <>
       <CssBaseline />
@@ -162,12 +166,12 @@ export default function AccountMaster(args) {
             paddingLeft: 1.5,
             paddingRight: 1.5,
             zIndex: 1,
-            backgroundColor: secondryColor,
+            // backgroundColor: secondryColor,
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" />}
+              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -188,11 +192,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <AddIcon style={{ color: "white" }} />
+                  <AddIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     New
                   </Typography>
@@ -203,12 +207,12 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <GroupAddIcon style={{ color: "white" }} />
+                  <GroupAddIcon style={{ color: currentTheme.actionIcons,}} />
 
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Add Group
                   </Typography>
@@ -219,12 +223,12 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <EditIcon style={{ color: "white" }} />
+                  <EditIcon style={{ color: currentTheme.actionIcons, }} />
 
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Edit
                   </Typography>
@@ -235,11 +239,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <FileCopyIcon style={{ color: "white" }} />
+                  <FileCopyIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Clone
                   </Typography>
@@ -250,11 +254,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <RoomPreferencesIcon style={{ color: "white" }} />
+                  <RoomPreferencesIcon style={{ color: currentTheme.actionIcons,}} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Property
                   </Typography>
@@ -266,11 +270,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <VerifiedIcon style={{ color: "white" }} />
+                  <VerifiedIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Authorize
                   </Typography>
@@ -282,11 +286,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <BlockIcon style={{ color: "white" }} />
+                  <BlockIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Reject
                   </Typography>
@@ -298,11 +302,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <StopIcon style={{ color: "white" }} />
+                  <StopIcon style={{ color: currentTheme.actionIcons,}} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Stop
                   </Typography>
@@ -313,11 +317,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <DeleteIcon style={{ color: "white" }} />
+                  <DeleteIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Delete
                   </Typography>
@@ -329,11 +333,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <CloseIcon style={{ color: "white" }} />
+                  <CloseIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Close
                   </Typography>
@@ -352,11 +356,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <SaveIcon style={{ color: "white" }} />
+                  <SaveIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Save
                   </Typography>
@@ -368,11 +372,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <FileCopyIcon style={{ color: "white" }} />
+                  <FileCopyIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Clone
                   </Typography>
@@ -385,11 +389,11 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <CloseIcon style={{ color: "white" }} />
+                  <CloseIcon style={{ color: currentTheme.actionIcons,}} />
                   <Typography
                     variant="caption"
                     align="center"
-                    style={{ color: "white", fontSize: "0.6rem" }}
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                   >
                     Close
                   </Typography>
@@ -404,8 +408,16 @@ export default function AccountMaster(args) {
           <>
             <SpeedDial
               ariaLabel="SpeedDial basic example"
-              sx={{ position: "absolute", bottom: 25, right: 16 }}
-              icon={<SpeedDialIcon />}
+              sx={{
+                position: "absolute",
+                bottom: 25,
+                right: 16,
+                
+                '& .MuiSpeedDial-fab': {
+                  backgroundColor: currentTheme.secondaryColor, // Ensure the SpeedDial button has the custom background color
+                },
+              }}
+              icon={<SpeedDialIcon  />}
               direction="left"
             >
               {actions.map((action) => (
@@ -426,7 +438,7 @@ export default function AccountMaster(args) {
                   }}
                 >
                   <Button
-                    color="primary"
+                    sx={{backgroundColor:currentTheme.primaryColor}}
                     onClick={toggleOpen}
                     style={{
                       marginBottom: "1rem",
@@ -434,6 +446,8 @@ export default function AccountMaster(args) {
                       fontSize: "0.6rem",
                       height: "5rem",
                       borderRadius: "0 0.5rem 0.5rem 0",
+                      backgroundColor:currentTheme.secondaryColor,
+                      color:currentTheme.sideBarTextColor1
                     }}
                   >
                     <KeyboardDoubleArrowRightIcon
@@ -448,7 +462,7 @@ export default function AccountMaster(args) {
                   style={{
                     width: 350,
                     boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-                    backgroundColor: primaryButtonColor,
+                    backgroundColor: getBackgroundColor(),
                     display: "flex",
                     alignItems: "center",
                   }}
@@ -472,6 +486,8 @@ export default function AccountMaster(args) {
                           fontSize: "0.6rem",
                           height: "5rem",
                           borderRadius: "0.5rem 0 0 0.5rem",
+                          backgroundColor:currentTheme.secondaryColor,
+                          color:currentTheme.sideBarTextColor1
                         }}
                       >
                         <KeyboardDoubleArrowLeftIcon
@@ -505,7 +521,7 @@ export default function AccountMaster(args) {
                   }}
                 >
                   <Button
-                    color="primary"
+                    
                     variant="contained"
                     onClick={infoPanelClose}
                     style={{
@@ -520,6 +536,8 @@ export default function AccountMaster(args) {
                       display: "flex",
                       justifyContent: "center", // Center horizontally
                       alignItems: "center", // Center vertically
+                      backgroundColor:currentTheme.secondaryColor,
+                      color:currentTheme.sideBarTextColor1
                     }}
                   >
                     <KeyboardDoubleArrowDownIcon style={{ fontSize: "1rem" }} />
@@ -560,6 +578,8 @@ export default function AccountMaster(args) {
                     display: "flex",
                     justifyContent: "center", // Center horizontally
                     alignItems: "center", // Center vertically
+                     backgroundColor:currentTheme.secondaryColor,
+                      color:currentTheme.sideBarTextColor1
                   }}
                 >
                   <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />

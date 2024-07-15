@@ -43,6 +43,7 @@ import CheckBox1 from "../../../components/CheckBox/CheckBox1";
 import CheckBox2 from "../../../components/CheckBox/CheckBox2";
 import PropTypes from "prop-types";
 import CustomizationTable1 from "./CustomizationTable1";
+import { useTheme } from "../../../config/themeContext";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -63,9 +64,9 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme }) => ({
-  color: primaryButtonColor,
-  backgroundColor: thirdColor,
+))(({ theme,currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
   justifyContent: "space-between",
   "& .MuiAccordionSummary-content": {
@@ -73,7 +74,7 @@ const AccordionSummary = styled((props) => (
   },
   "& .MuiSvgIcon-root": {
     fontSize: "1.5rem",
-    color: primaryButtonColor,
+    color: currentTheme.sideBarTextColor1,
   },
 }));
 
@@ -164,6 +165,8 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
     };
   }, [handleCloseModal]);
 
+  const { currentTheme } = useTheme();
+
   return (
     <div>
       <div
@@ -203,7 +206,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                   onClick={handleCloseModal}
                   variant="contained"
                   startIcon={<DoneIcon />}
-                  style={buttonStyle}
+                  style={{...buttonStyle,backgroundColor:currentTheme.thirdColor,color:currentTheme.tableHeaderColor}}
                 >
                   Ok
                 </Button>
@@ -211,7 +214,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                   variant="contained"
                   onClick={handleCloseModal}
                   startIcon={<CloseIcon />}
-                  style={buttonStyle}
+                  style={{...buttonStyle,backgroundColor:currentTheme.thirdColor,color:currentTheme.tableHeaderColor}}
                 >
                   Close
                 </Button>
@@ -226,6 +229,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                     id="panel1d-header"
                     className
                     expanded={expanded === "panel1"}
+                    currentTheme={currentTheme}
                   >
                     <Typography style={{ fontSize: "14px" }}>
                       Field Details
@@ -236,33 +240,34 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                       <div>
                         <MDBCardBody>
                           <MDBRow>
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <AccountInput label="Caption" />
                             </MDBCol>
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <AccountInput label="Name" />
                             </MDBCol>
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <AutoComplete2 autoLabel="DataType" />
                             </MDBCol>
 
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <AccountInput label="Default Value" />
                             </MDBCol>
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <AccountInput label="Max Size" />
                             </MDBCol>
-                            <MDBCol>
-                              <AccountInput label="Banner Text" />
-                            </MDBCol>
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <AutoComplete2 autoLabel="Control Type" />
                             </MDBCol>
-                            <MDBCol>
+                            {/* <MDBCol>
+                              <AccountInput label="Banner Text" />
+                            </MDBCol> */}
+                           
+                            {/* <MDBCol>
                               <AccountInput label="Tool Tip Text" />
-                            </MDBCol>
+                            </MDBCol> */}
                           </MDBRow>
-                          <MDBRow>
+                          {/* <MDBRow>
                             <Typography
                               sx={{ pt: 2 }}
                               variant="p"
@@ -277,7 +282,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                             <MDBCol>
                               <AccountInput label="Error Message" />
                             </MDBCol>
-                          </MDBRow>
+                          </MDBRow> */}
                         </MDBCardBody>
                       </div>
                     </>
@@ -293,6 +298,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                     id="panel2d-header"
                     className
                     expanded={expanded === "panel2"}
+                    currentTheme={currentTheme}
                   >
                     <Typography style={{ fontSize: "14px" }}>
                       Properties
@@ -302,7 +308,38 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                     <>
                       <div>
                         <MDBCardBody>
-                          <MDBRow>
+                        <MDBRow>
+                            {/* <MDBCol>
+                              <CheckBox2 label="Spell Check" />
+                            </MDBCol> */}
+                            <MDBCol>
+                              <CheckBox2 label="Hidden" />
+                            </MDBCol>
+                            <MDBCol>
+                              <CheckBox2 label="Audit Trail" />
+                            </MDBCol>
+
+                            <MDBCol>
+                              <CheckBox2 label="Read Only" />
+                            </MDBCol>
+                            <MDBCol>
+                              <CheckBox2 label="Cannot export" />
+                            </MDBCol>
+                            <MDBCol>
+                              <CheckBox2 label="Mandatory" />
+                            </MDBCol>
+                            <MDBCol>
+                              <CheckBox2 label="Cannot import" />
+                            </MDBCol>
+                            <MDBCol>
+                              <CheckBox2 label="Mass Update" />
+                            </MDBCol>
+                            <MDBCol>
+                              
+                            </MDBCol>
+                            
+                          </MDBRow>
+                          {/* <MDBRow>
                             <MDBCol>
                               <CheckBox2 label="Part Of Delivery Address" />
                             </MDBCol>
@@ -373,7 +410,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                             <MDBCol>
                               <AccountInput label="Behaviour" />
                             </MDBCol>
-                          </MDBRow>
+                          </MDBRow> */}
                         </MDBCardBody>
                       </div>
                     </>
@@ -389,6 +426,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                     id="panel3d-header"
                     className
                     expanded={expanded === "panel3"}
+                    currentTheme={currentTheme}
                   >
                     <Typography style={{ fontSize: "14px" }}>
                       Formatting
@@ -399,13 +437,13 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                       <div>
                         <MDBCardBody>
                           <MDBRow>
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <AccountInput label="Column span" />
                             </MDBCol>
-                            <MDBCol>
+                            <MDBCol lg={3}>
                               <AccountInput label="Row Span" />
                             </MDBCol>
-                            <MDBCol>
+                            {/* <MDBCol>
                               <AutoComplete2 autoLabel="Character Casing" />
                             </MDBCol>
 
@@ -449,7 +487,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                                   },
                                 }}
                               />
-                            </MDBCol>
+                            </MDBCol> */}
                           </MDBRow>
                         </MDBCardBody>
                       </div>

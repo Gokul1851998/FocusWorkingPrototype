@@ -104,7 +104,7 @@ const DefaultIcons = ({iconsClick,detailPageId,currentTheme}) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
       
-      {detailPageId !=0 ?
+      {/* {detailPageId !=0 ?
       <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
@@ -122,7 +122,7 @@ const DefaultIcons = ({iconsClick,detailPageId,currentTheme}) => {
               </Stack>
             </IconButton>
             :null
-      }      
+      }       */}
             <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem",color: currentTheme.actionIcons, }}
@@ -157,7 +157,25 @@ const DefaultIcons = ({iconsClick,detailPageId,currentTheme}) => {
               </Stack>
             </IconButton>
              :null
-            }      
+            }     
+            {detailPageId !=0 ?
+            <IconButton
+                aria-label="Clone"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <FileCopyIcon sx={{ color: currentTheme.actionIcons, }}  />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    Clone
+                  </Typography>
+                </Stack>
+              </IconButton> 
+              :null
+            }  
             {detailPageId !=0 ?
             <IconButton
               aria-label="New"
@@ -437,13 +455,13 @@ const ProfileNew = ({setPage,detailPageId}) => {
     </Box>
     <Box sx={{ width:"100%",overflowX: 'auto',display:"flex",flexDirection:"column",height:"83vh",overflowY:"auto",scrollbarWidth:"thin",paddingBottom:"30px"}}>
       <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-      <Typography sx={{fontSize:"20px",color:"#000"}}>
+      <Typography sx={{fontSize:"20px"}}>
           Create Profile
           </Typography>    
       <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                    <AccountInput label="Create Profile" />
+                    <AccountInput label="Profile Name" mandatory="1" />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <RoleSelect1
@@ -451,6 +469,7 @@ const ProfileNew = ({setPage,detailPageId}) => {
                     value={selectedOption}
                     onChange={handleSelectChange}
                     options={entityList}
+                    mandatory={1}
                   />
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">

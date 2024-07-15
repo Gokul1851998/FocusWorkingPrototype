@@ -71,6 +71,9 @@ import { useTheme } from "../../../../../config/themeContext";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { entityList } from "../../../../../config/securityConfig";
 import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
+import CurrencyEntityTable from "./CurrencyEntityTable";
+import CurrencyLanguage from "../CurrencyLanguage";
+import CurrencyLanguage1 from "../Currencylanguage1";
 
 function handleClick(event) {
   event.preventDefault();
@@ -141,6 +144,82 @@ export default function CurrencyMaster(args) {
   const [select, setSelect] = React.useState([]);
   const [accountName, setAccountName] = React.useState("");
   const [selectedOption, setSelectedOption] = React.useState('');
+
+  const [rows, setRows] = useState([
+    {
+      id: 1,
+      entity: "",
+      decimals: "",
+      roundOff: "",
+      roundingType: "",
+      connector:""
+    },
+  ]);
+  const [coinsName, setCoinsName] = useState("");
+  const [currencySubUnit, setCurrencySubUnit] = useState("");
+  const [connector, setConnector] = useState("");
+
+  // Handle changes for new fields
+const handleCoinsNameChange = (event) => {
+  setCoinsName(event.target.value);
+};
+
+const handleCurrencySubUnitChange = (event) => {
+  setCurrencySubUnit(event.target.value);
+};
+
+const handleConnectorChange = (event) => {
+  setConnector(event.target.value);
+};
+
+ 
+
+  const handleEntityChange = (index, value) => {
+    const newRows = [...rows];
+    newRows[index].entity = value;
+    setRows(newRows);
+  };
+
+  const handleDecimalsChange = (index, value) => {
+    const newRows = [...rows];
+    newRows[index].decimals = value;
+    setRows(newRows);
+  };
+
+  const handleRoundOffChange = (index, value) => {
+    const newRows = [...rows];
+    newRows[index].roundOff = value;
+    setRows(newRows);
+  };
+
+  const handleRoundingTypeChange = (index, value) => {
+    const newRows = [...rows];
+    newRows[index].roundingType = value;
+    setRows(newRows);
+  };
+
+  const handleAddRow = () => {
+    const newRows = [
+      ...rows,
+      {
+        id: rows.length + 1,
+        entity: "",
+        decimals: "",
+        roundOff: "",
+        roundingType: "",
+      },
+    ];
+    setRows(newRows);
+  };
+
+  const handleRemoveRow = (index) => {
+    if (rows.length > 1) {
+      const newRows = [...rows];
+      newRows.splice(index, 1);
+      setRows(newRows);
+    }
+  };
+
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -259,9 +338,13 @@ export default function CurrencyMaster(args) {
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
+              separator={
+                <NavigateNextIcon
+                  fontSize="small"
+                  sx={{ color: currentTheme.actionIcons }}
+                />
+              }
               aria-label="breadcrumb"
-             
             >
               {breadcrumbs}
             </Breadcrumbs>
@@ -278,11 +361,14 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <GetAppIcon style={{ color: currentTheme.actionIcons, }} />
+                <GetAppIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{
+                    color: currentTheme.actionIcons,
+                    fontSize: "0.6rem",
+                  }}
                 >
                   Import
                 </Typography>
@@ -293,12 +379,15 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SwapHorizIcon style={{ color: currentTheme.actionIcons, }} />
+                <SwapHorizIcon style={{ color: currentTheme.actionIcons }} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{
+                    color: currentTheme.actionIcons,
+                    fontSize: "0.6rem",
+                  }}
                 >
                   Exchange Rate
                 </Typography>
@@ -309,12 +398,15 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <ClearAllIcon style={{ color: currentTheme.actionIcons,}} />
+                <ClearAllIcon style={{ color: currentTheme.actionIcons }} />
 
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{
+                    color: currentTheme.actionIcons,
+                    fontSize: "0.6rem",
+                  }}
                 >
                   Clear
                 </Typography>
@@ -325,11 +417,14 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <SaveIcon style={{ color: currentTheme.actionIcons, }} />
+                <SaveIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{
+                    color: currentTheme.actionIcons,
+                    fontSize: "0.6rem",
+                  }}
                 >
                   Save
                 </Typography>
@@ -342,11 +437,14 @@ export default function CurrencyMaster(args) {
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
               <Stack direction="column" alignItems="center">
-                <CloseIcon style={{ color: currentTheme.actionIcons, }} />
+                <CloseIcon style={{ color: currentTheme.actionIcons }} />
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{
+                    color: currentTheme.actionIcons,
+                    fontSize: "0.6rem",
+                  }}
                 >
                   Close
                 </Typography>
@@ -354,22 +452,29 @@ export default function CurrencyMaster(args) {
             </IconButton>
           </Stack>
         </Box>
-        <Box sx={{ width:"95%",margin: 'auto',display:"flex",flexDirection:"column",paddingTop:"10px"}}>
-        <MDBCardBody>
-                <MDBRow>
-                  
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <RoleSelect1
-                    label="Business Entity"
-                    value={selectedOption}
-                    onChange={handleSelectChange}
-                    options={entityList}
-                  />
-                  </MDBCol>
-                  </MDBRow>
-              </MDBCardBody>
-        </Box>
-        
+        {/* <Box
+          sx={{
+            width: "95%",
+            margin: "auto",
+            display: "flex",
+            flexDirection: "column",
+            paddingTop: "10px",
+          }}
+        >
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <RoleSelect1
+                  label="Business Entity"
+                  value={selectedOption}
+                  onChange={handleSelectChange}
+                  options={entityList}
+                />
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </Box> */}
+
         <div>
           <Accordion
             expanded={expanded === "panel1"}
@@ -395,7 +500,7 @@ export default function CurrencyMaster(args) {
                         <AutoComplete2 autoLabel="ISO Currency Code" />
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <AccountInput label="Coins Name" />
+                        <AccountInput1 label="Coins Name" value={coinsName} onChange={handleCoinsNameChange} />
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput1
@@ -411,7 +516,7 @@ export default function CurrencyMaster(args) {
                         <AutoComplete2 autoLabel="Symbol" />
                       </MDBCol>
 
-                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                      {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Number of Decimal" />
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -419,7 +524,7 @@ export default function CurrencyMaster(args) {
                       </MDBCol>
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AutoComplete2 autoLabel="Rounding Type" />
-                      </MDBCol>
+                      </MDBCol> */}
                       {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Currency Unit" />
                       </MDBCol>
@@ -427,13 +532,13 @@ export default function CurrencyMaster(args) {
                         <AccountInput label="Currency Unit Alias" />
                       </MDBCol> */}
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <AccountInput label="Currency Sub Unit" />
+                        <AccountInput1 label="Currency Sub Unit" value={currencySubUnit} onChange={handleCurrencySubUnitChange} />
                       </MDBCol>
                       {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Currency Sub Unit Alias" />
                       </MDBCol> */}
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <AccountInput label="Connector" />
+                        <AccountInput1 label="Connector" value={connector} onChange={handleConnectorChange} />
                       </MDBCol>
                       {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Connector Alias" />
@@ -444,6 +549,18 @@ export default function CurrencyMaster(args) {
                       <MDBCol lg="3" md="4" sm="6" xs="12">
                         <AccountInput label="Denomination Value" />
                       </MDBCol> */}
+                    </MDBRow>
+                    <MDBRow>
+                      <CurrencyEntityTable
+                        rows={rows}
+                        onEntityChange={handleEntityChange}
+                        onDecimalsChange={handleDecimalsChange}
+                        onRoundOffChange={handleRoundOffChange}
+                        onRoundingTypeChange={handleRoundingTypeChange}
+                        onAddRow={handleAddRow}
+                        onRemoveRow={handleRemoveRow}
+                        
+                      />
                     </MDBRow>
                   </MDBCardBody>
                 </div>
@@ -592,7 +709,12 @@ export default function CurrencyMaster(args) {
                 </div>
               </MDBCol>
             </MDBRow> */}
-                <MasterLanguage accountName={accountName} />
+                {/* <CurrencyLanguage accountName={accountName}   coinsName={coinsName}
+                currencySubUnit={currencySubUnit}
+                connector={connector} /> */}
+                <CurrencyLanguage1  currencyName1={accountName}   coinsName1={coinsName}
+                currencySubUnit1={currencySubUnit}
+                connector1={connector} />
               </MDBCardBody>
             </AccordionDetails>
           </Accordion>

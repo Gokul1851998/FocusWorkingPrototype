@@ -10,7 +10,9 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
+  IconButton,
   Radio,
+  Stack,
   Typography,
 } from "@mui/material";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
@@ -22,12 +24,18 @@ import {
 import SecurityInput from "../../../components/Inputs/SecurityInput";
 import { MDBCol } from "mdb-react-ui-kit";
 import Definitiontable1 from "./DefinitionTable1";
+import { useTheme } from "../../../config/themeContext";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 
-function MasterDefinition() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [hide, setHide] = useState(false);
+function MasterDefinition({detailPageId}) {
+  const [isOpen, setIsOpen] = useState(true);
+  const [hide, setHide] = useState(true);
   const [formData, setformData] = useState({});
   const [selectedOption, setSelectedOption] = React.useState('');
+
+
+  const {currentTheme} = useTheme()
 
 
   const handleRadioChange = (event) => {
@@ -53,6 +61,9 @@ function MasterDefinition() {
     const updatedCheckState = { ...formData, [item]: event.target.checked };
     setformData(updatedCheckState);
   };
+  const getBackgroundColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#000' : '#fff';
+  };
 
   return (
     <div style={{ display: "flex" }}>
@@ -65,7 +76,7 @@ function MasterDefinition() {
           }}
         >
           <Button
-            color="primary"
+            
             onClick={toggleOpen}
             style={{
               marginBottom: "1rem",
@@ -73,6 +84,8 @@ function MasterDefinition() {
               fontSize: "0.6rem",
               height: "2rem",
               borderRadius: "0 0.5rem 0.5rem 0",
+              backgroundColor:currentTheme.secondaryColor,
+              color:currentTheme.sideBarTextColor1
             }}
           >
             <KeyboardDoubleArrowRightIcon style={{ fontSize: "1rem" }} />
@@ -85,11 +98,47 @@ function MasterDefinition() {
           style={{
             width: 350,
             boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-            backgroundColor: primaryButtonColor,
+            backgroundColor: getBackgroundColor(),
             display: "flex",
-            alignItems: "center",
+           
+            flexDirection:"column"
           }}
         >
+          <Box sx={{ display: "flex", justifyContent: "left" }}>
+
+<IconButton
+  aria-label="Add group"
+  sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+>
+  <Stack direction="column" alignItems="center">
+    <GroupAddIcon style={{ color: currentTheme.actionIcons, }} />
+
+    <Typography
+      variant="caption"
+      align="center"
+      style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+    >
+      Add Group
+    </Typography>
+  </Stack>
+</IconButton>
+<IconButton
+  aria-label="Add group"
+  sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+>
+  <Stack direction="column" alignItems="center">
+    <GroupRemoveIcon style={{ color: currentTheme.actionIcons, }} />
+
+    <Typography
+      variant="caption"
+      align="center"
+      style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+    >
+      Delete Group
+    </Typography>
+  </Stack>
+</IconButton>
+</Box>
           <div>
             <Box
               sx={{
@@ -97,16 +146,19 @@ function MasterDefinition() {
                 //  alignItems: "center"
               }}
             >
+              
               <Tree1 items={createProfileTree} />
 
               <Button
-                color="primary"
+                
                 onClick={toggleClose}
                 style={{
                   padding: "0.1rem",
                   fontSize: "0.6rem",
                   height: "2rem",
                   borderRadius: "0.5rem 0 0 0.5rem",
+                  backgroundColor:currentTheme.secondaryColor,
+                  color:currentTheme.sideBarTextColor1
                 }}
               >
                 <KeyboardDoubleArrowLeftIcon style={{ fontSize: "1rem" }} />
@@ -129,8 +181,9 @@ function MasterDefinition() {
             value={formData?.Module ?? ""}
             onChange={(e) => handleSelectChange(e, "Module")}
             options={masterSettingsModule}
+            mandatory={"true"}
           />
-          <AutoComplete2
+          {/* <AutoComplete2
             // autoLabel={"User"}
             formData={{
               sName: formData?.Name ?? "",
@@ -140,14 +193,16 @@ function MasterDefinition() {
               setformData({ ...formData, Name: data.sName });
             }}
             autoLabel={"Name"}
-          />
-          <SecurityInput label={"Master Caption"} />
-          <RoleSelect1
+            isMandatory={"true"}
+          /> */}
+          <SecurityInput label={"Name"}  mandatory={"true"} />
+          <SecurityInput label={"Caption"}  mandatory={"true"} />
+          {/* <RoleSelect1
                     label="Business Entity"
                     value={selectedOption}
                     onChange={(e) => handleSelectChange(e, "BusinessEntity")}
                     options={entityList}
-                  />
+                  /> */}
         </div>
         <div
           style={{
@@ -158,7 +213,7 @@ function MasterDefinition() {
             marginTop: "10px",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", width: "150px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", width: "200px" }}>
             <FormControlLabel
               value="name"
               control={
@@ -175,7 +230,7 @@ function MasterDefinition() {
               labelPlacement="end"
             />
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center", width: "150px" }}>
+          <Box sx={{ display: "flex", alignItems: "center", width: "200px" }}>
             <FormControlLabel
               value="code"
               control={
@@ -195,7 +250,7 @@ function MasterDefinition() {
           {masterSettingsDefinitionCheck.map((item, index) => (
             <Box
               key={index}
-              sx={{ display: "flex", alignItems: "center", width: "150px" }}
+              sx={{ display: "flex", alignItems: "center", width: "200px" }}
             >
               <FormControlLabel
                 control={
@@ -220,7 +275,9 @@ function MasterDefinition() {
             </Box>
           ))}
         </div>
+        {detailPageId ==1 &&
         <Definitiontable1 />
+      }
       </Box>
     </div>
   );

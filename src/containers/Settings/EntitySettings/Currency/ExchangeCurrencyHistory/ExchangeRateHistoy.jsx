@@ -142,7 +142,7 @@ export default function ExchangeRateHistory(args) {
   const [selectedOption, setSelectedOption] = React.useState('');
   const [selectedBaseCurrency, setSelectedBaseCurrency] = useState('');
   const [selectedCurrencies, setSelectedCurrencies] = useState([
-    { id: 1, selectCurrency: '', definedAs: '' }
+    
   ]);
 
   const handleSelectChange = (event) => {
@@ -166,7 +166,7 @@ export default function ExchangeRateHistory(args) {
   };
 
   const handleAddCurrency = () => {
-    setSelectedCurrencies([...selectedCurrencies, { id: selectedCurrencies.length + 1, selectCurrency: '', definedAs: '' }]);
+    setSelectedCurrencies([...selectedCurrencies, { id: selectedCurrencies.length + 1, selectCurrency: '', definedAs: '', rate: 0  }]);
   };
 
   const handleRemoveCurrency = (index) => {
@@ -278,13 +278,13 @@ export default function ExchangeRateHistory(args) {
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
-            <Breadcrumbs
+            {/* <Breadcrumbs
               separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
               {breadcrumbs}
-            </Breadcrumbs>
+            </Breadcrumbs> */}
           </Stack>
 
           <Stack
@@ -340,7 +340,7 @@ export default function ExchangeRateHistory(args) {
                 </Typography>
               </Stack>
             </IconButton>
-            <IconButton
+            {/* <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -371,32 +371,21 @@ export default function ExchangeRateHistory(args) {
                   Close
                 </Typography>
               </Stack>
-            </IconButton>
+            </IconButton> */}
           </Stack>
         </Box>
 
-        <MDBCard
-          className="text-center"
-          style={{
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-            zIndex: 1,
-            margin: 10,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
-              padding: 2,
-            }}
-          >
+        <MDBCardBody>
+                <MDBRow>
+                <MDBCol lg="3" md="4" sm="6" xs="12">
             <RoleSelect1
                     label="Business Entity"
                     value={selectedOption}
                     onChange={handleSelectChange}
                     options={entityList}
                   />
+                  </MDBCol>
+             <MDBCol lg="3" md="4" sm="6" xs="12">   
             <RoleSelect1
               label="Base Currency"
               value={selectedBaseCurrency}
@@ -407,11 +396,17 @@ export default function ExchangeRateHistory(args) {
                 { value: 'CNY', label: 'CNY' },
               ]}
             />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
             <AccountInput label="Date Range" type="date" />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
             <AccountInput label="From Date" type="date" />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
             <AccountInput label="To Date" type="date" />
-            
-          </Box>
+            </MDBCol>
+          </MDBRow>
           <Stack
               direction="row"
               spacing={1}
@@ -431,7 +426,7 @@ export default function ExchangeRateHistory(args) {
             onCurrencyChange={handleCurrencyChange}
             onAddCurrency={handleAddCurrency}
             onRemoveCurrency={handleRemoveCurrency} />
-        </MDBCard>
+        </MDBCardBody>
         
         <MDBCard
           className="text-center"

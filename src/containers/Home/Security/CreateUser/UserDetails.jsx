@@ -29,6 +29,7 @@ import {
   DialogContent,
   IconButton,
   Stack,
+  TextField,
 } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
@@ -85,6 +86,23 @@ import UserHistoryTable from "./UserHistoryTable";
 import UserTabDetails from "./UserHistoryTab";
 import HistoryIcon from '@mui/icons-material/History';
 import { useTheme } from "../../../../config/themeContext";
+import { differenceInDays } from "date-fns"; // Import the differenceInDays function
+
+const textFieldStyle= {
+  width: 60,
+  mx: 1,
+  height: 30, // Reducing the height
+  '& .MuiInputBase-root': {
+    height: '30px',
+    padding: '0 0px', // Reduces padding inside the input area
+  },
+  '& .MuiOutlinedInput-input': {
+    padding: '4px', // Adjust top and bottom padding
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: '1px solid', // Adjust border if needed
+  }
+}
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -171,7 +189,7 @@ function BasicBreadcrumbs({currentTheme}) {
 const DefaultIcons = ({ iconsClick, detailPageId,currentTheme }) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-      {detailPageId !=0 ?
+      {/* {detailPageId !=0 ?
       <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -189,7 +207,7 @@ const DefaultIcons = ({ iconsClick, detailPageId,currentTheme }) => {
               </Stack>
             </IconButton>
             :null
-      }
+      } */}
       {detailPageId != 0 ? (
       <IconButton
         aria-label="New"
@@ -336,7 +354,9 @@ export default function UserDetails({ detailPageId, setPage }) {
     userType: "User",
     PUserType:"",
     PUserType1:"",
-    FromDate:" "
+    FromDate:" ",
+    LockedTill: " ",
+    Days: "", // Add Days to formData
   });
   const [image, setImage] = useState(null);
   const [checkedDays, setCheckedDays] = useState([])
@@ -371,6 +391,13 @@ export default function UserDetails({ detailPageId, setPage }) {
     setSelectedRow(null)
     setOpenHistory(false)
   }
+  const handleDateChange = (date) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    const daysDifference = differenceInDays(selectedDate, currentDate);
+
+    setformData({ ...formData, LockedTill: date, Days: daysDifference });
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -446,7 +473,9 @@ export default function UserDetails({ detailPageId, setPage }) {
   //     workingDays: daysString
   //   });
   // }, [checkedDays]);
-
+  const getBorderColor = () => {
+    return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
+  };
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <Box
@@ -543,11 +572,11 @@ export default function UserDetails({ detailPageId, setPage }) {
                   <MDBRow>
                     {formData.userType === "User" ? (
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <SecurityInput label="Login Name" />
+                        <SecurityInput label="Login Name" mandatory={1}/>
                       </MDBCol>
                     ) : (
                       <MDBCol lg="3" md="4" sm="6" xs="12">
-                        <SecurityInput label="Group Name" />
+                        <SecurityInput label="Group Name" mandatory={1} />
                       </MDBCol>
                     )}
 
@@ -557,6 +586,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         value={formData?.ERPRoles ?? ""}
                         onChange={(e) => handleSelectChange(e, "ERPRoles")}
                         options={erpRoles}
+                        mandatory={1}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -575,6 +605,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         disabled={formData.userType === "Group"}
                         label="Password"
                         type={"password"}
+                        mandatory={1}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -582,6 +613,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         disabled={formData.userType === "Group"}
                         label="Confirm Password"
                         type={"password"}
+                        mandatory={1}
                       />
                     </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -776,7 +808,8 @@ export default function UserDetails({ detailPageId, setPage }) {
                     </Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -787,6 +820,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         label="Email"
                         type={"email"}
                         disabled={formData.userType === "Group"}
+                        mandatory={1}
                       />
                     </MDBCol>
 
@@ -820,7 +854,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         disabled={formData.userType === "Group"}
                       />
                     </MDBCol>
-                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                    {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                       <Autocomplete2
                         autoLabel={formData.PUserType?`${formData.PUserType} Name`:""}
                         formData={{
@@ -832,7 +866,7 @@ export default function UserDetails({ detailPageId, setPage }) {
                         }}
                         disabled={!formData.PUserType}
                       />
-                    </MDBCol>
+                    </MDBCol> */}
                     {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                       <RoleSelect1
                         label="CRM Roles"
@@ -879,10 +913,11 @@ export default function UserDetails({ detailPageId, setPage }) {
                   >
                     <Typography variant="body1">User Type</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBRow>
@@ -948,7 +983,8 @@ export default function UserDetails({ detailPageId, setPage }) {
                     <Typography variant="body1">Credentials</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -1142,7 +1178,8 @@ export default function UserDetails({ detailPageId, setPage }) {
                     <Typography variant="body1">Block User</Typography>
                     <Box
                       sx={{
-                        borderBottom: "1px dotted #000",
+                        borderBottom: "1px dotted ",
+                        borderBottmColor: getBorderColor(),
                         marginLeft: "8px", // Adjust spacing to your preference
                       }}
                     />
@@ -1181,10 +1218,11 @@ export default function UserDetails({ detailPageId, setPage }) {
                   >
                     <Typography variant="body1">Working Hours</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBRow>
@@ -1227,10 +1265,11 @@ export default function UserDetails({ detailPageId, setPage }) {
                   >
                     <Typography variant="body1">Working Days</Typography>
                     <Box
-                      sx={{
-                        borderBottom: "1px dotted #000",
-                        marginLeft: "8px", // Adjust spacing to your preference
-                      }}
+                     sx={{
+                      borderBottom: "1px dotted ",
+                      borderBottmColor: getBorderColor(),
+                      marginLeft: "8px", // Adjust spacing to your preference
+                    }}
                     />
                   </Box>
                   <MDBRow>
@@ -1267,6 +1306,165 @@ export default function UserDetails({ detailPageId, setPage }) {
                     ))}
                     
                   </MDBRow>
+                  <MDBRow>
+                    
+                      {/* <MDBCol
+                     
+                      style={{ marginBottom: "20px" }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center',  }}>
+          <Typography sx={{ fontSize:"14px" }}>LockedTill</Typography>
+          <TextField
+            size="small"
+            type="number"
+            variant="outlined"
+           sx={textFieldStyle}
+          />
+           <Typography  sx={{fontSize:"14px" }}>days</Typography>
+        </Box>
+                    </MDBCol> */}
+
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <SecurityInput
+                       value={formData.LockedTill ?? " "}
+                        label="Locked Till"
+                        type={"date"}
+                        setValue={(data) => handleDateChange(data)}
+                        
+                      />
+                    </MDBCol>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <SecurityInput label="Days"  value={formData.Days}  type="number"  readOnly  />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <SecurityInput label="Location" />
+                      </MDBCol>
+                      {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <SecurityInput label="Signature" />
+                      </MDBCol> */}
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <SecurityInput label="MAC Address" />
+                      </MDBCol>
+                      <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Password change next log"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Password never expired"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Password can't change"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                        />
+                      } // Reduce the size of the checkbox
+                      label="Password expiry"
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontSize: "0.8rem", // Adjust the label font size
+                          color: "gray", // Change the label color to gray
+                          paddingTop: 1,
+                        },
+                      }}
+                    />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <div
+                        style={{
+                          marginLeft: "60px",
+                          width: "120px",
+                          alignItems: "center",
+                          textAlign: "center",
+                        }}
+                      >
+                        {/* <IconButton
+                    onClick={handleUploadClick}
+                    style={uploadIconstyle}
+                    sx={{ml:1,mb:1}}
+                  >
+                    <AddCircleIcon style={{ fontSize: '3rem'}} /> 
+                  </IconButton> */}
+                        {formData.signature ? (
+                          <div style={{ position: "relative" }}>
+                            <img
+                              src={formData.signature}
+                              alt="Uploaded"
+                              style={{ width: "60px", height: "60px" }}
+                            />
+                            <IconButton
+                              onClick={handleDeleteClick("signature")}
+                              style={{
+                                position: "absolute",
+                                right: -5,
+                                top: -10,
+                              }}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </div>
+                        ) : (
+                          <IconButton
+                            onClick={handleUploadClick("signature")}
+                            style={{...uploadIconstyle,color:currentTheme.thirdColor}}
+                          >
+                            <AddCircleIcon style={{ fontSize: "3rem" }} />
+                          </IconButton>
+                        )}
+                        <Typography
+                          sx={{ fontSize: "12px" }}
+                          variant="subtitle1"
+                        >
+                         Signature
+                        </Typography>
+                      </div>
+                    </MDBCol>
+
+                    </MDBRow>
                   <UserDomainComponent/>
 
                 </MDBCardBody>

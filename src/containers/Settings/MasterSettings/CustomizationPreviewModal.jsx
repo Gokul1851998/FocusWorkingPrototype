@@ -55,7 +55,7 @@ export default function CustomizationPreviewModal({
           style={modalStyle}
         >
           <div className="modal-dialog modal-dialog-centered modal-xl">
-            <div className="modal-content" ref={modalRef}>
+            <div style={{maxHeight:"60vh",overflowY:"scroll",scrollbarWidth:"thin"}}  className="modal-content" ref={modalRef}>
               <CustomerVendorDetails />
             </div>
           </div>

@@ -1,24 +1,32 @@
 export const initialRows = [{
     iId: 1,
-    profileName: 'Abc',
-    createdOn: '2020-01-01',
-    modifiedOn: '2020-01-01',
+    EntityName:"Max",
+    ProfileName: 'Profile1',
+    CreatedOn: '2020-01-01',
+    CreatedBy: 'user1',
+    ModifiedOn: '2020-01-01',
+    CheckerName: 'Sijina',
    
     
     
   },{
     iId: 2,
-    profileName: 'ghi1231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231231abc',
-    createdOn: '2020-01-01',
-    modifiedOn: '2020-01-01',
+    EntityName:"Oriel",
+    ProfileName: 'Profile2',
+    CreatedOn: '2020-01-01',
+    CreatedBy: 'user2',
+    ModifiedOn: '2020-01-01',
+    CheckerName: 'Sijina',
   
     
   },{
     iId: 3,
-    profileName: 'xyz',
-    createdOn: '2020-01-01',
-    modifiedOn: '2020-01-01',
-  
+    EntityName:"Shipping",
+    ProfileName: 'Profile3',
+    CreatedOn: '2020-01-01',
+    CreatedBy: 'user3',
+    ModifiedOn: '2020-01-01',
+    CheckerName: 'Sijina',
     
   }];
 
@@ -198,24 +206,30 @@ export const historyRole  = [
 
 export const RoleTable = [{
   iId: 1,
-  RoleName: 'Abc',
+  RoleName: 'Role1',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
  
   
   
 },{
   iId: 2,
-  RoleName: 'def',
+  RoleName: 'Role2',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
 
   
 },{
   iId: 3,
-  RoleName: 'xyz',
+  RoleName: 'Role3',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
 
   
 }];
@@ -253,24 +267,29 @@ export const roleRightSelectItem = [
 
 export const UserTable = [{
   iId: 1,
-  User_Group: 'Abc',
+  User_Group: 'Group1',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
  
   
   
 },{
   iId: 2,
-  User_Group: 'def',
+  User_Group: 'Group2',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
-
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
   
 },{
   iId: 3,
-  User_Group: 'xyz',
+  User_Group: 'Group3',
   createdOn: '2020-01-01',
-  modifiedOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
 
   
 }];
@@ -485,3 +504,74 @@ export const entityList = [
  
 ];
 
+export const EntityMasterTable = [{
+  iId: 1,
+  EntityName: 'Entity1',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
+ 
+  
+  
+},{
+  iId: 2,
+  EntityName: 'Entity2',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
+  
+},{
+  iId: 3,
+  EntityName: 'Entity3',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+  CheckerName: 'Sijina',
+
+  
+}];
+
+export const TagCreationTable = [{
+  iId: 1,
+  Name: 'Tag1',
+  Caption: 'Caption1',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+ 
+ 
+  
+  
+},{
+  iId: 2,
+  Name: 'Tag2',
+  Caption: 'Caption2',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+  
+},{
+  iId: 3,
+  Name: 'Tag3',
+  Caption: 'Caption3',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+
+  
+},{
+  iId: 4,
+  Name: 'Tag4',
+  Caption: 'Caption4',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+
+  
+},{
+  iId: 5,
+  Name: 'Tag5',
+  Caption: 'Caption5',
+  isDefault: 'Yes',
+  multilanguage: 'Yes',
+
+  
+}];
