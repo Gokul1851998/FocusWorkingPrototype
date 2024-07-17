@@ -172,6 +172,35 @@ export default function Login() {
   // };
 
   const handleSubmit = async(event) => {
+      if (sPassword && sLoginName) {
+      handleLoaderOpen();
+      if (sPassword === "test1" && sLoginName === "test1") {
+        localStorage.setItem("userName", "test1");
+        const currentTime = new Date().getTime();
+        const expirationTime = currentTime + idleTime;
+        localStorage.setItem("timeStamp", expirationTime);
+        navigate("/home");
+      }else if (sPassword === "test2" && sLoginName === "test2") {
+        localStorage.setItem("userName", "test2");
+        const currentTime = new Date().getTime();
+        const expirationTime = currentTime + idleTime;
+        localStorage.setItem("timeStamp", expirationTime);
+        navigate("/home");
+      }else if (sPassword === "test3" && sLoginName === "test3") {
+        localStorage.setItem("userName", "test3");
+        const currentTime = new Date().getTime();
+        const expirationTime = currentTime + idleTime;
+        localStorage.setItem("timeStamp", expirationTime);
+        navigate("/GridMenu");
+      } else {
+        setEmailError(true);
+        setPasswordError(true);
+        setAlertType("warning");
+        setMessage("Incorrect UserName or PassWord");
+        handleAlertOpen();
+      }
+      handleLoaderClose();
+    }
     event.preventDefault();
     const formData = {
       "loginName":sLoginName ,
@@ -191,7 +220,10 @@ export default function Login() {
 
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
-
+    localStorage.setItem("userName", sLoginName);
+    const currentTime = new Date().getTime();
+    const expirationTime = currentTime + idleTime;
+    localStorage.setItem("timeStamp", expirationTime);
    
      
       navigate('/home')
