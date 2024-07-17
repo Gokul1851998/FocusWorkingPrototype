@@ -839,11 +839,11 @@ export default function SideBar() {
     // Store the direction in localStorage
     localStorage.setItem('languageDirection', direction);
   };
- 
+ const direction = localStorage.getItem('languageDirection');
   return (
     <>
     <>
-    {currentLanguage.direction == 'ltr' &&
+    {direction == 'ltr' &&
 
      
     <div style={{ display: 'flex', height: '100vh' ,flexDirection:"column"}}>
@@ -978,7 +978,7 @@ export default function SideBar() {
         </Toolbar>
       </AppBar>
       
-      <Drawer1 variant="permanent" open={open} currentTheme={currentLanguage}  anchor={currentLanguage.direction === 'rtl' ? 'right' : 'left'}>
+      <Drawer1 variant="permanent" open={open} currentTheme={currentLanguage}  anchor={direction === 'rtl' ? 'right' : 'left'}>
         <DrawerHeader currentTheme={currentTheme} />
         <Divider />
         <List
@@ -1124,7 +1124,7 @@ export default function SideBar() {
      }
       </>
       <>
-      {currentLanguage.direction === 'rtl' &&
+      {direction === 'rtl' &&
   <Box sx={{ display: 'flex' }}>
     <CssBaseline />
     <AppBar

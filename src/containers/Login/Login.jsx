@@ -210,12 +210,16 @@ export default function Login() {
       switch (error.response.status) {
         case 400://bad request
          
-       
-        setMessage(error.response.data.message)
-        setAlert(true);
-        setAlertType("warning")
-      
-
+        const result = error.response.data.result ? JSON.parse(error.response.data.result) : null;
+        if (result && Array.isArray(result) && result[0]?.ErrorMessage) {
+          setMessage(result[0].ErrorMessage);
+          setAlert(true);
+          setAlertType("warning");
+        } else {
+          setMessage(error.response.data.message);
+          setAlert(true);
+          setAlertType("warning");
+        }
       
           break;
         case 401://unauthorized
