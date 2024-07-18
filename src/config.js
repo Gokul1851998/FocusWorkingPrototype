@@ -77,3 +77,23 @@ export const SideBarIcons = [
   
 
 ];
+
+export let config = null;
+export let CORE_URL = null;
+export let SECURITY_URL = null;
+export let channelId = null;
+
+export const getConfig = () => {
+    if (!config) {
+      throw new Error('Config has not been loaded!');
+    }
+    return config;
+  };
+export const loadConfig = async () => {
+    const response = await fetch('/config.json');
+    config = await response.json();
+    CORE_URL = config.CORE_URL; 
+    SECURITY_URL = config.SECURITY_URL;
+    channelId = config.channelId
+    
+}
