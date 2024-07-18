@@ -535,6 +535,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ThemeSelector from "../ThemeSelector/ThemeSelector";
 import { useTheme } from "../../config/themeContext";
+import { Navbar_getlanguagelist } from "../../apis/coreApi";
 
 const drawerWidth = 200;
 
@@ -683,7 +684,34 @@ export default function SideBar() {
   const [parentId, setparentId] = useState(null);
   const [key, setKey] = useState(Date.now());
   const [checked, setChecked] = React.useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState({direction: 'ltr',})
+  const [currentLanguage, setCurrentLanguage] = useState({direction: 'ltr',language:""})
+  const [languageList, setLanguageList] = useState([]);
+
+  useEffect(() => {
+
+    const fetchData = async()=>{
+    try {
+      const response = await Navbar_getlanguagelist();
+      
+      if (response.statusCode === 2000 && response.status === "Success") {
+       
+        const languageList = JSON.parse(response.result);
+       
+        setLanguageList(languageList);
+       
+      } else {
+       
+       
+      }
+    } catch (error) {
+     
+      console.log(error);
+      
+    }
+    }
+    fetchData()
+  }, [])
+  
 
   const handleColorSwitch = (event) => {
     switchColorMode(!checked);
@@ -823,16 +851,16 @@ export default function SideBar() {
     setOpen(false);
   };
   const switchLanguage = (language) => {
-    console.log(language, "hi");
+  
     let direction = 'ltr';
   
-    if (language === 'ar') {
-      console.log("hi2");
+    if (language === 'Arabic') {
+     
       direction = 'rtl';
     }
     setAnchorEl(null);
     setCurrentLanguage({
-      ...currentLanguage,
+      language:language,
       direction: direction,
     });
   
@@ -842,528 +870,554 @@ export default function SideBar() {
  const direction = localStorage.getItem('languageDirection');
   return (
     <>
-    <>
-    {direction == 'ltr' &&
-
-     
-    <div style={{ display: 'flex', height: '100vh' ,flexDirection:"column"}}>
-      
-      <CssBaseline />
-      <AppBar
-        currentTheme={currentLanguage}
-        ref={appBarRef}
-        position="fixed"
-        open={open}
-        style={{
-          background: currentTheme.sideBarhorizontal,
-          boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <IconButton
-              color={currentTheme.primaryButtonColor}
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{
-                marginRight: 1,
-              }}
-            >
-              {/* You can use imageIcon here */}
-              <img
-                src={imageIcon}
-                alt="Icon"
-                style={{ width: 32, height: 32 }}
-              />
-            </IconButton>
-
-            <Typography
-              variant="h6"
-              sx={{ color: currentTheme.sideBarTextColor1 }}
-              noWrap
-              component="div"
-            >
-              Sang Solution
-            </Typography>
-          </div>
-
-          <div>
-            <IconButton
-              id="basic-button"
-              aria-controls={openup ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={openup ? "true" : undefined}
-              onClick={handleClick}
-            >
-              <Avatar>
-                <PersonIcon />
-              </Avatar>
-            </IconButton>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={openup}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem
-                onClick={handleLogout}
-                sx={{
-                  borderBottom: "1px solid #e0e0e0",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                Logout
-                <LogoutIcon style={{ marginLeft: 8 }} />
-              </MenuItem>
-              <MenuItem
-                sx={{
-                  borderBottom: "1px solid #e0e0e0",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                Language
-                <Box sx={{ marginLeft: 2 }}>
-                  {/* Add language selection dropdown or list here */}
-                  <select onChange={(e) => switchLanguage(e.target.value)}>
-                    <option value="en">English</option>
-                    <option value="es">Spanish</option>
-                    <option value="fr">French</option>
-                    <option value="de">German</option>
-                    <option value="ar">Arabic</option>{" "}
-                    {/* Update value to 'ar' */}
-                  </select>
-                </Box>
-              </MenuItem>
-              <MenuItem
-                sx={{
-                  borderBottom: "1px solid #e0e0e0",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <ListItemText>Dark Mode</ListItemText>
-                <ListItemIcon>
-                  <Switch
-                    checked={checked}
-                    onChange={handleColorSwitch}
-                    color="primary"
-                    inputProps={{ "aria-label": "controlled" }}
-                  />
-                </ListItemIcon>
-              </MenuItem>
-              <MenuItem
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "start",
-                  gap: 1,
-                  width: "240px",
-                  paddingBottom: "40px", // Ensure enough space for the ThemeSelector to be displayed
-                  overflow: "visible", // Ensure the ThemeSelector is not cut off
-                }}
-              >
-                <Typography variant="body1">Choose Theme</Typography>
-                <Box sx={{ marginLeft: 2, width: "fit-Content" }}>
-                  <ThemeSelector />
-                </Box>
-              </MenuItem>
-            </Menu>
-          </div>
-        </Toolbar>
-      </AppBar>
-      
-      <Drawer1 variant="permanent" open={open} currentTheme={currentLanguage}  anchor={direction === 'rtl' ? 'right' : 'left'}>
-        <DrawerHeader currentTheme={currentTheme} />
-        <Divider />
-        <List
-          sx={{
-            background: currentTheme.sideBarVertical,
-            height: sideBarheight,
-            overflow: "auto", // only show scrollbar if needed
-            // Make sure the combined padding, margin, and borders do not exceed the container's height
-            padding: 0,
-            margin: 0,
-            "& .MuiListItem-root": {
-              padding: 0, // Adjust this as necessary
-              margin: 0, // Adjust this as necessary
-              "& .MuiListItemButton-root": {
-                padding: "10px 20px", // Adjust this as necessary
-              },
-            },
-          }}
-        >
-          {sideBarIcons.map((item) => {
-            const isActive = parentId === item.id;
-
-            return (
-              item.parent === 0 && (
-                // Top-level list items
-                <ListItem
-                  key={item.id}
-                  disablePadding
-                  sx={{
-                    display: "block",
-                    backgroundColor: isActive
-                      ? `${currentTheme.activePrimaryColor}`
-                      : "none", // Appending 'DD' sets the opacity to approximately 87%
-                    "&:hover": {
-                      backgroundColor: `${currentTheme.activePrimaryColor}`, // Appending '99' sets the opacity to approximately 60%
-                    },
-                  }}
-                >
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                    }}
-                    onClick={(e) => handleSubMenuOpen(e, item)}
-                  >
-                    <Tooltip title={item.iconName} placement="right">
-                      <ListItemIcon
-                        sx={{
-                          minWidth: 0,
-                          mr: open ? 3 : "auto",
-                          justifyContent: "center",
-                          color: currentTheme.sideBarTextColor1,
-                        }}
-                      >
-                        {React.createElement(item.icon)}{" "}
-                        <Typography sx={{ paddingLeft: open ? 2 : 0 }}>
-                          {open ? item.iconName : null}
-                        </Typography>
-                      </ListItemIcon>
-                    </Tooltip>
-                  </ListItemButton>
-                </ListItem>
-              )
-            );
-          })}
-        </List>
-        {submenuStack.map((submenu, index) => (
-          <Menu
-            key={index}
-            anchorEl={submenu.anchorEl}
-            open={Boolean(submenu.anchorEl)}
-            onClose={() => handleSubMenuClose(index)}
-            // anchorOrigin={{
-            //   vertical: "top",
-            //   horizontal: "right",
-            // }}
-            // transformOrigin={{
-            //   vertical: "top",
-            //   horizontal: "left",
-            // }}
-            MenuListProps={{
-              "aria-labelledby": "nested-menu-button",
-              disablePadding: true,
-              style: {
-                maxHeight: "55vh",
-                overflow: "auto",
-                scrollbarWidth: "thin",
-              },
-            }}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: currentTheme.direction === "rtl" ? "left" : "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: currentTheme.direction === "rtl" ? "right" : "left",
+      <>
+        {direction == "ltr" && (
+          <div
+            style={{
+              display: "flex",
+              height: "100vh",
+              flexDirection: "column",
             }}
           >
-            {submenu.submenuItems.map((subItem) => (
-              <MenuItem
-                key={subItem.id}
-                onClick={(e) => handleSubMenuOpen(e, subItem)}
-                sx={{
-                  backgroundColor: currentTheme.primaryColor, // Set the background color for each item
-                  color: currentTheme.sideBarTextColor1, // Set the text color for each item
-                  "&:hover": {
-                    backgroundColor: currentTheme.primaryColor, // Adjust hover color as needed
-                  },
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.12)", // Border between items
-                }}
-              >
-                {/* <ListItemIcon>
-                  {React.createElement(subItem.icon)}
-                </ListItemIcon> */}
-                <ListItemText sx={itemsTextStyle} primary={subItem.iconName} />
-                {subItem.child && (
-                  <PlayArrowIcon
+            <CssBaseline />
+            <AppBar
+              currentTheme={currentLanguage}
+              ref={appBarRef}
+              position="fixed"
+              open={open}
+              style={{
+                background: currentTheme.sideBarhorizontal,
+                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <Toolbar sx={{ justifyContent: "space-between" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <IconButton
+                    color={currentTheme.primaryButtonColor}
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
                     sx={{
-                      ...itemsIconStyle,
-                      transform:
-                        openSubMenuId === subItem.id ? "rotate(90deg)" : "none",
+                      marginRight: 1,
                     }}
-                  />
-                )}
-              </MenuItem>
-            ))}
-          </Menu>
-        ))}
-      </Drawer1>
-      <Box sx={{
-        flexGrow: 1,
-       
-        marginLeft: "65px",
-        
-      }}>
-        
-        {/* Main content */}
-      </Box>
-     
-     
-      </div>
-     }
-      </>
-      <>
-      {direction === 'rtl' &&
-  <Box sx={{ display: 'flex' }}>
-    <CssBaseline />
-    <AppBar
-      currentTheme={currentLanguage}
-      ref={appBarRef}
-      position="fixed"
-      open={open}
-      style={{
-        background: currentTheme.sideBarhorizontal,
-        boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
-      }}
-    >
-      <Toolbar sx={{ justifyContent: "space-between", flexDirection: "row-reverse" }}>
-  <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
-    <Typography
-      variant="h6"
-      sx={{ color: currentTheme.sideBarTextColor1 }}
-      noWrap
-      component="div"
-      style={{ marginRight: 8 }} // Add some margin to the right
-    >
-      Sang Solution
-    </Typography>
-    <IconButton
-      color={currentTheme.primaryButtonColor}
-      aria-label="open drawer"
-      onClick={handleDrawerOpen}
-      edge="start"
-      sx={{
-        marginLeft: 1,
-      }}
-    >
-      <img
-        src={imageIcon}
-        alt="Icon"
-        style={{ width: 32, height: 32 }}
-      />
-    </IconButton>
-  </div>
+                  >
+                    {/* You can use imageIcon here */}
+                    <img
+                      src={imageIcon}
+                      alt="Icon"
+                      style={{ width: 32, height: 32 }}
+                    />
+                  </IconButton>
 
-  <div>
-    <IconButton
-      id="basic-button"
-      aria-controls={openup ? "basic-menu" : undefined}
-      aria-haspopup="true"
-      aria-expanded={openup ? "true" : undefined}
-      onClick={handleClick}
-    >
-      <Avatar>
-        <PersonIcon />
-      </Avatar>
-    </IconButton>
-    <Menu
-      id="basic-menu"
-      anchorEl={anchorEl}
-      open={openup}
-      onClose={handleClose}
-      MenuListProps={{
-        "aria-labelledby": "basic-button",
-      }}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-    >
-      <MenuItem
-        onClick={handleLogout}
-        sx={{
-          borderBottom: "1px solid #e0e0e0",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        Logout
-        <LogoutIcon style={{ marginLeft: 8 }} />
-      </MenuItem>
-      <MenuItem
-        sx={{
-          borderBottom: "1px solid #e0e0e0",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        Language
-        <Box sx={{ marginLeft: 2 }}>
-          <select onChange={(e) => switchLanguage(e.target.value)}>
-            <option value="en">English</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
-            <option value="ar">Arabic</option>
-          </select>
-        </Box>
-      </MenuItem>
-      <MenuItem
-        sx={{
-          borderBottom: "1px solid #e0e0e0",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <ListItemText>Dark Mode</ListItemText>
-        <ListItemIcon>
-          <Switch
-            checked={checked}
-            onChange={handleColorSwitch}
-            color="primary"
-            inputProps={{ "aria-label": "controlled" }}
-          />
-        </ListItemIcon>
-      </MenuItem>
-      <MenuItem
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "start",
-          gap: 1,
-          width: "240px",
-          paddingBottom: "40px",
-          overflow: "visible",
-        }}
-      >
-        <Typography variant="body1">Choose Theme</Typography>
-        <Box sx={{ marginLeft: 2, width: "fit-Content" }}>
-          <ThemeSelector />
-        </Box>
-      </MenuItem>
-    </Menu>
-  </div>
-</Toolbar>
+                  <Typography
+                    variant="h6"
+                    sx={{ color: currentTheme.sideBarTextColor1 }}
+                    noWrap
+                    component="div"
+                  >
+                    Sang Solution
+                  </Typography>
+                </div>
 
-    </AppBar>
-
-    <Drawer
-      sx={{
-        width: "0px",
-        display: 'block',
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: "60px",
-          boxSizing: 'border-box',
-        },
-      }}
-      variant="permanent"
-      anchor="right"
-    >
-      <Toolbar />
-      <Divider />
-      <List
-        sx={{
-          background: currentTheme.sideBarVertical,
-          height: sideBarheight,
-          overflow: "auto",
-          padding: 0,
-          margin: 0,
-          "& .MuiListItem-root": {
-            padding: 0,
-            margin: 0,
-            "& .MuiListItemButton-root": {
-              padding: "10px 20px",
-            },
-          },
-        }}
-      >
-        {sideBarIcons.map((item) => {
-          const isActive = parentId === item.id;
-          return (
-            item.parent === 0 && (
-              <ListItem
-                key={item.id}
-                disablePadding
-                sx={{
-                  display: "block",
-                  backgroundColor: isActive
-                    ? `${currentTheme.activePrimaryColor}`
-                    : "none",
-                  "&:hover": {
-                    backgroundColor: `${currentTheme.activePrimaryColor}`,
-                  },
-                }}
-              >
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
-                  }}
-                  onClick={(e) => handleSubMenuOpen(e, item)}
-                >
-                  <Tooltip title={item.iconName} placement="right">
-                    <ListItemIcon
+                <div>
+                  <IconButton
+                    id="basic-button"
+                    aria-controls={openup ? "basic-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openup ? "true" : undefined}
+                    onClick={handleClick}
+                  >
+                    <Avatar>
+                      <PersonIcon />
+                    </Avatar>
+                  </IconButton>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={openup}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      "aria-labelledby": "basic-button",
+                    }}
+                  >
+                    <MenuItem
+                      onClick={handleLogout}
                       sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                        color: currentTheme.sideBarTextColor1,
+                        borderBottom: "1px solid #e0e0e0",
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}
                     >
-                      {React.createElement(item.icon)}{" "}
-                      <Typography sx={{ paddingLeft: open ? 2 : 0 }}>
-                        {open ? item.iconName : null}
-                      </Typography>
-                    </ListItemIcon>
-                  </Tooltip>
-                </ListItemButton>
-              </ListItem>
-            )
-          );
-        })}
-      </List>
-      {submenuStack.map((submenu, index) => (
-        <Menu
-          key={index}
-          anchorEl={submenu.anchorEl}
-          open={Boolean(submenu.anchorEl)}
-          onClose={() => handleSubMenuClose(index)}
-          MenuListProps={{
-            "aria-labelledby": "nested-menu-button",
-            disablePadding: true,
-            style: {
-              maxHeight: "55vh",
-              overflow: "auto",
-              scrollbarWidth: "thin",
-            },
-          }}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
-          {/* {submenu.submenuItems.map((subItem) => (
+                      Logout
+                      <LogoutIcon style={{ marginLeft: 8 }} />
+                    </MenuItem>
+                    <MenuItem
+                      sx={{
+                        borderBottom: "1px solid #e0e0e0",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      Language
+                      <Box sx={{ marginLeft: 2 }}>
+                        {/* Add language selection dropdown or list here */}
+                        <select value={currentLanguage.language}
+                          onChange={(e) => switchLanguage(e.target.value)}
+                        >
+                          {languageList.map((language) => (
+                            <option key={language.Id} value={language.Name}>
+                              {language.Name}
+                            </option>
+                          ))}
+                        </select>
+                      </Box>
+                    </MenuItem>
+                    <MenuItem
+                      sx={{
+                        borderBottom: "1px solid #e0e0e0",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <ListItemText>Dark Mode</ListItemText>
+                      <ListItemIcon>
+                        <Switch
+                          checked={checked}
+                          onChange={handleColorSwitch}
+                          color="primary"
+                          inputProps={{ "aria-label": "controlled" }}
+                        />
+                      </ListItemIcon>
+                    </MenuItem>
+                    <MenuItem
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "start",
+                        gap: 1,
+                        width: "240px",
+                        paddingBottom: "40px", // Ensure enough space for the ThemeSelector to be displayed
+                        overflow: "visible", // Ensure the ThemeSelector is not cut off
+                      }}
+                    >
+                      <Typography variant="body1">Choose Theme</Typography>
+                      <Box sx={{ marginLeft: 2, width: "fit-Content" }}>
+                        <ThemeSelector />
+                      </Box>
+                    </MenuItem>
+                  </Menu>
+                </div>
+              </Toolbar>
+            </AppBar>
+
+            <Drawer1
+              variant="permanent"
+              open={open}
+              currentTheme={currentLanguage}
+              anchor={direction === "rtl" ? "right" : "left"}
+            >
+              <DrawerHeader currentTheme={currentTheme} />
+              <Divider />
+              <List
+                sx={{
+                  background: currentTheme.sideBarVertical,
+                  height: sideBarheight,
+                  overflow: "auto", // only show scrollbar if needed
+                  // Make sure the combined padding, margin, and borders do not exceed the container's height
+                  padding: 0,
+                  margin: 0,
+                  "& .MuiListItem-root": {
+                    padding: 0, // Adjust this as necessary
+                    margin: 0, // Adjust this as necessary
+                    "& .MuiListItemButton-root": {
+                      padding: "10px 20px", // Adjust this as necessary
+                    },
+                  },
+                }}
+              >
+                {sideBarIcons.map((item) => {
+                  const isActive = parentId === item.id;
+
+                  return (
+                    item.parent === 0 && (
+                      // Top-level list items
+                      <ListItem
+                        key={item.id}
+                        disablePadding
+                        sx={{
+                          display: "block",
+                          backgroundColor: isActive
+                            ? `${currentTheme.activePrimaryColor}`
+                            : "none", // Appending 'DD' sets the opacity to approximately 87%
+                          "&:hover": {
+                            backgroundColor: `${currentTheme.activePrimaryColor}`, // Appending '99' sets the opacity to approximately 60%
+                          },
+                        }}
+                      >
+                        <ListItemButton
+                          sx={{
+                            minHeight: 48,
+                            justifyContent: open ? "initial" : "center",
+                            px: 2.5,
+                          }}
+                          onClick={(e) => handleSubMenuOpen(e, item)}
+                        >
+                          <Tooltip title={item.iconName} placement="right">
+                            <ListItemIcon
+                              sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : "auto",
+                                justifyContent: "center",
+                                color: currentTheme.sideBarTextColor1,
+                              }}
+                            >
+                              {React.createElement(item.icon)}{" "}
+                              <Typography sx={{ paddingLeft: open ? 2 : 0 }}>
+                                {open ? item.iconName : null}
+                              </Typography>
+                            </ListItemIcon>
+                          </Tooltip>
+                        </ListItemButton>
+                      </ListItem>
+                    )
+                  );
+                })}
+              </List>
+              {submenuStack.map((submenu, index) => (
+                <Menu
+                  key={index}
+                  anchorEl={submenu.anchorEl}
+                  open={Boolean(submenu.anchorEl)}
+                  onClose={() => handleSubMenuClose(index)}
+                  // anchorOrigin={{
+                  //   vertical: "top",
+                  //   horizontal: "right",
+                  // }}
+                  // transformOrigin={{
+                  //   vertical: "top",
+                  //   horizontal: "left",
+                  // }}
+                  MenuListProps={{
+                    "aria-labelledby": "nested-menu-button",
+                    disablePadding: true,
+                    style: {
+                      maxHeight: "55vh",
+                      overflow: "auto",
+                      scrollbarWidth: "thin",
+                    },
+                  }}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal:
+                      currentTheme.direction === "rtl" ? "left" : "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal:
+                      currentTheme.direction === "rtl" ? "right" : "left",
+                  }}
+                >
+                  {submenu.submenuItems.map((subItem) => (
+                    <MenuItem
+                      key={subItem.id}
+                      onClick={(e) => handleSubMenuOpen(e, subItem)}
+                      sx={{
+                        backgroundColor: currentTheme.primaryColor, // Set the background color for each item
+                        color: currentTheme.sideBarTextColor1, // Set the text color for each item
+                        "&:hover": {
+                          backgroundColor: currentTheme.primaryColor, // Adjust hover color as needed
+                        },
+                        borderBottom: "1px solid rgba(255, 255, 255, 0.12)", // Border between items
+                      }}
+                    >
+                      {/* <ListItemIcon>
+                  {React.createElement(subItem.icon)}
+                </ListItemIcon> */}
+                      <ListItemText
+                        sx={itemsTextStyle}
+                        primary={subItem.iconName}
+                      />
+                      {subItem.child && (
+                        <PlayArrowIcon
+                          sx={{
+                            ...itemsIconStyle,
+                            transform:
+                              openSubMenuId === subItem.id
+                                ? "rotate(90deg)"
+                                : "none",
+                          }}
+                        />
+                      )}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              ))}
+            </Drawer1>
+            <Box
+              sx={{
+                flexGrow: 1,
+
+                marginLeft: "65px",
+              }}
+            >
+              {/* Main content */}
+            </Box>
+          </div>
+        )}
+      </>
+      <>
+        {direction === "rtl" && (
+          <Box sx={{ display: "flex" }}>
+            <CssBaseline />
+            <AppBar
+              currentTheme={currentLanguage}
+              ref={appBarRef}
+              position="fixed"
+              open={open}
+              style={{
+                background: currentTheme.sideBarhorizontal,
+                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <Toolbar
+                sx={{
+                  justifyContent: "space-between",
+                  flexDirection: "row-reverse",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "row-reverse",
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{ color: currentTheme.sideBarTextColor1 }}
+                    noWrap
+                    component="div"
+                    style={{ marginRight: 8 }} // Add some margin to the right
+                  >
+                    Sang Solution
+                  </Typography>
+                  <IconButton
+                    color={currentTheme.primaryButtonColor}
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    sx={{
+                      marginLeft: 1,
+                    }}
+                  >
+                    <img
+                      src={imageIcon}
+                      alt="Icon"
+                      style={{ width: 32, height: 32 }}
+                    />
+                  </IconButton>
+                </div>
+
+                <div>
+                  <IconButton
+                    id="basic-button"
+                    aria-controls={openup ? "basic-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openup ? "true" : undefined}
+                    onClick={handleClick}
+                  >
+                    <Avatar>
+                      <PersonIcon />
+                    </Avatar>
+                  </IconButton>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={openup}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      "aria-labelledby": "basic-button",
+                    }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <MenuItem
+                      onClick={handleLogout}
+                      sx={{
+                        borderBottom: "1px solid #e0e0e0",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      Logout
+                      <LogoutIcon style={{ marginLeft: 8 }} />
+                    </MenuItem>
+                    <MenuItem
+                      sx={{
+                        borderBottom: "1px solid #e0e0e0",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      Language
+                      <Box sx={{ marginLeft: 2 }}>
+                      <select value={currentLanguage.language}
+                          onChange={(e) => switchLanguage(e.target.value)}
+                        >
+                          {languageList.map((language) => (
+                            <option key={language.Id} value={language.Name}>
+                              {language.Name}
+                            </option>
+                          ))}
+                        </select>
+                      </Box>
+                    </MenuItem>
+                    <MenuItem
+                      sx={{
+                        borderBottom: "1px solid #e0e0e0",
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <ListItemText>Dark Mode</ListItemText>
+                      <ListItemIcon>
+                        <Switch
+                          checked={checked}
+                          onChange={handleColorSwitch}
+                          color="primary"
+                          inputProps={{ "aria-label": "controlled" }}
+                        />
+                      </ListItemIcon>
+                    </MenuItem>
+                    <MenuItem
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "start",
+                        gap: 1,
+                        width: "240px",
+                        paddingBottom: "40px",
+                        overflow: "visible",
+                      }}
+                    >
+                      <Typography variant="body1">Choose Theme</Typography>
+                      <Box sx={{ marginLeft: 2, width: "fit-Content" }}>
+                        <ThemeSelector />
+                      </Box>
+                    </MenuItem>
+                  </Menu>
+                </div>
+              </Toolbar>
+            </AppBar>
+
+            <Drawer
+              sx={{
+                width: "0px",
+                display: "block",
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                  width: "60px",
+                  boxSizing: "border-box",
+                },
+              }}
+              variant="permanent"
+              anchor="right"
+            >
+              <Toolbar />
+              <Divider />
+              <List
+                sx={{
+                  background: currentTheme.sideBarVertical,
+                  height: sideBarheight,
+                  overflow: "auto",
+                  padding: 0,
+                  margin: 0,
+                  "& .MuiListItem-root": {
+                    padding: 0,
+                    margin: 0,
+                    "& .MuiListItemButton-root": {
+                      padding: "10px 20px",
+                    },
+                  },
+                }}
+              >
+                {sideBarIcons.map((item) => {
+                  const isActive = parentId === item.id;
+                  return (
+                    item.parent === 0 && (
+                      <ListItem
+                        key={item.id}
+                        disablePadding
+                        sx={{
+                          display: "block",
+                          backgroundColor: isActive
+                            ? `${currentTheme.activePrimaryColor}`
+                            : "none",
+                          "&:hover": {
+                            backgroundColor: `${currentTheme.activePrimaryColor}`,
+                          },
+                        }}
+                      >
+                        <ListItemButton
+                          sx={{
+                            minHeight: 48,
+                            justifyContent: open ? "initial" : "center",
+                            px: 2.5,
+                          }}
+                          onClick={(e) => handleSubMenuOpen(e, item)}
+                        >
+                          <Tooltip title={item.iconName} placement="right">
+                            <ListItemIcon
+                              sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : "auto",
+                                justifyContent: "center",
+                                color: currentTheme.sideBarTextColor1,
+                              }}
+                            >
+                              {React.createElement(item.icon)}{" "}
+                              <Typography sx={{ paddingLeft: open ? 2 : 0 }}>
+                                {open ? item.iconName : null}
+                              </Typography>
+                            </ListItemIcon>
+                          </Tooltip>
+                        </ListItemButton>
+                      </ListItem>
+                    )
+                  );
+                })}
+              </List>
+              {submenuStack.map((submenu, index) => (
+                <Menu
+                  key={index}
+                  anchorEl={submenu.anchorEl}
+                  open={Boolean(submenu.anchorEl)}
+                  onClose={() => handleSubMenuClose(index)}
+                  MenuListProps={{
+                    "aria-labelledby": "nested-menu-button",
+                    disablePadding: true,
+                    style: {
+                      maxHeight: "55vh",
+                      overflow: "auto",
+                      scrollbarWidth: "thin",
+                    },
+                  }}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                >
+                  {/* {submenu.submenuItems.map((subItem) => (
             <MenuItem
               key={subItem.id}
               onClick={(e) => handleSubMenuOpen(e, subItem)}
@@ -1388,45 +1442,47 @@ export default function SideBar() {
              
             </MenuItem>
           ))} */}
-          {submenu.submenuItems.map((subItem) => (
-  <MenuItem
-    key={subItem.id}
-    onClick={(e) => handleSubMenuOpen(e, subItem)}
-    sx={{
-      backgroundColor: currentTheme.primaryColor,
-      color: currentTheme.sideBarTextColor1,
-      "&:hover": {
-        backgroundColor: currentTheme.primaryColor,
-      },
-      borderBottom: "1px solid rgba(255, 255, 255, 0.12)",
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    }}
-  >
-    {subItem.child ? (
-      <PlayArrowIcon
-        sx={{
-          ...itemsIconStyle,
-          transform:
-            openSubMenuId === subItem.id ? "rotate(90deg)" : "rotate(180deg)",
-        }}
-      />
-    ) : (
-      <Box sx={{ width: '15px' }} /> // Placeholder box with the same width as the icon
-    )}
-    <ListItemText sx={itemsTextStyle} primary={subItem.iconName} />
-  </MenuItem>
-))}
-
-        </Menu>
-      ))}
-    </Drawer>
-  </Box>
-}
-
-     </>
+                  {submenu.submenuItems.map((subItem) => (
+                    <MenuItem
+                      key={subItem.id}
+                      onClick={(e) => handleSubMenuOpen(e, subItem)}
+                      sx={{
+                        backgroundColor: currentTheme.primaryColor,
+                        color: currentTheme.sideBarTextColor1,
+                        "&:hover": {
+                          backgroundColor: currentTheme.primaryColor,
+                        },
+                        borderBottom: "1px solid rgba(255, 255, 255, 0.12)",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      {subItem.child ? (
+                        <PlayArrowIcon
+                          sx={{
+                            ...itemsIconStyle,
+                            transform:
+                              openSubMenuId === subItem.id
+                                ? "rotate(90deg)"
+                                : "rotate(180deg)",
+                          }}
+                        />
+                      ) : (
+                        <Box sx={{ width: "15px" }} /> // Placeholder box with the same width as the icon
+                      )}
+                      <ListItemText
+                        sx={itemsTextStyle}
+                        primary={subItem.iconName}
+                      />
+                    </MenuItem>
+                  ))}
+                </Menu>
+              ))}
+            </Drawer>
+          </Box>
+        )}
+      </>
     </>
-    
   );
 }

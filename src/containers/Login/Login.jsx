@@ -109,18 +109,18 @@ export default function Login() {
     try {
       const response = await Login_GetCompany(sLoginName);
       if (response.statusCode === 2000 && response.status === "Success") {
-        console.log("1");
+       
         const companyList = JSON.parse(response.result);
-        console.log(companyList);
+    
         setcompanyList(companyList);
       } else {
-        console.log("2");
+       
         setcompanyList([]);
         setselectedCompanyName("");
         setEntityId(null);
       }
     } catch (error) {
-      console.log("3");
+     
       console.log(error);
       setcompanyList([]);
       setselectedCompanyName("");
@@ -128,7 +128,7 @@ export default function Login() {
     }
   };
   
-  console.log(entityId);
+ 
   const handleCompanyChange = (event) => {
    
     const selectedCompany = companyList.find(company => company.ID === event.target.value);
@@ -324,7 +324,7 @@ export default function Login() {
 
   const settingsOpen = Boolean(settingsAnchorEl);
   const settingsId = settingsOpen ? "settings-popover" : undefined;
-console.log(selectedCompanyName);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { SECURITY_URL } from "../config.js";
-import { securityApi } from "../axios.js";
+import { CORE_URL } from "../config.js";
+import { api } from "../axios.js";
 
 let isRefreshing = false;
 let failedQueue = [];
@@ -23,7 +23,7 @@ const addRequestToQueue = (originalRequest) => {
     failedQueue.push({
       resolve: (token) => {
         originalRequest.headers['Authorization'] = 'Bearer ' + token;
-        resolve(securityApi(originalRequest));
+        resolve(api(originalRequest));
       },
       reject: (err) => {
         reject(err);
@@ -39,7 +39,7 @@ const refreshToken = async () => {
     
     
     const payload = { refershToken: refreshTokenValue };
-    const response = await axios.get(`${SECURITY_URL}/token/regeneratetokens?refershToken=${refreshTokenValue}`);
+    const response = await axios.get(`${CORE_URL}/token/regeneratetokens?refershToken=${refreshTokenValue}`);
 
     const { accessToken, refreshToken } = response?.data;
 
@@ -60,7 +60,7 @@ const refreshToken = async () => {
 };
 
 // Interceptor for API requests
-securityApi.interceptors.request.use((config) => {
+api.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
@@ -68,7 +68,7 @@ securityApi.interceptors.request.use((config) => {
   return config;
 });
 
-securityApi.interceptors.response.use(
+api.interceptors.response.use(
   (response) => {
     return response.data;
   },
@@ -80,11 +80,11 @@ securityApi.interceptors.response.use(
         try {
           const newToken = await refreshToken();
           isRefreshing = false;
-          securityApi.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
+          api.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
           processQueue(null, newToken);
           originalRequest._retry = true;
           originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
-          return securityApi(originalRequest);
+          return api(originalRequest);
         } catch (refreshError) {
           processQueue(refreshError, null);
           window.location.href = '/';
@@ -101,7 +101,7 @@ securityApi.interceptors.response.use(
         failedQueue.push((token) => {
           originalRequest._retry = true;
           originalRequest.headers['Authorization'] = 'Bearer ' + token;
-          resolve(securityApi(originalRequest));
+          resolve(api(originalRequest));
         });
       });
     }
@@ -126,10 +126,10 @@ const makeAuthorizedRequest = async (method, url, params) => {
   try {
     let response;
     if(method === "get"){
-            response= await securityApi.get(url,{ headers, params });
+            response= await api.get(url,{ headers, params });
     }
     else{        
-     response = await securityApi({
+     response = await api({
       method: method,
       url: url,
       data: params,
@@ -144,64 +144,8 @@ const makeAuthorizedRequest = async (method, url, params) => {
   }
 };
 
-
-
-//Get Company - Login page
-export const Login_GetCompany =async(userName)=>{
-try {
-    const config = {
-        headers: { "Content-Type": "application/json" },
-    };
-    const response = await axios.get(`${SECURITY_URL}/login/getcompany?userName=${userName}`,config)
-    return response.data;
-} catch (error) {
-    console.error(error);
+//Get getlanguagelist - Navbar
+export const Navbar_getlanguagelist =async()=>{
+ 
+    return makeAuthorizedRequest("get","/language/getlanguagelist");
 }
-}
-//Login page Login
-export const Login_Login =async(payload)=>{
-    try {
-        
-        const response = await axios.post(`${SECURITY_URL}/login/login`,payload)
-        return response;
-    } catch (error) {
-        throw error
-    }
-}
-
-//getMasterFields
-export const getFields = async (master) => {
- 
-  return makeAuthorizedRequest("get","/MasterField/GetMastersFields?master=Customer");
-};
-export const getAutocomplete = async (formDataiType,productSearchkey) => {
-  return makeAuthorizedRequest("get",itag);
- 
-};
-export const getAutocomplete1 = async (itag,params) => {
-
-  
- 
-    return makeAuthorizedRequest("get",itag,params);
-    
-};
-
-
-export const UploadFiles = async ({ masterId, formData }) => {
-  // Ensure formData is correctly populated with file data
-  return makeAuthorizedRequest("post", `/Employee/UploadFiles?masterId=${masterId}`, formData);
-};
-
-export const postEmployee = async (payload) => {
- 
-
-  return makeAuthorizedRequest("post","/Employee/UpsertEmployeesDetails",payload);
-};
-
-export const getProfileSummary = async (payload) => {
-  return makeAuthorizedRequest("get","/profile/getprofilesummary",payload);
-};
-
-export const GetEmployeesDetails = async (payload) => {
-  return makeAuthorizedRequest("get","/Employee/GetEmployeesDetails",payload);
-};

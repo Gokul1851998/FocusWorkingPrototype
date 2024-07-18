@@ -16,6 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { initialRows } from '../../../../config/securityConfig';
 import { useTheme } from '../../../../config/themeContext';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import { getProfileSummary } from '../../../../apis/securityApi';
 
 
 
@@ -353,16 +354,46 @@ const ProfileSummary = ({setPage,setdetailPageId}) => {
   const [searchKey, setsearchKey] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
+ 
 
   const { currentTheme } = useTheme();
 
-  useEffect(() => {
-    setRows(initialRows)
-  }, [initialRows])
+
+
+  const fetchData = async () => {
+    handleOpen();
+    setselectedDatas([]);
+
+    const response = await getProfileSummary({refreshFlag:refreshFlag,pageNumber:pageNumber,pageSize:displayLength,searchString:searchKey});
+   
+    setrefreshFlag(false)
+    if (response?.status === "Success") {
+      const myObject = JSON.parse(response?.result);
+     
+      
+      // Assuming Item1 contains the data for your table
+      setRows(myObject?.Data);
+  
+      // Extract the number of total rows from Item2
+      const totalRows = myObject?.TotalRows[0].TotalRows;
+      
+  
+      // Set total rows to your state or wherever it needs to be used
+      settotalRows(totalRows);
+    
+  }
+
+   
+  };
+
+  React.useEffect(() => {
+    fetchData(); // Initial data fetch
+   
+  }, [pageNumber,displayLength,searchKey]);
   
 
   const handleRowDoubleClick = (rowiId) => {
-  
+  console.log(rowiId);
     // if (rowiId === null) {
     //   setAlertMessage("Please Select Row");
     //   setShowAlert(true);
@@ -380,7 +411,7 @@ const ProfileSummary = ({setPage,setdetailPageId}) => {
   };
   
   const handleSelectedRowsChange = (selectedRowsData) => {
-   
+
     setselectedDatas(selectedRowsData);
   };
   const resetChangesTrigger = () => {

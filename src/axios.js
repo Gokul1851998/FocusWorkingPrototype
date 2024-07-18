@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL, SECURITY_URL, loadConfig } from './config.js';
+import { CORE_URL, SECURITY_URL, loadConfig } from './config.js';
 
 const api = axios.create({
   headers: {
@@ -14,7 +14,7 @@ const securityApi = axios.create({
 });
 
 // A function to update the base URL of the axios instance
-export const updateApiBaseUrl = (newBaseUrl) => {
+export const updateCoreApiBaseUrl = (newBaseUrl) => {
   api.defaults.baseURL = newBaseUrl;
 };
 
@@ -24,7 +24,7 @@ export const updateSecurityApiBaseUrl = (newBaseUrl) => {
 
 // Use these functions after your config has been loaded
 loadConfig().then(() => {
-  updateApiBaseUrl(BASE_URL);
+  updateCoreApiBaseUrl(CORE_URL);
   updateSecurityApiBaseUrl(SECURITY_URL);
 });
 

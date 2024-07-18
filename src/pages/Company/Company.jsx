@@ -113,7 +113,7 @@ export default function Company() {
   const [detailPageId, setdetailPageId] = useState(null)
   
   const direction = localStorage.getItem('languageDirection');
-console.log(direction);
+
   useEffect(() => {
     const resizeObserver = new ResizeObserver(entries => {
       for (let entry of entries) {

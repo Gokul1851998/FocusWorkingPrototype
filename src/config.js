@@ -79,7 +79,7 @@ export const SideBarIcons = [
 ];
 
 export let config = null;
-export let BASE_URL = null;
+export let CORE_URL = null;
 export let SECURITY_URL = null;
 export let channelId = null;
 
@@ -92,7 +92,7 @@ export const getConfig = () => {
 export const loadConfig = async () => {
     const response = await fetch('/config.json');
     config = await response.json();
-    BASE_URL = config.BASE_URL; 
+    CORE_URL = config.CORE_URL; 
     SECURITY_URL = config.SECURITY_URL;
     channelId = config.channelId
     
