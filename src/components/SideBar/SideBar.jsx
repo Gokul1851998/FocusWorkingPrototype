@@ -867,7 +867,11 @@ export default function SideBar() {
     // Store the direction in localStorage
     localStorage.setItem('languageDirection', direction);
   };
- const direction = localStorage.getItem('languageDirection');
+  let direction = "ltr"
+ const directionLocal = localStorage.getItem('languageDirection');
+ if(directionLocal){
+  direction = directionLocal
+ }
   return (
     <>
       <>
