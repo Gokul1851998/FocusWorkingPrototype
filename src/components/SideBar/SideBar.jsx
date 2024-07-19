@@ -535,7 +535,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ThemeSelector from "../ThemeSelector/ThemeSelector";
 import { useTheme } from "../../config/themeContext";
-import { Navbar_getlanguagelist } from "../../apis/coreApi";
+import { coreApis } from "../../apis/coreApi";
+
 
 const drawerWidth = 200;
 
@@ -686,6 +687,8 @@ export default function SideBar() {
   const [checked, setChecked] = React.useState(false);
   const [currentLanguage, setCurrentLanguage] = useState({direction: 'ltr',language:""})
   const [languageList, setLanguageList] = useState([]);
+
+  const { Navbar_getlanguagelist } = coreApis();
 
   useEffect(() => {
 
@@ -867,11 +870,7 @@ export default function SideBar() {
     // Store the direction in localStorage
     localStorage.setItem('languageDirection', direction);
   };
-  let direction = "ltr"
- const directionLocal = localStorage.getItem('languageDirection');
- if(directionLocal){
-  direction = directionLocal
- }
+ const direction = localStorage.getItem('languageDirection');
   return (
     <>
       <>

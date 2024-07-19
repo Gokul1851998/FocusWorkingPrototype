@@ -16,7 +16,8 @@ import AddIcon from "@mui/icons-material/Add";
 import { initialRows } from '../../../../config/securityConfig';
 import { useTheme } from '../../../../config/themeContext';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import { getProfileSummary } from '../../../../apis/securityApi';
+import { securityApis } from '../../../../apis/securityApi';
+
 
 
 
@@ -355,6 +356,7 @@ const ProfileSummary = ({setPage,setdetailPageId}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
  
+  const { getProfileSummary } = securityApis();
 
   const { currentTheme } = useTheme();
 
