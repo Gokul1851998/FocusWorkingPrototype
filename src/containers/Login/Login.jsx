@@ -26,6 +26,7 @@ import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import Draggable from 'react-draggable';
 import { securityApis } from "../../apis/securityApi";
+import { useAlert } from "../../components/AlertHandler/AlertContext";
 
 
 
@@ -57,6 +58,8 @@ export default function Login() {
   const [entityId, setEntityId] = useState(null);
 
   const { loginGetCompany, loginLogin } = securityApis();
+
+  const { showAlert } = useAlert();
 
 
   const { currentTheme, switchColorMode, isDarkMode } = useTheme();
@@ -195,13 +198,7 @@ export default function Login() {
         const expirationTime = currentTime + idleTime;
         localStorage.setItem("timeStamp", expirationTime);
         navigate("/GridMenu");
-      } else {
-        setEmailError(true);
-        setPasswordError(true);
-        setAlertType("warning");
-        setMessage("Incorrect UserName or PassWord");
-        handleAlertOpen();
-      }
+      } 
       handleLoaderClose();
     }
     event.preventDefault();
@@ -219,17 +216,17 @@ export default function Login() {
    
    
  
-    const { accessToken, refreshToken } = response?.data?.tokens;
+    const { AccessToken, RefreshToken    } = JSON.parse(response?.data?.result);
 
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("accessToken", AccessToken);
+    localStorage.setItem("refreshToken", RefreshToken);
     localStorage.setItem("userName", sLoginName);
     const currentTime = new Date().getTime();
     const expirationTime = currentTime + idleTime;
     localStorage.setItem("timeStamp", expirationTime);
    
-     
-      navigate('/home')
+    showAlert('success', response.data.message);
+    navigate('/home')
 
    
    }
