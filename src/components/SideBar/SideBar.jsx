@@ -853,9 +853,10 @@ export default function SideBar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  let direction = 'ltr';
   const switchLanguage = (language) => {
   
-    let direction = 'ltr';
+    
   
     if (language === 'Arabic') {
      
@@ -870,7 +871,7 @@ export default function SideBar() {
     // Store the direction in localStorage
     localStorage.setItem('languageDirection', direction);
   };
- const direction = localStorage.getItem('languageDirection');
+  direction = localStorage.getItem('languageDirection');
   return (
     <>
       <>
