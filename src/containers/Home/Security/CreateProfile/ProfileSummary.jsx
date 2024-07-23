@@ -371,13 +371,13 @@ const ProfileSummary = ({setPage,setdetailPageId}) => {
     setrefreshFlag(false)
     if (response?.status === "Success") {
       const myObject = JSON.parse(response?.result);
-     
+     console.log(myObject,myObject?.PageSummary[0].TotalRows,"myObject");
       
       // Assuming Item1 contains the data for your table
       setRows(myObject?.Data);
   
       // Extract the number of total rows from Item2
-      const totalRows = myObject?.TotalRows[0].TotalRows;
+      const totalRows = myObject?.PageSummary[0].TotalRows;
       
   
       // Set total rows to your state or wherever it needs to be used
@@ -498,7 +498,7 @@ const ProfileSummary = ({setPage,setdetailPageId}) => {
     setchangesTriggered={resetChangesTrigger}
     onSelectedRowsChange={handleSelectedRowsChange}
     onRowDoubleClick={handleRowDoubleClick}
-    totalRows={rows.length}
+    totalRows={totalRows}
     currentTheme={currentTheme}
     
     

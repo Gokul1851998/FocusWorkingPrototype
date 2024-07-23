@@ -41,13 +41,12 @@ const refreshToken = async () => {
     const payload = { refershToken: refreshTokenValue };
     const response = await axios.get(`${SECURITY_URL}/token/regeneratetokens?refreshToken=${refreshTokenValue}`);
 
-    const { accessToken, refreshToken } = response?.data;
-
-    // Update the local storage with the new tokens
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-
-    return accessToken;
+    const myObject = JSON.parse(response?.data?.result);
+    // Store tokens in localStorage
+    localStorage.setItem("accessToken", myObject.AccessToken);
+    localStorage.setItem("refreshToken", myObject.RefreshToken);
+   
+    return myObject.AccessToken;
   } catch (error) {
     console.error("refresh token error", error);
 

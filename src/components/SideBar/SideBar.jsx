@@ -875,7 +875,7 @@ export default function SideBar() {
   return (
     <>
       <>
-        {direction == "ltr" && (
+        {direction == "ltr"  || !direction && (
           <div
             style={{
               display: "flex",
