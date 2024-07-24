@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { CORE_URL, SECURITY_URL, loadConfig } from './config.js';
 
-const api = axios.create({
+const coreApi = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
@@ -15,7 +15,7 @@ const securityApi = axios.create({
 
 // A function to update the base URL of the axios instance
 export const updateCoreApiBaseUrl = (newBaseUrl) => {
-  api.defaults.baseURL = newBaseUrl;
+  coreApi.defaults.baseURL = newBaseUrl;
 };
 
 export const updateSecurityApiBaseUrl = (newBaseUrl) => {
@@ -28,4 +28,4 @@ loadConfig().then(() => {
   updateSecurityApiBaseUrl(SECURITY_URL);
 });
 
-export { api, securityApi };
+export { coreApi, securityApi };

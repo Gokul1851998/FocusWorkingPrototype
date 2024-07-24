@@ -535,7 +535,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ThemeSelector from "../ThemeSelector/ThemeSelector";
 import { useTheme } from "../../config/themeContext";
-import { Navbar_getlanguagelist } from "../../apis/coreApi";
+import { coreApis } from "../../apis/coreApi";
+
 
 const drawerWidth = 200;
 
@@ -686,6 +687,8 @@ export default function SideBar() {
   const [checked, setChecked] = React.useState(false);
   const [currentLanguage, setCurrentLanguage] = useState({direction: 'ltr',language:""})
   const [languageList, setLanguageList] = useState([]);
+
+  const { Navbar_getlanguagelist } = coreApis();
 
   useEffect(() => {
 
@@ -850,9 +853,10 @@ export default function SideBar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  let direction = 'ltr';
   const switchLanguage = (language) => {
   
-    let direction = 'ltr';
+    
   
     if (language === 'Arabic') {
      
@@ -867,11 +871,11 @@ export default function SideBar() {
     // Store the direction in localStorage
     localStorage.setItem('languageDirection', direction);
   };
- const direction = localStorage.getItem('languageDirection');
+  direction = localStorage.getItem('languageDirection');
   return (
     <>
       <>
-        {direction == "ltr" && (
+        {direction == "ltr"  || !direction && (
           <div
             style={{
               display: "flex",

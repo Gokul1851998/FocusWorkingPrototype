@@ -25,7 +25,9 @@ import AutofillStyle from "../../components/AutoFillStyle/AutofillStyle";
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import Draggable from 'react-draggable';
-import { Login_GetCompany, Login_Login } from "../../apis/securityApi";
+import { securityApis } from "../../apis/securityApi";
+import { useAlert } from "../../components/AlertHandler/AlertContext";
+
 
 
 
@@ -54,6 +56,10 @@ export default function Login() {
   const [selectedCompanyName, setselectedCompanyName] = useState('');
   const [companyList, setcompanyList] = useState([])
   const [entityId, setEntityId] = useState(null);
+
+  const { loginGetCompany, loginLogin } = securityApis();
+
+  const { showAlert } = useAlert();
 
 
   const { currentTheme, switchColorMode, isDarkMode } = useTheme();
@@ -107,7 +113,7 @@ export default function Login() {
 
   const handleSearchCompany = async () => {
     try {
-      const response = await Login_GetCompany(sLoginName);
+      const response = await loginGetCompany(sLoginName);
       if (response.statusCode === 2000 && response.status === "Success") {
        
         const companyList = JSON.parse(response.result);
@@ -192,13 +198,7 @@ export default function Login() {
         const expirationTime = currentTime + idleTime;
         localStorage.setItem("timeStamp", expirationTime);
         navigate("/GridMenu");
-      } else {
-        setEmailError(true);
-        setPasswordError(true);
-        setAlertType("warning");
-        setMessage("Incorrect UserName or PassWord");
-        handleAlertOpen();
-      }
+      } 
       handleLoaderClose();
     }
     event.preventDefault();
@@ -210,23 +210,23 @@ export default function Login() {
 
     }
    try {
-    const response = await Login_Login(formData)
+    const response = await loginLogin(formData)
    
    if(response.status === 200){
    
    
  
-    const { accessToken, refreshToken } = response?.data?.tokens;
+    const { AccessToken, RefreshToken    } = JSON.parse(response?.data?.result);
 
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("accessToken", AccessToken);
+    localStorage.setItem("refreshToken", RefreshToken);
     localStorage.setItem("userName", sLoginName);
     const currentTime = new Date().getTime();
     const expirationTime = currentTime + idleTime;
     localStorage.setItem("timeStamp", expirationTime);
    
-     
-      navigate('/home')
+    showAlert('success', response.data.message);
+    navigate('/home')
 
    
    }
@@ -238,61 +238,7 @@ export default function Login() {
      
    } catch (error) {
     console.log(error);
-    if (error.response && error.response.status) {
-      switch (error.response.status) {
-        case 400://bad request
-         
-        const result = error.response.data.result ? JSON.parse(error.response.data.result) : null;
-        if (result && Array.isArray(result) && result[0]?.ErrorMessage) {
-          setMessage(result[0].ErrorMessage);
-          setAlert(true);
-          setAlertType("warning");
-        } else {
-          setMessage(error.response.data.message);
-          setAlert(true);
-          setAlertType("warning");
-        }
-      
-          break;
-        case 401://unauthorized
-          
-        setMessage(error.response.data.message)
-        setAlert(true);
-        setAlertType("warning")
-         
-          break;
-        case 403://forbidden
-        setMessage(error.response.data.message)
-        setAlert(true);
-        setAlertType("warning")
-         
-          break;
-        case 404://Notfound
-          
-        setMessage(error.response.data.message)
-        setAlert(true);
-        setAlertType("warning")
-          break;
-        case 409://conflict
-        setMessage(error.response.data.message)
-        setAlert(true);
-        setAlertType("warning")
-         
-          break;
-        case 500:
-          console.error("A 500 Internal Server Error occurred.");
-          // Handle server errors
-          break;
-        default:
-          console.error(`An error occurred: ${error.response.status}`);
-          // Handle other types of errors
-          break;
-      }
-    } else {
-      // If the error does not have a response status code, it might be a network error or something else
-      console.error("An error occurred:", error.message);
-      // Handle errors that aren't server responses, like network errors
-    }
+   
    }
   };
 

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { CORE_URL } from "../config.js";
-import { api } from "../axios.js";
+import { SECURITY_URL } from "../config.js";
+import { coreApi } from "../axios.js";
 
 let isRefreshing = false;
 let failedQueue = [];
@@ -23,7 +23,7 @@ const addRequestToQueue = (originalRequest) => {
     failedQueue.push({
       resolve: (token) => {
         originalRequest.headers['Authorization'] = 'Bearer ' + token;
-        resolve(api(originalRequest));
+        resolve(coreApi(originalRequest));
       },
       reject: (err) => {
         reject(err);
@@ -39,15 +39,14 @@ const refreshToken = async () => {
     
     
     const payload = { refershToken: refreshTokenValue };
-    const response = await axios.get(`${CORE_URL}/token/regeneratetokens?refershToken=${refreshTokenValue}`);
+    const response = await axios.get(`${SECURITY_URL}/token/regeneratetokens?refreshToken=${refreshTokenValue}`);
 
-    const { accessToken, refreshToken } = response?.data;
-
-    // Update the local storage with the new tokens
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-
-    return accessToken;
+    const myObject = JSON.parse(response?.data?.result);
+    // Store tokens in localStorage
+    localStorage.setItem("accessToken", myObject.AccessToken);
+    localStorage.setItem("refreshToken", myObject.RefreshToken);
+   
+    return myObject.AccessToken;
   } catch (error) {
     console.error("refresh token error", error);
 
@@ -60,7 +59,7 @@ const refreshToken = async () => {
 };
 
 // Interceptor for API requests
-api.interceptors.request.use((config) => {
+coreApi.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
@@ -68,7 +67,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use(
+coreApi.interceptors.response.use(
   (response) => {
     return response.data;
   },
@@ -80,11 +79,11 @@ api.interceptors.response.use(
         try {
           const newToken = await refreshToken();
           isRefreshing = false;
-          api.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
+          coreApi.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
           processQueue(null, newToken);
           originalRequest._retry = true;
           originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
-          return api(originalRequest);
+          return coreApi(originalRequest);
         } catch (refreshError) {
           processQueue(refreshError, null);
           window.location.href = '/';
@@ -101,7 +100,7 @@ api.interceptors.response.use(
         failedQueue.push((token) => {
           originalRequest._retry = true;
           originalRequest.headers['Authorization'] = 'Bearer ' + token;
-          resolve(api(originalRequest));
+          resolve(coreApi(originalRequest));
         });
       });
     }
@@ -109,43 +108,147 @@ api.interceptors.response.use(
   }
 );
 
-const makeAuthorizedRequest = async (method, url, params) => {
-  const token = localStorage.getItem("accessToken");
-  const headers = {
-    "Authorization": `Bearer ${token}`
+// const makeAuthorizedRequest = async (method, url, params) => {
+//   const token = localStorage.getItem("accessToken");
+//   const headers = {
+//     "Authorization": `Bearer ${token}`
+//   };
+
+//   // When dealing with FormData, let Axios handle the Content-Type
+//   if (params instanceof FormData) {
+    
+//     headers['Content-Type'] = "multipart/form-data"; // This ensures Axios sets the correct type
+//   } else {
+//     headers['Content-Type'] = "application/json";
+//   }
+
+//   try {
+//     let response;
+//     if(method === "get"){
+//             response= await api.get(url,{ headers, params });
+//     }
+//     else{        
+//      response = await api({
+//       method: method,
+//       url: url,
+//       data: params,
+//       headers: headers
+//     });
+//    }
+
+//     return response;
+//   } catch (error) {
+//     console.error(`Error in ${url}`, error);
+//     throw error;
+//   }
+// };
+
+
+
+import { useAlert } from "../components/AlertHandler/AlertContext.jsx";
+
+// Custom hook for API requests
+const coreApis = () => {
+  const { showAlert } = useAlert();
+
+  const handleError = (error) => {
+    if (error.response && error.response.status) {
+      switch (error.response.status) {
+        case 400: // Bad request
+          const result = error.response.data.result ? JSON.parse(error.response.data.result) : null;
+          if (result && Array.isArray(result) && result[0]?.ErrorMessage) {
+            showAlert('warning', result[0].ErrorMessage);
+          } else {
+            showAlert('warning', error.response.data.message);
+          }
+          break;
+        case 401: // Unauthorized
+          showAlert('warning', error.response.data.message);
+          break;
+        case 403: // Forbidden
+          showAlert('warning', error.response.data.message);
+          break;
+        case 404: // Not Found
+          showAlert('warning', error.response.data.message);
+          break;
+        case 409: // Conflict
+          showAlert('warning', error.response.data.message);
+          break;
+        case 500: // Internal Server Error
+          console.error('A 500 Internal Server Error occurred.');
+          break;
+        default:
+          console.error(`An error occurred: ${error.response.status}`);
+          break;
+      }
+    } else {
+      console.error('An error occurred:', error.message);
+    }
   };
 
-  // When dealing with FormData, let Axios handle the Content-Type
-  if (params instanceof FormData) {
-    
-    headers['Content-Type'] = "multipart/form-data"; // This ensures Axios sets the correct type
-  } else {
-    headers['Content-Type'] = "application/json";
-  }
 
-  try {
-    let response;
-    if(method === "get"){
-            response= await api.get(url,{ headers, params });
+  const makeAuthorizedRequest = async (method, url, params) => {
+    const token = localStorage.getItem("accessToken");
+    const headers = {
+      "Authorization": `Bearer ${token}`
+    };
+  
+    // When dealing with FormData, let Axios handle the Content-Type
+    if (params instanceof FormData) {
+      
+      headers['Content-Type'] = "multipart/form-data"; // This ensures Axios sets the correct type
+    } else {
+      headers['Content-Type'] = "application/json";
     }
-    else{        
-     response = await api({
-      method: method,
-      url: url,
-      data: params,
-      headers: headers
-    });
-   }
 
+    try {
+      let response;
+      if(method === "get"){
+              response= await coreApi.get(url,{ headers, params });
+      }
+      else{        
+       response = await coreApi({
+        method: method,
+        url: url,
+        data: params,
+        headers: headers
+      });
+     }
+  
+      return response;
+    } catch (error) {
+      console.error(`Error in ${url}`, error);
+
+      handleError(error);
+      throw error;
+    }
+  };
+
+
+
+
+
+const Navbar_getlanguagelist = async () => {
+  try {
+    const response = await makeAuthorizedRequest("get", "/language/getlanguagelist");
+   
     return response;
   } catch (error) {
-    console.error(`Error in ${url}`, error);
+    console.error(error);
     throw error;
   }
 };
 
-//Get getlanguagelist - Navbar
-export const Navbar_getlanguagelist =async()=>{
- 
-    return makeAuthorizedRequest("get","/language/getlanguagelist");
-}
+  
+  return {
+   
+  
+    Navbar_getlanguagelist
+   
+  };
+};
+
+export {
+
+  coreApis,
+};
