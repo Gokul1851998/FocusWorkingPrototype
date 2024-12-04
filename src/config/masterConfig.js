@@ -159,31 +159,23 @@ export const accountData = [
 export const exchangeRateData = [
   {
     MasterId: 1,
-    "Currency Name": "gtgt",
-    "Defined As": "gg",
+    "Currency": "gtgt",
     "Rate": 96,
-    "Description": "gtgtg"
   },
   {
     MasterId: 2,
-    "Currency Name": "USD",
-    "Defined As": "US Dollar",
+    "Currency": "USD",
     "Rate": 1,
-    "Description": "United States Dollar"
   },
   {
     MasterId: 3,
-    "Currency Name": "EUR",
-    "Defined As": "Euro",
+    "Currency": "EUR",
     "Rate": 0.85,
-    "Description": "European Currency"
   },
   {
     MasterId: 4,
-    "Currency Name": "GBP",
-    "Defined As": "British Pound",
+    "Currency": "GBP",
     "Rate": 0.73,
-    "Description": "Pound Sterling"
   },
 ];
 
@@ -570,6 +562,13 @@ export const searchadvanceTreeItemsAccount = [
   ] }
 ];
 
+export const massUpdateItem = [
+    { id: '1', label: 'Account Type' },
+    { id: '2', label: 'Credit Limit' },
+    { id: '3', label: 'Credit days' },
+    { id: '4', label: 'Password' },
+]
+
 export const searchadvanceTreeItemsCustomer = [
   { id: '1', label: 'General', children: [
     { id: '2', label: 'Name' },
@@ -667,6 +666,11 @@ export const searchAdvanceSelect = [
   
  
 ];
+
+ export const details = [
+  {label:'Account', value:'Account'},
+  {label:'View', value:'View'}
+]
 
 export const fixedAssetData = [
   {

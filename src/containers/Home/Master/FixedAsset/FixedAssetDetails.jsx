@@ -28,6 +28,10 @@ import MasterLanguage from "../Account/AccountMaster/MasterLanguage";
 import AccountInput1 from "../../../../components/Inputs/AccountInput1";
 import { useTheme } from "../../../../config/themeContext";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
+import EnteredEntityList from "../Product/Product/EnteredEntityList";
+import { details } from "../../../../config/masterConfig";
+import SearchBox from "../../../../components/SearchBox/SearchBox2";
+import { CustomScroll } from "react-custom-scroll";
 
 
 const Accordion = styled((props) => (
@@ -387,6 +391,17 @@ export default function FixedAssetDetails() {
     entitiesData[selectedEntity]
   );
 
+  const BusinessUnit = [
+    { title: "Unit1", iId: 1 },
+    { title: "Unit2", iId: 2 },
+    { title: "Unit3", iId: 3 },
+  ];
+  const handleChild = (data) => {
+    
+    setSelectedEntity(data)
+  };
+
+  const [formData1, setFormData1] = React.useState('')
   const { currentTheme } = useTheme();
 
   
@@ -618,6 +633,15 @@ export default function FixedAssetDetails() {
   };
   return (
     <div>
+      <Box sx={{paddingLeft:3}}>
+      <RoleSelect1
+            label="Select"
+            value={formData1}
+            onChange={(e) => setFormData1(e.target.value)}
+            options={details}
+            mandatory={"true"}
+          />
+      </Box>
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
@@ -642,6 +666,9 @@ export default function FixedAssetDetails() {
                   </MDBCol>
                 <MDBCol lg="3" md="4" sm="6" xs="12">
                 <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange}/>
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Group"  isMandatory={1}/>
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Type" />
@@ -1057,13 +1084,13 @@ export default function FixedAssetDetails() {
         </AccordionDetails>
       </Accordion> */}
       <Accordion
-        expanded={expanded === "panel7"}
-        onChange={handleChange("panel7")}
+        expanded={expanded === "panel6"}
+        onChange={handleChange("panel6")}
       >
         <AccordionSummary
-          aria-controls="panel7d-content"
-          id="panel7d-header"
-          expanded={expanded === "panel7"}
+          aria-controls="panel6d-content"
+          id="panel6d-header"
+          expanded={expanded === "panel6"}
           currentTheme={currentTheme}
         >
           <Typography style={{ fontSize: "14px" }}>Language</Typography>
@@ -1104,6 +1131,51 @@ export default function FixedAssetDetails() {
         </AccordionDetails>
       </Accordion>
       <Accordion
+        expanded={expanded === "panel7"}
+        onChange={handleChange("panel7")}
+      >
+        <AccordionSummary
+          aria-controls="panel7d-content"
+          id="panel7d-header"
+          expanded={expanded === "panel7"}
+          currentTheme={currentTheme}
+        >
+          <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Business Entity
+                    </Typography>
+                    <SearchBox
+                      initialItems={BusinessUnit}
+                      selected={selectedEntity}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
         expanded={expanded === "panel8"}
         onChange={handleChange("panel8")}
       >
@@ -1114,7 +1186,7 @@ export default function FixedAssetDetails() {
           expanded={expanded === "panel8"}
           currentTheme={currentTheme}
         >
-          <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
+          <Typography style={{ fontSize: "14px" }}>Business Entity Detail</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <>
@@ -1131,6 +1203,9 @@ export default function FixedAssetDetails() {
                       />
                 </Box>
                  
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <EnteredEntityList/>
                   </MDBCol>
                   </MDBRow>
                 {/* <MDBRow>

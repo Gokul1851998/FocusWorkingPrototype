@@ -59,7 +59,7 @@ function BasicBreadcrumbs({currentTheme}) {
     </Link>, */}
    
     <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
-    Entity Master
+    Business Entity 
     </Typography>,
       </Breadcrumbs>
       </Stack>

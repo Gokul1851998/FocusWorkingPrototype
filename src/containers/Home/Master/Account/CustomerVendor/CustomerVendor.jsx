@@ -10,7 +10,7 @@ import {
   secondryColor,
   thirdColor,
 } from "../../../../../config";
-import { accountTree, searchadvanceTreeItemsAccount, searchadvanceTreeItemsCustomer } from "../../../../../config/masterConfig";
+import { accountTree, massUpdateItem, searchadvanceTreeItemsAccount, searchadvanceTreeItemsCustomer } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
@@ -49,6 +49,17 @@ import StopIcon from '@mui/icons-material/Stop';
 import BlockIcon from '@mui/icons-material/Block';
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
 import { useTheme } from "../../../../../config/themeContext";
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import SortIcon from '@mui/icons-material/Sort';
+import Sortpopup from "../AccountMaster/Sortpopup";
+import { useNavigate } from "react-router-dom";
+import BackTrackPopup from "../AccountMaster/BackTrackPopup";
+import MassUpdatePopup from "../AccountMaster/MassUpdatePopup";
+import ImportExportPopup from "../AccountMaster/ImportExportPopup";
+import TransferPopup from "../AccountMaster/TransferPopup";
 
 
 function handleClick(event) {
@@ -62,11 +73,16 @@ const actions = [
   // { icon: <EventBusyIcon />, name: "Close Account" },
   // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
-  { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
+  { icon: <HomeRepairServiceIcon />, name: "Tag Settings" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
-  { icon: <AccountTreeIcon />, name: "Customize Tree" },
+  // { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
+  { icon: <ImportExportIcon />, name: "Import/Export" },
+  { icon: <ArrowUpwardIcon />, name: "Move Up" },
+  { icon: <ArrowDownwardIcon />, name: "Move Down" },
+  { icon: <SortIcon />, name: "Sort" },
+  // { icon: <AccountBalanceIcon />, name: "Ledger" }
 ];
 
 export default function CustomerVendor(args) {
@@ -75,12 +91,15 @@ export default function CustomerVendor(args) {
   const [isInfo, setIsInfo] = useState(false);
   const [infoHide, setInfoHide] = useState(false);
   const [detailPage, setDetailPage] = useState(false);
+  const [pageId, setpageId] = useState(null);
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
  
 
   const { currentTheme } = useTheme();
+
+  const Navigate = useNavigate();
 
   const toggleOpen = () => {
     setIsOpen(true);
@@ -113,6 +132,50 @@ export default function CustomerVendor(args) {
     setDetailPage(false);
   };
 
+  const handleSubmit = (item) => {
+    switch (item) {
+      case "Ledger":
+        setpageId(1)
+        break;
+      case "Sort":
+        setpageId(2)
+        break;
+      case "Move Down":
+        setpageId(3)
+        break;
+      case "Move Up":
+        setpageId(4)
+        break;
+        case "Import/Export":
+          setpageId(5)
+          break;
+          case "Transfer":
+            setpageId(6)
+        break;
+      case "Backtrack":
+        setpageId(7)
+        break;
+      case "Customize Tree":
+        setpageId(8)
+        break;
+      case "Customize View":
+          Navigate("/NavigateView");
+          break;
+      case "Tag Settings":
+            Navigate("/NavigateTag");
+            break;
+      case "Mass Update":
+        setpageId(9)
+        break;
+      case "Delete All":
+        setpageId(10)
+        break;
+        case "Group":
+          // handleDetailPageOpen();
+        break; 
+    }
+  }
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -131,7 +194,7 @@ export default function CustomerVendor(args) {
       sx={{ fontSize: "1rem",color: currentTheme.actionIcons }}
       onClick={handleClick}
     >
-      Master
+      Tag
     </Link>,
     <Link
       underline="hover"
@@ -143,7 +206,7 @@ export default function CustomerVendor(args) {
       Account
     </Link>,
     <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons }}>
-      Customer/Vendor Master
+      Customer/Vendor Tag
     </Typography>,
   ];
 
@@ -203,6 +266,7 @@ export default function CustomerVendor(args) {
                 </Stack>
               </IconButton>
               <IconButton
+                onClick={handleDetailPageOpen}
                 aria-label="Add group"
                 sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
               >
@@ -219,6 +283,7 @@ export default function CustomerVendor(args) {
                 </Stack>
               </IconButton>
               <IconButton
+              onClick={handleDetailPageOpen}
                 aria-label="Edit"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -427,6 +492,7 @@ export default function CustomerVendor(args) {
                   key={action.name}
                   icon={action.icon}
                   tooltipTitle={action.name}
+                  onClick={() => { handleSubmit(action.name) }}
                 />
               ))}
             </SpeedDial>
@@ -585,6 +651,11 @@ export default function CustomerVendor(args) {
               <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
             </Button>
           ) : null}
+          {pageId === 2 && <Sortpopup onClose={() => setpageId(null)}/>}
+          {pageId === 7 && <BackTrackPopup onClose={() => setpageId(null)} />}
+          { pageId === 9 && <MassUpdatePopup onClose={() => setpageId(null)} items={massUpdateItem} />}
+          {pageId === 5 && <ImportExportPopup onClose={() => setpageId(null)} />}
+          {pageId === 6 && <TransferPopup onClose={() => setpageId(null)}/>}
         </div>
         </>
          )}

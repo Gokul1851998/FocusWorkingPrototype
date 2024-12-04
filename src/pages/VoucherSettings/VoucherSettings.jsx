@@ -7,6 +7,7 @@ import TagSettings from "../../containers/Settings/MainSettings/TagSettings/TagS
 import AccountSettings from "../../containers/Settings/MainSettings/AccountSettings/AccountSettings";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import Layout from "../Layout/Layout";
+import ReceiptPage from "../../containers/Settings/VoucherSettings/ReceiptPage";
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -18,16 +19,20 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function VoucherSettingsPage() {
-  const location = useLocation();
-  const id = location.state.id;
   const user = localStorage.getItem("userName")
+  const location = useLocation();
+  const item = location.state;
   return (
     <>
       <Box sx={{ display: "flex" }}>
       <Layout />
         <Box component="main" sx={{ flexGrow: 1,marginBottom:2, marginTop:user === "test2" ?  "35px" : 0 }}>
           <DrawerHeader />
-         
+          {item && (
+        item.id === 75 ? <ReceiptPage   /> :
+        
+        null
+      )}
         </Box>
         <Footer />
       </Box>

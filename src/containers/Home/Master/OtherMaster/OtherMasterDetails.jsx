@@ -30,6 +30,7 @@ import { useTheme } from "../../../../config/themeContext";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
 import { CustomScroll } from "react-custom-scroll";
 import SearchBox2 from "../../../../components/SearchBox/SearchBox2";
+import { details } from "../../../../config/masterConfig";
 
 
 const Accordion = styled((props) => (
@@ -142,6 +143,7 @@ export default function OtherMasterDetails({fields}) {
 
   
   const [selectedEntity, setSelectedEntity] = React.useState([]);
+  const [formData1, setFormData1] = React.useState('')
 
 
   const { currentTheme } = useTheme();
@@ -214,6 +216,15 @@ export default function OtherMasterDetails({fields}) {
   };
   return (
     <div>
+      <Box sx={{paddingLeft:3}}>
+      <RoleSelect1
+            label="Select"
+            value={formData1}
+            onChange={(e) => setFormData1(e.target.value)}
+            options={details}
+            mandatory={"true"}
+          />
+      </Box>
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}

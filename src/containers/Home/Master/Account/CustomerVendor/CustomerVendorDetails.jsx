@@ -26,6 +26,8 @@ import MasterOtherNames from "../AccountMaster/MasterOtherNames";
 import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
 import { useState } from "react";
 import { useTheme } from "../../../../../config/themeContext";
+import EnteredEntityList from "../../Product/Product/EnteredEntityList";
+import { details } from "../../../../../config/masterConfig";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -394,6 +396,7 @@ export default function CustomerVendorDetails() {
 const [entityDetails, setEntityDetails] = useState(
   entitiesData[selectedEntity]
 );
+const [formData, setFormData] = React.useState('')
 
 const { currentTheme } = useTheme();
 
@@ -685,6 +688,15 @@ const getBorderColor = () => {
 };
   return (
     <div>
+      <Box sx={{paddingLeft:3}}>
+      <RoleSelect1
+            label="Select"
+            value={formData}
+            onChange={(e) => setFormData(e.target.value)}
+            options={details}
+            mandatory={"true"}
+          />
+      </Box>
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
@@ -710,6 +722,10 @@ const getBorderColor = () => {
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                 <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange} mandatory={1}/>
+                  </MDBCol>
+
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Group"  isMandatory={1}/>
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
@@ -1216,7 +1232,7 @@ const getBorderColor = () => {
           </MDBCardBody>
         </AccordionDetails>
       </Accordion>
-      {/* <Accordion
+      <Accordion
         expanded={expanded === "panel7"}
         onChange={handleChange("panel7")}
       >
@@ -1260,7 +1276,7 @@ const getBorderColor = () => {
             </MDBRow>
           </MDBCardBody>
         </AccordionDetails>
-      </Accordion> */}
+      </Accordion>
       <Accordion
         expanded={expanded === "panel8"}
         onChange={handleChange("panel8")}
@@ -1272,7 +1288,7 @@ const getBorderColor = () => {
           expanded={expanded === "panel8"}
           currentTheme={currentTheme}
         >
-          <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
+          <Typography style={{ fontSize: "14px" }}>Business Entity Detail</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <>
@@ -1289,6 +1305,9 @@ const getBorderColor = () => {
                       />
                 </Box>
                  
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                    <EnteredEntityList/>
                   </MDBCol>
                   </MDBRow>
                 {/* <MDBRow>

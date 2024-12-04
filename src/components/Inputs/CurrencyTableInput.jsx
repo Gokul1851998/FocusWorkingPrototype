@@ -1,12 +1,12 @@
 import { TextField } from '@mui/material'
 import React from 'react'
 
-export default function CurrencyTableInput({ label, type }) {
+export default function CurrencyTableInput({ label, type,value }) {
   return (
     <TextField
       size="small"
       id="search1"
-      value={type === 'date' ? " " : null}
+      value={type === 'date' ? " " : value}
       type={type}
       label={label}
       autoComplete="off"
@@ -37,3 +37,6 @@ export default function CurrencyTableInput({ label, type }) {
     />
   )
 }
+
+
+

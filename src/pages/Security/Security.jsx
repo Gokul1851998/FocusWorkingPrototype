@@ -8,6 +8,9 @@ import Footer from "../../components/Footer/Footer";
 import CreateUser from "../../containers/Home/Security/CreateUser/CreateUser";
 import AdminBar from "../../components/AdminBar/AdminBar";
 import Layout from "../Layout/Layout";
+import PasswordPolicy from "../../containers/Home/Security/PasswordPolicy/PasswordPolicy";
+import ChangePassword from "../../containers/Home/Security/ChangePassword/ChangePassword";
+import UpdatePersonalInfo from "../../containers/Home/Security/UpdatePerson/UpdatePersonalInfo";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -67,6 +70,9 @@ export default function Security() {
         item.id === 12 ? <CreateProfile key1={item.key1} initialPage="summary" /> :
         item.id === 13 ? <CreateRole key1={item.key1} initialPage="summary" /> :
         item.id === 14 ? <CreateUser key1={item.key1} initialPage="summary" /> :
+        item.id === 70 ? <PasswordPolicy key1={item.key1} initialPage="summary" /> :
+        item.id === 71 ? <ChangePassword key1={item.key1}  /> :
+        item.id === 72 ? <UpdatePersonalInfo key1={item.key1}  /> :
         null
       )}
           

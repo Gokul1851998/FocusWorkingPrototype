@@ -41,10 +41,6 @@ export const initialRows = [{
             {
                 id: "11",
                 label: "New Company",
-                children: [
-                    { id: "12", label: "Create Company" },
-                    
-                ],
             },
             { id: "13", label: "Edit Company" },
             { id: "14", label: "Delete Company" },
@@ -57,21 +53,24 @@ export const initialRows = [{
                 { id: "16", label: "Create Profile" },
                 { id: "17", label: "Create Role" },
                 { id: "18", label: "Create User" },
+                { id: "70", label: "Password Policy" },
+                { id: "71", label: "Change Password" },
+                { id: "72", label: "Update Personal Info" },
               ],
               
               
           },
           {
             id: "19",
-            label: "Masters",
+            label: "Tags",
             children: [
               { id: "20", label: "Account" ,children: [
-                { id: "21", label: "Account Master" },
-                { id: "22", label: "Customer/vendor Master" },
+                { id: "21", label: "Account Tag" },
+                { id: "22", label: "Customer/vendor Tag" },
                 
               ],},
               { id: "23", label: "Currency" ,children: [
-                { id: "24", label: "Currency Master" },
+                { id: "24", label: "Currency Tag" },
                 { id: "25", label: "Exchange Rate" },
                 { id: "26", label: "Exchange Rate History" },
                 
@@ -160,17 +159,39 @@ export const initialRows = [{
     label: "Settings",
     children: [
         {
-            id: "35", label: "Main Settings",
-            children: [
-                { id: "36", label: "Tag Settings" },
-                { id: "37", label: "Account Settings" }
-            ]
+            id: "30", label: "General Settings",
         },
-        { id: "38", label: "Voucher Settings" },
-        { id: "39", label: "Master Settings" },
+        { id: "31", label: "Voucher Settings" },
+        { id: "33", label: "Tag Settings" },
+        { 
+          id: "44", label: "Configuration" ,
+          children: [
+            { id: "45", label: "Voucher Configuration" },
+            { id: "46", label: "Tag Configuration" },
+            { id: "47", label: "Views Configurationn" },
+            { id: "48", label: "Work Flow" },
+            { id: "49", label: "VAT Configuration" },
+        ]
+        },
+        { id: "50", label: "Business Entity" },
+        { id: "66", label: "View" },
         
     ],
 },
+// {
+//   id: "66",
+//   label: "View",
+//   // children: [
+//   //     {
+//   //         id: "13", label: "Loans & Borrowings",
+//   //         children: [
+//   //             { id: "25", label: "Loans" }]
+//   //     },
+//   //     { id: "14", label: "Accrued Liabilities" },
+//   //     { id: "15", label: "Trade Payable" },
+//   //     { id: "16", label: "Provisions" },
+//   // ],
+// },
 ];   
 export const restrictionItems = [
   "Access", "Add", "Edit", "Copy", "Search", "Delete", "Print", "Export",
@@ -179,14 +200,30 @@ export const restrictionItems = [
   "Delete Tree", "Create View", "Edit View", "Delete View", "Select View",
   "Select Tree", "Clone", "Add Group", "Group Master", "Set Type", "Delete All",
   "Move Up", "Move Down", "Credit Management", "Department Appropriation",
-  "Customize Tree", "Customize Master", "Can Change Group", "Can Navigate",
+  "Customize Tree", "Tag Settings", "Can Change Group", "Can Navigate",
   "Add Info Panel", "Edit Info Panel", "View Info Panel", "Reject", "Import",
   "Show home page", "Delete Info Panel", "Stop", "Save Revision", "Set Default Tree",
   "Modifier", "Edit Tree", "Authorization Info", "Alternate", "Related",
   "Open Close", "Close Product", "Adv Master Import/Export", "General", "Setting",
   "Details", "Print Layout", "VAT Settings", "TabNew", "Department"
 ];
+export const profileRestriction = [
+  "Access", "Add", "Edit", "Delete","View","View Summary","Excel"
+];
 
+export const userRestriction = [
+  "Access", "Add", "Edit", "Delete","View","View Summary","Excel","Edit User Created by Others","Unlock User"
+];
+export const accountTagRestriction = [
+  "Access", "Add", "Edit", "Copy", "View","Search","Delete","Print","Export","Customize View","Sort","Mass Update","Authorize","Transfer",
+  "Properties","Ledger","Back Track","Create View","Edit View","Delete View","Select View","Select Tree","Clone","Add Group","Group Master","Delete All",
+  "Move Up","Move Down","Customize Tree","Tag Settings","Can Change Group","Can Navigate","Add Info Panel","Edit Info Panel","View Info Panel",
+  "Reject","Import","Show Summary Page","Delete Info Panel","Stop","Save Revision","Authorization Info","Adv Master Import/Export","General","Setting","Detail","Print Layout"
+]
+
+export const tagSettingsRestriction = [
+  'Access', 'Add', 'Edit', 'Delete', 'Save', 'Export', 'CustomizeTag', 'CustomizeView', 'EditView', 'AddMenu', 'DeleteMenu', 'SaveView', 'AddField', 'EditField', 'DeleteField', 'MoveField', 'CreateTab', 'CreateDocTab', 'DeleteTab', 'PreviewTag', 'PreviewTagView', 'EditTabCaption', 'ViewSummery', 'View'
+]
 export const historyProfile  = [
   { id: 1, profileName: "Portal", date: "15-04-2024", time: "13:56:07", createdBy: "SU" },
   { id: 2, profileName: "Portal2", date: "16-04-2024", time: "14:56:07", createdBy: "DI" },
@@ -289,7 +326,29 @@ export const UserTable = [{
   createdOn: '2020-01-01',
   CreatedBy: 'user2',
   ModifiedOn: '2020-01-01',
-  CheckerName: 'Sijina',
+  CheckerName: 'Sijina', 
+}];
+
+
+export const PasswordTable = [{
+  iId: 1,
+  Name: 'name1',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
+},{
+  iId: 2,
+  Name: 'name2',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user1',
+  ModifiedOn: '2020-01-01',
+  
+},{
+  iId: 3,
+  Name: 'name3',
+  createdOn: '2020-01-01',
+  CreatedBy: 'user2',
+  ModifiedOn: '2020-01-01',
 
   
 }];
@@ -305,8 +364,20 @@ export const historyUser  = [
 
 export const erpRoles = [
   { label: 'Portal Role', value: 'PortalRole' },
-  
- 
+];
+export const complexity = [
+  { label: 'Alphabets', value: 'Alphabets' },
+  { label: 'Numeric', value: 'Numeric' },
+];
+export const units = [
+  { label: 'Minute', value: 'Minute' },
+  { label: 'Hour', value: 'Hour' },
+  { label: 'Day', value: 'Day' },
+];
+export const templateList = [
+  { label: 'Template1', value: 'Template1' },
+  { label: 'Template2', value: 'Template2' },
+  { label: 'Template3', value: 'Template3' },
 ];
 
 export const securityQuestions = [
@@ -503,6 +574,17 @@ export const entityList = [
   { label: 'Entity2', value: 'Entity2' },
  
 ];
+export const entityRate = [
+  { label: 'Transaction Exchange Rate', value: 'Transaction Exchange Rate' },
+  { label: 'Reporing Exchange Rate', value: 'Reporing Exchange Rate' },
+ 
+];
+
+export const groupList = [
+  { label: 'Group1', value: 'Group1' },
+  { label: 'Group2', value: 'Group2' },
+ 
+];
 
 export const EntityMasterTable = [{
   iId: 1,
@@ -572,6 +654,86 @@ export const TagCreationTable = [{
   Caption: 'Caption5',
   isDefault: 'Yes',
   multilanguage: 'Yes',
+
+  
+}];
+
+
+export const SalesSummaryTable = [{
+  iId: 1,
+  Date: '08-10-2024',
+  VoucherNumber: '',
+  CreatedBy: '',
+  ModifiedBy: '',
+  Created:'',
+  Modified:'',
+  CreatedTime:'',
+  ModifiedTime:'',
+  Suspended:'',
+  AuthorizationStatus:'',
+  Balance:'',
+  LinkStatus:'' 
+},{
+  iId: 2,
+  Date: '08-10-2024',
+  VoucherNumber: '',
+  CreatedBy: '',
+  ModifiedBy: '',
+  Created:'',
+  Modified:'',
+  CreatedTime:'',
+  ModifiedTime:'',
+  Suspended:'',
+  AuthorizationStatus:'',
+  Balance:'',
+  LinkStatus:''
+  
+},{
+  iId: 3,
+  Date: '08-10-2024',
+  VoucherNumber: '',
+  CreatedBy: '',
+  ModifiedBy: '',
+  Created:'',
+  Modified:'',
+  CreatedTime:'',
+  ModifiedTime:'',
+  Suspended:'',
+  AuthorizationStatus:'',
+  Balance:'',
+  LinkStatus:''
+
+  
+},{
+  iId: 4,
+  Date: '08-10-2024',
+  VoucherNumber: '',
+  CreatedBy: '',
+  ModifiedBy: '',
+  Created:'',
+  Modified:'',
+  CreatedTime:'',
+  ModifiedTime:'',
+  Suspended:'',
+  AuthorizationStatus:'',
+  Balance:'',
+  LinkStatus:''
+
+  
+},{
+  iId: 5,
+  Date: '08-10-2024',
+  VoucherNumber: '',
+  CreatedBy: '',
+  ModifiedBy: '',
+  Created:'',
+  Modified:'',
+  CreatedTime:'',
+  ModifiedTime:'',
+  Suspended:'',
+  AuthorizationStatus:'',
+  Balance:'',
+  LinkStatus:''
 
   
 }];

@@ -69,7 +69,7 @@ const RoleRestriction = ({
           component="div"
           sx={{ backgroundColor: currentTheme.thirdColor,color:currentTheme.sideBarTextColor1,pl:1   }}
         >
-          Masters
+         Tags
         </Typography>
         <List component="nav" aria-label="main mailbox folders" sx={{height: "50vh", overflowY: 'auto', scrollbarWidth: 'thin',padding:0,pl:1  }}>
         {masterItems.map((item, index) => (

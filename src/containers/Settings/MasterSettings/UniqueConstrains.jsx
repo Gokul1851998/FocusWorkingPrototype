@@ -70,9 +70,9 @@ export default function UniqueConstrains() {
         <MDBCol lg="4" >
           <AutoComplete2 autoLabel="Constraint Name" isMandatory={"true"}/>
         </MDBCol>
-        {/* <MDBCol lg="4">
+        <MDBCol lg="4">
           <AutoComplete2 autoLabel="Tabs" />
-        </MDBCol> */}
+        </MDBCol>
       </MDBRow>
       {/* <MDBRow style={{ marginLeft: 2, marginTop: 10 }}>
         <Typography variant="p" color="gray" gutterBottom>

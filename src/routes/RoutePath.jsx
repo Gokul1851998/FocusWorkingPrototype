@@ -12,7 +12,11 @@ import AdminDashboard from '../containers/AdminDashboard/AdminDashboard'
 import GrideMenuPage from '../pages/GrideMenuPage/GrideMenuPage'
 import EntityMaster from '../pages/EntityMaster/EntityMaster'
 import TagCreationPage from '../pages/TagCreation/TagCreationPage'
-
+import ViewPage from '../pages/ViewPage/ViewPage'
+import CompanyLogin from '../containers/Login/CompanyLogin'
+import NavigateTagPage from '../pages/TagCreation/NavigateTagPage'
+import NavigateView from '../pages/ViewPage/NavigateView'
+import SalesPage from '../pages/Sales/SalesPage'
 
 export default function RoutePath() {
   return (
@@ -26,11 +30,16 @@ export default function RoutePath() {
         <Route path="/GeneralSettings" element={<MainSettingsPage />} />
         <Route path="/VoucherSettings" element={<VoucherSettingsPage />} />
         <Route path="/MasterSettings" element={<MasterSettings />} />
+        <Route path="/View" element={<ViewPage />} />
         <Route path="/Company" element={<Company />} />
         <Route path="/companySettings" element={<AdminDashboard />} />
         <Route path="/EntitySettings" element={<MainSettingsPage />} />
         <Route path="/EntityMaster" element={<EntityMaster />} />
         <Route path="/TagCreation" element={<TagCreationPage />} />
+        <Route path="/OpenCompany" element={<CompanyLogin />} />
+        <Route path="/NavigateTag" element={<NavigateTagPage/>} />
+        <Route path="/NavigateView" element={<NavigateView/>} />
+        <Route path="/Sales" element={<SalesPage/>} />
         </Routes>
     </div>
   )

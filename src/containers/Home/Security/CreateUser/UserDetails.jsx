@@ -50,6 +50,7 @@ import {
   UserType,
   createProfileTree,
   erpRoles,
+  groupList,
   languages,
   masterItems,
   passwordPolicy,
@@ -230,7 +231,7 @@ const DefaultIcons = ({ iconsClick, detailPageId,currentTheme }) => {
       <IconButton
         aria-label="New"
         sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
-        //onClick={()=>iconsClick("unlock")}
+        onClick={()=>iconsClick("Moveuser")}
       >
         <Stack direction="column" alignItems="center">
           <PersonIcon sx={{ color: currentTheme.actionIcons, }} />
@@ -348,6 +349,7 @@ export default function UserDetails({ detailPageId, setPage }) {
   const [expanded, setExpanded] = React.useState("panel1");
   const [selectedOption, setSelectedOption] = React.useState("");
   const [openLoadFrom, setOpenLoadFrom] = React.useState(false);
+  const [openMoveUser, setOpenMoveUser] = React.useState(false);
   const [formData, setformData] = useState({
     photo: null,
     signature: null,
@@ -357,6 +359,7 @@ export default function UserDetails({ detailPageId, setPage }) {
     FromDate:" ",
     LockedTill: " ",
     Days: "", // Add Days to formData
+    group:''
   });
   const [image, setImage] = useState(null);
   const [checkedDays, setCheckedDays] = useState([])
@@ -417,6 +420,9 @@ export default function UserDetails({ detailPageId, setPage }) {
       case "Loadfrom":
         handleLoadFrom();
         break;
+      case "Moveuser":
+        handleMoveUser();
+        break;
       case "GetHistory":
         handleLoadHistory();
         break;
@@ -432,6 +438,12 @@ export default function UserDetails({ detailPageId, setPage }) {
   };
   const handleCloseLoadFrom = () => {
     setOpenLoadFrom(false);
+  };
+  const handleMoveUser = () => {
+    setOpenMoveUser(true);
+  };
+  const handleCloseMoveUser = () => {
+    setOpenMoveUser(false);
   };
   const handleUploadClick = (field) => () => {
     const input = document.createElement("input");
@@ -580,6 +592,15 @@ export default function UserDetails({ detailPageId, setPage }) {
                       </MDBCol>
                     )}
 
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                      <RoleSelect1
+                        label="Group"
+                        value={formData?.group ?? ""}
+                        onChange={(e) => handleSelectChange(e, "group")}
+                        options={groupList}
+                        mandatory={1}
+                      />
+                    </MDBCol>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
                       <RoleSelect1
                         label="ERP Roles"
@@ -1567,6 +1588,55 @@ export default function UserDetails({ detailPageId, setPage }) {
             Ok
           </Button>
           <Button onClick={handleCloseLoadFrom} sx={buttonStyle}>
+            Cancel
+          </Button>
+          {/* <IconButton
+              aria-label="New"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              onClick={handleCloseGetRolesInProfile}
+            >
+              <Stack direction="column" alignItems="center">
+        <CloseIcon sx={{ color:primaryColor }} />
+        <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: primaryColor, fontSize: "0.6rem" }}
+                >
+                  Close
+                </Typography>
+              </Stack>
+            </IconButton> */}
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={openMoveUser}
+        onClose={handleCloseMoveUser}
+        aria-labelledby="form-dialog-title"
+      >
+        <Typography
+          variant="h6"
+          gutterBottom
+          component="div"
+          sx={{ backgroundColor: currentTheme.thirdColor, textAlign: "center",color:currentTheme.sideBarTextColor1 }}
+        >
+          Move Users
+        </Typography>
+        <Box sx={{ minHeight: "200px", ml: 2 }}>
+          <Typography>User1</Typography>
+          <Typography>User2</Typography>
+        </Box>
+        <DialogContent>
+          <input
+            placeholder="Search"
+            style={{ borderRadius: "5px", border: "1px solid #ddd" }}
+          />
+          {/* You can add more content here such as a list of items */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseMoveUser} sx={buttonStyle}>
+            Move
+          </Button>
+          <Button onClick={handleCloseMoveUser} sx={buttonStyle}>
             Cancel
           </Button>
           {/* <IconButton

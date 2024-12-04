@@ -183,6 +183,8 @@ const RestrictionsTable = () => {
                 />
                 <Typography>Exclusions</Typography>
                 </div>
+    
+    
                 <div>
                 <IconButton
                 aria-label="New"
@@ -217,7 +219,7 @@ const RestrictionsTable = () => {
         <TableHead>
           <TableRow>
             <TableCell sx={headerCellStyle}>#</TableCell>
-            <TableCell sx={headerCellStyle}>Masters</TableCell>
+            <TableCell sx={headerCellStyle}>Tags</TableCell>
             <TableCell align="center" sx={headerCellStyle}>
               Entry
             </TableCell>

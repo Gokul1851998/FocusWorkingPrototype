@@ -152,7 +152,7 @@ export default function TableSecurity(props) {
   const [doubleclickedState, setdoubleclickedState] = React.useState([]);
   const [columns, setColumns] = React.useState([]);
 
-  const excludedFields = ["IId"];
+  const excludedFields = ["iId"];
 
   const initialColumns = rows && rows.length > 0 ? Object.keys(rows[0]).filter((key) => !excludedFields.includes(key)).map(key => ({
     id: key,
@@ -239,7 +239,7 @@ export default function TableSecurity(props) {
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelected = visibleRows.map((row) => ({
-        IId: row.IId,
+        iId: row.iId,
       }));
       setSelected(newSelected);
       return;
@@ -247,14 +247,14 @@ export default function TableSecurity(props) {
     setSelected([]);
   };
 
-  //use if IId only needed
+  //use if iId only needed
   // const handleClick = (event, row) => {
-  //   const selectedIndex = selected.findIndex((item) => item.IId === row.IId);
+  //   const selectedIndex = selected.findIndex((item) => item.iId === row.iId);
   //   let newSelected = [];
 
   //   if (selectedIndex === -1) {
   //     newSelected = newSelected.concat(selected, {
-  //       IId: row.IId,
+  //       iId: row.iId,
   //     });
   //   } else {
   //     newSelected = [
@@ -267,11 +267,11 @@ export default function TableSecurity(props) {
   // };
 
   const handleClick = (event, row) => {
-    const selectedIndex = selected.indexOf(row.IId);
+    const selectedIndex = selected.indexOf(row.iId);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, row.IId); // Add the entire row object
+      newSelected = newSelected.concat(selected, row.iId); // Add the entire row object
     } else {
       newSelected = [
         ...selected.slice(0, selectedIndex),
@@ -502,7 +502,7 @@ export default function TableSecurity(props) {
               </TableHead>
               <TableBody>
                 {filteredRows.map((row, index) => {
-                  const isItemSelected = isSelected(row.IId);
+                  const isItemSelected = isSelected(row.iId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   const isEvenRow = index % 2 === 0;
@@ -513,9 +513,9 @@ export default function TableSecurity(props) {
                       onClick={(event) => handleClick(event, row)}
                       role="checkbox"
                       aria-checked={isItemSelected}
-                      onDoubleClick={() => props.onRowDoubleClick(row.IId)}
+                      onDoubleClick={() => props.onRowDoubleClick(row.iId)}
                       tabIndex={-1}
-                      key={row.IId}
+                      key={row.iId}
                       sx={{ cursor: "default" }}
                       className={isEvenRow ? "FXTeven-row" : "FXTodd-row"}
                     >

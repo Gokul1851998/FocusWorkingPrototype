@@ -65,10 +65,10 @@ export default function ExchangeRateHistTab({ selectedCurrencies }) {
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider", textTransform: "none"}}
       >
-        <Tab icon={<TableViewIcon sx={{color:currentTheme.actionIcons}} />} sx={{
+        {/* <Tab icon={<TableViewIcon sx={{color:currentTheme.actionIcons}} />} sx={{
     textTransform: "none",
     color: `${currentTheme.actionIcons} !important`   // This sets the color of the tab label
-  }} label="Table" {...a11yProps(0)} />
+  }} label="Table" {...a11yProps(0)} /> */}
         {/* <Tab icon={<EqualizerIcon/>} sx={{ textTransform: "none" }} label="Graph" {...a11yProps(1)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>

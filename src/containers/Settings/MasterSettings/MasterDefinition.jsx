@@ -9,10 +9,15 @@ import { primaryButtonColor } from "../../../config";
 import {
   Box,
   Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControlLabel,
   IconButton,
   Radio,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import RoleSelect1 from "../../../components/Select/RoleSelect1";
@@ -27,12 +32,29 @@ import Definitiontable1 from "./DefinitionTable1";
 import { useTheme } from "../../../config/themeContext";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
+import MenuIcon from '@mui/icons-material/Menu';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function MasterDefinition({detailPageId}) {
   const [isOpen, setIsOpen] = useState(true);
   const [hide, setHide] = useState(true);
   const [formData, setformData] = useState({});
   const [selectedOption, setSelectedOption] = React.useState('');
+  const [menuName, setMenuName] = useState('');
+
+  const handleMenuNameChange = (event) => {
+      setMenuName(event.target.value);
+  };
+
+  const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
 
   const {currentTheme} = useTheme()
@@ -107,18 +129,19 @@ function MasterDefinition({detailPageId}) {
           <Box sx={{ display: "flex", justifyContent: "left" }}>
 
 <IconButton
+  onClick={handleClickOpen}
   aria-label="Add group"
   sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
 >
   <Stack direction="column" alignItems="center">
-    <GroupAddIcon style={{ color: currentTheme.actionIcons, }} />
+    <MenuIcon style={{ color: currentTheme.actionIcons, }} />
 
     <Typography
       variant="caption"
       align="center"
       style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
     >
-      Add Group
+      Add Menu
     </Typography>
   </Stack>
 </IconButton>
@@ -127,14 +150,14 @@ function MasterDefinition({detailPageId}) {
   sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
 >
   <Stack direction="column" alignItems="center">
-    <GroupRemoveIcon style={{ color: currentTheme.actionIcons, }} />
+    <DeleteIcon style={{ color: currentTheme.actionIcons, }} />
 
     <Typography
       variant="caption"
       align="center"
       style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
     >
-      Delete Group
+      Delete Menu
     </Typography>
   </Stack>
 </IconButton>
@@ -279,6 +302,42 @@ function MasterDefinition({detailPageId}) {
         <Definitiontable1 />
       }
       </Box>
+
+      <Dialog sx={{width:'100%'}} open={open} onClose={handleClose}>
+            <DialogTitle>Add a Menu</DialogTitle>
+            <DialogContent>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    label="Menu Name"
+                    type="text"
+                    value={menuName}
+                    onChange={handleMenuNameChange}
+                    sx={{
+                      width: 200, // Default width
+                      "@media (max-width: 600px)": {
+                        width: 150, // Reduced width for small screens
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        height: 30, // Adjust the height of the input area
+                      },
+                      "& .MuiInputLabel-root": {
+                        transform: "translate(10px, 5px) scale(0.9)", // Adjust label position when not focused
+                      },
+                      "& .MuiInputLabel-shrink": {
+                        transform: "translate(14px, -9px) scale(0.75)", // Adjust label position when focused
+                      },
+                      "& .MuiInputBase-input": {
+                        fontSize: "0.75rem", // Adjust the font size of the input text
+                      },
+                    }}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button  onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleClose}>Ok</Button>
+            </DialogActions>
+        </Dialog>
     </div>
   );
 }

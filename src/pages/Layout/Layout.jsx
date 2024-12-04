@@ -17,7 +17,7 @@ export default function Layout() {
         <div style={{ minHeight: "50vh" }}>
           <AdminHeader />
         </div>
-      ) : <SideBar />}
+      ) : null}
     </>
   );
 }

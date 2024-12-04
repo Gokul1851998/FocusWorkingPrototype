@@ -99,9 +99,9 @@ const actions = [
   // { icon: <EventBusyIcon />, name: "Close Account" },
   // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
-  { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
+  { icon: <HomeRepairServiceIcon />, name: "Tag Settings" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
-  { icon: <AccountTreeIcon />, name: "Customize Tree" },
+  // { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
 ];
@@ -213,7 +213,7 @@ export default function SellerPriceBook(args) {
       sx={{ fontSize: "1rem" }}
       onClick={handleClick}
     >
-      Master
+      Tag
     </Link>,
     <Link
       underline="hover"

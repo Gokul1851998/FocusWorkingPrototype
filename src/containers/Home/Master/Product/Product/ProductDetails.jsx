@@ -32,6 +32,10 @@ import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
 import { useTheme } from "../../../../../config/themeContext";
 import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
 import EnteredEntityList from "./EnteredEntityList";
+import { details } from "../../../../../config/masterConfig";
+import UnitConversionTable from "../UnitConversion/UnitConversionTable";
+import { CustomScroll } from "react-custom-scroll";
+import SearchBox from "../../../../../components/SearchBox/SearchBox2";
 
 
 const Accordion = styled((props) => (
@@ -426,10 +430,19 @@ export default function ProductDetails() {
   const [entityDetails, setEntityDetails] = React.useState(
     entitiesData[selectedEntity]
   );
+  const [formData1, setFormData1] = React.useState('')
 
   const { currentTheme } = useTheme();
 
-  
+  const BusinessUnit = [
+    { title: "Unit1", iId: 1 },
+    { title: "Unit2", iId: 2 },
+    { title: "Unit3", iId: 3 },
+  ];
+  const handleChild = (data) => {
+    
+    setSelectedEntity(data)
+  };
 
   const handleAccountNameChange = (event) => {
    
@@ -563,11 +576,14 @@ export default function ProductDetails() {
           <MDBRow>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <RoleSelect1
-                label="Base Unit"
+                label="Unit Category"
                 value={entityDetails.Units.BaseUnit}
                 onChange={(value) => handleDetailChangeSelect("Units", "BaseUnit", value)}
                 options={baseUnitOptions}
               />
+            </MDBCol>
+            <MDBCol lg="3" md="4" sm="6" xs="12">
+              <AccountInput label="Base Unit" value='CM' />
             </MDBCol>
             <MDBCol lg="3" md="4" sm="6" xs="12">
               <RoleSelect1
@@ -586,6 +602,7 @@ export default function ProductDetails() {
               />
             </MDBCol>
           </MDBRow>
+          <UnitConversionTable />
         </MDBCardBody>
       )
     },
@@ -694,6 +711,15 @@ export default function ProductDetails() {
   };
   return (
     <div>
+      <Box sx={{paddingLeft:3}}>
+      <RoleSelect1
+            label="Select"
+            value={formData1}
+            onChange={(e) => setFormData1(e.target.value)}
+            options={details}
+            mandatory={"true"}
+          />
+      </Box>
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
@@ -720,9 +746,12 @@ export default function ProductDetails() {
                 <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange}/>
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Group"  isMandatory={1}/>
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Type" />
                   </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12" style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+                  <MDBCol lg="3" md="4" sm="6" xs="12" style={{display:"flex",flexDirection:"row",alignItems:"center", padding:10}}>
                     <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
                   <Checkbox
                     
@@ -893,6 +922,13 @@ export default function ProductDetails() {
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Purchase Varience A/c" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Cost/Goods Return
+" />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Sales Return" />
                   </MDBCol>
 
                 </MDBRow>
@@ -1141,13 +1177,13 @@ export default function ProductDetails() {
         </AccordionDetails>
       </Accordion> */}
       <Accordion
-        expanded={expanded === "panel7"}
-        onChange={handleChange("panel7")}
+        expanded={expanded === "panel6"}
+        onChange={handleChange("panel6")}
       >
         <AccordionSummary
-          aria-controls="panel7d-content"
-          id="panel7d-header"
-          expanded={expanded === "panel7"}
+          aria-controls="panel6d-content"
+          id="panel6d-header"
+          expanded={expanded === "panel6"}
           currentTheme={currentTheme}
         >
           <Typography style={{ fontSize: "14px" }}>Language</Typography>
@@ -1188,6 +1224,51 @@ export default function ProductDetails() {
         </AccordionDetails>
       </Accordion>
       <Accordion
+        expanded={expanded === "panel7"}
+        onChange={handleChange("panel7")}
+      >
+        <AccordionSummary
+          aria-controls="panel7d-content"
+          id="panel7d-header"
+          expanded={expanded === "panel7"}
+          currentTheme={currentTheme}
+        >
+          <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Business Entity
+                    </Typography>
+                    <SearchBox
+                      initialItems={BusinessUnit}
+                      selected={selectedEntity}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
         expanded={expanded === "panel8"}
         onChange={handleChange("panel8")}
       >
@@ -1198,7 +1279,7 @@ export default function ProductDetails() {
           expanded={expanded === "panel8"}
           currentTheme={currentTheme}
         >
-          <Typography style={{ fontSize: "14px" }}>Business Entity</Typography>
+          <Typography style={{ fontSize: "14px" }}>Business Entity Detail</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <>

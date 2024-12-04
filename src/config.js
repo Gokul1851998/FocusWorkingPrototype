@@ -8,7 +8,7 @@ export const activePrimaryColor = "#1D4D86"
 
 export const SideBarIcons = [
   { id: 1, parent: 0, iconName: "Home", icon: import("@mui/icons-material/Home"), child: true },
-  { id: 2, parent: 0, iconName: "Financials", icon: import("@mui/icons-material/LocalAtm"), child: false },
+  { id: 2, parent: 0, iconName: "Financials", icon: import("@mui/icons-material/LocalAtm"), child: true },
   { id: 3, parent: 0, iconName: "Inventory", icon: import("@mui/icons-material/Inventory"), child: false },
   { id: 4, parent: 0, iconName: "Fixed Asset", icon: import("@mui/icons-material/AccountBalance"), child: false },
   { id: 5, parent: 0, iconName: "Production", icon: import("@mui/icons-material/Warehouse"), child: false },
@@ -17,33 +17,33 @@ export const SideBarIcons = [
   { id: 8, parent: 0, iconName: "Settings", icon: import("@mui/icons-material/Settings"), child: true },
   { id: 9, parent: 1, iconName: "Company", icon: null, child: true },
   { id: 10, parent: 1, iconName: "Security", icon: null, child: true },
-  { id: 11, parent: 1, iconName: "Master", icon: null, child: true },
+  { id: 11, parent: 1, iconName: "Tag", icon: null, child: true },
   { id: 12, parent: 10, iconName: "Create Profile", icon: null, url: "/security" },
   { id: 13, parent: 10, iconName: "Create Role", icon: null, url: "/security" },
   { id: 14, parent: 10, iconName: "Create User", icon: null, url: "/security" },
   { id: 15, parent: 11, iconName: "Account", icon: null, child: true },
   // { id: 16, parent: 11, iconName: "Currency", icon: null, url: "/Master"},
   { id: 17, parent: 11, iconName: "Product", icon: null, child: true },
-  { id: 16, parent: 11, iconName: "Currency", icon: null, url: "/Master"},
+  { id: 16, parent: 11, iconName: "Currency", icon: null,child: true},
   { id: 18, parent: 11, iconName: "Warehouse", icon: null, url: "/Master" },
-  { id: 19, parent: 15, iconName: "Account Master", icon: null, url: "/Master" },
-  { id: 20, parent: 15, iconName: "Customer/Vendor master", icon: null, url: "/Master" },
-  { id: 21, parent: 38, iconName: "Currency Master", icon: null, url: "/EntitySettings" },
-  { id: 22, parent: 38, iconName: "Exchange Rate", icon: null, url: "/EntitySettings" },
-  { id: 23, parent: 38, iconName: "Exchange Rate History", icon: null, url: "/EntitySettings" },
+  { id: 19, parent: 15, iconName: "Account Tag", icon: null, url: "/Master" },
+  { id: 20, parent: 15, iconName: "Customer/Vendor Tag", icon: null, url: "/Master" },
+  { id: 21, parent: 38, iconName: "Currency Tag", icon: null, url: "/EntitySettings" },
+  // { id: 22, parent: 38, iconName: "Exchange Rate", icon: null, url: "/EntitySettings" },
+  // { id: 23, parent: 38, iconName: "Exchange Rate History", icon: null, url: "/EntitySettings" },
   { id: 24, parent: 17, iconName: "Product", icon: null, url: "/Master" },
   { id: 25, parent: 17, iconName: "Unit", icon: null, url: "/Master" },
   { id: 26, parent: 17, iconName: "Unit Conversion", icon: null, url: "/Master" },
   { id: 27, parent: 17, iconName: "Seller Price Book", icon: null, url: "/Master" },
   { id: 28, parent: 17, iconName: "Buyer Price Book", icon: null, url: "/Master" },
-  // { id: 29, parent:17, iconName: "Barcode Definition", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
+  { id: 29, parent:17, iconName: "Barcode Definition", icon:  import("@mui/icons-material/Inventory"),url:"/Master" },
   { id: 30, parent: 8, iconName: "General Settings", icon: null, url: "/GeneralSettings" },
   // { id: 32, parent: 8, iconName: "Master Settings", icon: null, url: "/MasterSettings" },
-  { id: 31, parent: 8, iconName: "Voucher Settings", icon: null, url: "/VoucherSettings" },
+  { id: 31, parent: 8, iconName: "Voucher Settings", icon: null, child:true },
 
-  { id: 33,parent:8, iconName: "Tag Creation", icon:  null ,url:"/TagCreation" },
+  { id: 33,parent:8, iconName: "Tag Settings", icon:  null ,url:"/TagCreation" },
   // { id: 34, parent:30, iconName: "Account tag Management", icon:  import("@mui/icons-material/Inventory"),url:"/MainSettings" },
-  { id: 35, parent: 9, iconName: "Open Company", icon: null, url: "/" },
+  { id: 35, parent: 9, iconName: "Open Company", icon: null, url: "/OpenCompany" },
   // { id: 36, parent:9, iconName: "Create Company", icon:  import("@mui/icons-material/Home"),url:"/Company" },
   { id: 37, parent: 9, iconName: "Edit Company", icon: null, url: "/Company" },
   { id: 38, parent: 39, iconName: "Currency", icon: null, child: true  },
@@ -54,11 +54,11 @@ export const SideBarIcons = [
   { id: 43, parent: 39, iconName: "General", icon: null, url: "/EntitySettings" },
   { id: 44, parent: 8, iconName: "Configuration", icon: null, child: true },
   { id: 45, parent: 44, iconName: "Voucher Configuration", icon: null, url: "/Configuration" },
-  { id: 46, parent: 44, iconName: "Master Configuration", icon: null, url: "/Configuration" },
+  { id: 46, parent: 44, iconName: "Tag Configuration", icon: null, url: "/Configuration" },
   { id: 47, parent: 44, iconName: "Views Configuration", icon: null, url: "/Configuration" },
   { id: 48, parent: 44, iconName: "Work Flow", icon: null, url: "/Configuration" },
   { id: 49, parent: 44, iconName: "VAT Configuration", icon: null, url: "/Configuration" },
-  { id: 50, parent: 8, iconName: "EntityMaster", icon: null, url: "/EntityMaster" },
+  { id: 50, parent: 8, iconName: "Business Entity", icon: null, url: "/EntityMaster" },
   { id: 51, parent: 11, iconName: "Fixed Asset", icon: null, url: "/Master" },
   { id: 52, parent: 11, iconName: "Tax Code", icon: null, url: "/Master" },
   { id: 53, parent: 11, iconName: "Place of Supply", icon: null, url: "/Master" },
@@ -74,26 +74,22 @@ export const SideBarIcons = [
   { id: 63, parent: 11, iconName: "Zone", icon: null, url: "/Master" },
   { id: 64, parent: 11, iconName: "City", icon: null, url: "/Master" },
   { id: 65, parent: 11, iconName: "Employee", icon: null, url: "/Master" },
-  
-
+  { id: 66, parent: 8, iconName: "View", icon: null, child: true },
+  { id: 67, parent: 11, iconName: "Account Type", icon: null, url: "/Master" },
+  { id: 68, parent: 11, iconName: "Employee Category", icon: null, url: "/Master" },
+  { id: 69, parent: 11, iconName: "Bin", icon: null, url: "/Master" },
+  { id: 70, parent: 10, iconName: "Password Policy", icon: null, url: "/security" },
+  { id: 71, parent: 10, iconName: "Change Password", icon: null, url: "/security" },
+  { id: 72, parent: 10, iconName: "Update Personal Info", icon: null, url: "/security" },
+  { id: 73, parent: 31, iconName: "Request", icon: null, url: "/VoucherSettings" },
+  { id: 74, parent: 31, iconName: "Order", icon: null, url: "/VoucherSettings" },
+  { id: 75, parent: 31, iconName: "Receipt/Payment", icon: null, url: "/VoucherSettings" },
+  { id: 76, parent: 31, iconName: "Invoice", icon: null, url: "/VoucherSettings" },
+  { id: 77, parent: 31, iconName: "Journal", icon: null, url: "/VoucherSettings" },
+  { id: 78, parent: 2, iconName: "Sales", icon: null, url: "/Sales" },
+  { id: 79, parent: 16, iconName: "Currency Tag", icon: null, url: "/Master"},
+  { id: 80, parent: 16, iconName: "Exchange Rate", icon: null, url: "/Master"},
+  { id: 81, parent: 16, iconName: "Exchange Rate History", icon: null, url: "/Master"},
+  { id: 82, parent: 66, iconName: "Tag View", icon: null, url: "/View"},
+  { id: 83, parent: 66, iconName: "Transaction View", icon: null, url: "/View"},
 ];
-
-export let config = null;
-export let CORE_URL = null;
-export let SECURITY_URL = null;
-export let channelId = null;
-
-export const getConfig = () => {
-    if (!config) {
-      throw new Error('Config has not been loaded!');
-    }
-    return config;
-  };
-export const loadConfig = async () => {
-    const response = await fetch('/config.json');
-    config = await response.json();
-    CORE_URL = config.CORE_URL; 
-    SECURITY_URL = config.SECURITY_URL;
-    channelId = config.channelId
-    
-}

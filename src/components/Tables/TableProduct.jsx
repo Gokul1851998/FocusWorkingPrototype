@@ -32,6 +32,7 @@ import WidgetsIcon from "@mui/icons-material/Widgets";
 import AdvancedSearchDialog from "../../containers/Home/Master/Account/AccountMaster/AdvancedSearch";
 import { useState } from "react";
 import { useTheme } from "../../config/themeContext";
+import AutoCompleteMasterSummeries from "../AutoComplete/AutoCompleteMasterSummeries";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -285,6 +286,8 @@ export default function TableProduct({masterData,items}) {
   const [data, setData] = React.useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const { currentTheme,switchTheme } = useTheme();
+  const [value1, setValue1] = useState('');
+  const [value, setValue] = useState('');
 
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
@@ -369,6 +372,14 @@ export default function TableProduct({masterData,items}) {
     [order, orderBy, page, rowsPerPage, filteredRows]
   );
 
+  const handleAccess = (item) =>{
+    setValue(prevValue => [...prevValue, item]);
+}
+
+const  onChangeName = (value) => {
+  setValue1(value.sName)
+}
+
   return (
     <>
       <Box
@@ -381,7 +392,8 @@ export default function TableProduct({masterData,items}) {
       >
         <Box sx={{ margin: "10px 0px ", display: "flex", gap: "10px" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AutocompleteSecurity label="" />
+            {/*  label="" /> */}
+            <AutoCompleteMasterSummeries access={handleAccess} onChangeName={onChangeName} value={value1}/>
             <IconButton aria-label="tree">
               <WidgetsIcon sx={{ color: currentTheme.thirdColor }} />
             </IconButton>

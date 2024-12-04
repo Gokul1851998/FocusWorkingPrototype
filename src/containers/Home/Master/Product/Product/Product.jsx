@@ -10,7 +10,7 @@ import {
   secondryColor,
   thirdColor,
 } from "../../../../../config";
-import { accountTree, productData, productTree, searchadvanceTreeItemsProduct } from "../../../../../config/masterConfig";
+import { accountTree, massUpdateItem, productData, productTree, searchadvanceTreeItemsProduct } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
@@ -50,6 +50,22 @@ import TableProduct from "../../../../../components/Tables/TableProduct";
 import ProductDetails from "./ProductDetails";
 import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
 import { useTheme } from "../../../../../config/themeContext";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import NewSet from "./NewSet";
+import CategoryIcon from '@mui/icons-material/Category';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import SetTypePage from "./SetTypePage";
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import SortIcon from '@mui/icons-material/Sort';
+import Sortpopup from "../../Account/AccountMaster/Sortpopup";
+import BackTrackPopup from "../../Account/AccountMaster/BackTrackPopup";
+import MassUpdatePopup from "../../Account/AccountMaster/MassUpdatePopup";
+import ImportExportPopup from "../../Account/AccountMaster/ImportExportPopup";
+import TransferPopup from "../../Account/AccountMaster/TransferPopup";
+import { useNavigate } from "react-router-dom";
 
 function handleClick(event) {
   event.preventDefault();
@@ -62,11 +78,18 @@ const actions = [
   // { icon: <EventBusyIcon />, name: "Close Account" },
   // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
-  { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
+  { icon: <HomeRepairServiceIcon />, name: "Tag Settings" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
-  { icon: <AccountTreeIcon />, name: "Customize Tree" },
+  // { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
+  { icon: <CategoryIcon />, name: "Set Type",id:1 },
+  { icon: <SwapHorizIcon />, name: "Unit Conversion" },
+  { icon: <ImportExportIcon />, name: "Import/Export" },
+  { icon: <ArrowUpwardIcon />, name: "Move Up" },
+  { icon: <ArrowDownwardIcon />, name: "Move Down" },
+  { icon: <SortIcon />, name: "Sort" },
+  { icon: <Inventory2OutlinedIcon />, name: "Stock Ledger" },
 ];
 
 export default function Product(args) {
@@ -75,11 +98,16 @@ export default function Product(args) {
   const [isInfo, setIsInfo] = useState(false);
   const [infoHide, setInfoHide] = useState(false);
   const [detailPage, setDetailPage] = useState(false);
+  const [newPage, setNewPage] = useState(false);
+  const [pageId, setPageId] = useState(0);
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
+  const [pageId1, setpageId1] = useState(null);
 
   const { currentTheme } = useTheme();
+
+  const Navigate = useNavigate();
 
   const toggleOpen = () => {
     setIsOpen(true);
@@ -107,17 +135,65 @@ export default function Product(args) {
   const handleDetailPageOpen = () => {
     setDetailPage(true);
   };
+  const handleNewPageOpen = () => {
+    setNewPage(true);
+  };
 
   const handleDetailPageClose = () => {
     setDetailPage(false);
+    setPageId(0)
   };
+
+  const handleSubmit = (item) => {
+    switch (item) {
+      case "Ledger":
+        setpageId1(1)
+        break;
+      case "Sort":
+        setpageId1(2)
+        break;
+      case "Move Down":
+        setpageId1(3)
+        break;
+      case "Move Up":
+        setpageId1(4)
+        break;
+        case "Import/Export":
+          setpageId1(5)
+          break;
+          case "Transfer":
+            setpageId1(6)
+        break;
+      case "Backtrack":
+        setpageId1(7)
+        break;
+      case "Customize Tree":
+        setpageId1(8)
+        break;
+      case "Customize View":
+          Navigate("/NavigateView");
+          break;
+      case "Tag Settings":
+            Navigate("/NavigateTag");
+            break;
+      case "Mass Update":
+        setpageId1(9)
+        break;
+      case "Delete All":
+        setpageId1(10)
+        break;
+        case "Group":
+          // handleDetailPageOpen();
+        break; 
+    }
+  }
 
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem", color: currentTheme.actionIcons }} // Reduce font size
       key="1"
-     
+
       onClick={handleClick}
     >
       <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
@@ -126,23 +202,23 @@ export default function Product(args) {
     <Link
       underline="hover"
       key="2"
-      
-      sx={{ fontSize: "1rem",color: currentTheme.actionIcons }}
+
+      sx={{ fontSize: "1rem", color: currentTheme.actionIcons }}
       onClick={handleClick}
     >
-      Master
+      Tag
     </Link>,
     <Link
       underline="hover"
       key="3"
-      
-      sx={{ fontSize: "1rem",color: currentTheme.actionIcons}}
+
+      sx={{ fontSize: "1rem", color: currentTheme.actionIcons }}
       onClick={handleClick}
     >
       Product
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem" ,color: currentTheme.actionIcons}}>
-     Product
+    <Typography key="4" color="white" sx={{ fontSize: "1rem", color: currentTheme.actionIcons }}>
+      Product
     </Typography>,
   ];
 
@@ -171,7 +247,7 @@ export default function Product(args) {
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
+              separator={<NavigateNextIcon fontSize="small" sx={{ color: currentTheme.actionIcons, }} />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -179,7 +255,7 @@ export default function Product(args) {
             </Breadcrumbs>
           </Stack>
 
-          {!detailPage ? (
+          {!detailPage && !pageId ? (
             <Stack
               direction="row"
               alignItems="center"
@@ -234,6 +310,23 @@ export default function Product(args) {
                   </Typography>
                 </Stack>
               </IconButton>
+              {/* <IconButton
+                onClick={handleNewPageOpen}
+                aria-label="Edit"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <AddCircleOutlineIcon style={{ color: currentTheme.actionIcons }} />
+
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    New Set
+                  </Typography>
+                </Stack>
+              </IconButton> */}
               <IconButton
                 aria-label="Clone"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -344,7 +437,7 @@ export default function Product(args) {
                 </Stack>
               </IconButton>
             </Stack>
-          ) : (
+          ) :  (
             <Stack
               direction="row"
               alignItems="center"
@@ -402,9 +495,11 @@ export default function Product(args) {
             </Stack>
           )}
         </Box>
-        {detailPage ? (
-  <ProductDetails  />
-        ) : (
+      { pageId === 1 ? (
+  <SetTypePage />
+)  : detailPage ? (
+          <ProductDetails />
+        ): (
           <>
             <SpeedDial
               ariaLabel="SpeedDial basic example"
@@ -412,7 +507,7 @@ export default function Product(args) {
                 position: "absolute",
                 bottom: 25,
                 right: 16,
-                
+
                 '& .MuiSpeedDial-fab': {
                   backgroundColor: currentTheme.secondaryColor, // Ensure the SpeedDial button has the custom background color
                 },
@@ -425,6 +520,7 @@ export default function Product(args) {
                   key={action.name}
                   icon={action.icon}
                   tooltipTitle={action.name}
+                  onClick={() => { handleSubmit(action.name) }}
                 />
               ))}
             </SpeedDial>
@@ -438,7 +534,7 @@ export default function Product(args) {
                   }}
                 >
                   <Button
-                   sx={{backgroundColor:currentTheme.primaryColor}}
+                    sx={{ backgroundColor: currentTheme.primaryColor }}
                     onClick={toggleOpen}
                     style={{
                       marginBottom: "1rem",
@@ -446,8 +542,8 @@ export default function Product(args) {
                       fontSize: "0.6rem",
                       height: "5rem",
                       borderRadius: "0 0.5rem 0.5rem 0",
-                      backgroundColor:currentTheme.secondaryColor,
-                      color:currentTheme.sideBarTextColor1
+                      backgroundColor: currentTheme.secondaryColor,
+                      color: currentTheme.sideBarTextColor1
                     }}
                   >
                     <KeyboardDoubleArrowRightIcon
@@ -457,7 +553,9 @@ export default function Product(args) {
                 </div>
               ) : null}
 
-<Collapse horizontal isOpen={isOpen} {...args}>
+              
+
+              <Collapse horizontal isOpen={isOpen} {...args}>
                 <Alert
                   style={{
                     width: 350,
@@ -471,23 +569,23 @@ export default function Product(args) {
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <AutocompleteSecurity label="" />
                       <IconButton aria-label="tree">
-                        <WidgetsIcon sx={{  color: currentTheme.thirdColor }} />
+                        <WidgetsIcon sx={{ color: currentTheme.thirdColor }} />
                       </IconButton>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <Tree1 items={productTree} />
 
                       <Button
-                        
+
                         onClick={toggleClose}
                         style={{
-                        
+
                           padding: "0.3rem",
                           fontSize: "0.6rem",
                           height: "5rem",
                           borderRadius: "0.5rem 0 0 0.5rem",
-                          backgroundColor:currentTheme.secondaryColor,
-                          color:currentTheme.sideBarTextColor1
+                          backgroundColor: currentTheme.secondaryColor,
+                          color: currentTheme.sideBarTextColor1
                         }}
                       >
                         <KeyboardDoubleArrowLeftIcon
@@ -521,7 +619,7 @@ export default function Product(args) {
                   }}
                 >
                   <Button
-                   
+
                     variant="contained"
                     onClick={infoPanelClose}
                     style={{
@@ -536,8 +634,8 @@ export default function Product(args) {
                       display: "flex",
                       justifyContent: "center", // Center horizontally
                       alignItems: "center", // Center vertically
-                      backgroundColor:currentTheme.secondaryColor,
-                      color:currentTheme.sideBarTextColor1
+                      backgroundColor: currentTheme.secondaryColor,
+                      color: currentTheme.sideBarTextColor1
                     }}
                   >
                     <KeyboardDoubleArrowDownIcon style={{ fontSize: "1rem" }} />
@@ -566,7 +664,7 @@ export default function Product(args) {
 
               {!infoHide ? (
                 <Button
-                 
+
                   variant="contained"
                   onClick={infoPanelOpen}
                   style={{
@@ -578,16 +676,23 @@ export default function Product(args) {
                     display: "flex",
                     justifyContent: "center", // Center horizontally
                     alignItems: "center", // Center vertically
-                    backgroundColor:currentTheme.secondaryColor,
-                    color:currentTheme.sideBarTextColor1
+                    backgroundColor: currentTheme.secondaryColor,
+                    color: currentTheme.sideBarTextColor1
                   }}
                 >
                   <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
                 </Button>
               ) : null}
+              {pageId1 === 2 && <Sortpopup onClose={() => setpageId1(null)}/>}
+          {pageId1 === 7 && <BackTrackPopup onClose={() => setpageId1(null)} />}
+          { pageId1 === 9 && <MassUpdatePopup onClose={() => setpageId1(null)} items={massUpdateItem} />}
+          {pageId1 === 5 && <ImportExportPopup onClose={() => setpageId1(null)} />}
+          {pageId1 === 6 && <TransferPopup onClose={() => setpageId1(null)}/>}
+
             </div>
           </>
         )}
+        
       </React.StrictMode>
     </>
   );

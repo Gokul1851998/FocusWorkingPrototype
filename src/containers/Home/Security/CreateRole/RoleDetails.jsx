@@ -14,7 +14,7 @@ import { MDBCard,
   MDBRow,} from "mdb-react-ui-kit";
 import AccountInput from "../../../../components/Inputs/AccountInput";
 import AutoComplete2 from "../../../../components/AutoComplete/AutoComplete2";
-import { Box,Button as ButtonM , Dialog, DialogActions, DialogContent, IconButton, Stack } from "@mui/material";
+import { Box,Button as ButtonM , Dialog, DialogActions, DialogContent, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, Stack } from "@mui/material";
 import { Collapse, CardBody,Button, Card, Alert } from "reactstrap";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
@@ -28,7 +28,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { AddCircleOutline , Edit as EditIcon, Delete as DeleteIcon, Close as CloseIcon } from '@mui/icons-material';
-import { createProfileTree, masterItems, passwordPolicy, restrictionItems, roleTabData } from "../../../../config/securityConfig";
+import { createProfileTree, groupList, masterItems, passwordPolicy, restrictionItems, roleTabData } from "../../../../config/securityConfig";
 import PersonIcon from '@mui/icons-material/Person';
 import TransferList from "./TransferList";
 import ProfileManagementPanel from "./RoleAddExclusion";
@@ -249,10 +249,19 @@ const Accordion = styled((props) => (
 
     const [expanded, setExpanded] = React.useState("panel1");
     const [formData, setFormData] = React.useState({sName:null,iId:null})
-    const [selectedOption, setSelectedOption] = React.useState('');
+    const [selectedOption, setSelectedOption] = React.useState({ group:'', policy:''});
     const [openUsersOnRole, setOpenUsersOnRole] = React.useState(false)
     const [openHistory, setOpenHistory] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
+    const [roleName, setRoleName] = useState({ sName: "null", iId: null, roleType: "Role" })
+
+
+    const handleRadioChange = (event) => {
+      setRoleName({
+        ...roleName,
+        roleType: event.target.value,
+      });
+    };
 
   
     const handleRowClick = (row) => {
@@ -273,8 +282,11 @@ const Accordion = styled((props) => (
     const handleChange = (panel) => (event, newExpanded) => {
       setExpanded(newExpanded ? panel : false);
     };
-    const handleSelectChange = (event) => {
-      setSelectedOption(event.target.value);
+    const handleSelectChange = (event, type) => {
+      setSelectedOption({
+        ...selectedOption,
+        [type]: event.target.value,
+      });
     };
 
     const handleIconsClick =(value) => {
@@ -320,20 +332,72 @@ const handleCloseUsersOnRole = ()=>{
         <Typography sx={{fontSize:"20px"}}>
           Create Role
         </Typography>
+        <Box
+          sx={{
+            pl: 3,
+            pb: 2,
+            display: "flex",
+            flexDirection: "column",
+            paddingTop: "10px",
+          }}
+        >
+          <FormControl>
+            <FormLabel sx={{ mb: 2 }} id="demo-row-radio-buttons-group-label">
+              Role/Group
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+              value={roleName.roleType}
+              onChange={handleRadioChange}
+            >
+              <FormControlLabel
+                sx={{ padding: 0, mr: 5, ml: 1 }}
+                value="Role"
+                control={<Radio sx={{ padding: 0 }} />}
+                label="Role"
+              />
+              <FormControlLabel
+                value="Group"
+                control={<Radio sx={{ padding: 0 }} />}
+                label="Group"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Box>
         
         <>
             <div>
               <MDBCardBody>
                 <MDBRow>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AccountInput label="Role Name"  mandatory={1}/>
+                  {/* <AccountInput label="Role Name"  mandatory={1}/> */}
+                  {roleName.roleType === "Role" ? (
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AccountInput label="Role Name" mandatory="1" />
+                </MDBCol>
+              ) : (
+                <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AccountInput label="Group Name" mandatory="1" />
+                </MDBCol>
+              )}
                   </MDBCol>
 
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <RoleSelect1
+                    label="Group"
+                    value={selectedOption.group}
+                    onChange={(event) => handleSelectChange(event,'group')}
+                    options={groupList}
+                    mandatory={1}
+                  />
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <RoleSelect1
                     label="Password Policy"
-                    value={selectedOption}
-                    onChange={handleSelectChange}
+                    value={selectedOption.policy}
+                    oonChange={(event) => handleSelectChange(event,'policy')}
                     options={passwordPolicy}
                     mandatory={1}
                   />

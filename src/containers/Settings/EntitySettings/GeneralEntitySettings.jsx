@@ -86,7 +86,7 @@ const actions = [
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
   { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
-  { icon: <AccountTreeIcon />, name: "Customize Tree" },
+  // { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
 ];

@@ -22,6 +22,7 @@ import {
   TablebodyCell,
   mainData,
   HeaderData,
+  DropdownData,
 } from "../../../config/masterSettings";
 import { primaryButtonColor, thirdColor } from "../../../config";
 import PreviewIcon from "@mui/icons-material/Preview";
@@ -30,6 +31,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import CustomizationEditModal from "./CustomizationEditModal";
 import { useTheme } from "../../../config/themeContext";
 import ViewEditModal from "./ViewEditModal";
+import RoleSelect1 from "../../../components/Select/RoleSelect1";
 
 export default function ViewTable() {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -37,6 +39,11 @@ export default function ViewTable() {
   const [edit, setEdit] = useState(false);
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
+  };
+
+  const [formData, setformData] = useState({});
+  const handleSelectChange = (event, key) => {
+    setformData({ ...formData, [key]: event.target.value });
   };
 
   // Dummy data arrays for each tab
@@ -70,8 +77,19 @@ export default function ViewTable() {
         onChange={handleChange}
         aria-label="basic tabs example"
       >
-        <Tab sx={{ textTransform: "none", }} label="Main" />
-        <Tab sx={{ textTransform: "none" }} label="Header Details" />
+        {/* <Tab sx={{ textTransform: "none", }} label="Main" />
+        <Tab sx={{ textTransform: "none" }} label="Header Details" /> */}
+
+<Box>
+        <RoleSelect1
+            label="Tab Selection"
+            value={formData?.Module ?? ""}
+            onChange={(e) => handleSelectChange(e, "Module")}
+            options={DropdownData}
+            mandatory={"true"}
+          />
+
+        </Box>
         <Box sx={{ marginLeft: "auto" }}>
         <IconButton
             onClick={handleEditModalOpen}

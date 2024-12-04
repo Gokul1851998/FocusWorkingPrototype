@@ -42,7 +42,7 @@ function MasterCustomization() {
   const [isOpen, setIsOpen] = useState(true);
   const [hide, setHide] = useState(true);
   const [formData, setformData] = useState({});
-  const [treeSelect, setTreeSelect] = useState(7);
+  const [treeSelect, setTreeSelect] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [activeTabType, setActiveTabType] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
@@ -104,7 +104,7 @@ function MasterCustomization() {
             height: "auto",
           }}
         >
-          <Button
+          {/* <Button
             
             onClick={toggleOpen}
             style={{
@@ -118,7 +118,7 @@ function MasterCustomization() {
             }}
           >
             <KeyboardDoubleArrowRightIcon style={{ fontSize: "1rem" }} />
-          </Button>
+          </Button> */}
         </div>
       ) : null}
 
@@ -177,7 +177,7 @@ function MasterCustomization() {
             >
               <Tree1 items={CustomizationTree} setSelect={setTreeSelect} />
 
-              <Button
+              {/* <Button
                
                 onClick={toggleClose}
                 style={{
@@ -190,13 +190,13 @@ function MasterCustomization() {
                 }}
               >
                 <KeyboardDoubleArrowLeftIcon style={{ fontSize: "1rem" }} />
-              </Button>
+              </Button> */}
             </Box>
           </div>
         </Alert>
       </Collapse>
 
-      {treeSelect == 7 ? (
+      {/* {treeSelect == 7 ? (
         <CustomizationTable />
       ) : treeSelect == 8 ? (
         <SettingsTable />
@@ -212,7 +212,7 @@ function MasterCustomization() {
         <CustomizationReports />
       )  :treeSelect == 11 ? (
         <CustomizationTable />
-      ) : null }
+      ) : null } */}
       <CustomizationCreateTab
         open={isDialogOpen}
         onClose={handleCloseDialog}
@@ -226,7 +226,7 @@ function MasterCustomization() {
         onClose={handleClose}
       >
         <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('image')}>Image Tab</MenuItem>
-        <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('tree')}>Tree Tab</MenuItem>
+        {/* <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('tree')}>Tree Tab</MenuItem> */}
         <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('document')}>Document Tab</MenuItem>
         <MenuItem sx={{fontSize:"12px"}} onClick={() => handleOpenDialog('createTab')}>Create Tab</MenuItem>
       </Menu>

@@ -38,11 +38,22 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import StopIcon from '@mui/icons-material/Stop';
 import BlockIcon from '@mui/icons-material/Block';
 import { primaryButtonColor, secondryColor, thirdColor } from "../../../../config";
-import { productData, warehouseData, warehouseTree } from "../../../../config/masterConfig";
+import { massUpdateItem, productData, warehouseData, warehouseTree } from "../../../../config/masterConfig";
 import TableProduct from "../../../../components/Tables/TableProduct";
 import WarehouseDetails from "./WarehouseDetails";
 import AutocompleteSecurity from "../../../../components/AutoComplete/AutocompleteSecurity";
 import Tree1 from "../../../../components/Tree/Tree1";
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import SortIcon from '@mui/icons-material/Sort';
+import { useNavigate } from "react-router-dom";
+import Sortpopup from "../Account/AccountMaster/Sortpopup";
+import BackTrackPopup from "../Account/AccountMaster/BackTrackPopup";
+import MassUpdatePopup from "../Account/AccountMaster/MassUpdatePopup";
+import ImportExportPopup from "../Account/AccountMaster/ImportExportPopup";
+import TransferPopup from "../Account/AccountMaster/TransferPopup";
 
 function handleClick(event) {
   event.preventDefault();
@@ -55,11 +66,16 @@ const actions = [
   // { icon: <EventBusyIcon />, name: "Close Account" },
   // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
-  { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
+  { icon: <HomeRepairServiceIcon />, name: "Tag Settings" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
-  { icon: <AccountTreeIcon />, name: "Customize Tree" },
+  // { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
+  { icon: <ImportExportIcon />, name: "Import/Export" },
+  { icon: <ArrowUpwardIcon />, name: "Move Up" },
+  { icon: <ArrowDownwardIcon />, name: "Move Down" },
+  { icon: <SortIcon />, name: "Sort" },
+  // { icon: <AccountBalanceIcon />, name: "Ledger" }
 ];
 
 export default function Warehouse(args) {
@@ -71,6 +87,10 @@ export default function Warehouse(args) {
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
+
+  const [pageId, setpageId] = useState(null);
+
+  const Navigate = useNavigate();
 
   const toggleOpen = () => {
     setIsOpen(true);
@@ -103,6 +123,50 @@ export default function Warehouse(args) {
     setDetailPage(false);
   };
 
+  const handleSubmit = (item) => {
+    switch (item) {
+      case "Ledger":
+        setpageId(1)
+        break;
+      case "Sort":
+        setpageId(2)
+        break;
+      case "Move Down":
+        setpageId(3)
+        break;
+      case "Move Up":
+        setpageId(4)
+        break;
+      case "Import/Export":
+        setpageId(5)
+        break;
+      case "Transfer":
+        setpageId(6)
+        break;
+      case "Backtrack":
+        setpageId(7)
+        break;
+      case "Customize Tree":
+        setpageId(8)
+        break;
+      case "Customize View":
+        Navigate("/NavigateView");
+        break;
+      case "Tag Settings":
+        Navigate("/NavigateTag");
+        break;
+      case "Mass Update":
+        setpageId(9)
+        break;
+      case "Delete All":
+        setpageId(10)
+        break;
+      case "Group":
+        // handleDetailPageOpen();
+        break;
+    }
+  }
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -121,11 +185,11 @@ export default function Warehouse(args) {
       sx={{ fontSize: "1rem" }}
       onClick={handleClick}
     >
-      Master
+      Tag
     </Link>,
-   
+
     <Typography key="4" color="white" sx={{ fontSize: "1rem" }}>
-     Warehouse
+      Warehouse
     </Typography>,
   ];
 
@@ -384,7 +448,7 @@ export default function Warehouse(args) {
           )}
         </Box>
         {detailPage ? (
- <WarehouseDetails />    ) : (
+          <WarehouseDetails />) : (
           <>
             <SpeedDial
               ariaLabel="SpeedDial basic example"
@@ -397,6 +461,7 @@ export default function Warehouse(args) {
                   key={action.name}
                   icon={action.icon}
                   tooltipTitle={action.name}
+                  onClick={() => { handleSubmit(action.name) }}
                 />
               ))}
             </SpeedDial>
@@ -427,7 +492,7 @@ export default function Warehouse(args) {
                 </div>
               ) : null}
 
-<Collapse horizontal isOpen={isOpen} {...args}>
+              <Collapse horizontal isOpen={isOpen} {...args}>
                 <Alert
                   style={{
                     width: 350,
@@ -451,7 +516,7 @@ export default function Warehouse(args) {
                         color="primary"
                         onClick={toggleClose}
                         style={{
-                        
+
                           padding: "0.3rem",
                           fontSize: "0.6rem",
                           height: "5rem",
@@ -549,6 +614,13 @@ export default function Warehouse(args) {
                   <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
                 </Button>
               ) : null}
+
+              {pageId === 2 && <Sortpopup onClose={() => setpageId(null)} />}
+              {pageId === 7 && <BackTrackPopup onClose={() => setpageId(null)} />}
+              {pageId === 9 && <MassUpdatePopup onClose={() => setpageId(null)} items={massUpdateItem} />}
+              {pageId === 5 && <ImportExportPopup onClose={() => setpageId(null)} />}
+              {pageId === 6 && <TransferPopup onClose={() => setpageId(null)} />}
+
             </div>
           </>
         )}

@@ -142,7 +142,15 @@ export default function UnitConversionTable() {
   const [dense, setDense] = React.useState(true);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState([
+    {
+      MasterId: 1,
+      "Unit Name": "weed",
+      XFactor: "fref",
+      "Round off": "vbhn",
+      Description: "eewe",
+    },
+  ]);
 
   const {currentTheme} = useTheme()
 
@@ -151,11 +159,17 @@ export default function UnitConversionTable() {
     setData([
       {
         MasterId: 1,
-        "Unit Name": "",
-        XFactor: "",
-        "Additional Quantity": 0,
-        "Round off": "",
-        Description: "",
+        "Unit Name": "weed",
+        XFactor: "fref",
+        "Round off": "vbhn",
+        Description: "eewe",
+      },
+      {
+        MasterId: 2,
+        "Unit Name": "weed",
+        XFactor: "fref",
+        "Round off": "vbhn",
+        Description: "eewe",
       },
     ]);
   };
@@ -224,7 +238,6 @@ export default function UnitConversionTable() {
           MasterId: 1,
           "Unit Name": "",
           XFactor: "",
-          "Additional Quantity": 0,
           "Round off": "",
           Description: "",
         },
@@ -369,7 +382,7 @@ export default function UnitConversionTable() {
                                     sx={{
                                       border: "1px solid #ddd",
                                       whiteSpace: "nowrap",
-                                      width: "calc(100% / 5)",
+                                      width: "calc(100% / 4)",
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
                                       padding: "4px", // Reduce the padding
@@ -384,7 +397,7 @@ export default function UnitConversionTable() {
                                   >
                                     {column === "Unit Name" ? (
                                       <AutoCompleteTable />
-                                    ) : <CurrencyTableInput />}
+                                    ) : <CurrencyTableInput value={row[column]} />}
                                   </TableCell>
                                 </>
                               );

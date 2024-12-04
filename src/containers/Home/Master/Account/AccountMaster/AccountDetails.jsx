@@ -24,6 +24,8 @@ import MasterLanguage from "./MasterLanguage";
 import AccountInput1 from "../../../../../components/Inputs/AccountInput1";
 import { useTheme } from "../../../../../config/themeContext";
 import MasterOtherNames from "./MasterOtherNames";
+import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
+import { details } from "../../../../../config/masterConfig";
 
 const weeks = [
   { title: "ABC", iId: 1 },
@@ -87,6 +89,7 @@ export default function AccountDetails() {
   const [expanded, setExpanded] = React.useState("panel1");
   const [selectedEntity, setSelectedEntity] = React.useState([]);
   const [accountName, setAccountName] = React.useState("");
+  const [formData, setFormData] = React.useState('')
 
 
   const { currentTheme } = useTheme();
@@ -109,8 +112,24 @@ export default function AccountDetails() {
     return localStorage.getItem('color') === 'true' ? '#fff' : '#000';
   };
 
+  // const details = [
+  //   {label:'Account', value:'Account'},
+  //   {label:'View', value:'View'}
+  // ]
+
+
   return (
     <div>
+      <Box sx={{paddingLeft:3}}>
+      <RoleSelect1
+            label="Select"
+            value={formData}
+            onChange={(e) => setFormData(e.target.value)}
+            options={details}
+            mandatory={"true"}
+          />
+      </Box>
+     
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
@@ -136,6 +155,9 @@ export default function AccountDetails() {
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput1 label="Name"  value={accountName} onChange={handleAccountNameChange} mandatory={1}/>
+                  </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Group"  isMandatory={1}/>
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Type"  isMandatory={1}/>

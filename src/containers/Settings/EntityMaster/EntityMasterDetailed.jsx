@@ -93,7 +93,7 @@ function BasicBreadcrumbs({currentTheme}) {
     </Link>, */}
    
     <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
-    Entity Master
+    Business Entity 
     </Typography>,
       </Breadcrumbs>
       </Stack>
@@ -278,8 +278,8 @@ const BusinessUnit = [
 const options = [
   // { label: 'Master Settings', component: <MasterSettingsContainer /> },
   { label: 'Quantity Definition', component: <QuantityDefinition /> },
-  { label: 'Exchange Rate', component: <ExchangeRate /> },
-  { label: 'Exchange Rate History', component: <ExchangeRateHistory /> },
+  // { label: 'Exchange Rate', component: <ExchangeRate /> },
+  // { label: 'Exchange Rate History', component: <ExchangeRateHistory /> },
   { label: 'Finance', component: <FinanceSettings /> },
   { label: 'Inventory', component: <InventorySettings /> },
   { label: 'Fixed Asset', component: <FixedAssetsSettings /> },
@@ -465,8 +465,8 @@ const EntityMasterDetailed = ({setPage,detailPageId}) => {
             aria-label="basic tabs example"
             sx={{paddingBottom:"10px"}}
           >
-            <Tab sx={{ textTransform: "none" }} label="Entity Details" />
-            <Tab sx={{ textTransform: "none" }} label="Entity Settings" />
+            <Tab sx={{ textTransform: "none" }} label="Business Entity Details" />
+            <Tab sx={{ textTransform: "none" }} label="Business Entity Settings" />
           </Tabs>
           <TabPanel value={value} index={0}>
             <EntityMasterDetailTab />

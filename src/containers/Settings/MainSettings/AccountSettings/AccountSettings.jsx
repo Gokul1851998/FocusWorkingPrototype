@@ -91,7 +91,7 @@ const actions = [
   // { icon: <EventBusyIcon />, name: "Close Account" },
   // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
-  { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
+  { icon: <HomeRepairServiceIcon />, name: "Tag Settings" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
   { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
@@ -603,22 +603,38 @@ export default function AccountSettings(args) {
                       </MDBCol>
 
                       <MDBCol lg="3" md="4" sm="6" xs="12">
+                        <Typography>General Info</Typography>
                         <FormControlLabel
                           control={
                             <Checkbox
                               sx={{ transform: "scale(0.75)", paddingTop: 2 }}
                             />
                           } // Reduce the size of the checkbox
-                          label="General Info"
+                          label="Do not balance stock transfers when posting to FA"
                           sx={{
                             "& .MuiFormControlLabel-label": {
-                              fontSize: "0.8rem", // Adjust the label font size
+                              fontSize: "0.7rem", // Adjust the label font size
                               color: "gray", // Change the label color to gray
                               paddingTop: 1,
                             },
                           }}
                         />
-                        <RadioGroup
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              sx={{ transform: "scale(0.75)", paddingTop: 2 }}
+                            />
+                          } // Reduce the size of the checkbox
+                          label="Restrict account based on Department"
+                          sx={{
+                            "& .MuiFormControlLabel-label": {
+                              fontSize: "0.7rem", // Adjust the label font size
+                              color: "gray", // Change the label color to gray
+                              paddingTop: 1,
+                            },
+                          }}
+                        />
+                        {/* <RadioGroup
                           aria-labelledby="demo-radio-buttons-group-label"
                           name="radio-buttons-group"
                           sx={{ "& .MuiSvgIcon-root": { fontSize: 14 } }} // Adjust the size of the radio button icon
@@ -650,7 +666,7 @@ export default function AccountSettings(args) {
                               padding: 0,
                             }}
                           />
-                        </RadioGroup>
+                        </RadioGroup> */}
                       </MDBCol>
                     </MDBRow>
                   </MDBCardBody>

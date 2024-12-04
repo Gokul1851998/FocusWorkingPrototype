@@ -60,7 +60,7 @@ const actions = [
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
   { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
-  { icon: <AccountTreeIcon />, name: "Customize Tree" },
+  // { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
 ];
@@ -276,11 +276,20 @@ const handleConnectorChange = (event) => {
       sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Master
+      Tag
+    </Link>,
+    <Link
+      underline="hover"
+      key="2"
+     
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
+      onClick={handleClick}
+    >
+      Currency
     </Link>,
 
     <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
-      Currency Master
+      Currency Tag
     </Typography>,
   ];
 
@@ -516,7 +525,7 @@ const handleConnectorChange = (event) => {
                       </MDBCol> */}
                     </MDBRow>
                     <MDBRow>
-                      <CurrencyEntityTable
+                      {/* <CurrencyEntityTable
                         rows={rows}
                         onEntityChange={handleEntityChange}
                         onDecimalsChange={handleDecimalsChange}
@@ -525,7 +534,7 @@ const handleConnectorChange = (event) => {
                         onAddRow={handleAddRow}
                         onRemoveRow={handleRemoveRow}
                         
-                      />
+                      /> */}
                     </MDBRow>
                   </MDBCardBody>
                 </div>
@@ -746,7 +755,7 @@ const handleConnectorChange = (event) => {
         <AccordionDetails>
           <MDBCardBody>
             <MDBRow>
-              <MDBCol lg="3" md="4" sm="6" xs="12">
+              {/* <MDBCol lg="3" md="4" sm="6" xs="12">
                 <div
                   style={{
                     width: "auto",
@@ -771,7 +780,17 @@ const handleConnectorChange = (event) => {
                     />
                   </CustomScroll>
                 </div>
-              </MDBCol>
+              </MDBCol> */}
+              <CurrencyEntityTable
+                        rows={rows}
+                        onEntityChange={handleEntityChange}
+                        onDecimalsChange={handleDecimalsChange}
+                        onRoundOffChange={handleRoundOffChange}
+                        onRoundingTypeChange={handleRoundingTypeChange}
+                        onAddRow={handleAddRow}
+                        onRemoveRow={handleRemoveRow}
+                        
+                      />
             </MDBRow>
           </MDBCardBody>
         </AccordionDetails>

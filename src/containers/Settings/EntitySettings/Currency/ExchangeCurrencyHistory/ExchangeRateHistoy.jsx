@@ -68,7 +68,7 @@ import ExchangeRateHistTab from "./ExchangeRateHistTab";
 import { useTheme } from "../../../../../config/themeContext";
 import SettingsIcon from "@mui/icons-material/Settings";
 import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
-import { entityList } from "../../../../../config/securityConfig";
+import { entityList, entityRate } from "../../../../../config/securityConfig";
 
 
 
@@ -142,17 +142,26 @@ export default function ExchangeRateHistory(args) {
   const [selectedOption, setSelectedOption] = React.useState('');
   const [selectedBaseCurrency, setSelectedBaseCurrency] = useState('');
   const [selectedCurrencies, setSelectedCurrencies] = useState([
-    
+
   ]);
+  const [rate, setRate] = useState('')
+  const [dateRange, setDateRange] = useState('')
+
+  const handleRateChange = (event) => {
+    setRate(event.target.value)
+  }
+  const handleDateRange = (event) => {
+    setDateRange(event.target.value)
+  }
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    
+
   };
   const handleSelectChange1 = (event) => {
     setSelectedBaseCurrency(event.target.value);
-    const data =[{ id: 1, selectCurrency: 'USD', definedAs: event.target.value ,rate:2.346},
-      { id: 2, selectCurrency: 'CNY', definedAs: event.target.value,rate:1.146 },
+    const data = [{ id: 1, selectCurrency: 'USD', definedAs: event.target.value, rate: 2.346 },
+    { id: 2, selectCurrency: 'CNY', definedAs: event.target.value, rate: 1.146 },
     ]
     setSelectedCurrencies(data);
 
@@ -166,7 +175,7 @@ export default function ExchangeRateHistory(args) {
   };
 
   const handleAddCurrency = () => {
-    setSelectedCurrencies([...selectedCurrencies, { id: selectedCurrencies.length + 1, selectCurrency: '', definedAs: '', rate: 0  }]);
+    setSelectedCurrencies([...selectedCurrencies, { id: selectedCurrencies.length + 1, selectCurrency: '', definedAs: '', rate: 0 }]);
   };
 
   const handleRemoveCurrency = (index) => {
@@ -228,34 +237,35 @@ export default function ExchangeRateHistory(args) {
 
   const breadcrumbs = [
     <Link
+
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem", color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
-      
+
       onClick={handleClick}
     >
-      <SettingsIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-      Settings
+      <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+      Home
     </Link>,
     <Link
       underline="hover"
       key="2"
-     
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
+
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem", color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Entity Settings
+      Tag
     </Link>,
     <Link
       underline="hover"
-      key="3"
-      
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
+      key="2"
+
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem", color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
       Currency
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
+    <Typography key="4" color="white" sx={{ fontSize: "1rem", color: currentTheme.actionIcons, }}>
       Exchange Rate History
     </Typography>,
   ];
@@ -278,13 +288,13 @@ export default function ExchangeRateHistory(args) {
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
-            {/* <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
+            <Breadcrumbs
+              separator={<NavigateNextIcon fontSize="small" sx={{ color: currentTheme.actionIcons, }} />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
               {breadcrumbs}
-            </Breadcrumbs> */}
+            </Breadcrumbs>
           </Stack>
 
           <Stack
@@ -293,7 +303,7 @@ export default function ExchangeRateHistory(args) {
             spacing={1}
             sx={{ flex: "0 0 auto" }}
           >
-            <IconButton
+            {/* <IconButton
               aria-label="New"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -339,8 +349,8 @@ export default function ExchangeRateHistory(args) {
                   Clear
                 </Typography>
               </Stack>
-            </IconButton>
-            {/* <IconButton
+            </IconButton> */}
+            <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -371,23 +381,24 @@ export default function ExchangeRateHistory(args) {
                   Close
                 </Typography>
               </Stack>
-            </IconButton> */}
+            </IconButton>
           </Stack>
         </Box>
 
-        <MDBCardBody>
-                <MDBRow>
-                <MDBCol lg="3" md="4" sm="6" xs="12">
+        <Box sx={{ p: 2 }}>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <RoleSelect1
+                  label="Business Entity"
+                  value={selectedOption}
+                  onChange={handleSelectChange}
+                  options={entityList}
+                />
+              </MDBCol>
+              {/* <MDBCol lg="3" md="4" sm="6" xs="12">   
             <RoleSelect1
-                    label="Business Entity"
-                    value={selectedOption}
-                    onChange={handleSelectChange}
-                    options={entityList}
-                  />
-                  </MDBCol>
-             <MDBCol lg="3" md="4" sm="6" xs="12">   
-            <RoleSelect1
-              label="Base Currency"
+              label="Functional Currency"
               value={selectedBaseCurrency}
               onChange={handleSelectChange1}
               options={[
@@ -396,18 +407,34 @@ export default function ExchangeRateHistory(args) {
                 { value: 'CNY', label: 'CNY' },
               ]}
             />
-            </MDBCol>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-            <AccountInput label="Date Range" type="date" />
-            </MDBCol>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-            <AccountInput label="From Date" type="date" />
-            </MDBCol>
-            <MDBCol lg="3" md="4" sm="6" xs="12">
-            <AccountInput label="To Date" type="date" />
-            </MDBCol>
-          </MDBRow>
-          <Stack
+            </MDBCol> */}
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AccountInput label="Functional Currency" value={selectedBaseCurrency} onChange={handleSelectChange1}  type="text" />
+              </MDBCol>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <RoleSelect1
+                  label="Exchange Rate for"
+                  value={rate}
+                  onChange={handleRateChange}
+                  options={entityRate}
+                />
+              </MDBCol>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <RoleSelect1
+                  label="Date Range"
+                  value={dateRange}
+                  onChange={handleDateRange}
+                  options={entityList}
+                />
+              </MDBCol>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AccountInput label="From Date" type="date" />
+              </MDBCol>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AccountInput label="To Date" type="date" />
+              </MDBCol>
+            </MDBRow>
+            <Stack
               direction="row"
               spacing={1}
               padding={1}
@@ -421,13 +448,13 @@ export default function ExchangeRateHistory(args) {
               </Button>
             </Stack>
             <ExchangeRateHistoryTable
-            baseCurrency={selectedBaseCurrency}
-            currencies={selectedCurrencies}
-            onCurrencyChange={handleCurrencyChange}
-            onAddCurrency={handleAddCurrency}
-            onRemoveCurrency={handleRemoveCurrency} />
-        </MDBCardBody>
-        
+              baseCurrency={selectedBaseCurrency}
+              currencies={selectedCurrencies}
+              onCurrencyChange={handleCurrencyChange}
+              onAddCurrency={handleAddCurrency}
+              onRemoveCurrency={handleRemoveCurrency} />
+          </MDBCardBody>
+        </Box>
         <MDBCard
           className="text-center"
           style={{
@@ -436,7 +463,7 @@ export default function ExchangeRateHistory(args) {
             margin: 10,
           }}
         >
-             <ExchangeRateHistTab  selectedCurrencies={selectedCurrencies}/>
+          <ExchangeRateHistTab selectedCurrencies={selectedCurrencies} />
         </MDBCard>
       </React.StrictMode>
     </>

@@ -1,16 +1,18 @@
 import { TextField } from '@mui/material'
 import React from 'react'
 
-export default function AccountInput({label,type,mandatory}) {
+export default function AccountInput({label,type,mandatory,onChange,value,disabled}) {
   return (
     <TextField
             margin="normal"
             size="small"
             id="search1"
-            value={type === 'date'? " " : null}
+            value={type === 'date'? " " : value}
             type={type}
             label={label}
             autoComplete="off"
+            disabled={disabled}
+            onChange={onChange}
             autoFocus
             required={mandatory}
             sx={{

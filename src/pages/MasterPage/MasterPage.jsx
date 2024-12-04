@@ -17,6 +17,9 @@ import Layout from "../Layout/Layout";
 import FixedAsset from "../../containers/Home/Master/FixedAsset/FixedAsset";
 import OtherMaster from "../../containers/Home/Master/OtherMaster/OtherMaster";
 import CurrencyMaster from "../../containers/Home/Master/Currency/CurrencyMaster/CurrencyMaster";
+import BarcodeDefinition from "../../containers/Home/Master/Product/BarcodeDefinition/BarcodeDefinition";
+import ExchangeRate from "../../containers/Settings/EntitySettings/Currency/ExchangeRate/ExchangeRate";
+import ExchangeRateHistory from "../../containers/Settings/EntitySettings/Currency/ExchangeCurrencyHistory/ExchangeRateHistoy";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -36,9 +39,13 @@ export default function MasterPage() {
       <Layout />
         <Box component="main" sx={{ flexGrow: 1, marginTop:user === "test2" ?  "35px" : 0, marginBottom: 2  }}>
           <DrawerHeader />
-          {id ===16 ? (
+          {id === 79 ? (
             <CurrencyMaster />
-          ) :id === 19 ? (
+          ):id === 80 ? (
+            <ExchangeRate />
+          ): id === 81 ? (
+            <ExchangeRateHistory />
+          )  :id === 19 ? (
             <AccountMaster />
           ) : id === 20 ? (
             <CustomerVendor />
@@ -52,6 +59,8 @@ export default function MasterPage() {
             <SellerPriceBook />
           ): id === 28 ?(
             <BuyerPriceBook />
+          ):id === 29 ?(
+            <BarcodeDefinition />
           ): id === 18 ?(
             <Warehouse />
           ) : id === 51 ?(

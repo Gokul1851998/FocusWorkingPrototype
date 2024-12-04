@@ -14,6 +14,10 @@ import {
   Stack,
   IconButton,
   Box,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Button,
 } from "@mui/material";
 import {
   TablecellStyle,
@@ -22,6 +26,7 @@ import {
   TablebodyCell,
   mainData,
   HeaderData,
+  DropdownData,
 } from "../../../config/masterSettings";
 import { primaryButtonColor, thirdColor } from "../../../config";
 import PreviewIcon from "@mui/icons-material/Preview";
@@ -31,14 +36,40 @@ import CustomizationEditModal from "./CustomizationEditModal";
 import { useTheme } from "../../../config/themeContext";
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import AddIcon from '@mui/icons-material/Add';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import MasterCustomization from "./MasterCustomization";
+import RoleSelect1 from "../../../components/Select/RoleSelect1";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function CustomizationTable() {
   const [selectedTab, setSelectedTab] = useState(0);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [openBox, setOpenBox] = useState(false);
+  const [value, setValue] = useState('')
+
+  const [formData, setformData] = useState({});
+  const handleSelectChange = (event, key) => {
+    setformData({ ...formData, [key]: event.target.value });
+  };
+
+  
+
+
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
+
+  
+
+  
+
+  const handleBoxOpen = () => {
+    setOpenBox(true)
+  }
+  const handleBoxClose = () => {
+    setOpenBox(false)
+  }
 
 
   
@@ -65,18 +96,42 @@ function CustomizationTable() {
 
   const {currentTheme} = useTheme()
 
+  const buttonStyle = {
+    backgroundColor: currentTheme.secondaryColor,
+    color: currentTheme.sideBarTextColor1,
+    textTransform: 'none',
+    padding: "1px",
+    '&:hover': {
+      backgroundColor: currentTheme.secondaryColor, // Change as needed
+      color: currentTheme.sideBarTextColor1 // Example hover color change
+    },
+
+  }
+
   return (
     <Paper sx={{ width: "100%", overflow: "hidden", m: 2 ,boxShadow:'5px 2px 4px 4px rgba(128, 128, 128, 0.3)'  ,}}>
       <Tabs
         value={selectedTab}
         sx={{ display: "flex", alignItems: "center" }} // Align items horizontally
-        onChange={handleChange}
         aria-label="basic tabs example"
       >
-        <Tab sx={{ textTransform: "none"}}  label="Main" />
-        <Tab sx={{ textTransform: "none" }} label="Header Details" />
+        {/* <Tab sx={{ textTransform: "none"}}  label="Main" />
+        <Tab sx={{ textTransform: "none" }} label="Header Details" /> */}
+
+        <Box>
+        <RoleSelect1
+            label="Select"
+            value={formData?.Module ?? ""}
+            onChange={(e) => handleSelectChange(e, "Module")}
+            options={DropdownData}
+            mandatory={"true"}
+          />
+
+        </Box>
+        
         <Box sx={{ marginLeft: "auto" }}>
-        <IconButton
+        
+        {/* <IconButton
           
           aria-label="Preview"
           sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -91,7 +146,23 @@ function CustomizationTable() {
               Move field
             </Typography>
           </Stack>
-        </IconButton>
+        </IconButton> */}
+        {/* <IconButton
+        onClick={handleBoxOpen}
+      aria-label="Open"
+      sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+    >
+      <Stack direction="column" alignItems="center">
+        <OpenInNewIcon sx={{ color: currentTheme.actionIcons }} />
+        <Typography
+          variant="caption"
+          align="center"
+          style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+        >
+          Open
+        </Typography>
+      </Stack>
+    </IconButton> */}
         <IconButton
             onClick={handleEditModalOpen}
           aria-label="Preview"
@@ -179,6 +250,15 @@ function CustomizationTable() {
                       <EditNoteIcon sx={{ color: currentTheme.actionIcons }} />
                     </Stack>
                   </IconButton>
+                  {formData?.Module === 'Settings' && <IconButton
+      
+      aria-label="Preview"
+      sx={{ fontSize: "0.7rem", padding: 0 }}
+    >
+      <Stack direction="column" alignItems="center">
+        <DeleteIcon sx={{ color: currentTheme.actionIcons  }} />
+      </Stack>
+    </IconButton>}
                 </TableCell>
 
                 {Object.keys(row).map((key, cellIndex) => (
@@ -214,6 +294,23 @@ function CustomizationTable() {
         isOpen={edit}
         handleCloseModal={handleEditModalClose}
       />
+       <Dialog
+        open={openBox}
+        onClose={handleBoxClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogContent>
+            <MasterCustomization/>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleBoxClose}  sx={buttonStyle}>
+            Ok
+          </Button>
+          <Button variant="contained" onClick={handleBoxClose} sx={buttonStyle}>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Paper>
   );
 }

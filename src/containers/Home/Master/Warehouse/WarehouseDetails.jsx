@@ -21,6 +21,9 @@ import { CustomScroll } from 'react-custom-scroll';
 import SearchBox2 from "../../../../components/SearchBox/SearchBox2";
 import MasterLanguage from '../Account/AccountMaster/MasterLanguage';
 import { useState } from 'react';
+import AdvancedSearchSelect from '../../../../components/Select/AdvanceSearchSelect';
+import RoleSelect1 from '../../../../components/Select/RoleSelect1';
+import { details } from '../../../../config/masterConfig';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -72,7 +75,8 @@ export default function WarehouseDetails() {
   const [expanded, setExpanded] = React.useState("panel1");
   const [selectedEntity, setSelectedEntity] = React.useState([]);
   const [accountName, setAccountName] = React.useState("");
-  const [movingVehicle, setmovingVehicle] = useState(false)
+  const [movingVehicle, setmovingVehicle] = useState('')
+  const [formData, setFormData] = React.useState('')
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -91,6 +95,15 @@ export default function WarehouseDetails() {
   const { currentTheme } = useTheme();
   return (
    <div>
+    <Box sx={{paddingLeft:3}}>
+      <RoleSelect1
+            label="Select"
+            value={formData}
+            onChange={(e) => setFormData(e.target.value)}
+            options={details}
+            mandatory={1}
+          />
+      </Box>
     <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
@@ -116,33 +129,27 @@ export default function WarehouseDetails() {
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="Code"   mandatory={1}/>
                   </MDBCol>
+                  <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Group"  isMandatory={1}/>
+                  </MDBCol>
                   <MDBCol
                       lg="3"
                       md="4"
                       sm="6"
                       xs="12"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
                     >
-                       <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', width: '100%' }}>
-                      <Checkbox
-                        checked={movingVehicle}
-                        onChange={() => setmovingVehicle(prev => !prev)}
-                        inputProps={{ "aria-label": "controlled" }}
-                        sx={{ padding: 0 }}
-                      />
-                      <Typography
-                        sx={{ fontSize: "14px", padding: 0 }}
-                        variant="body1"
-                      >
-                        Moving vehicle 
-                      </Typography>
-                      </label>
+                        <RoleSelect1
+                         label="WarehouseType"
+                         value={movingVehicle}
+                         onChange={(e) => setmovingVehicle(e.target.value)}
+                         options={[
+                          { value: 'MainWarehouse', label: 'MainWarehouse' },
+                          { value: 'VirtualWarehouse', label: 'VirtualWarehouse' },
+                          { value: 'MovingWarehouse', label: 'MovingWarehouse' },
+                        ]}
+                        />
                     </MDBCol>
-                    {movingVehicle &&<>
+                    {movingVehicle ==='MovingWarehouse' &&<>
                     <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Sales Man" />
                   </MDBCol>
@@ -151,6 +158,11 @@ export default function WarehouseDetails() {
                   </MDBCol>
                   <MDBCol lg="3" md="4" sm="6" xs="12">
                     <AccountInput label="chassis Details"  />
+                  </MDBCol>
+                  </>}
+                    {movingVehicle ==='MainWarehouse' &&<>
+                    <MDBCol lg="3" md="4" sm="6" xs="12">
+                  <AutoComplete2 autoLabel="Select Virtual" />
                   </MDBCol>
                   </>}
                     

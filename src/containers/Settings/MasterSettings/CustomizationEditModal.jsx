@@ -44,6 +44,12 @@ import CheckBox2 from "../../../components/CheckBox/CheckBox2";
 import PropTypes from "prop-types";
 import CustomizationTable1 from "./CustomizationTable1";
 import { useTheme } from "../../../config/themeContext";
+import RoleSelect1 from "../../../components/Select/RoleSelect1";
+import { DropdownData, fieldTypeData, propertiesData, TabtypeData } from "../../../config/masterSettings";
+import AccountInput1 from "../../../components/Inputs/AccountInput1";
+import { CheckBox } from "@mui/icons-material";
+import MasterLanguage from "../../Home/Master/Account/AccountMaster/MasterLanguage";
+import MasterLanguage1 from "../../Home/Master/Account/AccountMaster/MasterLanguage1";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -64,7 +70,7 @@ const AccordionSummary = styled((props) => (
     }
     {...props}
   />
-))(({ theme,currentTheme }) => ({
+))(({ theme, currentTheme }) => ({
   color: currentTheme.sideBarTextColor1,
   backgroundColor: currentTheme.secondaryColor,
   flexDirection: "row",
@@ -121,10 +127,23 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
   const [value, setValue] = React.useState(0);
   const [hide, setHide] = useState(false);
   const [tab2, setTab2] = useState(0);
+  const [checked, setChecked] = React.useState(false);
+  const [accountName, setAccountName] = React.useState("");
+
+  const [formData, setformData] = useState({});
+  const handleSelectChange = (event, key) => {
+    setformData({ ...formData, [key]: event.target.value });
+  };
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+
+  const handleCheck = (event) => {
+    setChecked(event.target.checked);
+  };
+
+
   const modalStyle = {
     display: isOpen ? "block" : "none",
   };
@@ -152,18 +171,18 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
 
   const modalRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        handleCloseModal();
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (modalRef.current && !modalRef.current.contains(event.target)) {
+  //       handleCloseModal();
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleCloseModal]);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [handleCloseModal]);
 
   const { currentTheme } = useTheme();
 
@@ -202,11 +221,21 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                 <Typography variant="body1" color="textSecondary" flexGrow={1}>
                   Main / Edit Extra Field
                 </Typography>
+
+                {/* <RoleSelect1
+            label="Select"
+            value={formData?.Module ?? ""}
+            onChange={(e) => handleSelectChange(e, "Module")}
+            options={DropdownData}
+          /> */}
+                {/* <AutoComplete2 autoLabel="Select" /> */}
+
+
                 <Button
                   onClick={handleCloseModal}
                   variant="contained"
                   startIcon={<DoneIcon />}
-                  style={{...buttonStyle,backgroundColor:currentTheme.thirdColor,color:currentTheme.tableHeaderColor}}
+                  style={{ ...buttonStyle, backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor }}
                 >
                   Ok
                 </Button>
@@ -214,7 +243,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                   variant="contained"
                   onClick={handleCloseModal}
                   startIcon={<CloseIcon />}
-                  style={{...buttonStyle,backgroundColor:currentTheme.thirdColor,color:currentTheme.tableHeaderColor}}
+                  style={{ ...buttonStyle, backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor }}
                 >
                   Close
                 </Button>
@@ -259,10 +288,66 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                             <MDBCol lg={3}>
                               <AutoComplete2 autoLabel="Control Type" />
                             </MDBCol>
+                            <MDBCol lg={3}>
+                            <AccountInput label="Minimum Value" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                            <AccountInput label="Maximum Value" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                            <AccountInput label="Regular Expression" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AutoComplete2 autoLabel="Link Tag" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                            <AccountInput label="Filter Condition" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                            <AccountInput label="Behaviour" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                            <AccountInput label="ScrollBar" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                            <AccountInput label="Mandatory Fields" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                            <AccountInput label="Field Order" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                            <RoleSelect1
+                                label="Field Type"
+                                value={formData?.fieldType ?? ""}
+                                onChange={(e) => handleSelectChange(e, "fieldType")}
+                                options={fieldTypeData}
+                              />
+                            </MDBCol>
+
+                            <MDBCol lg={3}>
+                              <RoleSelect1
+                                label="Select"
+                                value={formData?.Module ?? ""}
+                                onChange={(e) => handleSelectChange(e, "Module")}
+                                options={DropdownData}
+                              />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <FormControlLabel
+                                sx={{mt:1}}
+                                control={
+                                  <Checkbox
+                                    checked={checked}
+                                    onChange={handleCheck}
+                                  />
+                                }
+                                label="Add"
+                              />
+                            </MDBCol>
                             {/* <MDBCol>
                               <AccountInput label="Banner Text" />
                             </MDBCol> */}
-                           
+
                             {/* <MDBCol>
                               <AccountInput label="Tool Tip Text" />
                             </MDBCol> */}
@@ -283,8 +368,40 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                               <AccountInput label="Error Message" />
                             </MDBCol>
                           </MDBRow> */}
+
                         </MDBCardBody>
                       </div>
+                      {checked && 
+                          <Box sx={{ border: '1px solid black', backgroundColor: 'white', padding: 2 }}>
+                          <MDBCardBody>
+                            <MDBRow>
+                              <MDBCol lg={3}>
+                                <RoleSelect1
+                                  label="Tab Type"
+                                  value={formData?.Tabtype ?? ""}
+                                  onChange={(e) => handleSelectChange(e, "Tabtype")}
+                                  options={TabtypeData}
+                                />
+                              </MDBCol>
+                              <MDBCol lg={3}>
+                                <AccountInput1 label="Tab Caption" style={{ flex: 1 }} />
+                              </MDBCol>
+                              <MDBCol lg={3}>
+                                <AccountInput1 label="Tab Name" style={{ flex: 1 }} />
+                              </MDBCol>
+                              <MDBCol lg={3}>
+                                <FormControlLabel sx={{mt:1}} control={<Checkbox />} label="Hidden" />
+                              </MDBCol>
+                              <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
+                                <Button variant="contained" color="primary">
+                                  OK
+                                </Button>
+                              </Box>
+                            </MDBRow>
+                          </MDBCardBody>
+                        </Box>
+                      }
+                      
                     </>
                   </AccordionDetails>
                 </Accordion>
@@ -308,14 +425,17 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                     <>
                       <div>
                         <MDBCardBody>
-                        <MDBRow>
+                          <MDBRow>
                             {/* <MDBCol>
                               <CheckBox2 label="Spell Check" />
                             </MDBCol> */}
-                            <MDBCol>
-                              <CheckBox2 label="Hidden" />
+                          {propertiesData.map((item,index) =>(
+                              <MDBCol key={index}>
+                              <CheckBox2 label={item} />
                             </MDBCol>
-                            <MDBCol>
+                          ))}
+                            
+                            {/* <MDBCol>
                               <CheckBox2 label="Audit Trail" />
                             </MDBCol>
 
@@ -333,11 +453,9 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                             </MDBCol>
                             <MDBCol>
                               <CheckBox2 label="Mass Update" />
-                            </MDBCol>
-                            <MDBCol>
-                              
-                            </MDBCol>
+                            </MDBCol> */}
                             
+
                           </MDBRow>
                           {/* <MDBRow>
                             <MDBCol>
@@ -418,6 +536,29 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                 </Accordion>
 
                 <Accordion
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <AccordionSummary
+          aria-controls="panel4d-content"
+          id="panel4d-header"
+          expanded={expanded === "panel4"}
+          currentTheme={currentTheme}
+        >
+          <Typography style={{ fontSize: "14px" }}>Language</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol  xs="12">
+                 <MasterLanguage1 accountName={accountName} />
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </AccordionDetails>
+      </Accordion>
+
+                <Accordion
                   expanded={expanded === "panel3"}
                   onChange={handleChange("panel3")}
                 >
@@ -494,7 +635,7 @@ export default function CustomizationEditModal({ isOpen, handleCloseModal }) {
                     </>
                   </AccordionDetails>
                 </Accordion>
-{/* 
+                {/* 
                 <Accordion
                   expanded={expanded === "panel4"}
                   onChange={handleChange("panel4")}

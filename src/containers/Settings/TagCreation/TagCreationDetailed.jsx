@@ -78,6 +78,9 @@ import AccountInput1 from "../../../components/Inputs/AccountInput1";
 import MasterDefinition from "../MasterSettings/MasterDefinition";
 import MasterCustomization from "../MasterSettings/MasterCustomization";
 import CustomizationView from "../MasterSettings/CustomizationView";
+import CustomizationTable from "../MasterSettings/CustomizationTable";
+import { useNavigate } from "react-router-dom";
+import MasterLanguage from "../../Home/Master/Account/AccountMaster/MasterLanguage";
 
 function handleClick(event) {
   event.preventDefault();
@@ -134,7 +137,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   paddingLeft: theme.spacing(3),
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
-const TagCreationDetailed = ({setPage,detailPageId}) => {
+const TagCreationDetailed = ({setPage,detailPageId,direction}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
   const [isInfo, setIsInfo] = useState(false);
@@ -145,6 +148,9 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
   const handleMoreClose = () => setMore(false);
   const [expanded, setExpanded] = React.useState("panel1");
   const [selectedOption, setSelectedOption] = React.useState('');
+  const [accountName, setAccountName] = React.useState("");
+
+  const Navigate = useNavigate()
 
   const {currentTheme} = useTheme()
 
@@ -188,6 +194,10 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
   };
 
   const handleClose = () => {
+    if(direction)
+    {
+      window.history.back();
+    }
     setPage("summary")
   };
 
@@ -206,7 +216,7 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
     
 
     <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
-       Tag Creation
+       Tag Settings
     </Typography>,
   ];
 
@@ -392,6 +402,55 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
               </>
             </AccordionDetails>
           </Accordion> 
+
+          <Accordion
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <AccordionSummary
+          aria-controls="panel4d-content"
+          id="panel4d-header"
+          expanded={expanded === "panel4"}
+          currentTheme={currentTheme}
+        >
+          <Typography style={{ fontSize: "14px" }}>Language</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MDBCardBody>
+            <MDBRow>
+              <MDBCol  xs="12">
+                {/* <div
+                  style={{
+                    width: "auto",
+                    flexDirection: "column",
+                    height: "200px",
+                    overflowY: "auto",
+                    margin: "16px 0",
+                    border: "1px solid #969999",
+                    padding: "0 10px",
+                    boxSizing: "border-box",
+                    borderRadius: 5,
+                  }}
+                >
+                  <CustomScroll heightRelativeToParent="100%">
+                    <Typography style={{ fontSize: "14px", color: "gray" }}>
+                      Language
+                    </Typography>
+                    <SearchBox
+                      initialItems={language }
+                      selected={select}
+                      params={"projects"}
+                      handleChild={handleChild}
+                    />
+                  </CustomScroll>
+                </div> */}
+                 <MasterLanguage accountName={accountName} />
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </AccordionDetails>
+      </Accordion>
+
           {detailPageId == 1 &&<>
           <Accordion
           expanded={expanded === "panel2"}
@@ -417,18 +476,17 @@ const TagCreationDetailed = ({setPage,detailPageId}) => {
               Customization
             </Typography>
           </AccordionSummary>
-          <AccordionDetails>
-            <>
-              <div>
-                <MDBCardBody>
-              
-                  
-                  <MasterCustomization />
+          <AccordionDetails >
+           
+                <MDBCardBody style={{marginRight:'50px'}}> 
+                  {/* <MasterCustomization /> */}
+                  <CustomizationTable/>
                 </MDBCardBody>
-              </div>
-            </>
+              
+           
           </AccordionDetails>
         </Accordion>
+        
         <Accordion
           expanded={expanded === "panel3"}
           onChange={handleChange("panel3")}

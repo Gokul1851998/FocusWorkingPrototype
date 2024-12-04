@@ -59,7 +59,7 @@ function BasicBreadcrumbs({currentTheme}) {
     </Link>, */}
    
     <Typography key="3"  sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
-    Tag Creation
+    Tag Settings
     </Typography>,
       </Breadcrumbs>
       </Stack>

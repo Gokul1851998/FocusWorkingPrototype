@@ -151,10 +151,8 @@ export default function ExchangeRateTable() {
     setData([
       {
         MasterId: 1,
-        "Currency Name": "",
-        "Defined As": "",
+        "Currency": "",
         Rate: 0,
-        Description: "",
       },
     ]);
   };
@@ -221,15 +219,13 @@ export default function ExchangeRateTable() {
         ...data,
         {
           MasterId: 1,
-          "Currency Name": "",
-          "Defined As": "",
+          "Currency ": "",
           Rate: 0,
-          Description: "",
         },
       ]);
-    }else{
-        setSelected([]);
-        setData(data.slice(0, -1));
+    } else {
+      setSelected([]);
+      setData(data.slice(0, -1));
     }
   };
 
@@ -245,7 +241,7 @@ export default function ExchangeRateTable() {
         <>
           <Paper
             sx={{
-              width: "100%",
+              width: "50%",
               mb: 2,
               boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
             }}
@@ -293,66 +289,66 @@ export default function ExchangeRateTable() {
                           selected={isItemSelected}
                           sx={{ cursor: "pointer" }}
                         >
-                          <TableCell padding="checkbox">
-                          <PopupState
-  variant="popover"
-  popupId="demo-popup-popover"
->
-  {(popupState) => (
-    <div>
-      <IconButton
-        aria-label="options"
-        {...bindTrigger(popupState)}
-        sx={{ padding: 0, fontSize: "1.2rem" }}
-      >
-        <MoreVertIcon sx={{ fontSize: "1.2rem" }} />
-      </IconButton>
-      <Popover
-        {...bindPopover(popupState)}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-      >
-        <Stack direction="row">
-          <IconButton
-            onClick={() => {
-              handleRow(1);
-              popupState.close(); // Close the popover
-            }}
-            aria-label="add"
-            color={thirdColor}
-            sx={{
-              fontSize: "1.2rem",
-              color: thirdColor,
-            }}
-          >
-            <AddCircleIcon sx={{ fontSize: "1.2rem" }} />
-          </IconButton>
-          {data?.length > 1 ? (
-            <IconButton
-              onClick={() => {
-                handleRow(0);
-                popupState.close(); // Close the popover
-              }}
-              aria-label="remove"
-              sx={{
-                fontSize: "1.2rem",
-                color: thirdColor,
-              }}
-            >
-              <RemoveCircleIcon sx={{ fontSize: "1.2rem" }} />
-            </IconButton>
-          ) : null}
-        </Stack>
-      </Popover>
-    </div>
-  )}
-</PopupState>
+                          <TableCell  padding="checkbox">
+                            <PopupState
+                              variant="popover"
+                              popupId="demo-popup-popover"
+                            >
+                              {(popupState) => (
+                                <div>
+                                  <IconButton
+                                    aria-label="options"
+                                    {...bindTrigger(popupState)}
+                                    sx={{ padding: 0, fontSize: "1.2rem" }}
+                                  >
+                                    <MoreVertIcon sx={{ fontSize: "1.2rem" }} />
+                                  </IconButton>
+                                  <Popover
+                                    {...bindPopover(popupState)}
+                                    anchorOrigin={{
+                                      vertical: "bottom",
+                                      horizontal: "center",
+                                    }}
+                                    transformOrigin={{
+                                      vertical: "top",
+                                      horizontal: "center",
+                                    }}
+                                  >
+                                    <Stack direction="row">
+                                      <IconButton
+                                        onClick={() => {
+                                          handleRow(1);
+                                          popupState.close(); // Close the popover
+                                        }}
+                                        aria-label="add"
+                                        color={thirdColor}
+                                        sx={{
+                                          fontSize: "1.2rem",
+                                          color: thirdColor,
+                                        }}
+                                      >
+                                        <AddCircleIcon sx={{ fontSize: "1.2rem" }} />
+                                      </IconButton>
+                                      {data?.length > 1 ? (
+                                        <IconButton
+                                          onClick={() => {
+                                            handleRow(0);
+                                            popupState.close(); // Close the popover
+                                          }}
+                                          aria-label="remove"
+                                          sx={{
+                                            fontSize: "1.2rem",
+                                            color: thirdColor,
+                                          }}
+                                        >
+                                          <RemoveCircleIcon sx={{ fontSize: "1.2rem" }} />
+                                        </IconButton>
+                                      ) : null}
+                                    </Stack>
+                                  </Popover>
+                                </div>
+                              )}
+                            </PopupState>
 
                           </TableCell>
 
@@ -364,7 +360,7 @@ export default function ExchangeRateTable() {
                                     sx={{
                                       border: "1px solid #ddd",
                                       whiteSpace: "nowrap",
-                                      width: "calc(100% / 4)",
+                                      width: "calc(100% / 2)",
                                       overflow: "hidden",
                                       textOverflow: "ellipsis",
                                       padding: "4px", // Reduce the padding
@@ -377,13 +373,9 @@ export default function ExchangeRateTable() {
                                     scope="row"
                                     align="left"
                                   >
-                                    {column === "Currency Name" ? (
-                                      <AutoCompleteTable />
-                                    ) : column === "Defined As" ? (
+                                    {column === "Currency" ? (
                                       <AutoCompleteTable />
                                     ) : column === "Rate" ? (
-                                      <CurrencyTableInput />
-                                    ) : column === "Description" ? (
                                       <CurrencyTableInput />
                                     ) : (
                                       row[column]

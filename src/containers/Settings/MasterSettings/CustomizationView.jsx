@@ -101,7 +101,7 @@ export default function CustomizationView() {
         </div>
       ) : null}
 
-      <Collapse horizontal isOpen={isOpen}>
+      {/* <Collapse horizontal isOpen={isOpen}>
         <Alert
           style={{
             width: 350,
@@ -137,7 +137,7 @@ export default function CustomizationView() {
             </Box>
           </div>
         </Alert>
-      </Collapse>
+      </Collapse> */}
 
       <>
         <Stack width={"100%"} padding={2} spacing={2}>

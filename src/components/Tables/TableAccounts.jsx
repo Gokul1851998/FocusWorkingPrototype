@@ -32,6 +32,9 @@ import WidgetsIcon from "@mui/icons-material/Widgets";
 import AdvancedSearchDialog from "../../containers/Home/Master/Account/AccountMaster/AdvancedSearch";
 import { useState } from "react";
 import { useTheme } from "../../config/themeContext";
+import AutoCompleteMasterSummeries from "../AutoComplete/AutoCompleteMasterSummeries";
+import TableAccountMaster from "./TableAccountMaster";
+import { useEffect } from "react";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -176,12 +179,16 @@ function EnhancedTableToolbar(props) {
             height: "35px",
           }}
         >
+          
           <MenuItem value={10}>10</MenuItem>
           <MenuItem value={25}>25</MenuItem>
           <MenuItem value={50}>50</MenuItem>
           <MenuItem value={100}>100</MenuItem>
+          
         </Select>
+       
       </FormControl>
+      
       {isSearch &&
       <Tooltip title="Search">
         <a
@@ -285,6 +292,10 @@ export default function SummaryPage({items}) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState([]);
   const [openDialog, setOpenDialog] = useState(false);
+  const [value, setValue] = useState([]);
+  const [value1, setValue1] = useState('');
+  const [columns, setColumns] = useState([]);
+
 
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
@@ -369,6 +380,154 @@ export default function SummaryPage({items}) {
     [order, orderBy, page, rowsPerPage, filteredRows]
   );
 
+  let Columns = [
+    {
+      "Name": "NAME",
+      "Caption": "NAME",
+      "Alignment": "Left",
+      "ColumnWidth": "100",
+      "Visible": true,
+      "Sortable": true,
+      "Filterable": true,
+      "DefaultValue": null,
+      "Resizable": true,
+      "Format": null,
+      "Tooltip": "Unique identifier",
+      "CustomClass": ""
+    },
+    {
+      "Name": "CODE",
+      "Caption": "CODE",
+      "Alignment": "Left",
+      "ColumnWidth": "100",
+      "Visible": true,
+      "Sortable": true,
+      "Filterable": true,
+      "DefaultValue": null,
+      "Resizable": true,
+      "Format": null,
+      "Tooltip": "Unique identifier",
+      "CustomClass": ""
+    },
+    {
+      "Name": "EMAIL",
+      "Caption": "EMAIL",
+      "Alignment": "Left",
+      "ColumnWidth": "100",
+      "Visible": true,
+      "Sortable": true,
+      "Filterable": true,
+      "DefaultValue": null,
+      "Resizable": true,
+      "Format": null,
+      "Tooltip": "Unique identifier",
+      "CustomClass": ""
+    },
+    {
+      "Name": "PHONE",
+      "Caption": "PHONE",
+      "Alignment": "Left",
+      "ColumnWidth": "100",
+      "Visible": true,
+      "Sortable": true,
+      "Filterable": true,
+      "DefaultValue": null,
+      "Resizable": true,
+      "Format": null,
+      "Tooltip": "Unique identifier",
+      "CustomClass": ""
+    },
+
+  ];
+  const  Data = [
+    {
+      "NAME": 'TEST',
+      "CODE": 23455,
+      "EMAIL": "sd@gmail.com",
+      "PHONE": '9377277',
+      "AMOUNT": 1234.56,
+      "DATE":"03-01-19998"
+    },   
+    {
+      "NAME": 'TEST',
+      "CODE": 23455,
+      "EMAIL": "sd@gmail.com",
+      "PHONE": '9377277',
+      "AMOUNT": 1234.56,
+      "DATE":"03-01-19998"
+    },   
+    {
+      "NAME": 'TEST',
+      "CODE": 23455,
+      "EMAIL": "sd@gmail.com",
+      "PHONE": '9377277',
+      "AMOUNT": 1234.56,
+      "DATE":"03-01-19998"
+    },   
+];
+
+
+
+
+  const handleAccess = (item) =>{
+    setValue(prevValue => [...prevValue, item]);
+}
+
+
+// useEffect(() => {
+//   const array = value.filter((item) => item.name === value1)
+//   const newColumns = array.map(item => ({
+//     Name: data.field,
+//     Caption: data.caption,
+//     Alignment: data.alignment,
+//     ColumnWidth: data.width,
+//     Visible: data.visible,
+//     Sortable: data.sortable,
+//     Filterable: data.filterable,
+//     DefaultValue: data.defaultValue,
+//     Resizable: data.resizable,
+//     Format: data.format,
+//     Tooltip: data.toolTip,
+//     CustomClass: data.customClass,
+//     Default: data.default
+//   }));
+
+//   setColumns(newColumns);
+// }, [value]);
+
+useEffect(() => {
+  if (value.length > 0) {
+    const filteredData = value
+      .filter(item => item.name === value1)
+      .flatMap(item => item.data);
+    const newColumns = filteredData.map(data => ({
+      Name: data.field,
+      Caption: data.caption,
+      Alignment: data.alignment,
+      ColumnWidth: data.width,
+      Visible: data.visible,
+      Sortable: data.sortable,
+      Filterable: data.filterable,
+      DefaultValue: data.defaultValue,
+      Resizable: data.resizable,
+      Format: data.format,
+      Tooltip: data.toolTip,
+      CustomClass: data.customClass,
+      Default: data.default
+    }));
+    setColumns(newColumns);
+  }
+}, [value, value1]);
+
+const config = {
+  Columns: columns.length ? columns : Columns,
+  Data: Data
+}
+
+const  onChangeName = (value) => {
+    setValue1(value.sName)
+}
+
   return (
     <>
       <Box
@@ -381,7 +540,8 @@ export default function SummaryPage({items}) {
       >
         <Box sx={{ margin: "10px 0px ", display: "flex", gap: "10px" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AutocompleteSecurity label="" />
+            {/*  label="" /> */}
+            <AutoCompleteMasterSummeries access={handleAccess} onChangeName={onChangeName} value={value1}/>
             <IconButton aria-label="tree">
               <WidgetsIcon sx={{ color: currentTheme.thirdColor }} />
             </IconButton>
@@ -397,6 +557,7 @@ export default function SummaryPage({items}) {
               boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
             }}
           >
+           
             <EnhancedTableToolbar
               name="Account Name"
               values={searchQuery}
@@ -407,8 +568,12 @@ export default function SummaryPage({items}) {
               isSearch={items?.length>0?true:false}
               thirdColor={currentTheme.thirdColor}
             />
+            {
+              Data && Data.length > 0 && <TableAccountMaster config={config}  />
+            }
 
-            {data.length > 0 && (
+             
+            {/* {data.length > 0 && (
               <TableContainer
                 style={{
                   display: "block",
@@ -529,7 +694,7 @@ export default function SummaryPage({items}) {
                 },
                 // Add other styles as needed
               }}
-            />
+            /> */}
           </Paper>
         </>
 

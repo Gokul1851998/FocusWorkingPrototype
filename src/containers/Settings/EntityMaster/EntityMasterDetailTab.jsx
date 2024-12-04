@@ -33,6 +33,7 @@ import {
   } from "@mui/icons-material";
 
   import AddCircleIcon from "@mui/icons-material/AddCircle";
+import SecurityInput from "../../../components/Inputs/SecurityInput";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -108,6 +109,7 @@ const EntityMasterDetailTab = () => {
 
   const { currentTheme } = useTheme();
 
+  const [date1, setDate] = useState(new Date());
 
   const handleAccountNameChange = (event) => {
    
@@ -173,7 +175,8 @@ const EntityMasterDetailTab = () => {
                   <AccountInput label="Code" mandatory={1} />
                 </MDBCol>
                 <MDBCol lg="3" md="4" sm="6" xs="12">
-                  <AutoComplete2 autoLabel="Accounting Period" isMandatory={1}/>
+                  {/* <AutoComplete2 autoLabel="Accounting Period" isMandatory={1}/> */}
+                  <SecurityInput label="Accounting Period" type="date" value={date1} />
                 </MDBCol>
                 <MDBCol lg="3" md="4" sm="6" xs="12">
                   <AutoComplete2 autoLabel="Functional Currency" isMandatory={1}/>

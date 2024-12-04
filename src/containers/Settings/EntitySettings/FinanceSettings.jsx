@@ -86,7 +86,7 @@ const actions = [
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
   { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
-  { icon: <AccountTreeIcon />, name: "Customize Tree" },
+  // { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
 ];
@@ -896,7 +896,7 @@ export default function FinanceSettings(args) {
                                     }}
                                   />
                                 } // Reduce the size of the checkbox
-                                label="Include 'Pending sales orders' value in credit limit check"
+                                label="Include 'Pending purchase orders' value in credit limit check"
                                 sx={{
                                   "& .MuiFormControlLabel-label": {
                                     fontSize: "0.8rem", // Adjust the label font size
@@ -1090,7 +1090,7 @@ export default function FinanceSettings(args) {
                                 <FormControlLabel
                                   value="Req"
                                   control={<Radio />} // Adjust the size of the radio button itself
-                                  label="Sales A/C"
+                                  label="Purchase A/C"
                                   sx={{
                                     "& .MuiFormControlLabel-label": {
                                       fontSize: "0.8rem", // Adjust the label font size

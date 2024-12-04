@@ -66,7 +66,7 @@ import AutoComplete2 from "../../../../../components/AutoComplete/AutoComplete2"
 import ExchangeRateTable from "./ExchangeRateTable";
 import { useTheme } from "../../../../../config/themeContext";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { entityList } from "../../../../../config/securityConfig";
+import { entityList, entityRate } from "../../../../../config/securityConfig";
 import RoleSelect1 from "../../../../../components/Select/RoleSelect1";
 
 function handleClick(event) {
@@ -192,8 +192,8 @@ export default function ExchangeRate(args) {
       
       onClick={handleClick}
     >
-      <SettingsIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-      Settings
+       <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+       Home
     </Link>,
     <Link
       underline="hover"
@@ -202,17 +202,18 @@ export default function ExchangeRate(args) {
       sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Entity Settings
+      Tag
     </Link>,
     <Link
       underline="hover"
-      key="3"
-      
+      key="2"
+     
       sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
       Currency
     </Link>,
+
     <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
       Exchange Rate
     </Typography>,
@@ -236,13 +237,13 @@ export default function ExchangeRate(args) {
           }}
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
-            {/* <Breadcrumbs
+            <Breadcrumbs
              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
               {breadcrumbs}
-            </Breadcrumbs> */}
+            </Breadcrumbs>
           </Stack>
 
           <Stack
@@ -260,7 +261,7 @@ export default function ExchangeRate(args) {
                 <Typography
                   variant="caption"
                   align="center"
-                  style={{color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
                 >
                   Import
                 </Typography>
@@ -298,7 +299,7 @@ export default function ExchangeRate(args) {
                 </Typography>
               </Stack>
             </IconButton>
-            {/* <IconButton
+            <IconButton
               aria-label="Clone"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
             >
@@ -312,9 +313,24 @@ export default function ExchangeRate(args) {
                   Save
                 </Typography>
               </Stack>
-            </IconButton> */}
+            </IconButton>
+            <IconButton
+              aria-label="Clone"
+              sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+            >
+              <Stack direction="column" alignItems="center">
+                <DeleteIcon style={{ color: currentTheme.actionIcons, }} />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                >
+                  Delete
+                </Typography>
+              </Stack>
+            </IconButton>
 
-            {/* <IconButton
+            <IconButton
               onClick={handleClose}
               aria-label="Close"
               sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
@@ -329,31 +345,43 @@ export default function ExchangeRate(args) {
                   Close
                 </Typography>
               </Stack>
-            </IconButton> */}
+            </IconButton>
           </Stack>
         </Box>
 
-        <MDBCardBody>
-                <MDBRow>
-                <MDBCol lg="3" md="4" sm="6" xs="12">
-           <RoleSelect1
-                    label="Business Entity"
-                    value={selectedOption}
-                    onChange={handleSelectChange}
-                    options={entityList}
-                  /> 
-                  </MDBCol>
-                  <MDBCol lg="3" md="4" sm="6" xs="12">
-          <AutoComplete2 autoLabel="Base Currency" /> 
-          </MDBCol>
-          <MDBCol lg="3" md="4" sm="6" xs="12">
-          <AccountInput label="With Effective Date" type="date" /> 
-          </MDBCol>
-          </MDBRow>
+        <Box sx={{p:2}}>
+          <MDBCardBody >
+            <MDBRow>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <RoleSelect1
+                  label="Business Entity"
+                  value={selectedOption}
+                  onChange={handleSelectChange}
+                  options={entityList}
+                />
+              </MDBCol>
+              {/* <MDBCol lg="3" md="4" sm="6" xs="12">
+          <AutoComplete2 autoLabel="Functional Currency" /> 
+          </MDBCol> */}
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AccountInput label="Functional Currency" type="text" />
+              </MDBCol>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <RoleSelect1
+                  label="Exchange Rate for"
+                  value={selectedOption}
+                  onChange={handleSelectChange}
+                  options={entityRate}
+                />
+              </MDBCol>
+              <MDBCol lg="3" md="4" sm="6" xs="12">
+                <AccountInput label="With Effective Date" type="date" />
+              </MDBCol>
+            </MDBRow>
           </MDBCardBody>
-
+        </Box>
         <ExchangeRateTable />
-       
+
       </React.StrictMode>
     </>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, CssBaseline, IconButton, TextField, styled } from "@mui/material";
+import { Box, CssBaseline, Dialog, DialogActions, DialogContent, IconButton, TextField, styled } from "@mui/material";
 import { Collapse, Button, CardBody, Card, Alert } from "reactstrap";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -10,7 +10,7 @@ import {
   secondryColor,
   thirdColor,
 } from "../../../../../config";
-import { accountTree, searchadvanceTreeItemsAccount } from "../../../../../config/masterConfig";
+import { accountTree, searchadvanceTreeItemsAccount, massUpdateItem } from "../../../../../config/masterConfig";
 import TableAccounts from "../../../../../components/Tables/TableAccounts";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
@@ -47,8 +47,25 @@ import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import StopIcon from "@mui/icons-material/Stop";
 import BlockIcon from "@mui/icons-material/Block";
-import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
 import { useTheme } from "../../../../../config/themeContext";
+import AutoCompleteMasterSummeries from "../../../../../components/AutoComplete/AutoCompleteMasterSummeries";
+import AutocompleteSecurity from "../../../../../components/AutoComplete/AutocompleteSecurity";
+import BackTrackPopup from "./BackTrackPopup";
+import MassUpdatePopup from "./MassUpdatePopup";
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import SortIcon from '@mui/icons-material/Sort';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import Sortpopup from "./Sortpopup";
+import TagCreationDetailed from "../../../../Settings/TagCreation/TagCreationDetailed";
+import TransferPopup from "./TransferPopup";
+import { useNavigate } from "react-router-dom";
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import ImportExportPopup from "./ImportExportPopup";
+import PropertiesPage from "./PropertiesPage";
+
 
 function handleClick(event) {
   event.preventDefault();
@@ -61,11 +78,16 @@ const actions = [
   // { icon: <EventBusyIcon />, name: "Close Account" },
   // { icon: <FolderOpenIcon />, name: "Open Close Account" },
   { icon: <SystemUpdateAltIcon />, name: "Mass Update" },
-  { icon: <HomeRepairServiceIcon />, name: "Customize Master" },
+  { icon: <HomeRepairServiceIcon />, name: "Tag Settings" },
   { icon: <SettingsApplicationsIcon />, name: "Customize View" },
-  { icon: <AccountTreeIcon />, name: "Customize Tree" },
+  // { icon: <AccountTreeIcon />, name: "Customize Tree" },
   { icon: <ReorderIcon />, name: "Backtrack" },
   { icon: <TransferWithinAStationIcon />, name: "Transfer" },
+  { icon: <ImportExportIcon />, name: "Import/Export" },
+  { icon: <ArrowUpwardIcon />, name: "Move Up" },
+  { icon: <ArrowDownwardIcon />, name: "Move Down" },
+  { icon: <SortIcon />, name: "Sort" },
+  { icon: <AccountBalanceIcon />, name: "Ledger" }
 ];
 
 export default function AccountMaster(args) {
@@ -74,12 +96,35 @@ export default function AccountMaster(args) {
   const [isInfo, setIsInfo] = useState(false);
   const [infoHide, setInfoHide] = useState(false);
   const [detailPage, setDetailPage] = useState(false);
+  const [propertiesPage, setpropertiesPage] = useState(false);
+  const [showTablePopup, setShowTablePopup] = useState(false);
+  const [massUpdatePopup, setmassUpdatePopup] = useState(false);
+  const [import1, setImport1] = useState(false);
+  const [transfer, setTransfer] = useState(false);
+  const [sortPopup, setSortPopup] = useState(false);
   const [more, setMore] = React.useState(false);
   const handleMoreOpen = () => setMore(true);
   const handleMoreClose = () => setMore(false);
- 
+  const [first, setfirst] = useState(false)
+  const [selectedId, setSelectedId] = useState(null);
+
+  const Navigate = useNavigate();
+
+
 
   const { currentTheme } = useTheme();
+
+  const buttonStyle = {
+    backgroundColor: currentTheme.secondaryColor,
+    color: currentTheme.sideBarTextColor1,
+    textTransform: 'none',
+    padding: "1px",
+    '&:hover': {
+      backgroundColor: currentTheme.secondaryColor, // Change as needed
+      color: currentTheme.sideBarTextColor1 // Example hover color change
+    },
+
+  }
 
   const toggleOpen = () => {
     setIsOpen(true);
@@ -104,18 +149,77 @@ export default function AccountMaster(args) {
     }, 400);
   };
 
+  const handleProfileSelect = (id) => {
+    setSelectedId(id);
+  };
+
   const handleDetailPageOpen = () => {
+    // if(id === 1)
+    // {
+    //   setDetailPage(true);
+    // }
+    // setfirst(false) 
     setDetailPage(true);
+  };
+
+  const handlePropertiesPageOpen = () => {
+    
+    setpropertiesPage(true);
+  };
+
+  const handlePopup = () => {
+    setfirst(true);
+  };
+  const handleClosePopup = () => {
+    setfirst(false);
   };
 
   const handleDetailPageClose = () => {
     setDetailPage(false);
   };
+  const handlePropertiesPageClose = () => {
+    setpropertiesPage(false);
+  };
+
+  // const handleSubmit = (item) =>{
+  //   if(item === 'Backtrack')
+  //   {
+  //     setShowTablePopup(true);
+  //   }
+  // }
+  const handleSubmit = (item) => {
+    switch (item) {
+      case "Backtrack":
+        setShowTablePopup(true);
+        break;
+      case "Mass Update":
+        setmassUpdatePopup(true);
+        break;
+      case "Sort":
+        setSortPopup(true);
+        break;
+      case "Tag Settings":
+        Navigate("/NavigateTag");
+        break;
+      case "Transfer":
+        setTransfer(true);
+        break;
+        case "Group":
+          // handleDetailPageOpen();
+        break;
+        case "Customize View":
+          Navigate("/NavigateView");
+          break;
+        case "Import/Export":
+          setImport1(true)
+          break;
+    }
+  }
 
   const breadcrumbs = [
     <Link
       underline="hover"
-      sx={{ display: "flex", alignItems: "center", fontSize: "1rem",color: currentTheme.actionIcons, }} // Reduce font size
+      sx={{ display: "flex", alignItems: "center", fontSize: "1rem", color: currentTheme.actionIcons, }} // Reduce font size
       key="1"
       color="white"
       onClick={handleClick}
@@ -127,22 +231,22 @@ export default function AccountMaster(args) {
       underline="hover"
       key="2"
       color="white"
-      sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}
+      sx={{ fontSize: "1rem", color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
-      Master
+      Tag
     </Link>,
     <Link
       underline="hover"
       key="3"
       color="white"
-      sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}
+      sx={{ fontSize: "1rem", color: currentTheme.actionIcons, }}
       onClick={handleClick}
     >
       Account
     </Link>,
-    <Typography key="4" color="white" sx={{ fontSize: "1rem",color: currentTheme.actionIcons, }}>
-      Account Master
+    <Typography key="4" color="white" sx={{ fontSize: "1rem", color: currentTheme.actionIcons, }}>
+      Account Tag
     </Typography>,
   ];
 
@@ -171,7 +275,7 @@ export default function AccountMaster(args) {
         >
           <Stack spacing={2} sx={{ flex: 1 }}>
             <Breadcrumbs
-              separator={<NavigateNextIcon fontSize="small" sx={{color: currentTheme.actionIcons,}}  />}
+              separator={<NavigateNextIcon fontSize="small" sx={{ color: currentTheme.actionIcons, }} />}
               aria-label="breadcrumb"
               style={{ color: primaryButtonColor }}
             >
@@ -179,7 +283,46 @@ export default function AccountMaster(args) {
             </Breadcrumbs>
           </Stack>
 
-          {!detailPage ? (
+          
+
+          { propertiesPage ?(<Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{ flex: "0 0 auto" }}
+            >
+              <IconButton
+                aria-label="Save"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <SaveIcon style={{ color: currentTheme.actionIcons, }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    Save
+                  </Typography>
+                </Stack>
+              </IconButton>
+              <IconButton
+                onClick={handlePropertiesPageClose}
+                aria-label="Close"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <CloseIcon style={{ color: currentTheme.actionIcons, }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    Close
+                  </Typography>
+                </Stack>
+              </IconButton>
+              </Stack>):!detailPage  ? (
             <Stack
               direction="row"
               alignItems="center"
@@ -205,9 +348,10 @@ export default function AccountMaster(args) {
               <IconButton
                 aria-label="Add group"
                 sx={{ fontSize: "0.3rem", padding: "0.5rem" }}
+                onClick={handleDetailPageOpen}
               >
                 <Stack direction="column" alignItems="center">
-                  <GroupAddIcon style={{ color: currentTheme.actionIcons,}} />
+                  <GroupAddIcon style={{ color: currentTheme.actionIcons, }} />
 
                   <Typography
                     variant="caption"
@@ -219,6 +363,7 @@ export default function AccountMaster(args) {
                 </Stack>
               </IconButton>
               <IconButton
+              onClick={handleDetailPageOpen}
                 aria-label="Edit"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
@@ -250,11 +395,12 @@ export default function AccountMaster(args) {
                 </Stack>
               </IconButton>
               <IconButton
+              onClick={handlePropertiesPageOpen}
                 aria-label="Property"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <RoomPreferencesIcon style={{ color: currentTheme.actionIcons,}} />
+                  <RoomPreferencesIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
@@ -302,7 +448,7 @@ export default function AccountMaster(args) {
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <StopIcon style={{ color: currentTheme.actionIcons,}} />
+                  <StopIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
@@ -367,12 +513,13 @@ export default function AccountMaster(args) {
                 </Stack>
               </IconButton>
 
+
               <IconButton
                 aria-label="Clone"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <FileCopyIcon style={{ color: currentTheme.actionIcons, }} />
+                  <ContentCopyIcon style={{ color: currentTheme.actionIcons }} />
                   <Typography
                     variant="caption"
                     align="center"
@@ -383,13 +530,45 @@ export default function AccountMaster(args) {
                 </Stack>
               </IconButton>
 
+
+              <IconButton
+                aria-label="Copy"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <FileCopyIcon style={{ color: currentTheme.actionIcons }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    Copy
+                  </Typography>
+                </Stack>
+              </IconButton>
+
+              <IconButton
+                aria-label="Paste"
+                sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
+              >
+                <Stack direction="column" alignItems="center">
+                  <ContentPasteIcon style={{ color: currentTheme.actionIcons }} />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    style={{ color: currentTheme.actionIcons, fontSize: "0.6rem" }}
+                  >
+                    Paste
+                  </Typography>
+                </Stack>
+              </IconButton>
               <IconButton
                 onClick={handleDetailPageClose}
                 aria-label="Close"
                 sx={{ fontSize: "0.8rem", padding: "0.5rem" }}
               >
                 <Stack direction="column" alignItems="center">
-                  <CloseIcon style={{ color: currentTheme.actionIcons,}} />
+                  <CloseIcon style={{ color: currentTheme.actionIcons, }} />
                   <Typography
                     variant="caption"
                     align="center"
@@ -402,7 +581,9 @@ export default function AccountMaster(args) {
             </Stack>
           )}
         </Box>
-        {detailPage ? (
+        {propertiesPage ? (
+          <PropertiesPage />
+        ) :detailPage ? (
           <AccountDetails />
         ) : (
           <>
@@ -412,12 +593,12 @@ export default function AccountMaster(args) {
                 position: "absolute",
                 bottom: 25,
                 right: 16,
-                
+
                 '& .MuiSpeedDial-fab': {
                   backgroundColor: currentTheme.secondaryColor, // Ensure the SpeedDial button has the custom background color
                 },
               }}
-              icon={<SpeedDialIcon  />}
+              icon={<SpeedDialIcon />}
               direction="left"
             >
               {actions.map((action) => (
@@ -425,6 +606,7 @@ export default function AccountMaster(args) {
                   key={action.name}
                   icon={action.icon}
                   tooltipTitle={action.name}
+                  onClick={() => { handleSubmit(action.name) }}
                 />
               ))}
             </SpeedDial>
@@ -438,7 +620,7 @@ export default function AccountMaster(args) {
                   }}
                 >
                   <Button
-                    sx={{backgroundColor:currentTheme.primaryColor}}
+                    sx={{ backgroundColor: currentTheme.primaryColor }}
                     onClick={toggleOpen}
                     style={{
                       marginBottom: "1rem",
@@ -446,8 +628,8 @@ export default function AccountMaster(args) {
                       fontSize: "0.6rem",
                       height: "5rem",
                       borderRadius: "0 0.5rem 0.5rem 0",
-                      backgroundColor:currentTheme.secondaryColor,
-                      color:currentTheme.sideBarTextColor1
+                      backgroundColor: currentTheme.secondaryColor,
+                      color: currentTheme.sideBarTextColor1
                     }}
                   >
                     <KeyboardDoubleArrowRightIcon
@@ -469,7 +651,7 @@ export default function AccountMaster(args) {
                 >
                   <div>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <AutocompleteSecurity label="" />
+                      <AutocompleteSecurity label='' />
                       <IconButton aria-label="tree">
                         <WidgetsIcon sx={{ color: currentTheme.thirdColor }} />
                       </IconButton>
@@ -481,13 +663,13 @@ export default function AccountMaster(args) {
                         color="primary"
                         onClick={toggleClose}
                         style={{
-                        
+
                           padding: "0.3rem",
                           fontSize: "0.6rem",
                           height: "5rem",
                           borderRadius: "0.5rem 0 0 0.5rem",
-                          backgroundColor:currentTheme.secondaryColor,
-                          color:currentTheme.sideBarTextColor1
+                          backgroundColor: currentTheme.secondaryColor,
+                          color: currentTheme.sideBarTextColor1
                         }}
                       >
                         <KeyboardDoubleArrowLeftIcon
@@ -499,7 +681,7 @@ export default function AccountMaster(args) {
                 </Alert>
               </Collapse>
 
-              <TableAccounts items={searchadvanceTreeItemsAccount}/>
+              <TableAccounts items={searchadvanceTreeItemsAccount} />
             </div>
             <div
               style={{ position: "fixed", bottom: 20, right: 20, zIndex: 100 }}
@@ -521,7 +703,7 @@ export default function AccountMaster(args) {
                   }}
                 >
                   <Button
-                    
+
                     variant="contained"
                     onClick={infoPanelClose}
                     style={{
@@ -536,8 +718,8 @@ export default function AccountMaster(args) {
                       display: "flex",
                       justifyContent: "center", // Center horizontally
                       alignItems: "center", // Center vertically
-                      backgroundColor:currentTheme.secondaryColor,
-                      color:currentTheme.sideBarTextColor1
+                      backgroundColor: currentTheme.secondaryColor,
+                      color: currentTheme.sideBarTextColor1
                     }}
                   >
                     <KeyboardDoubleArrowDownIcon style={{ fontSize: "1rem" }} />
@@ -578,13 +760,64 @@ export default function AccountMaster(args) {
                     display: "flex",
                     justifyContent: "center", // Center horizontally
                     alignItems: "center", // Center vertically
-                     backgroundColor:currentTheme.secondaryColor,
-                      color:currentTheme.sideBarTextColor1
+                    backgroundColor: currentTheme.secondaryColor,
+                    color: currentTheme.sideBarTextColor1
                   }}
                 >
                   <KeyboardDoubleArrowUpIcon style={{ fontSize: "1rem" }} />
                 </Button>
               ) : null}
+              {showTablePopup && <BackTrackPopup onClose={() => setShowTablePopup(false)} />}
+              {massUpdatePopup && <MassUpdatePopup onClose={() => setmassUpdatePopup(false)} items={massUpdateItem} />}
+              {sortPopup && <Sortpopup onClose={() => setSortPopup(false)}/>}
+                {import1 && <ImportExportPopup onClose={() => setImport1(false)} />}
+                {transfer && <TransferPopup onClose={() => setTransfer(false)}/>}
+              {/* <Dialog
+        open={first}
+        onClose={handleClosePopup}
+        aria-labelledby="form-dialog-title"
+      >
+        <Typography
+          variant="h6"
+          gutterBottom
+          component="div"
+          sx={{ backgroundColor: currentTheme.thirdColor, textAlign: "center",color:currentTheme.sideBarTextColor1 }}
+        >
+          Select View
+        </Typography>
+        <Box sx={{ minHeight: "200px", ml: 2, minWidth:'500px' }}>
+        <Typography 
+          onClick={() => handleProfileSelect(1)} 
+          sx={{ 
+            cursor: 'pointer', 
+            backgroundColor: selectedId === 1 ? 'lightgray' : 'transparent',
+            padding: '8px',
+            borderRadius: '4px',
+            marginBottom: '4px',
+            marginRight:'15px'
+          }}
+        >
+          Account
+        </Typography>
+        <Typography 
+          onClick={() => handleProfileSelect(2)} 
+          sx={{ 
+            cursor: 'pointer', 
+            backgroundColor: selectedId === 2 ? 'lightgray' : 'transparent',
+            padding: '8px',
+            borderRadius: '4px',
+            marginRight:'15px'
+          }}
+        >
+          View
+        </Typography>
+        </Box>
+        <DialogActions>
+          <Button variant="contained" onClick={() => handleDetailPageOpen(selectedId)} sx={buttonStyle}>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog> */}
             </div>
           </>
         )}
