@@ -26,6 +26,7 @@ export default function AdvanceSearchAutocomplete({ value, onChange, width, labe
         width: width,
         margin: 0,
         padding: 0,
+        marginTop:1.8,
         "& .MuiInputBase-root": {
           height: 'auto',
         },

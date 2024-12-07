@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Popover, Button, TextField, Table, TableHead, TableBody, TableCell, TableRow, Box, Typography } from '@mui/material';
 import { TablebodyCell, TablecellStyle, TablecellStyle1 } from '../../config/masterSettings';
 
-export default function TrasctionTableInput({ type, mandatory, onChange }) {
+export default function TrasctionTableInput({ type, mandatory, onChange, label }) {
     const symbols = ['+', '-', '/', '*', '(', ')', '~', '&', '%', ']', '|', '<', '>', '!', '=', '?', ':', '^', 'DateDiff()', 'Cond()', 'Min()', 'Max()'];
     const [anchorEl, setAnchorEl] = useState(null); // State for the Popover anchor
     const [formula, setFormula] = useState(""); // State for the formula input
@@ -33,11 +33,12 @@ export default function TrasctionTableInput({ type, mandatory, onChange }) {
                 id="search1"
                 value={formula}
                 type={type}
-             
+              label={label}
                 autoComplete="off"
                 autoFocus
                 required={mandatory}
                 sx={{
+                    marginTop:1.8,
                     width: 230, // Adjust the width as needed
                     "& .MuiInputBase-root": {
                         height: 30, // Adjust the height of the input area

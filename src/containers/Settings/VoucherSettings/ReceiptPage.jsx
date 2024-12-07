@@ -96,6 +96,7 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import DocumentNumberTale from "./DocumentNumberTale";
 import EntityVoucher from "./EntityVoucher";
+import EntityTable from "./EntityTable";
 
 
 function handleClick(event) {
@@ -457,7 +458,7 @@ const ReceiptPage = ({ setPage, detailPageId, direction }) => {
             <AccordionDetails >
 
               <MDBCardBody style={{ marginRight: '50px' }}>
-                <EntityVoucher />
+                <EntityTable />
               </MDBCardBody>
 
 

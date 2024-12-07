@@ -8,7 +8,7 @@ export default function CheckBox1({label}) {
       <Checkbox
         sx={{
           transform: "scale(0.9)",
-          paddingTop: 1,
+          padding: 0,
         }}
       />
     }

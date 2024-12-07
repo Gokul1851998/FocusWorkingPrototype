@@ -3,22 +3,22 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import SaveIcon from "@mui/icons-material/Save";
 import {
-    Box,
-    Button,
-    Checkbox,
-    Divider,
-    FormControlLabel,
-    Grid,
-    IconButton,
-    Radio,
-    RadioGroup,
-    Stack,
-    Tab,
-    Tabs,
-    TextField,
-    Typography,
-    Zoom,
-    styled,
+  Box,
+  Button,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  Radio,
+  RadioGroup,
+  Stack,
+  Tab,
+  Tabs,
+  TextField,
+  Typography,
+  Zoom,
+  styled,
 } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -27,12 +27,12 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
-    MDBRow,
-    MDBCol,
-    MDBInput,
-    MDBTextArea,
-    MDBCardBody,
-    MDBCard,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBTextArea,
+  MDBCardBody,
+  MDBCard,
 } from "mdb-react-ui-kit";
 
 import { primaryButtonColor, thirdColor } from "../../../../config";
@@ -46,7 +46,13 @@ import PropTypes from "prop-types";
 // import CustomizationTable1 from "./CustomizationTable1";
 import { useTheme } from "../../../../config/themeContext";
 import RoleSelect1 from "../../../../components/Select/RoleSelect1";
-import { DropdownData, editScreenProperties, fieldTypeData, propertiesData, TabtypeData } from "../../../../config/masterSettings";
+import {
+  DropdownData,
+  editScreenProperties,
+  fieldTypeData,
+  propertiesData,
+  TabtypeData,
+} from "../../../../config/masterSettings";
 import AccountInput1 from "../../../../components/Inputs/AccountInput1";
 // import { CheckBox } from "@mui/icons-material";
 // import MasterLanguage from "../../Home/Master/Account/AccountMaster/MasterLanguage";
@@ -54,466 +60,463 @@ import MasterLanguage1 from "../../../Home/Master/Account/AccountMaster/MasterLa
 import AccountInputWithDialog from "../../../../components/Inputs/AccountInputWithDialog";
 
 const Accordion = styled((props) => (
-    <MuiAccordion disableGutters elevation={0} square {...props} />
+  <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
-    border: `1px solid ${theme.palette.divider}`,
-    "&:not(:last-child)": {
-        borderBottom: 0,
-    },
-    "&::before": {
-        display: "none",
-    },
+  border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&::before": {
+    display: "none",
+  },
 }));
 
 const AccordionSummary = styled((props) => (
-    <MuiAccordionSummary
-        expandIcon={
-            props.expanded ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />
-        }
-        {...props}
-    />
+  <MuiAccordionSummary
+    expandIcon={
+      props.expanded ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />
+    }
+    {...props}
+  />
 ))(({ theme, currentTheme }) => ({
+  color: currentTheme.sideBarTextColor1,
+  backgroundColor: currentTheme.secondaryColor,
+  flexDirection: "row",
+  justifyContent: "space-between",
+  "& .MuiAccordionSummary-content": {
+    flexGrow: 1,
+  },
+  "& .MuiSvgIcon-root": {
+    fontSize: "1.5rem",
     color: currentTheme.sideBarTextColor1,
-    backgroundColor: currentTheme.secondaryColor,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    "& .MuiAccordionSummary-content": {
-        flexGrow: 1,
-    },
-    "& .MuiSvgIcon-root": {
-        fontSize: "1.5rem",
-        color: currentTheme.sideBarTextColor1,
-    },
+  },
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-    paddingLeft: theme.spacing(3),
-    borderTop: "1px solid rgba(0, 0, 0, .125)",
+  paddingLeft: theme.spacing(3),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
 function CustomTabPanel(props) {
-    const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props;
 
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
 }
 
 CustomTabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        "aria-controls": `simple-tabpanel-${index}`,
-    };
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
 }
 
 export default function EditScnAddModal({ isOpen, handleCloseModal }) {
-    const [expanded, setExpanded] = React.useState("panel1");
-    const [value, setValue] = React.useState(0);
-    const [hide, setHide] = useState(false);
-    const [tab2, setTab2] = useState(0);
-    const [checked, setChecked] = React.useState(false);
-    const [accountName, setAccountName] = React.useState("");
+  const [expanded, setExpanded] = React.useState("panel1");
+  const [value, setValue] = React.useState(0);
+  const [hide, setHide] = useState(false);
+  const [tab2, setTab2] = useState(0);
+  const [checked, setChecked] = React.useState(false);
+  const [accountName, setAccountName] = React.useState("");
 
+  const [isPostToAccountChecked, setIsPostToAccountChecked] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState("");
+  const [selectedVariable, setSelectedVariable] = useState("");
 
-    const [isPostToAccountChecked, setIsPostToAccountChecked] = useState(false);
-    const [selectedAccount, setSelectedAccount] = useState('');
-    const [selectedVariable, setSelectedVariable] = useState('');
+  const handleCheckboxChange = (event) => {
+    setIsPostToAccountChecked(event.target.checked);
+    setSelectedAccount("");
+    setSelectedVariable("");
+  };
 
-    const handleCheckboxChange = (event) => {
-        setIsPostToAccountChecked(event.target.checked);
-        setSelectedAccount('');
-        setSelectedVariable('');
-    };
+  const handleAccountChange = (event) => {
+    setSelectedAccount(event.target.value);
+  };
 
-    const handleAccountChange = (event) => {
-        setSelectedAccount(event.target.value);
-    };
+  const handleVariableChange = (event) => {
+    setSelectedVariable(event.target.value);
+  };
 
-    const handleVariableChange = (event) => {
-        setSelectedVariable(event.target.value);
-    };
+  const [formData, setformData] = useState({});
+  const handleSelectChange = (event, key) => {
+    setformData({ ...formData, [key]: event.target.value });
+  };
 
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
+  const handleCheck = (event) => {
+    setChecked(event.target.checked);
+  };
 
-    const [formData, setformData] = useState({});
-    const handleSelectChange = (event, key) => {
-        setformData({ ...formData, [key]: event.target.value });
-    };
+  const modalStyle = {
+    display: isOpen ? "block" : "none",
+  };
 
-    const handleChange = (panel) => (event, newExpanded) => {
-        setExpanded(newExpanded ? panel : false);
-    };
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
-    const handleCheck = (event) => {
-        setChecked(event.target.checked);
-    };
+  const handleTabChange2 = (event, newValue) => {
+    setTab2(newValue);
+  };
 
+  const handleTabChecked = (event) => {
+    setHide(event.target.checked);
+  };
 
-    const modalStyle = {
-        display: isOpen ? "block" : "none",
-    };
+  const buttonStyle = {
+    textTransform: "none",
+    color: `${primaryButtonColor}`,
+    backgroundColor: `${thirdColor}`,
+    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+    padding: "4px 6px", // Adjust padding to make the buttons smaller
+    fontSize: "0.8rem", // Adjust font size to make the buttons smaller
+  };
 
-    const handleTabChange = (event, newValue) => {
-        setValue(newValue);
-    };
+  const modalRef = useRef(null);
 
-    const handleTabChange2 = (event, newValue) => {
-        setTab2(newValue);
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (modalRef.current && !modalRef.current.contains(event.target)) {
+  //       handleCloseModal();
+  //     }
+  //   };
 
-    const handleTabChecked = (event) => {
-        setHide(event.target.checked);
-    };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [handleCloseModal]);
 
-    const buttonStyle = {
-        textTransform: "none",
-        color: `${primaryButtonColor}`,
-        backgroundColor: `${thirdColor}`,
-        boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-        padding: "4px 6px", // Adjust padding to make the buttons smaller
-        fontSize: "0.8rem", // Adjust font size to make the buttons smaller
-    };
+  const { currentTheme } = useTheme();
 
-    const modalRef = useRef(null);
+  return (
+    <div>
+      <div
+        className={`modal-backdrop fade ${isOpen ? "show" : ""}`}
+        style={{
+          display: isOpen ? "block" : "none",
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+        }}
+      ></div>
 
-    // useEffect(() => {
-    //   const handleClickOutside = (event) => {
-    //     if (modalRef.current && !modalRef.current.contains(event.target)) {
-    //       handleCloseModal();
-    //     }
-    //   };
-
-    //   document.addEventListener("mousedown", handleClickOutside);
-    //   return () => {
-    //     document.removeEventListener("mousedown", handleClickOutside);
-    //   };
-    // }, [handleCloseModal]);
-
-    const { currentTheme } = useTheme();
-
-    return (
-        <div>
+      <Zoom in={isOpen} timeout={isOpen ? 400 : 300}>
+        <div
+          className={`modal ${isOpen ? "modal-open" : ""}`}
+          style={modalStyle}
+        >
+          <div className="modal-dialog modal-dialog-centered modal-xl">
             <div
-                className={`modal-backdrop fade ${isOpen ? "show" : ""}`}
-                style={{
-                    display: isOpen ? "block" : "none",
-                    backgroundColor: "rgba(0, 0, 0, 0.7)",
-                }}
-            ></div>
+              className="modal-content"
+              ref={modalRef}
+              style={{
+                maxHeight: "80vh",
+                overflowY: "auto",
+                scrollbarWidth: "thin",
+              }}
+            >
+              <Stack
+                direction="row"
+                spacing={1}
+                padding={2}
+                justifyContent="flex-end"
+                alignItems="center"
+              >
+                <Typography variant="body1" color="textSecondary" flexGrow={1}>
+                  Main / Edit Extra Field
+                </Typography>
 
-            <Zoom in={isOpen} timeout={isOpen ? 400 : 300}>
-                <div
-                    className={`modal ${isOpen ? "modal-open" : ""}`}
-                    style={modalStyle}
-                >
-                    <div className="modal-dialog modal-dialog-centered modal-xl">
-                        <div
-                            className="modal-content"
-                            ref={modalRef}
-                            style={{
-                                maxHeight: "80vh",
-                                overflowY: "auto",
-                                scrollbarWidth: "thin",
-                            }}
-                        >
-                            <Stack
-                                direction="row"
-                                spacing={1}
-                                padding={2}
-                                justifyContent="flex-end"
-                                alignItems="center"
-                            >
-                                <Typography variant="body1" color="textSecondary" flexGrow={1}>
-                                    Main / Edit Extra Field
-                                </Typography>
-
-                                {/* <RoleSelect1
+                {/* <RoleSelect1
             label="Select"
             value={formData?.Module ?? ""}
             onChange={(e) => handleSelectChange(e, "Module")}
             options={DropdownData}
           /> */}
-                                {/* <AutoComplete2 autoLabel="Select" /> */}
+                {/* <AutoComplete2 autoLabel="Select" /> */}
 
-
-                                <Button
-                                    onClick={handleCloseModal}
-                                    variant="contained"
-                                    startIcon={<DoneIcon />}
-                                    style={{ ...buttonStyle, backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor }}
-                                >
-                                    Ok
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    onClick={handleCloseModal}
-                                    startIcon={<CloseIcon />}
-                                    style={{ ...buttonStyle, backgroundColor: currentTheme.thirdColor, color: currentTheme.tableHeaderColor }}
-                                >
-                                    Close
-                                </Button>
-                            </Stack>
-                            <div style={{ margin: 10 }}>
-                                <Accordion
-                                    expanded={expanded === "panel1"}
-                                    onChange={handleChange("panel1")}
-                                >
-                                    <AccordionSummary
-                                        aria-controls="panel1d-content"
-                                        id="panel1d-header"
-                                        className
-                                        expanded={expanded === "panel1"}
-                                        currentTheme={currentTheme}
-                                    >
-                                        <Typography style={{ fontSize: "14px" }}>
-                                            Field Details
-                                        </Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <>
-                                            <div>
-                                                <MDBCardBody>
-                                                    <MDBRow>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Caption" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Default Value" />
-                                                        </MDBCol>
-                                                        {/* <MDBCol lg={3}>
+                <Button
+                  onClick={handleCloseModal}
+                  variant="contained"
+                  startIcon={<DoneIcon />}
+                  style={{
+                    ...buttonStyle,
+                    backgroundColor: currentTheme.thirdColor,
+                    color: currentTheme.tableHeaderColor,
+                  }}
+                >
+                  Ok
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={handleCloseModal}
+                  startIcon={<CloseIcon />}
+                  style={{
+                    ...buttonStyle,
+                    backgroundColor: currentTheme.thirdColor,
+                    color: currentTheme.tableHeaderColor,
+                  }}
+                >
+                  Close
+                </Button>
+              </Stack>
+              <div style={{ margin: 10 }}>
+                <Accordion
+                  expanded={expanded === "panel1"}
+                  onChange={handleChange("panel1")}
+                >
+                  <AccordionSummary
+                    aria-controls="panel1d-content"
+                    id="panel1d-header"
+                    className
+                    expanded={expanded === "panel1"}
+                    currentTheme={currentTheme}
+                  >
+                    <Typography style={{ fontSize: "14px" }}>
+                      Field Details
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <>
+                      <div>
+                        <MDBCardBody>
+                          <MDBRow>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Caption" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Default Value" />
+                            </MDBCol>
+                            {/* <MDBCol lg={3}>
                               <AutoComplete2 autoLabel="DataType" />
                             </MDBCol> */}
 
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="ToolTip Text" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="No of Decimal" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Banner text" />
-                                                        </MDBCol>
-                                                        {/* <MDBCol lg={3}>
+                            <MDBCol lg={3}>
+                              <AccountInput label="ToolTip Text" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AccountInput label="No of Decimal" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Banner text" />
+                            </MDBCol>
+                            {/* <MDBCol lg={3}>
                               <AutoComplete2 autoLabel="Control Type" />
                             </MDBCol> */}
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Minimum Value" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Maximum Value" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AutoComplete2 autoLabel="Formula Behavior" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Preload" />
-                                                        </MDBCol>
-                                                        {/* <MDBCol lg={3}>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Minimum Value" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Maximum Value" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AutoComplete2 autoLabel="Formula Behavior" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Preload" />
+                            </MDBCol>
+                            {/* <MDBCol lg={3}>
                             <AccountInput label="Restrict formula" />
                             </MDBCol> */}
-                                                        <MDBCol lg={3}>
-                                                            <AccountInputWithDialog label="Restrict formula" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <RoleSelect1
-                                                                label="Round Offs"
-                                                                value={formData?.fieldType ?? ""}
-                                                                onChange={(e) => handleSelectChange(e, "fieldType")}
-                                                                options={fieldTypeData}
-                                                            />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Roundoff To" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Restrict Message" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <RoleSelect1
-                                                                label="Add to net"
-                                                                value={formData?.Module ?? ""}
-                                                                onChange={(e) => handleSelectChange(e, "Module")}
-                                                                options={DropdownData}
-                                                            />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <RoleSelect1
-                                                                label="Add to Stock"
-                                                                value={formData?.Module ?? ""}
-                                                                onChange={(e) => handleSelectChange(e, "Module")}
-                                                                options={DropdownData}
-                                                            />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <RoleSelect1
-                                                                label="Position"
-                                                                value={formData?.Module ?? ""}
-                                                                onChange={(e) => handleSelectChange(e, "Module")}
-                                                                options={DropdownData}
-                                                            />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <AccountInput label="Column Width" />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <FormControlLabel
-                                                                sx={{ mt: 1 }}
-                                                                control={
-                                                                    <CheckBox2
-                                                                        checked={checked}
-                                                                        onChange={handleCheck}
-                                                                    />
-                                                                }
-                                                                label="Value in base currency"
-                                                            />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            <FormControlLabel
-                                                                sx={{ mt: 1 }}
-                                                                control={
-                                                                    <CheckBox2
-                                                                        checked={checked}
-                                                                        onChange={handleCheck}
-                                                                    />
-                                                                }
-                                                                label="Hode From Summary"
-                                                            />
-                                                        </MDBCol>
-                                                        <MDBCol lg={3}>
-                                                            
-                                                        </MDBCol>
-                                                       
-                                                            <Box sx={{display:'flex',flexWrap:'wrap'}} >
-                                                                <FormControlLabel
-                                                                    control={
-                                                                        <Checkbox
-                                                                            checked={isPostToAccountChecked}
-                                                                            onChange={handleCheckboxChange}
-                                                                            name="postToAccount"
-                                                                        />
-                                                                    }
-                                                                    label="Post to Account"
-                                                                />
-                                                                {isPostToAccountChecked && (
-                                                                    <Grid  container   >
-                                                                        {/* Account Inputs */}
-                                                                        <Grid item >
-                                                                            <FormControlLabel
-                                                                            sx={{mt:1}}
-                                                                                control={
-                                                                                    <Radio
-                                                                                        checked={selectedAccount === 'account-1'}
-                                                                                        onChange={handleAccountChange}
-                                                                                        value="account-1"
-                                                                                        name="account"
-                                                                                        disabled={!isPostToAccountChecked}
-                                                                                        size="small"
-                                                                                    />
-                                                                                }
-                                                                                label="Account"
-                                                                            />
-                                                                            <AutoComplete2
-                                                                               autoLabel='Accont'
-                                                                                disabled={selectedAccount !== 'account-1'}
-                                                                                
-                                                                                // InputProps={{ endAdornment: <span>⚙️</span> }}
-                                                                            />
-                                                                        </Grid>
-                                                                        <Grid item >
-                                                                            <FormControlLabel
-                                                                            sx={{mt:1}}
-                                                                                control={
-                                                                                    <Radio
-                                                                                        checked={selectedAccount === 'account-2'}
-                                                                                        onChange={handleAccountChange}
-                                                                                        value="account-2"
-                                                                                        name="account"
-                                                                                        disabled={!isPostToAccountChecked}
-                                                                                        size="small"
-                                                                                    />
-                                                                                }
-                                                                                label="Account-2"
-                                                                            />
-                                                                            <AutoComplete2
-                                                                                autoLabel='Account-2'
-                                                                                disabled={selectedAccount !== 'account-2'}
-                                                                                // InputProps={{ endAdornment: <span>⚙️</span> }}
-                                                                            />
-                                                                        </Grid>
+                            <MDBCol lg={3}>
+                              <AccountInputWithDialog label="Restrict formula" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <RoleSelect1
+                                label="Round Offs"
+                                value={formData?.fieldType ?? ""}
+                                onChange={(e) =>
+                                  handleSelectChange(e, "fieldType")
+                                }
+                                options={fieldTypeData}
+                              />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Roundoff To" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Restrict Message" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <RoleSelect1
+                                label="Add to net"
+                                value={formData?.Module ?? ""}
+                                onChange={(e) =>
+                                  handleSelectChange(e, "Module")
+                                }
+                                options={DropdownData}
+                              />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <RoleSelect1
+                                label="Add to Stock"
+                                value={formData?.Module ?? ""}
+                                onChange={(e) =>
+                                  handleSelectChange(e, "Module")
+                                }
+                                options={DropdownData}
+                              />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <RoleSelect1
+                                label="Position"
+                                value={formData?.Module ?? ""}
+                                onChange={(e) =>
+                                  handleSelectChange(e, "Module")
+                                }
+                                options={DropdownData}
+                              />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <AccountInput label="Column Width" />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <FormControlLabel
+                                sx={{ mt: 1 }}
+                                control={
+                                  <CheckBox2
+                                    checked={checked}
+                                    onChange={handleCheck}
+                                  />
+                                }
+                                label="Value in base currency"
+                              />
+                            </MDBCol>
+                            <MDBCol lg={3}>
+                              <FormControlLabel
+                                sx={{ mt: 1 }}
+                                control={
+                                  <CheckBox2
+                                    checked={checked}
+                                    onChange={handleCheck}
+                                  />
+                                }
+                                label="Hode From Summary"
+                              />
+                            </MDBCol>
+                            <MDBCol lg={3}></MDBCol>
 
-                                                                        {/* Variable Inputs */}
-                                                                        <Grid item >
-                                                                            <FormControlLabel
-                                                                            sx={{mt:1}}
-                                                                                control={
-                                                                                    <Radio
-                                                                                        checked={selectedVariable === 'variable-1'}
-                                                                                        onChange={handleVariableChange}
-                                                                                        value="variable-1"
-                                                                                        name="variable"
-                                                                                        disabled={!isPostToAccountChecked}
-                                                                                        size="small"
-                                                                                    />
-                                                                                }
-                                                                                label="Allow entry"
-                                                                            />
-                                                                            <AccountInput
-                                                                                label='Allow entry'
-                                                                                disabled={selectedVariable !== 'variable-1'}
-                                                                                
-                                                                            />
-                                                                        </Grid>
-                                                                        {/* <Grid item xs={6}>
-                                                                            <FormControlLabel
-                                                                            sx={{mt:1}}
-                                                                                control={
-                                                                                    <Radio
-                                                                                        checked={selectedVariable === 'variable-2'}
-                                                                                        onChange={handleVariableChange}
-                                                                                        value="variable-2"
-                                                                                        name="variable"
-                                                                                        disabled={!isPostToAccountChecked}
-                                                                                    />
-                                                                                }
-                                                                                label="Account-2 Variable"
-                                                                            />
-                                                                            <AccountInput
-                                                                                label='Account-2 Variable'
-                                                                                disabled={selectedVariable !== 'variable-2'}
-                                                                                
-                                                                            />
-                                                                        </Grid> */}
-                                                                    </Grid>
-                                                                )}
-                                                            </Box>
-                                                        {/* </MDBCol> */}
-                                                        {/* <MDBCol>
+                            {/* <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    checked={isPostToAccountChecked}
+                                    onChange={handleCheckboxChange}
+                                    name="postToAccount"
+                                  />
+                                }
+                                label="Post to Account"
+                              />
+                              {isPostToAccountChecked && (
+                                <Grid container>
+                   
+                                  <Grid item>
+                                    <FormControlLabel
+                                      sx={{ mt: 1 }}
+                                      control={
+                                        <Radio
+                                          checked={
+                                            selectedAccount === "account-1"
+                                          }
+                                          onChange={handleAccountChange}
+                                          value="account-1"
+                                          name="account"
+                                          disabled={!isPostToAccountChecked}
+                                          size="small"
+                                        />
+                                      }
+                                      label="Account"
+                                    />
+                                    <AutoComplete2
+                                      autoLabel="Accont"
+                                      disabled={selectedAccount !== "account-1"}
+
+                                 
+                                    />
+                                  </Grid>
+                                  <Grid item>
+                                    <FormControlLabel
+                                      sx={{ mt: 1 }}
+                                      control={
+                                        <Radio
+                                          checked={
+                                            selectedAccount === "account-2"
+                                          }
+                                          onChange={handleAccountChange}
+                                          value="account-2"
+                                          name="account"
+                                          disabled={!isPostToAccountChecked}
+                                          size="small"
+                                        />
+                                      }
+                                      label="Account-2"
+                                    />
+                                    <AutoComplete2
+                                      autoLabel="Account-2"
+                                      disabled={selectedAccount !== "account-2"}
+                                  
+                                    />
+                                  </Grid>
+
+                           
+                                  <Grid item>
+                                    <FormControlLabel
+                                      sx={{ mt: 1 }}
+                                      control={
+                                        <Radio
+                                          checked={
+                                            selectedVariable === "variable-1"
+                                          }
+                                          onChange={handleVariableChange}
+                                          value="variable-1"
+                                          name="variable"
+                                          disabled={!isPostToAccountChecked}
+                                          size="small"
+                                        />
+                                      }
+                                      label="Allow entry"
+                                    />
+                                    <AccountInput
+                                      label="Allow entry"
+                                      disabled={
+                                        selectedVariable !== "variable-1"
+                                      }
+                                    />
+                                  </Grid>
+
+                                </Grid>
+                              )}
+                            </Box> */}
+                            {/* </MDBCol> */}
+                            {/* <MDBCol>
                               <AccountInput label="Banner Text" />
                             </MDBCol> */}
 
-                                                        {/* <MDBCol>
+                            {/* <MDBCol>
                               <AccountInput label="Tool Tip Text" />
                             </MDBCol> */}
-                                                    </MDBRow>
-                                                    {/* <MDBRow>
+                          </MDBRow>
+                          {/* <MDBRow>
                             <Typography
                               sx={{ pt: 2 }}
                               variant="p"
@@ -529,54 +532,45 @@ export default function EditScnAddModal({ isOpen, handleCloseModal }) {
                               <AccountInput label="Error Message" />
                             </MDBCol>
                           </MDBRow> */}
+                        </MDBCardBody>
+                      </div>
+                    </>
+                  </AccordionDetails>
+                </Accordion>
 
-                                                </MDBCardBody>
-                                            </div>
-                                            
+                <Accordion
+                  expanded={expanded === "panel2"}
+                  onChange={handleChange("panel2")}
+                >
+                  <AccordionSummary
+                    aria-controls="panel2d-content"
+                    id="panel2d-header"
+                    className
+                    expanded={expanded === "panel2"}
+                    currentTheme={currentTheme}
+                  >
+                    <Typography style={{ fontSize: "14px" }}>
+                      Properties
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <>
+                      <div>
+                        <MDBCardBody>
+                          <MDBRow>
+                            {editScreenProperties.map((item, index) => (
+                              <MDBCol lg={3} key={index}>
+                                <CheckBox2 label={item} />
+                              </MDBCol>
+                            ))}
+                          </MDBRow>
+                        </MDBCardBody>
+                      </div>
+                    </>
+                  </AccordionDetails>
+                </Accordion>
 
-                                        </>
-                                    </AccordionDetails>
-                                </Accordion>
-
-                                <Accordion
-                                    expanded={expanded === "panel2"}
-                                    onChange={handleChange("panel2")}
-                                >
-                                    <AccordionSummary
-                                        aria-controls="panel2d-content"
-                                        id="panel2d-header"
-                                        className
-                                        expanded={expanded === "panel2"}
-                                        currentTheme={currentTheme}
-                                    >
-                                        <Typography style={{ fontSize: "14px" }}>
-                                            Properties
-                                        </Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <>
-                                            <div>
-                                                <MDBCardBody>
-                                                    <MDBRow>
-                                                        
-                                                        {editScreenProperties.map((item, index) => (
-                                                            <MDBCol lg={3} key={index}>
-                                                                <CheckBox2 label={item} />
-                                                            </MDBCol>
-                                                        ))}
-
-                                                        
-
-
-                                                    </MDBRow>
-                                                    
-                                                </MDBCardBody>
-                                            </div>
-                                        </>
-                                    </AccordionDetails>
-                                </Accordion>
-
-                                {/* <Accordion
+                {/* <Accordion
                                     expanded={expanded === "panel4"}
                                     onChange={handleChange("panel4")}
                                 >
@@ -599,7 +593,7 @@ export default function EditScnAddModal({ isOpen, handleCloseModal }) {
                                     </AccordionDetails>
                                 </Accordion> */}
 
-                                {/* <Accordion
+                {/* <Accordion
                                     expanded={expanded === "panel3"}
                                     onChange={handleChange("panel3")}
                                 >
@@ -676,7 +670,7 @@ export default function EditScnAddModal({ isOpen, handleCloseModal }) {
                                         </>
                                     </AccordionDetails>
                                 </Accordion> */}
-                                {/* 
+                {/* 
                 <Accordion
                   expanded={expanded === "panel4"}
                   onChange={handleChange("panel4")}
@@ -1038,7 +1032,7 @@ export default function EditScnAddModal({ isOpen, handleCloseModal }) {
                   </AccordionDetails>
                 </Accordion> */}
 
-                                {/* <Accordion
+                {/* <Accordion
                   expanded={expanded === "panel5"}
                   onChange={handleChange("panel5")}
                 >
@@ -1060,12 +1054,11 @@ export default function EditScnAddModal({ isOpen, handleCloseModal }) {
                     </>
                   </AccordionDetails>
                 </Accordion> */}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Zoom>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      </Zoom>
+    </div>
+  );
 }
-
