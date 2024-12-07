@@ -430,7 +430,7 @@ const ReceiptPage = ({ setPage, detailPageId, direction }) => {
           </Accordion>
 
 
-          {/* <Accordion
+          <Accordion
             expanded={expanded === "panel7"}
             onChange={handleChange("panel7")}
           >
@@ -462,7 +462,7 @@ const ReceiptPage = ({ setPage, detailPageId, direction }) => {
 
 
             </AccordionDetails>
-          </Accordion> */}
+          </Accordion>
 
 
           <Accordion
